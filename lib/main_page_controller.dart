@@ -4,10 +4,15 @@ import 'package:letraco/alphabet.dart';
 import 'package:letraco/words.dart';
 
 class GameController {
-  final List<String> letters;
-  final List<String> hidden;
-  final List<String> visible;
-  final String mandatory;
+  List<String> _letters = [];
+  List<String> _hidden = [];
+  List<String> _visible = [];
+  String _mandatory = '';
+
+  List<String> get letters => _letters;
+  List<String> get hidden => _hidden;
+  List<String> get visible => _visible;
+  String get mandatory => _mandatory;
 
   List<String> get allWords {
     final w = [...hidden, ...visible];
@@ -104,23 +109,38 @@ class GameController {
     }
   }
 
-  GameController._({
-    required this.letters,
-    required this.mandatory,
-    required this.hidden,
-    required this.visible,
-  });
-
-  factory GameController.init() {
+  static (List<String>, List<String>, String) _init() {
     final letters = _sortLetters();
     final mandatory = letters.first;
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
     _groupByLength(words);
     print(words);
+    return (letters.sublist(1), words, mandatory);
+  }
 
+  void restart() {
+    final (letters, words, mandatory) = _init();
+    _letters = letters;
+    _hidden = words;
+    _visible = [];
+    _mandatory = mandatory;
+  }
+
+  GameController._({
+    required List<String> letters,
+    required String mandatory,
+    required List<String> hidden,
+    required List<String> visible,
+  })  : _letters = letters,
+        _mandatory = mandatory,
+        _hidden = hidden,
+        _visible = visible;
+
+  factory GameController.init() {
+    final (letters, words, mandatory) = _init();
     return GameController._(
-      letters: letters.sublist(1),
+      letters: letters,
       mandatory: mandatory,
       hidden: words,
       visible: [],

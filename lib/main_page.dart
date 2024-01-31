@@ -22,8 +22,10 @@ class _MainPageState extends State<MainPage> {
 
   final scrollController = ScrollController();
   final textController = TextEditingController();
-  final controller = GameController.init();
+  GameController controller = GameController.init();
   final wordText = ValueNotifier<String>('');
+
+  bool showAllWords = false;
 
   void updateWordText() {
     wordText.value = textController.text;
@@ -121,7 +123,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _wordCard(String word, bool visible, Size size, ColorScheme colors) {
-    final text = visible ? word : '${word.length} Palavras';
+    final text = visible || showAllWords ? word : '${word.length} Palavras';
     final style = TextStyle(
         color: visible ? colors.onSurface : colors.secondary, fontSize: 12);
     final content = Padding(
@@ -190,6 +192,32 @@ class _MainPageState extends State<MainPage> {
       children: asdf,
     );
 
+    final restart = IconButton(
+      onPressed: () {
+        controller.restart();
+        setState(() {});
+      },
+      icon: const Icon(Icons.restart_alt),
+    );
+
+    final pick = IconButton(
+      onPressed: () {
+        showAllWords = !showAllWords;
+        setState(() {});
+      },
+      icon: const Icon(Icons.remove_red_eye_rounded),
+    );
+
+    final topButtons = SizedBox(
+      height: circleSize,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          pick,
+          restart,
+        ],
+      ),
+    );
     final clean = ElevatedButton(
       onPressed: _onCleanPressed,
       child: const Text('Limpar'),
@@ -217,6 +245,7 @@ class _MainPageState extends State<MainPage> {
           return SafeArea(
             child: Column(
               children: [
+                topButtons,
                 Center(child: word),
                 circles,
                 buttons,
