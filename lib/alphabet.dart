@@ -1,32 +1,3 @@
-const alphabet = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'X',
-  'W',
-  'Y',
-  'Z',
-];
-
 const vowels = [
   'A',
   'E',
@@ -58,3 +29,23 @@ const consonants = [
   'Y',
   'Z',
 ];
+
+const consonantsNormalMode = [
+  'B',
+  'C',
+  'D',
+  'F',
+  'G',
+  'H',
+  'J',
+  'L',
+  'M',
+  'N',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+];
+
