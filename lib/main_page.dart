@@ -159,7 +159,7 @@ class _MainPageState extends State<MainPage> {
     final visible = controller.visible.length;
     const vertical = 5.0;
     const horizontal = 24.0;
-    const indicatorWidth = 25.0;
+    const indicatorWidth = 30.0;
     const padding =
         EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
     const border = BorderRadius.all(Radius.circular(20));
