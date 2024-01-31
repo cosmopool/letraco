@@ -234,26 +234,27 @@ class _MainPageState extends State<MainPage> {
 
     final circles = _circles(size);
 
-    final asdf = <Widget>[];
-    List<Widget> row = [];
+    final rows = <Widget>[];
+    List<Widget> cards = [];
     for (var i = 0; i < controller.allWords.length; i++) {
       final word = controller.allWords[i];
       if (i % 3 != 0) {
-        row.add(_wordCard(word, controller.isVisible(word), size, colors));
+        cards.add(_wordCard(word, controller.isVisible(word), size, colors));
         continue;
       }
-      final r = Row(
+      final row = Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: row,
+        children: cards,
       );
-      asdf.add(r);
-      row = [];
-      row.add(_wordCard(word, controller.isVisible(word), size, colors));
+      rows.add(row);
+      cards = [];
+      cards.add(_wordCard(word, controller.isVisible(word), size, colors));
     }
+
     final words = ListView(
       controller: scrollController,
-      children: asdf,
+      children: rows,
     );
 
     final restart = IconButton(
