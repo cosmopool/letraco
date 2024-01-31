@@ -238,6 +238,55 @@ class _MainPageState extends State<MainPage> {
       ),
     );
 
+    const border = BorderRadius.all(Radius.circular(20));
+    final progressBarBg = Container(
+      decoration: BoxDecoration(
+        borderRadius: border,
+        color: colors.secondaryContainer,
+      ),
+    );
+    const vertical = 5.0;
+    const padding = EdgeInsets.symmetric(horizontal: 24, vertical: vertical);
+    final progressBarFg = Container(
+      width:
+          ((controller.visible.length - 0) / (controller.allWords.length - 0)) *
+              size.width,
+      decoration: BoxDecoration(
+        borderRadius: border,
+        color: colors.primary,
+      ),
+    );
+    final progressBar = Padding(
+      padding: padding,
+      child: SizedBox(
+        height: 10,
+        child: Stack(
+          children: [
+            progressBarBg,
+            progressBarFg,
+          ],
+        ),
+      ),
+    );
+
+    const indicatorStyle = TextStyle(fontWeight: FontWeight.w700);
+    final indicators = Padding(
+      padding: padding,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            controller.visible.length.toString(),
+            style: indicatorStyle,
+          ),
+          Text(
+            controller.allWords.length.toString(),
+            style: indicatorStyle,
+          ),
+        ],
+      ),
+    );
+
     return Scaffold(
       body: ValueListenableBuilder(
         valueListenable: wordText,
@@ -249,6 +298,8 @@ class _MainPageState extends State<MainPage> {
                 Center(child: word),
                 circles,
                 buttons,
+                progressBar,
+                indicators,
                 Expanded(child: words),
               ],
             ),
