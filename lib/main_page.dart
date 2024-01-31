@@ -288,6 +288,7 @@ class _MainPageState extends State<MainPage> {
     );
     final delete = ElevatedButton(
       onPressed: _onDeletePressed,
+      onLongPress: () => textController.text = '',
       child: Text('Deletar', style: TextStyle(color: colors.onSurface)),
     );
 
