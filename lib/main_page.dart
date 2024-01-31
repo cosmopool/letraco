@@ -273,7 +273,7 @@ class _MainPageState extends State<MainPage> {
     );
 
     final topButtons = SizedBox(
-      height: circleSize,
+      height: circleSize / 2,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
