@@ -252,6 +252,18 @@ class _MainPageState extends State<MainPage> {
       cards.add(_wordCard(word, controller.isVisible(word), size, colors));
     }
 
+    if (cards.isNotEmpty) {
+      while (cards.length % 3 != 0) {
+        cards.add(SizedBox(width: size.width * .22 + 10));
+      }
+      final row = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: cards,
+      );
+      rows.add(row);
+    }
+
     final words = ListView(
       controller: scrollController,
       children: rows,
