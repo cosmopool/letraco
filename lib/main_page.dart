@@ -151,6 +151,73 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  Widget _progressBar(ColorScheme colors, Size size) {
+    final allWords = controller.allWords.length;
+    final visible = controller.visible.length;
+    const vertical = 5.0;
+    const horizontal = 24.0;
+    const indicatorWidth = 25.0;
+    const padding = EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
+    const border = BorderRadius.all(Radius.circular(20));
+    final maxBarWidth = size.width - 2 * indicatorWidth - 2 * horizontal;
+
+    final background = Container(
+    width: maxBarWidth,
+      decoration: BoxDecoration(
+        borderRadius: border,
+        color: colors.secondaryContainer,
+      ),
+    );
+    final foreground = Container(
+      width: (visible / allWords) * maxBarWidth,
+      decoration: BoxDecoration(
+        borderRadius: border,
+        color: colors.primary,
+      ),
+    );
+    final progressBar = SizedBox(
+      height: 10,
+      child: Stack(
+        children: [
+          background,
+          foreground,
+        ],
+      ),
+    );
+
+    const indicatorStyle = TextStyle(fontWeight: FontWeight.w700);
+    final indicators = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: indicatorWidth,
+          child: Text(
+            visible.toString(),
+            style: indicatorStyle,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        progressBar,
+        SizedBox(
+          width: indicatorWidth,
+          child: Text(
+            allWords.toString(),
+            style: indicatorStyle,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+
+    return Padding(
+      padding: padding,
+      child: Column(children: [
+        // progressBar,
+        indicators,
+      ]),
+    );
+  }
+
   void _onCleanPressed() => textController.text = '';
 
   void _onDeletePressed() {
@@ -238,54 +305,7 @@ class _MainPageState extends State<MainPage> {
       ),
     );
 
-    const border = BorderRadius.all(Radius.circular(20));
-    final progressBarBg = Container(
-      decoration: BoxDecoration(
-        borderRadius: border,
-        color: colors.secondaryContainer,
-      ),
-    );
-    const vertical = 5.0;
-    const padding = EdgeInsets.symmetric(horizontal: 24, vertical: vertical);
-    final progressBarFg = Container(
-      width:
-          ((controller.visible.length - 0) / (controller.allWords.length - 0)) *
-              size.width,
-      decoration: BoxDecoration(
-        borderRadius: border,
-        color: colors.primary,
-      ),
-    );
-    final progressBar = Padding(
-      padding: padding,
-      child: SizedBox(
-        height: 10,
-        child: Stack(
-          children: [
-            progressBarBg,
-            progressBarFg,
-          ],
-        ),
-      ),
-    );
-
-    const indicatorStyle = TextStyle(fontWeight: FontWeight.w700);
-    final indicators = Padding(
-      padding: padding,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            controller.visible.length.toString(),
-            style: indicatorStyle,
-          ),
-          Text(
-            controller.allWords.length.toString(),
-            style: indicatorStyle,
-          ),
-        ],
-      ),
-    );
+    final progressBar = _progressBar(colors, size);
 
     return Scaffold(
       body: ValueListenableBuilder(
@@ -299,7 +319,6 @@ class _MainPageState extends State<MainPage> {
                 circles,
                 buttons,
                 progressBar,
-                indicators,
                 Expanded(child: words),
               ],
             ),
