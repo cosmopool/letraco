@@ -222,18 +222,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final colors = Theme.of(context).colorScheme;
-
-    final word = SizedBox(
-      height: circleSize,
-      child: _inputWord(context),
-    );
-
-    final circles = _circles(size);
-
+  Widget _words(Size size, ColorScheme colors) {
     final rows = <Widget>[];
     List<Widget> cards = [];
     for (var i = 0; i < controller.allWords.length; i++) {
@@ -264,10 +253,25 @@ class _MainPageState extends State<MainPage> {
       rows.add(row);
     }
 
-    final words = ListView(
+    return ListView(
       controller: scrollController,
       children: rows,
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final colors = Theme.of(context).colorScheme;
+
+    final inputWord = SizedBox(
+      height: circleSize,
+      child: _inputWord(context),
+    );
+
+    final circles = _circles(size);
+
+    final wordList = _words(size, colors);
 
     final restart = IconButton(
       onPressed: () {
@@ -326,11 +330,11 @@ class _MainPageState extends State<MainPage> {
             child: Column(
               children: [
                 topButtons,
-                Center(child: word),
+                Center(child: inputWord),
                 circles,
                 buttons,
                 progressBar,
-                Expanded(child: words),
+                Expanded(child: wordList),
               ],
             ),
           );
