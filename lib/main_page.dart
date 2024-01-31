@@ -36,10 +36,10 @@ class _MainPageState extends State<MainPage> {
     final word = textController.text;
     final found = controller.foundWord(word);
     if (found) foundWord(word);
+    textController.text = '';
   }
 
   void foundWord(String word) {
-    textController.text = '';
     final indexOf = controller.allWords.indexOf(word);
     final offset = (controller.allWords.length / 3) * indexOf / 3 - 30;
     scrollController.animateTo(
@@ -49,17 +49,20 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  void _onDeletePressed() {
+    final text = textController.text;
+    textController.text = text.substring(0, text.length - 1);
+  }
+
   @override
   void initState() {
     textController.addListener(updateWordText);
-    textController.addListener(checkInput);
     super.initState();
   }
 
   @override
   void dispose() {
     textController.removeListener(updateWordText);
-    textController.removeListener(checkInput);
     textController.dispose();
     super.dispose();
   }
@@ -157,12 +160,13 @@ class _MainPageState extends State<MainPage> {
     const vertical = 5.0;
     const horizontal = 24.0;
     const indicatorWidth = 25.0;
-    const padding = EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
+    const padding =
+        EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
     const border = BorderRadius.all(Radius.circular(20));
     final maxBarWidth = size.width - 2 * indicatorWidth - 2 * horizontal;
 
     final background = Container(
-    width: maxBarWidth,
+      width: maxBarWidth,
       decoration: BoxDecoration(
         borderRadius: border,
         color: colors.secondaryContainer,
@@ -216,13 +220,6 @@ class _MainPageState extends State<MainPage> {
         indicators,
       ]),
     );
-  }
-
-  void _onCleanPressed() => textController.text = '';
-
-  void _onDeletePressed() {
-    final text = textController.text;
-    textController.text = text.substring(0, text.length - 1);
   }
 
   @override
@@ -286,12 +283,12 @@ class _MainPageState extends State<MainPage> {
       ),
     );
     final clean = ElevatedButton(
-      onPressed: _onCleanPressed,
-      child: const Text('Limpar'),
+      onPressed: checkInput,
+      child: const Text('Checar'),
     );
     final delete = ElevatedButton(
       onPressed: _onDeletePressed,
-      child: const Text('Deletar'),
+      child: Text('Deletar', style: TextStyle(color: colors.onSurface)),
     );
 
     final buttons = SizedBox(
