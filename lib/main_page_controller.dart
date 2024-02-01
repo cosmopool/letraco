@@ -159,8 +159,8 @@ class GameController {
   }
 
   void deleteLetter() {
-    if (_inputWord.isEmpty) return;
-    text = _inputWord.substring(0, _inputWord.length - 1);
+    if (text.isEmpty) return;
+    text = text.substring(0, text.length - 1);
   }
 
   void cleanInputWord() => text = '';
