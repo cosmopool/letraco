@@ -23,7 +23,6 @@ class _MainPageState extends State<MainPage> {
   final scrollController = ScrollController();
   final controller = GameController.init();
   String wordText = '';
-
   bool showAllWords = false;
 
   void updateWordText() {
@@ -66,8 +65,9 @@ class _MainPageState extends State<MainPage> {
       controller: controller,
     );
 
-    final divisionAngle = 360 / controller.letters.length;
-    for (var i = 0; i < controller.letters.length; i++) {
+    final numberOfLetters = controller.letters.length;
+    final divisionAngle = 360 / numberOfLetters;
+    for (var i = 0; i < numberOfLetters; i++) {
       final rad = i * divisionAngle * (math.pi / 180);
       final widget = Circle(
         x: math.sin(rad) * (circleSize + circleMargin) + height,
@@ -290,9 +290,7 @@ class _MainPageState extends State<MainPage> {
       child: const Text('Checar'),
     );
     final shuffle = IconButton(
-      onPressed: () {
-        controller.shuffle();
-      },
+      onPressed: controller.shuffle,
       icon: const Icon(Icons.restart_alt),
     );
     final delete = ElevatedButton(
