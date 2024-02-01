@@ -302,7 +302,7 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
     );
-    final clean = ElevatedButton(
+    final check = ElevatedButton(
       onPressed: checkInput,
       child: const Text('Checar'),
     );
@@ -326,7 +326,7 @@ class _MainPageState extends State<MainPage> {
         children: [
           delete,
           shuffle,
-          clean,
+          check,
         ],
       ),
     );
