@@ -130,7 +130,7 @@ class _MainPageState extends State<MainPage> {
     final style = TextStyle(
       color: visible ? colors.onSurface : colors.outlineVariant,
       fontSize: 12,
-      fontWeight: visible ? FontWeight.w800 : FontWeight.w500,
+      fontWeight: visible ? FontWeight.w600 : FontWeight.w500,
     );
     final content = Padding(
       padding: const EdgeInsets.all(5),
