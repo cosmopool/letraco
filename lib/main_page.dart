@@ -76,7 +76,7 @@ class _MainPageState extends State<MainPage> {
       x: height,
       y: halfWidth,
       mainLetter: controller.mandatory,
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      isMainButton: true,
       controller: textController,
     );
 
@@ -126,9 +126,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _wordCard(String word, bool visible, Size size, ColorScheme colors) {
-    final text = visible || showAllWords ? word : '${word.length} Palavras';
+    final text = visible || showAllWords ? word : '${word.length} letras';
     final style = TextStyle(
-        color: visible ? colors.onSurface : colors.secondary, fontSize: 12);
+      color: visible ? colors.onSurface : colors.outlineVariant,
+      fontSize: 12,
+      fontWeight: visible ? FontWeight.w800 : FontWeight.w500,
+    );
     final content = Padding(
       padding: const EdgeInsets.all(5),
       child: SizedBox(
@@ -141,7 +144,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
-    final borderColor = visible ? colors.primary : colors.surfaceVariant;
+    final borderColor = visible ? colors.primary : colors.outlineVariant;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(

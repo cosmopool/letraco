@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Circle extends StatelessWidget {
   final String mainLetter;
   final double circleSize;
-  final Color? backgroundColor;
+  final bool isMainButton;
   final double x;
   final double y;
   final TextEditingController controller;
@@ -14,19 +14,18 @@ class Circle extends StatelessWidget {
     required this.x,
     required this.y,
     this.circleSize = 80,
-    this.backgroundColor,
+    this.isMainButton = false,
     required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final bgColor = backgroundColor ?? colors.surfaceVariant;
-    final luminance = bgColor.computeLuminance();
+    final bgColor = isMainButton ? colors.primary : colors.surfaceVariant;
     final style = TextStyle(
       fontSize: circleSize * .4,
       fontWeight: FontWeight.w700,
-      color: luminance > 0.3 ? colors.onSurface : colors.surface,
+      color: isMainButton ? colors.onPrimary : colors.onSurface,
     );
     const borderRadius = BorderRadius.all(Radius.circular(100));
 
