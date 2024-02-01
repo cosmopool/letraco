@@ -127,6 +127,10 @@ class GameController {
     _mandatory = mandatory;
   }
 
+  void shuffle() {
+    _letters.shuffle();
+  }
+
   GameController._({
     required List<String> letters,
     required String mandatory,

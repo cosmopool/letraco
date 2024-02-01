@@ -306,6 +306,13 @@ class _MainPageState extends State<MainPage> {
       onPressed: checkInput,
       child: const Text('Checar'),
     );
+    final shuffle = IconButton(
+      onPressed: () {
+        controller.shuffle();
+        setState(() {});
+      },
+      icon: const Icon(Icons.restart_alt),
+    );
     final delete = ElevatedButton(
       onPressed: _onDeletePressed,
       onLongPress: () => textController.text = '',
@@ -318,6 +325,7 @@ class _MainPageState extends State<MainPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           delete,
+          shuffle,
           clean,
         ],
       ),
