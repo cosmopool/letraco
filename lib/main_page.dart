@@ -21,50 +21,35 @@ class _MainPageState extends State<MainPage> {
   static const double circleMargin = 5;
 
   final scrollController = ScrollController();
-  final textController = TextEditingController();
-  GameController controller = GameController.init();
-  final wordText = ValueNotifier<String>('');
+  final controller = GameController.init();
+  String wordText = '';
 
   bool showAllWords = false;
 
   void updateWordText() {
-    wordText.value = textController.text;
+    wordText = controller.text;
     setState(() {});
   }
 
-  void checkInput() {
-    final word = textController.text;
-    final found = controller.foundWord(word);
-    if (found) foundWord(word);
-    textController.text = '';
-  }
-
-  void foundWord(String word) {
-    final indexOf = controller.allWords.indexOf(word);
-    final offset = (controller.allWords.length / 3) * indexOf / 3 - 30;
+  void checkInputWord() {
+    final offset = controller.checkInput();
+    if (offset == null) return;
     scrollController.animateTo(
       offset,
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.easeIn,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
     );
-  }
-
-  void _onDeletePressed() {
-    final text = textController.text;
-    if (text.isEmpty) return;
-    textController.text = text.substring(0, text.length - 1);
   }
 
   @override
   void initState() {
-    textController.addListener(updateWordText);
+    controller.addListener(updateWordText);
     super.initState();
   }
 
   @override
   void dispose() {
-    textController.removeListener(updateWordText);
-    textController.dispose();
+    controller.removeListener(updateWordText);
     super.dispose();
   }
 
@@ -78,7 +63,7 @@ class _MainPageState extends State<MainPage> {
       y: halfWidth,
       mainLetter: controller.mandatory,
       isMainButton: true,
-      controller: textController,
+      controller: controller,
     );
 
     final divisionAngle = 360 / controller.letters.length;
@@ -88,7 +73,7 @@ class _MainPageState extends State<MainPage> {
         x: math.sin(rad) * (circleSize + circleMargin) + height,
         y: math.cos(rad) * (circleSize + circleMargin) + halfWidth,
         mainLetter: controller.letters[i],
-        controller: textController,
+        controller: controller,
       );
       letters.add(widget);
     }
@@ -108,8 +93,8 @@ class _MainPageState extends State<MainPage> {
   Widget _inputWord(BuildContext context) {
     final color = Theme.of(context).colorScheme.primary;
     final children = <Widget>[];
-    for (var i = 0; i < textController.text.length; i++) {
-      final letter = textController.text[i];
+    for (var i = 0; i < controller.text.length; i++) {
+      final letter = controller.text[i];
       final t = Text(
         letter,
         style: TextStyle(
@@ -278,10 +263,7 @@ class _MainPageState extends State<MainPage> {
     final wordList = _words(size, colors);
 
     final restart = IconButton(
-      onPressed: () {
-        controller.restart();
-        setState(() {});
-      },
+      onPressed: controller.restart,
       icon: const Icon(Icons.restart_alt),
     );
 
@@ -304,19 +286,18 @@ class _MainPageState extends State<MainPage> {
       ),
     );
     final check = ElevatedButton(
-      onPressed: checkInput,
+      onPressed: checkInputWord,
       child: const Text('Checar'),
     );
     final shuffle = IconButton(
       onPressed: () {
         controller.shuffle();
-        setState(() {});
       },
       icon: const Icon(Icons.restart_alt),
     );
     final delete = ElevatedButton(
-      onPressed: _onDeletePressed,
-      onLongPress: () => textController.text = '',
+      onPressed: controller.deleteLetter,
+      onLongPress: controller.cleanInputWord,
       child: Text('Deletar', style: TextStyle(color: colors.onSurface)),
     );
 
@@ -335,22 +316,17 @@ class _MainPageState extends State<MainPage> {
     final progressBar = _progressBar(colors, size);
 
     return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: wordText,
-        builder: (BuildContext context, value, Widget? child) {
-          return SafeArea(
-            child: Column(
-              children: [
-                topButtons,
-                Center(child: inputWord),
-                circles,
-                buttons,
-                progressBar,
-                Expanded(child: wordList),
-              ],
-            ),
-          );
-        },
+      body: SafeArea(
+        child: Column(
+          children: [
+            topButtons,
+            Center(child: inputWord),
+            circles,
+            buttons,
+            progressBar,
+            Expanded(child: wordList),
+          ],
+        ),
       ),
     );
   }

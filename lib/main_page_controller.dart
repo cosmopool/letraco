@@ -3,22 +3,34 @@ import 'dart:math';
 import 'package:letraco/alphabet.dart';
 import 'package:letraco/words.dart';
 
+typedef VoidCallBack = void Function();
+
 class GameController {
   List<String> _letters = [];
   List<String> _hidden = [];
   List<String> _visible = [];
   String _mandatory = '';
+  String _inputWord = '';
+  final List<VoidCallBack> _listeners = [];
 
   List<String> get letters => _letters;
   List<String> get hidden => _hidden;
   List<String> get visible => _visible;
   String get mandatory => _mandatory;
+  String get text => _inputWord;
+
+  set text(String newText) {
+    _inputWord = newText;
+    notify();
+  }
 
   List<String> get allWords {
     final w = [...hidden, ...visible];
     _groupByLength(w);
     return w;
   }
+
+  void notify() => _listeners.forEach((callback) => callback());
 
   static List<String> _sortLetters() {
     const numberOfLetters = 7;
@@ -79,16 +91,7 @@ class GameController {
     return words;
   }
 
-  bool foundWord(String word) {
-    if (!hidden.contains(word)) return false;
-    hidden.remove(word);
-    visible.add(word);
-    return true;
-  }
-
-  bool isVisible(String word) {
-    return visible.contains(word);
-  }
+  bool isVisible(String word) => visible.contains(word);
 
   static void _groupByLength(List<String> list) {
     list.sort((a, b) => a.compareTo(b));
@@ -125,11 +128,34 @@ class GameController {
     _hidden = words;
     _visible = [];
     _mandatory = mandatory;
+    cleanInputWord();
   }
 
   void shuffle() {
     _letters.shuffle();
+    notify();
   }
+
+  void deleteLetter() {
+    if (_inputWord.isEmpty) return;
+    text = _inputWord.substring(0, _inputWord.length - 1);
+  }
+
+  void cleanInputWord() => text = '';
+
+  double? checkInput() {
+    final word = text;
+    final indexOf = allWords.indexOf(word);
+    text = '';
+    if (indexOf == -1) return null;
+    hidden.remove(word);
+    visible.add(word);
+    final offset = (allWords.length / 3) * indexOf / 3 - 30;
+    return offset;
+  }
+
+  void addListener(VoidCallBack fn) => _listeners.add(fn);
+  void removeListener(VoidCallBack fn) => _listeners.remove(fn);
 
   GameController._({
     required List<String> letters,

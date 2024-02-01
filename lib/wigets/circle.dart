@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letraco/main_page_controller.dart';
 
 class Circle extends StatelessWidget {
   final String mainLetter;
@@ -6,7 +7,7 @@ class Circle extends StatelessWidget {
   final bool isMainButton;
   final double x;
   final double y;
-  final TextEditingController controller;
+  final GameController controller;
 
   const Circle({
     super.key,
