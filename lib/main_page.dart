@@ -51,6 +51,7 @@ class _MainPageState extends State<MainPage> {
 
   void _onDeletePressed() {
     final text = textController.text;
+    if (text.isEmpty) return;
     textController.text = text.substring(0, text.length - 1);
   }
 
