@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
 import 'package:letraco/words.dart';
 
@@ -140,7 +141,7 @@ class GameController {
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
     _groupByLength(words);
-    print(words);
+    if (kDebugMode) debugPrint(words.toString());
     return (letters.sublist(1), words, mandatory);
   }
 
