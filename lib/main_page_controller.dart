@@ -85,15 +85,13 @@ class GameController {
     return letters;
   }
 
+  /// Returns all letters from [alphabet] that were not selected in this game.
+  /// We call [allowedLetters] the ones that were selected in this game.
+  /// We call [deniedLetters] all the remaining ones in the alphabet.
   static List<String> _getDeniedLetters(List<String> allowedLetters) {
-    final alphabet = [...consonants, ...vowels];
-    final r = <String>[];
-    for (var l in alphabet) {
-      final letter = l;
-      if (allowedLetters.contains(letter)) continue;
-      r.add(letter);
-    }
-    return r;
+    final alphabet = {...consonants, ...vowels};
+    final deniedLetters = alphabet.difference(allowedLetters.toSet());
+    return deniedLetters.toList();
   }
 
   static List<String> _getWords(List<String> deniedLetters, String mandatory) {
