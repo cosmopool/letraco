@@ -149,11 +149,15 @@ class GameController {
     if (words.length < 15) return _generateGame(tries);
     _groupByLength(words);
     assert(words.length >= 10);
+    assert(mandatory.length == 1);
+    assert(letters.length == 7);
     return (letters.sublist(1), words, mandatory);
   }
 
   void restart() {
     final (letters, words, mandatory) = _generateGame();
+    assert(words.toSet().difference({..._hidden, ..._visible}).isNotEmpty);
+    assert(letters.toSet().difference(_letters.toSet()).isNotEmpty);
     _letters = letters;
     _hidden = words;
     _visible = [];
@@ -178,6 +182,7 @@ class GameController {
     final indexOf = allWords.indexOf(word);
     text = '';
     if (indexOf == -1) return null;
+    assert(hidden.isNotEmpty);
     hidden.remove(word);
     visible.add(word);
     final offset = (allWords.length / 3) * indexOf / 3 - 30;
