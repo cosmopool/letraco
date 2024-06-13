@@ -7,6 +7,26 @@ import 'package:letraco/words.dart';
 typedef VoidCallBack = void Function();
 
 class GameController {
+  GameController._({
+    required List<String> letters,
+    required String mandatory,
+    required List<String> hidden,
+    required List<String> visible,
+  })  : _letters = letters,
+        _mandatory = mandatory,
+        _hidden = hidden,
+        _visible = visible;
+
+  factory GameController.init() {
+    final (letters, words, mandatory) = _init();
+    return GameController._(
+      letters: letters,
+      mandatory: mandatory,
+      hidden: words,
+      visible: [],
+    );
+  }
+
   List<String> _letters = [];
   List<String> _hidden = [];
   List<String> _visible = [];
@@ -31,26 +51,7 @@ class GameController {
     return w;
   }
 
-  GameController._({
-    required List<String> letters,
-    required String mandatory,
-    required List<String> hidden,
-    required List<String> visible,
-  })  : _letters = letters,
-        _mandatory = mandatory,
-        _hidden = hidden,
-        _visible = visible;
-
-  factory GameController.init() {
-    final (letters, words, mandatory) = _init();
-    return GameController._(
-      letters: letters,
-      mandatory: mandatory,
-      hidden: words,
-      visible: [],
-    );
-  }
-
+  // ignore: avoid_function_literals_in_foreach_calls
   void notify() => _listeners.forEach((callback) => callback());
   void addListener(VoidCallBack fn) => _listeners.add(fn);
   void removeListener(VoidCallBack fn) => _listeners.remove(fn);

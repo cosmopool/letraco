@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 
 class Circle extends StatelessWidget {
-  final String mainLetter;
-  final double circleSize;
-  final bool isMainButton;
-  final double x;
-  final double y;
-  final GameController controller;
-
   const Circle({
     super.key,
     required this.mainLetter,
@@ -19,10 +12,18 @@ class Circle extends StatelessWidget {
     required this.controller,
   });
 
+  final String mainLetter;
+  final double circleSize;
+  final bool isMainButton;
+  final double x;
+  final double y;
+  final GameController controller;
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final bgColor = isMainButton ? colors.primary : colors.surfaceVariant;
+    final bgColor =
+        isMainButton ? colors.primary : colors.surfaceContainerHighest;
     final style = TextStyle(
       fontSize: circleSize * .4,
       fontWeight: FontWeight.w700,
