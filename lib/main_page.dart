@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
+import 'package:letraco/wigets/progress_bar.dart';
 import 'package:letraco/wigets/word_card.dart';
 
 class MainPage extends StatefulWidget {
@@ -130,11 +131,6 @@ class _MainPageState extends State<MainPage> {
       child: _inputWord(context),
     );
 
-    final circles = LettersCircles(
-      size: size,
-      controller: controller,
-    );
-
     final wordList = _words(size, colors);
 
     final restart = IconButton(
@@ -186,17 +182,15 @@ class _MainPageState extends State<MainPage> {
       ),
     );
 
-    final progressBar = _progressBar(colors, size);
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             topButtons,
             Center(child: inputWord),
-            circles,
+            LettersCircles(size: size, controller: controller),
             buttons,
-            progressBar,
+            ProgressBar(size: size, controller: controller),
             Expanded(child: wordList),
           ],
         ),
