@@ -71,7 +71,7 @@ class _MainPageState extends State<MainPage> {
       icon: const Icon(Icons.restart_alt),
     );
 
-    final pick = IconButton(
+    final showAllWordsButton = IconButton(
       onPressed: () {
         showAllWords = !showAllWords;
         setState(() {});
@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          pick,
+          showAllWordsButton,
           restart,
         ],
       ),
