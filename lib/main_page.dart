@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
+import 'package:letraco/wigets/word_card.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({
@@ -70,115 +71,19 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _wordCard(String word, bool visible, Size size, ColorScheme colors) {
-    final text = visible || showAllWords ? word : '${word.length} letras';
-    final style = TextStyle(
-      color: visible ? colors.onSurface : colors.outlineVariant,
-      fontSize: 12,
-      fontWeight: visible ? FontWeight.w600 : FontWeight.w500,
-    );
-    final content = Padding(
-      padding: const EdgeInsets.all(5),
-      child: SizedBox(
-        width: size.width * .22,
-        height: size.width * .05,
-        child: Text(
-          text,
-          style: style,
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-    final borderColor = visible ? colors.primary : colors.outlineVariant;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: borderColor, width: 1.5),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-        ),
-        child: content,
-      ),
-    );
-  }
-
-  Widget _progressBar(ColorScheme colors, Size size) {
-    final allWords = controller.allWords.length;
-    final visible = controller.visible.length;
-    const vertical = 5.0;
-    const horizontal = 24.0;
-    const indicatorWidth = 30.0;
-    const padding =
-        EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
-    const border = BorderRadius.all(Radius.circular(20));
-    final maxBarWidth = size.width - 2 * indicatorWidth - 2 * horizontal;
-
-    final background = Container(
-      width: maxBarWidth,
-      decoration: BoxDecoration(
-        borderRadius: border,
-        color: colors.secondaryContainer,
-      ),
-    );
-    final foreground = Container(
-      width: (visible / allWords) * maxBarWidth,
-      decoration: BoxDecoration(
-        borderRadius: border,
-        color: colors.primary,
-      ),
-    );
-    final progressBar = SizedBox(
-      height: 10,
-      child: Stack(
-        children: [
-          background,
-          foreground,
-        ],
-      ),
-    );
-
-    const indicatorStyle = TextStyle(fontWeight: FontWeight.w700);
-    final indicators = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          width: indicatorWidth,
-          child: Text(
-            visible.toString(),
-            style: indicatorStyle,
-            textAlign: TextAlign.center,
-          ),
-        ),
-        progressBar,
-        SizedBox(
-          width: indicatorWidth,
-          child: Text(
-            allWords.toString(),
-            style: indicatorStyle,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    );
-
-    return Padding(
-      padding: padding,
-      child: Column(
-        children: [
-          // progressBar,
-          indicators,
-        ],
-      ),
-    );
-  }
-
   Widget _words(Size size, ColorScheme colors) {
     final rows = <Widget>[];
     List<Widget> cards = [];
     for (var i = 0; i < controller.allWords.length; i++) {
       final word = controller.allWords[i];
       if (i % 3 != 0) {
-        cards.add(_wordCard(word, controller.isVisible(word), size, colors));
+        cards.add(
+          WordCard(
+            word: word,
+            visible: showAllWords || controller.isVisible(word),
+            size: size,
+          ),
+        );
         continue;
       }
       final row = Row(
@@ -188,7 +93,13 @@ class _MainPageState extends State<MainPage> {
       );
       rows.add(row);
       cards = [];
-      cards.add(_wordCard(word, controller.isVisible(word), size, colors));
+      cards.add(
+        WordCard(
+          word: word,
+          visible: showAllWords || controller.isVisible(word),
+          size: size,
+        ),
+      );
     }
 
     if (cards.isNotEmpty) {
