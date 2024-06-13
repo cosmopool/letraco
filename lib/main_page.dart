@@ -1,8 +1,6 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
-import 'package:letraco/wigets/circle.dart';
+import 'package:letraco/wigets/circles.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({
@@ -18,7 +16,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   static const double circleSize = 80;
-  static const double circleMargin = 5;
 
   final scrollController = ScrollController();
   final controller = GameController.init();
@@ -50,44 +47,6 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     controller.removeListener(updateWordText);
     super.dispose();
-  }
-
-  Widget _circles(Size size) {
-    final halfWidth = size.width * .5 - circleSize * .5;
-    const height = circleSize * .8 + 20;
-
-    final letters = <Widget>[];
-    final mainLetterCircle = Circle(
-      x: height,
-      y: halfWidth,
-      mainLetter: controller.mandatory,
-      isMainButton: true,
-      controller: controller,
-    );
-
-    final numberOfLetters = controller.letters.length;
-    final divisionAngle = 360 / numberOfLetters;
-    for (var i = 0; i < numberOfLetters; i++) {
-      final rad = i * divisionAngle * (math.pi / 180);
-      final widget = Circle(
-        x: math.sin(rad) * (circleSize + circleMargin) + height,
-        y: math.cos(rad) * (circleSize + circleMargin) + halfWidth,
-        mainLetter: controller.letters[i],
-        controller: controller,
-      );
-      letters.add(widget);
-    }
-
-    return SizedBox(
-      height: size.height * .3,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          mainLetterCircle,
-          ...letters,
-        ],
-      ),
-    );
   }
 
   Widget _inputWord(BuildContext context) {
@@ -204,10 +163,12 @@ class _MainPageState extends State<MainPage> {
 
     return Padding(
       padding: padding,
-      child: Column(children: [
-        // progressBar,
-        indicators,
-      ],),
+      child: Column(
+        children: [
+          // progressBar,
+          indicators,
+        ],
+      ),
     );
   }
 
@@ -258,7 +219,10 @@ class _MainPageState extends State<MainPage> {
       child: _inputWord(context),
     );
 
-    final circles = _circles(size);
+    final circles = LettersCircles(
+      size: size,
+      controller: controller,
+    );
 
     final wordList = _words(size, colors);
 
