@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
+import 'package:letraco/wigets/input_word.dart';
 import 'package:letraco/wigets/progress_bar.dart';
 import 'package:letraco/wigets/word_card.dart';
 
@@ -49,27 +50,6 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     controller.removeListener(updateWordText);
     super.dispose();
-  }
-
-  Widget _inputWord(BuildContext context) {
-    final color = Theme.of(context).colorScheme.primary;
-    final children = <Widget>[];
-    for (var i = 0; i < controller.text.length; i++) {
-      final letter = controller.text[i];
-      final t = Text(
-        letter,
-        style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.w300,
-          color: letter == controller.mandatory ? color : null,
-        ),
-      );
-      children.add(t);
-    }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: children,
-    );
   }
 
   Widget _words(Size size, ColorScheme colors) {
@@ -126,10 +106,7 @@ class _MainPageState extends State<MainPage> {
     final size = MediaQuery.of(context).size;
     final colors = Theme.of(context).colorScheme;
 
-    final inputWord = SizedBox(
-      height: circleSize,
-      child: _inputWord(context),
-    );
+    final inputWord = InputWord(height: circleSize, controller: controller);
 
     final wordList = _words(size, colors);
 
