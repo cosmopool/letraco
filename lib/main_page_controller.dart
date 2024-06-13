@@ -18,7 +18,7 @@ class GameController {
         _visible = visible;
 
   factory GameController.init() {
-    final (letters, words, mandatory) = _init();
+    final (letters, words, mandatory) = _generateGame();
     return GameController._(
       letters: letters,
       mandatory: mandatory,
@@ -138,7 +138,7 @@ class GameController {
     }
   }
 
-  static (List<String>, List<String>, String) _init() {
+  static (List<String>, List<String>, String) _generateGame([int tries = 0]) {
     tries++;
     if (kDebugMode) debugPrint('Trying to generate game ($tries) times');
     final letters = _sortLetters();
@@ -153,7 +153,7 @@ class GameController {
   }
 
   void restart() {
-    final (letters, words, mandatory) = _init();
+    final (letters, words, mandatory) = _generateGame();
     _letters = letters;
     _hidden = words;
     _visible = [];
