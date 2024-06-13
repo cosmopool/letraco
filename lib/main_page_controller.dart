@@ -118,6 +118,8 @@ class GameController {
   bool isVisible(String word) => visible.contains(word);
 
   static void _groupByLength(List<String> list) {
+    assert(list.isNotEmpty);
+    assert(list.length >= 15);
     list.sort((a, b) => a.compareTo(b));
     Map<int, List<String>> map = {};
     final res = <String>[];
@@ -137,12 +139,16 @@ class GameController {
   }
 
   static (List<String>, List<String>, String) _init() {
+    tries++;
+    if (kDebugMode) debugPrint('Trying to generate game ($tries) times');
     final letters = _sortLetters();
     final mandatory = letters.first;
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
-    _groupByLength(words);
     if (kDebugMode) debugPrint(words.toString());
+    if (words.length < 15) return _generateGame(tries);
+    _groupByLength(words);
+    assert(words.length >= 10);
     return (letters.sublist(1), words, mandatory);
   }
 
