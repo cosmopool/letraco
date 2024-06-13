@@ -18,7 +18,7 @@ class GameController {
         _visible = visible;
 
   factory GameController.init() {
-    final (letters, words, mandatory) = _init();
+    final (letters, words, mandatory) = _generateGame();
     return GameController._(
       letters: letters,
       mandatory: mandatory,
@@ -118,6 +118,8 @@ class GameController {
   bool isVisible(String word) => visible.contains(word);
 
   static void _groupByLength(List<String> list) {
+    assert(list.isNotEmpty);
+    assert(list.length >= 15);
     list.sort((a, b) => a.compareTo(b));
     Map<int, List<String>> map = {};
     final res = <String>[];
@@ -136,18 +138,26 @@ class GameController {
     }
   }
 
-  static (List<String>, List<String>, String) _init() {
+  static (List<String>, List<String>, String) _generateGame([int tries = 0]) {
+    tries++;
+    if (kDebugMode) debugPrint('Trying to generate game ($tries) times');
     final letters = _sortLetters();
     final mandatory = letters.first;
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
-    _groupByLength(words);
     if (kDebugMode) debugPrint(words.toString());
+    if (words.length < 15) return _generateGame(tries);
+    _groupByLength(words);
+    assert(words.length >= 10);
+    assert(mandatory.length == 1);
+    assert(letters.length == 7);
     return (letters.sublist(1), words, mandatory);
   }
 
   void restart() {
-    final (letters, words, mandatory) = _init();
+    final (letters, words, mandatory) = _generateGame();
+    assert(words.toSet().difference({..._hidden, ..._visible}).isNotEmpty);
+    assert(letters.toSet().difference(_letters.toSet()).isNotEmpty);
     _letters = letters;
     _hidden = words;
     _visible = [];
@@ -172,6 +182,7 @@ class GameController {
     final indexOf = allWords.indexOf(word);
     text = '';
     if (indexOf == -1) return null;
+    assert(hidden.isNotEmpty);
     hidden.remove(word);
     visible.add(word);
     final offset = (allWords.length / 3) * indexOf / 3 - 30;
