@@ -103,15 +103,18 @@ class _MainPageState extends State<MainPage> {
       child: Text('Deletar', style: TextStyle(color: colors.onSurface)),
     );
 
-    final buttons = SizedBox(
-      height: circleSize,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          delete,
-          shuffle,
-          check,
-        ],
+    final buttons = ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: (120 + 10) * 4),
+      child: SizedBox(
+        height: circleSize,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            delete,
+            shuffle,
+            check,
+          ],
+        ),
       ),
     );
 

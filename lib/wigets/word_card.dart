@@ -22,23 +22,22 @@ class WordCard extends StatelessWidget {
       fontSize: 12,
       fontWeight: visible ? FontWeight.w600 : FontWeight.w500,
     );
-    final content = Padding(
-      padding: const EdgeInsets.all(5),
-      child: SizedBox(
-        width: size.width * .22,
-        height: size.width * .05,
-        child: Text(
-          text,
-          style: style,
-          textAlign: TextAlign.center,
-        ),
+
+    final content = Center(
+      child: Text(
+        text,
+        style: style,
+        textAlign: TextAlign.center,
       ),
     );
+
     final borderColor = visible ? colors.primary : colors.outlineVariant;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(
+        height: 40,
+        width: 120,
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 1.5),
           borderRadius: const BorderRadius.all(Radius.circular(20)),

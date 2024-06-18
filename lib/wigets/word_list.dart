@@ -32,12 +32,14 @@ class WordList extends StatelessWidget {
         );
         continue;
       }
+
       final row = Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: cards,
       );
       rows.add(row);
+
       cards = [];
       cards.add(
         WordCard(
@@ -50,8 +52,9 @@ class WordList extends StatelessWidget {
 
     if (cards.isNotEmpty) {
       while (cards.length % 3 != 0) {
-        cards.add(SizedBox(width: size.width * .22 + 10));
+        cards.add(const SizedBox(width: 120));
       }
+
       final row = Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,9 +63,15 @@ class WordList extends StatelessWidget {
       rows.add(row);
     }
 
-    return ListView(
-      controller: scrollController,
-      children: rows,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: (120 + 10) * 3,
+        maxWidth: (120 + 10) * 4,
+      ),
+      child: ListView(
+        controller: scrollController,
+        children: rows,
+      ),
     );
   }
 }
