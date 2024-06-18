@@ -37,7 +37,7 @@ class WordCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(
         height: 40,
-        width: 100,
+        width: 120,
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 1.5),
           borderRadius: const BorderRadius.all(Radius.circular(20)),

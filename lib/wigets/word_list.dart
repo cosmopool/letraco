@@ -52,8 +52,9 @@ class WordList extends StatelessWidget {
 
     if (cards.isNotEmpty) {
       while (cards.length % 3 != 0) {
-        cards.add(SizedBox(width: size.width * .22 + 10));
+        cards.add(const SizedBox(width: 120));
       }
+
       final row = Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
