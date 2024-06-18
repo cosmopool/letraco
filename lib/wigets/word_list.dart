@@ -32,12 +32,14 @@ class WordList extends StatelessWidget {
         );
         continue;
       }
+
       final row = Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: cards,
       );
       rows.add(row);
+
       cards = [];
       cards.add(
         WordCard(
