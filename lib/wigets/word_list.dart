@@ -63,9 +63,15 @@ class WordList extends StatelessWidget {
       rows.add(row);
     }
 
-    return ListView(
-      controller: scrollController,
-      children: rows,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: (120 + 10) * 3,
+        maxWidth: (120 + 10) * 4,
+      ),
+      child: ListView(
+        controller: scrollController,
+        children: rows,
+      ),
     );
   }
 }
