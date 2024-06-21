@@ -34,3 +34,19 @@ Future<void> showTwoButtonsDialog(
     },
   );
 }
+
+Future<void> showNoButtonsDialog(
+  BuildContext context, {
+  required String title,
+  required String content,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(content),
+      );
+    },
+  );
+}
