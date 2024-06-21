@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
+import 'package:letraco/wigets/drawer.dart';
 import 'package:letraco/wigets/input_word.dart';
 import 'package:letraco/wigets/progress_bar.dart';
 import 'package:letraco/wigets/word_list.dart';
@@ -69,9 +70,11 @@ class _MainPageState extends State<MainPage> {
       showAllWords: showAllWords,
     );
 
-    final restart = IconButton(
-      onPressed: controller.restart,
-      icon: const Icon(Icons.restart_alt),
+    final menuDrawer = IconButton(
+      onPressed: () {
+        scaffoldKey.currentState?.openDrawer();
+      },
+      icon: const Icon(Icons.menu),
     );
 
     final showAllWordsButton = IconButton(
@@ -82,23 +85,13 @@ class _MainPageState extends State<MainPage> {
       icon: const Icon(Icons.remove_red_eye_rounded),
     );
 
-    final topButtons = SizedBox(
-      height: circleSize / 2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (kDebugMode) showAllWordsButton,
-          restart,
-        ],
-      ),
-    );
     final check = ElevatedButton(
       onPressed: checkInputWord,
       child: const Text('Checar'),
     );
     final shuffle = IconButton(
       onPressed: controller.shuffle,
-      icon: const Icon(Icons.restart_alt),
+      icon: const Icon(Icons.shuffle_rounded),
     );
     final delete = ElevatedButton(
       onPressed: controller.deleteLetter,
@@ -123,10 +116,20 @@ class _MainPageState extends State<MainPage> {
 
     return Scaffold(
       key: scaffoldKey,
+      drawer: CustomDrawer(controller: controller),
       body: SafeArea(
         child: Column(
           children: [
-            topButtons,
+            SizedBox(
+              height: circleSize / 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (kDebugMode) showAllWordsButton,
+                  menuDrawer,
+                ],
+              ),
+            ),
             Center(child: inputWord),
             LettersCircles(size: size, controller: controller),
             buttons,
