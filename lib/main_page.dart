@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:letraco/instructions_page.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
 import 'package:letraco/wigets/drawer.dart';
@@ -75,9 +75,13 @@ class _MainPageState extends State<MainPage> {
       icon: const Icon(Icons.menu),
     );
 
-    final showAllWordsButton = IconButton(
-      onPressed: controller.switchWordsVisibility,
-      icon: const Icon(Icons.remove_red_eye_rounded),
+    final showInstructionsButton = IconButton(
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const InstructionsPage(showClose: false),
+        ),
+      ),
+      icon: const Icon(Icons.help_outline_rounded),
     );
 
     final check = ElevatedButton(
@@ -120,7 +124,7 @@ class _MainPageState extends State<MainPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (kDebugMode) showAllWordsButton,
+                  showInstructionsButton,
                   menuDrawer,
                 ],
               ),
