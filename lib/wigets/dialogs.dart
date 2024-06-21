@@ -4,7 +4,7 @@ Future<void> showTwoButtonsDialog(
   BuildContext context, {
   required String title,
   required String content,
-  required VoidCallback onPressed,
+  required VoidCallback onPressedOk,
 }) {
   return showDialog<void>(
     context: context,
@@ -26,7 +26,7 @@ Future<void> showTwoButtonsDialog(
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
-            onPressed: onPressed,
+            onPressed: onPressedOk,
             child: const Text('Sim'),
           ),
         ],
