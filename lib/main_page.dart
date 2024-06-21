@@ -10,10 +10,9 @@ import 'package:letraco/wigets/word_list.dart';
 class MainPage extends StatefulWidget {
   const MainPage({
     super.key,
-    required this.title,
+    required this.controller,
   });
-
-  final String title;
+  final GameController controller;
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -23,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   static const double circleSize = 80;
 
   final scrollController = ScrollController();
-  final controller = GameController.init();
+  late final controller = widget.controller;
   String wordText = '';
   bool showAllWords = false;
 
