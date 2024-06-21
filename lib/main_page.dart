@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
@@ -86,7 +87,7 @@ class _MainPageState extends State<MainPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          showAllWordsButton,
+          if (kDebugMode) showAllWordsButton,
           restart,
         ],
       ),
