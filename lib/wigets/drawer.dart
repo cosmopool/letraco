@@ -22,6 +22,12 @@ class CustomDrawer extends StatelessWidget {
           icon: Icons.restart_alt_rounded,
           onTap: () => _showNewGameDialog(context),
         ),
+        const Divider(thickness: 1, indent: ident, endIndent: ident),
+        MenuItem(
+          title: 'Como jogar',
+          icon: Icons.help_outline_rounded,
+          onTap: () => Navigator.of(context).pushNamed('/instructions'),
+        ),
       ],
     );
   }
