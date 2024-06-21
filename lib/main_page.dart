@@ -52,6 +52,8 @@ class _MainPageState extends State<MainPage> {
     super.dispose();
   }
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -119,6 +121,7 @@ class _MainPageState extends State<MainPage> {
     );
 
     return Scaffold(
+      key: scaffoldKey,
       body: SafeArea(
         child: Column(
           children: [
