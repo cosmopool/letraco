@@ -24,7 +24,6 @@ class _MainPageState extends State<MainPage> {
   final scrollController = ScrollController();
   late final controller = widget.controller;
   String wordText = '';
-  bool showAllWords = false;
 
   void updateWordText() {
     wordText = controller.text;
@@ -66,7 +65,7 @@ class _MainPageState extends State<MainPage> {
       size: size,
       controller: controller,
       scrollController: scrollController,
-      showAllWords: showAllWords,
+      showAllWords: controller.showAllWords,
     );
 
     final menuDrawer = IconButton(
@@ -77,10 +76,7 @@ class _MainPageState extends State<MainPage> {
     );
 
     final showAllWordsButton = IconButton(
-      onPressed: () {
-        showAllWords = !showAllWords;
-        setState(() {});
-      },
+      onPressed: controller.switchWordsVisibility,
       icon: const Icon(Icons.remove_red_eye_rounded),
     );
 

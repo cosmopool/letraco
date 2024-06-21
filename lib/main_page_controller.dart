@@ -31,6 +31,7 @@ class GameController {
   /// Minimum number of words a game must have
   static const minimumWordCount = 30;
 
+  bool _showAllWords = false;
   List<String> _letters = [];
   List<String> _hidden = [];
   List<String> _visible = [];
@@ -38,6 +39,7 @@ class GameController {
   String _inputWord = '';
   final List<VoidCallBack> _listeners = [];
 
+  bool get showAllWords => _showAllWords;
   List<String> get letters => _letters;
   List<String> get hidden => _hidden;
   List<String> get visible => _visible;
@@ -59,6 +61,11 @@ class GameController {
   void notify() => _listeners.forEach((callback) => callback());
   void addListener(VoidCallBack fn) => _listeners.add(fn);
   void removeListener(VoidCallBack fn) => _listeners.remove(fn);
+
+  void switchWordsVisibility() {
+    _showAllWords = !_showAllWords;
+    notify();
+  }
 
   static List<String> _sortLetters() {
     const numberOfLetters = 7;
