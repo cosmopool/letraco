@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/dialogs.dart';
@@ -28,6 +29,15 @@ class CustomDrawer extends StatelessWidget {
           icon: Icons.help_outline_rounded,
           onTap: () => Navigator.of(context).pushNamed('/instructions'),
         ),
+        if (kDebugMode)
+          MenuItem(
+            title: 'Show all words DEBUG',
+            icon: Icons.remove_red_eye,
+            onTap: () {
+              controller.switchWordsVisibility();
+              Navigator.of(context).pop();
+            },
+          ),
       ],
     );
   }
