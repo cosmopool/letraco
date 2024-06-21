@@ -1,10 +1,11 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
 import 'package:letraco/words.dart';
 
-typedef VoidCallBack = void Function();
+typedef VoidCallBack = FutureOr<void> Function();
 
 class GameController {
   GameController._({
@@ -26,6 +27,9 @@ class GameController {
       visible: [],
     );
   }
+
+  /// Minimum number of words a game must have
+  static const minimumWordCount = 30;
 
   List<String> _letters = [];
   List<String> _hidden = [];
@@ -117,7 +121,7 @@ class GameController {
 
   static void _groupByLength(List<String> list) {
     assert(list.isNotEmpty);
-    assert(list.length >= 15);
+    assert(list.length >= minimumWordCount);
     list.sort((a, b) => a.compareTo(b));
     Map<int, List<String>> map = {};
     final res = <String>[];
@@ -144,7 +148,7 @@ class GameController {
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
     if (kDebugMode) debugPrint(words.toString());
-    if (words.length < 15) return _generateGame(tries);
+    if (words.length < minimumWordCount) return _generateGame(tries);
     _groupByLength(words);
     assert(words.length >= 10);
     assert(mandatory.length == 1);
