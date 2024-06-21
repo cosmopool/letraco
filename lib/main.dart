@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:letraco/instructions_page.dart';
 import 'package:letraco/main_page.dart';
+import 'package:letraco/main_page_controller.dart';
 
 void main() {
   runApp(const GameApp());
@@ -16,8 +18,10 @@ class GameApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      home: const MainPage(title: 'Letraço'),
+      home: MainPage(controller: GameController.init()),
+      routes: <String, WidgetBuilder>{
+        '/instructions': (BuildContext context) => const InstructionsPage(),
+      },
     );
   }
 }
-

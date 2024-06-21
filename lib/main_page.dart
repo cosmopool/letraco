@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:letraco/instructions_page.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
 import 'package:letraco/wigets/drawer.dart';
@@ -10,10 +10,9 @@ import 'package:letraco/wigets/word_list.dart';
 class MainPage extends StatefulWidget {
   const MainPage({
     super.key,
-    required this.title,
+    required this.controller,
   });
-
-  final String title;
+  final GameController controller;
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -23,9 +22,8 @@ class _MainPageState extends State<MainPage> {
   static const double circleSize = 80;
 
   final scrollController = ScrollController();
-  final controller = GameController.init();
+  late final controller = widget.controller;
   String wordText = '';
-  bool showAllWords = false;
 
   void updateWordText() {
     wordText = controller.text;
@@ -67,7 +65,7 @@ class _MainPageState extends State<MainPage> {
       size: size,
       controller: controller,
       scrollController: scrollController,
-      showAllWords: showAllWords,
+      showAllWords: controller.showAllWords,
     );
 
     final menuDrawer = IconButton(
@@ -77,12 +75,13 @@ class _MainPageState extends State<MainPage> {
       icon: const Icon(Icons.menu),
     );
 
-    final showAllWordsButton = IconButton(
-      onPressed: () {
-        showAllWords = !showAllWords;
-        setState(() {});
-      },
-      icon: const Icon(Icons.remove_red_eye_rounded),
+    final showInstructionsButton = IconButton(
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const InstructionsPage(showClose: false),
+        ),
+      ),
+      icon: const Icon(Icons.help_outline_rounded),
     );
 
     final check = ElevatedButton(
@@ -125,7 +124,7 @@ class _MainPageState extends State<MainPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (kDebugMode) showAllWordsButton,
+                  showInstructionsButton,
                   menuDrawer,
                 ],
               ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/dialogs.dart';
@@ -22,6 +23,21 @@ class CustomDrawer extends StatelessWidget {
           icon: Icons.restart_alt_rounded,
           onTap: () => _showNewGameDialog(context),
         ),
+        const Divider(thickness: 1, indent: ident, endIndent: ident),
+        MenuItem(
+          title: 'Como jogar',
+          icon: Icons.help_outline_rounded,
+          onTap: () => Navigator.of(context).pushNamed('/instructions'),
+        ),
+        if (kDebugMode)
+          MenuItem(
+            title: 'Show all words DEBUG',
+            icon: Icons.remove_red_eye,
+            onTap: () {
+              controller.switchWordsVisibility();
+              Navigator.of(context).pop();
+            },
+          ),
       ],
     );
   }
@@ -33,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
       content: 'Ao iniciar um novo jogo você perderá todo o '
           'progresso atual, deseja continuar?',
       onPressedOk: () {
-        Navigator.of(context).popUntil(ModalRoute.withName('/'));
+        Navigator.of(context).pushReplacementNamed('/');
         controller.restart();
       },
     );
