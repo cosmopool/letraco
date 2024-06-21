@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class InstructionsPage extends StatelessWidget {
-  const InstructionsPage({super.key});
+  const InstructionsPage({
+    super.key,
+    this.showClose = false,
+  });
+
+  final bool showClose;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,9 @@ class InstructionsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Center(child: Text('Como jogar', style: titleStyle)),
         leading: goBackButton,
-        actions: [closeButton],
+        actions: [
+          if (showClose) closeButton,
+        ],
       ),
       body: const Padding(
         padding: EdgeInsets.all(24),
