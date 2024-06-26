@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> {
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeOut,
     );
-    controller.cleanInputWord();
+    controller.clearInputWord();
   }
 
   @override
@@ -95,7 +95,7 @@ class _MainPageState extends State<MainPage> {
     );
     final delete = ElevatedButton(
       onPressed: controller.deleteLetter,
-      onLongPress: controller.cleanInputWord,
+      onLongPress: controller.clearInputWord,
       child: Text('Deletar', style: TextStyle(color: colors.onSurface)),
     );
 
