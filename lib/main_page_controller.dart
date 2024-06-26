@@ -189,7 +189,6 @@ class GameController {
   double? checkInput() {
     final word = text;
     final indexOf = allWords.indexOf(word);
-    text = '';
     if (indexOf == -1) return null;
     assert(hidden.isNotEmpty);
     hidden.remove(word);

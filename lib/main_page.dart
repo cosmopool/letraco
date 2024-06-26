@@ -38,6 +38,7 @@ class _MainPageState extends State<MainPage> {
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeOut,
     );
+    controller.cleanInputWord();
   }
 
   @override
