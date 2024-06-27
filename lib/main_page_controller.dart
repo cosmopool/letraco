@@ -171,7 +171,7 @@ class GameController {
     _hidden = words;
     _visible = [];
     _mandatory = mandatory;
-    cleanInputWord();
+    clearInputWord();
   }
 
   void shuffle() {
@@ -184,12 +184,11 @@ class GameController {
     text = text.substring(0, text.length - 1);
   }
 
-  void cleanInputWord() => text = '';
+  void clearInputWord() => text = '';
 
   double? checkInput() {
     final word = text;
     final indexOf = allWords.indexOf(word);
-    text = '';
     if (indexOf == -1) return null;
     assert(hidden.isNotEmpty);
     hidden.remove(word);
