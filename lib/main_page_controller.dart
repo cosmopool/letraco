@@ -192,7 +192,7 @@ class GameController {
     if (indexOf == -1) return null;
     assert(hidden.isNotEmpty);
     hidden.remove(word);
-    visible.add(word);
+    if (!visible.contains(word)) visible.add(word);
     final offset = (allWords.length / 3) * indexOf / 3 - 30;
     return offset;
   }
