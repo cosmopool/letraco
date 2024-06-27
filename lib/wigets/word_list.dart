@@ -52,7 +52,7 @@ class WordList extends StatelessWidget {
 
     if (cards.isNotEmpty) {
       while (cards.length % 3 != 0) {
-        cards.add(const SizedBox(width: 120));
+        cards.add(const SizedBox(width: WordCard.width));
       }
 
       final row = Row(
@@ -65,8 +65,8 @@ class WordList extends StatelessWidget {
 
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        minWidth: (120 + 10) * 3,
-        maxWidth: (120 + 10) * 4,
+        minWidth: (WordCard.width + 10) * 3,
+        maxWidth: (WordCard.width + 10) * 4,
       ),
       child: ListView(
         controller: scrollController,

@@ -12,6 +12,10 @@ class WordCard extends StatelessWidget {
   final bool visible;
   final String word;
 
+  static const width = 120.0;
+  static const height = 40.0;
+  static const verticalPadding = 8.0;
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
@@ -34,10 +38,10 @@ class WordCard extends StatelessWidget {
     final borderColor = visible ? colors.primary : colors.outlineVariant;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: verticalPadding / 2),
       child: Container(
-        height: 40,
-        width: 120,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 1.5),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
