@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:letraco/instructions_page.dart';
 import 'package:letraco/main_page_controller.dart';
@@ -30,15 +32,21 @@ class _MainPageState extends State<MainPage> {
     setState(() {});
   }
 
-  void checkInputWord() {
+  void checkInputWord() async {
     final offset = controller.checkInput();
     if (offset == null) return;
-    scrollController.animateTo(
-      offset,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeOut,
+    wordFound.value = true;
+    unawaited(
+      scrollController.animateTo(
+        offset,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOut,
+      ),
     );
-    controller.clearInputWord();
+    Future.delayed(const Duration(milliseconds: 800), () {
+      controller.clearInputWord();
+      wordFound.value = false;
+    });
   }
 
   @override
