@@ -35,6 +35,7 @@ class _MainPageState extends State<MainPage> {
   void checkInputWord() async {
     final offset = controller.checkInput();
     if (offset == null) return;
+
     wordFound.value = true;
     unawaited(
       scrollController.animateTo(
@@ -43,6 +44,7 @@ class _MainPageState extends State<MainPage> {
         curve: Curves.easeOut,
       ),
     );
+
     Future.delayed(const Duration(milliseconds: 800), () {
       controller.clearInputWord();
       wordFound.value = false;
