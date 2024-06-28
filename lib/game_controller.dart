@@ -204,6 +204,8 @@ class GameController {
   ///
   /// When the word does not exists, it will emit a [Miss] event.
   void checkInput() async {
+    if (_inputWord.isEmpty) return;
+
     final indexOf = allWords.indexOf(_inputWord);
     if (indexOf == -1) return events.add(Miss());
 
