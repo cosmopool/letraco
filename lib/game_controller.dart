@@ -216,13 +216,14 @@ class GameController {
     const cardHeight = WordCard.height + WordCard.verticalPadding;
     final offset = cardHeight * (indexOf / 3).floorToDouble();
     events.add(GoToCard(offset));
-    // wait for scroll animation to signal the Found event
+    // wait for scroll animation to finish
     await Future.delayed(const Duration(milliseconds: 100));
+
     events.add(Found(_inputWord));
 
-    // wait for card splash animation to signal the clearInputWord
-    return await Future.delayed(const Duration(seconds: 1), () {
-      return clearInputWord();
+    // wait for card splash animation to finish to signal the clearInputWord
+    await Future.delayed(const Duration(seconds: 1), () {
+      clearInputWord();
     });
   }
 }
