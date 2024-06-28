@@ -4,11 +4,13 @@ import 'package:letraco/main_page.dart';
 import 'package:letraco/game_controller.dart';
 
 void main() {
-  runApp(const GameApp());
+  runApp(GameApp());
 }
 
 class GameApp extends StatelessWidget {
-  const GameApp({super.key});
+  GameApp({super.key});
+
+  final controller = GameController.init();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class GameApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      home: MainPage(controller: GameController.init()),
+      home: MainPage(controller: controller),
       routes: <String, WidgetBuilder>{
         '/instructions': (BuildContext context) => const InstructionsPage(),
       },
