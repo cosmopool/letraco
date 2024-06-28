@@ -59,9 +59,9 @@ class _WordCardState extends State<WordCard> {
     return StreamBuilder<Event>(
       stream: widget.stream,
       builder: (context, snapshot) {
-        final data = snapshot.data;
-        if (data is! Found) return card;
-        if (data.word != widget.word) return card;
+        final event = snapshot.data;
+        if (event is! Found) return card;
+        if (event.word != widget.word) return card;
 
         return TweenAnimationBuilder(
           tween: Tween(begin: 0, end: WordCard.width),

@@ -25,16 +25,16 @@ class _InputWordState extends State<InputWord> {
       stream: widget.controller.events.stream,
       builder: (context, snapshot) {
         late final String word;
-        final data = snapshot.data;
-        switch (data) {
+        final event = snapshot.data;
+        switch (event) {
           case Found():
-            word = data.word;
+            word = event.word;
             break;
           case AddLetter():
-            word = data.word;
+            word = event.word;
             break;
           case DeleteLetter():
-            word = data.word;
+            word = event.word;
             break;
           default:
             word = '';
@@ -67,7 +67,7 @@ class _InputWordState extends State<InputWord> {
           final t = AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeOut,
-            style: snapshot.data is Found ? foundStyle : defaultStyle,
+            style: event is Found ? foundStyle : defaultStyle,
             child: Text(letter),
           );
           children.add(t);

@@ -20,8 +20,8 @@ class WordList extends StatelessWidget {
     return StreamBuilder<Object>(
       stream: controller.events.stream,
       builder: (context, snapshot) {
-        final data = snapshot.data;
-        final showAllWords = data is SwitchWordsVisibility && data.show;
+        final event = snapshot.data;
+        final showAllWords = event is SwitchWordsVisibility && event.show;
 
         final rows = <Widget>[];
         List<Widget> cards = [];
