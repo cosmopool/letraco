@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letraco/main_page_controller.dart';
+import 'package:letraco/game_controller.dart';
 import 'package:letraco/wigets/word_card.dart';
 
 class WordList extends StatelessWidget {

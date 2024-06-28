@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:letraco/instructions_page.dart';
-import 'package:letraco/main_page_controller.dart';
+import 'package:letraco/game_controller.dart';
 import 'package:letraco/wigets/circles.dart';
 import 'package:letraco/wigets/drawer.dart';
 import 'package:letraco/wigets/input_word.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:letraco/main_page_controller.dart';
+import 'package:letraco/game_controller.dart';
 
 final wordFoundListenable = ValueNotifier<String>('');
+final wordInexistentListenable = ValueNotifier<String>('');
 
 class InputWord extends StatefulWidget {
   const InputWord({

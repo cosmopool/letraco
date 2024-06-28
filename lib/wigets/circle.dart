@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letraco/main_page_controller.dart';
+import 'package:letraco/game_controller.dart';
 
 class Circle extends StatelessWidget {
   const Circle({

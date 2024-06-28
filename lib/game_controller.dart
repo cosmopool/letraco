@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
+import 'package:letraco/events.dart';
 import 'package:letraco/wigets/word_card.dart';
 import 'package:letraco/words.dart';
 
@@ -32,6 +33,7 @@ class GameController {
   /// Minimum number of words a game must have
   static const minimumWordCount = 50;
 
+  final _events = StreamController<Event>.broadcast();
   bool _showAllWords = false;
   List<String> _letters = [];
   List<String> _hidden = [];
@@ -49,7 +51,7 @@ class GameController {
 
   set text(String newText) {
     _inputWord = newText;
-    notify();
+    _events.add(Redraw());
   }
 
   List<String> get allWords {
@@ -58,14 +60,12 @@ class GameController {
     return w;
   }
 
-  // ignore: avoid_function_literals_in_foreach_calls
-  void notify() => _listeners.forEach((callback) => callback());
   void addListener(VoidCallBack fn) => _listeners.add(fn);
   void removeListener(VoidCallBack fn) => _listeners.remove(fn);
 
   void switchWordsVisibility() {
     _showAllWords = !_showAllWords;
-    notify();
+    _events.add(Redraw());
   }
 
   static List<String> _sortLetters() {
@@ -177,7 +177,7 @@ class GameController {
 
   void shuffle() {
     _letters.shuffle();
-    notify();
+    return _events.add(Redraw());
   }
 
   void deleteLetter() {
@@ -187,15 +187,24 @@ class GameController {
 
   void clearInputWord() => text = '';
 
-  double? checkInput() {
+  /// Check if a word ([text]) exists in [hidden] list and emmits a [Event]
+  ///
+  /// When the word exists, it will emit a [Found] event with [text] and a
+  /// offset to be used to scroll to the word and removes from [hidden] and
+  /// adds to [visible].
+  ///
+  /// When the word does not exists, it will emit a [Miss] event.
+  void checkInput() {
     final word = text;
     final indexOf = allWords.indexOf(word);
-    if (indexOf == -1) return null;
+    if (indexOf == -1) return _events.add(Miss());
+
     assert(hidden.isNotEmpty);
     hidden.remove(word);
     if (!visible.contains(word)) visible.add(word);
+
     const cardHeight = WordCard.height + WordCard.verticalPadding;
     final offset = cardHeight * (indexOf / 3).floorToDouble();
-    return offset;
+    return _events.add(Found(text, offset));
   }
 }
