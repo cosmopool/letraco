@@ -195,7 +195,7 @@ class GameController {
     hidden.remove(word);
     if (!visible.contains(word)) visible.add(word);
     const cardHeight = WordCard.height + WordCard.verticalPadding;
-    final offset = (cardHeight) * (indexOf / 3).floorToDouble();
+    final offset = cardHeight * (indexOf / 3).floorToDouble();
     return offset;
   }
 }
