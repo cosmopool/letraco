@@ -1,9 +1,9 @@
 sealed class Event {}
 
-class WordInexistet extends Event {}
+class Miss extends Event {}
 
-class WordFound extends Event {
-  WordFound(this.word, this.offset)
+class Found extends Event {
+  Found(this.word, this.offset)
       : assert(word.isNotEmpty),
         assert(word.length >= 4),
         assert(word.length <= 8);
