@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letraco/wigets/input_word.dart';
+import 'package:letraco/events.dart';
 
 class WordCard extends StatefulWidget {
   const WordCard({
@@ -7,11 +7,13 @@ class WordCard extends StatefulWidget {
     required this.size,
     required this.visible,
     required this.word,
+    required this.stream,
   });
 
   final Size size;
   final bool visible;
   final String word;
+  final Stream<Event> stream;
 
   static const width = 120.0;
   static const height = 40.0;
@@ -54,10 +56,12 @@ class _WordCardState extends State<WordCard> {
       ),
     );
 
-    return ValueListenableBuilder(
-      valueListenable: wordFoundListenable,
-      builder: (context, wordFound, _) {
-        if (wordFound != widget.word) return card;
+    return StreamBuilder<Event>(
+      stream: widget.stream,
+      builder: (context, snapshot) {
+        final data = snapshot.data;
+        if (data is! Found) return card;
+        if (data.word != widget.word) return card;
 
         return TweenAnimationBuilder(
           tween: Tween(begin: 0, end: WordCard.width),
