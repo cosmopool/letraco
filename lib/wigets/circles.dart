@@ -26,7 +26,7 @@ class LettersCircles extends StatelessWidget {
     final mainLetterCircle = Circle(
       x: height,
       y: halfWidth,
-      mainLetter: controller.mandatory,
+      letter: controller.mandatory,
       isMainButton: true,
       controller: controller,
     );
@@ -38,7 +38,7 @@ class LettersCircles extends StatelessWidget {
       final widget = Circle(
         x: math.sin(rad) * (circleSize + circleMargin) + height,
         y: math.cos(rad) * (circleSize + circleMargin) + halfWidth,
-        mainLetter: controller.letters[i],
+        letter: controller.letters[i],
         controller: controller,
       );
       letters.add(widget);

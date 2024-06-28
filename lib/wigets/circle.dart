@@ -4,7 +4,7 @@ import 'package:letraco/game_controller.dart';
 class Circle extends StatelessWidget {
   const Circle({
     super.key,
-    required this.mainLetter,
+    required this.letter,
     required this.x,
     required this.y,
     this.circleSize = 80,
@@ -12,7 +12,7 @@ class Circle extends StatelessWidget {
     required this.controller,
   });
 
-  final String mainLetter;
+  final String letter;
   final double circleSize;
   final bool isMainButton;
   final double x;
@@ -39,14 +39,12 @@ class Circle extends StatelessWidget {
         color: bgColor,
         child: InkWell(
           borderRadius: borderRadius,
-          onTap: () {
-            controller.text += mainLetter;
-          },
+          onTap: () => controller.addLetter(letter),
           child: SizedBox(
             height: circleSize,
             width: circleSize,
             child: Center(
-              child: Text(mainLetter.toUpperCase(), style: style),
+              child: Text(letter.toUpperCase(), style: style),
             ),
           ),
         ),
