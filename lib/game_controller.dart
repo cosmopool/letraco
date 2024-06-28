@@ -47,7 +47,6 @@ class GameController {
   String _mandatory = '';
   String _inputWord = '';
 
-  bool get showAllWords => _showAllWords;
   List<String> get letters => _letters;
   List<String> get hidden => _hidden;
   List<String> get visible => _visible;
@@ -61,6 +60,7 @@ class GameController {
 
   void switchWordsVisibility() {
     _showAllWords = !_showAllWords;
+    events.add(SwitchWordsVisibility(_showAllWords));
   }
 
   static List<String> _sortLetters() {

@@ -30,4 +30,8 @@ class AddLetter extends Event {
 
 class ClearLetters extends Event {}
 
-class ShowAllWords extends Event {}
+class SwitchWordsVisibility extends Event {
+  SwitchWordsVisibility(this.show);
+
+  final bool show;
+}
