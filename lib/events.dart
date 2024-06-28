@@ -5,7 +5,7 @@ sealed class Event {}
 class Miss extends Event {}
 
 class Found extends Event {
-  Found(this.word, this.offset)
+  Found(this.word)
       : assert(word.isNotEmpty),
         assert(
           word.length >= GameController.minimumWordLength &&
@@ -13,7 +13,6 @@ class Found extends Event {
         );
 
   final String word;
-  final double offset;
 }
 
 class DeleteLetter extends Event {

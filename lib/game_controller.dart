@@ -204,20 +204,21 @@ class GameController {
   ///
   /// When the word does not exists, it will emit a [Miss] event.
   void checkInput() async {
-    final word = _inputWord;
-    final indexOf = allWords.indexOf(word);
+    final indexOf = allWords.indexOf(_inputWord);
     if (indexOf == -1) return events.add(Miss());
 
     assert(hidden.isNotEmpty);
-    hidden.remove(word);
-    if (!visible.contains(word)) visible.add(word);
+    hidden.remove(_inputWord);
+    if (!visible.contains(_inputWord)) visible.add(_inputWord);
 
     const cardHeight = WordCard.height + WordCard.verticalPadding;
     final offset = cardHeight * (indexOf / 3).floorToDouble();
     events.add(GoToCard(offset));
+    // wait for scroll animation to signal the Found event
     await Future.delayed(const Duration(milliseconds: 100));
-    events.add(Found(_inputWord, offset));
+    events.add(Found(_inputWord));
 
+    // wait for card splash animation to signal the clearInputWord
     return await Future.delayed(const Duration(seconds: 1), () {
       return clearInputWord();
     });
