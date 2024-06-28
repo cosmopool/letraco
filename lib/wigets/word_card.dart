@@ -61,7 +61,7 @@ class _WordCardState extends State<WordCard> {
 
         return TweenAnimationBuilder(
           tween: Tween(begin: 0, end: WordCard.width),
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(seconds: 1),
           curve: Curves.easeInOutCirc,
           builder: (context, animationValue, _) {
             final splash = Padding(
