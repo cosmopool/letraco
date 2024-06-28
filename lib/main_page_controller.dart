@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
+import 'package:letraco/wigets/word_card.dart';
 import 'package:letraco/words.dart';
 
 typedef VoidCallBack = FutureOr<void> Function();
@@ -193,7 +194,8 @@ class GameController {
     assert(hidden.isNotEmpty);
     hidden.remove(word);
     if (!visible.contains(word)) visible.add(word);
-    final offset = (allWords.length / 3) * indexOf / 3 - 30;
+    const cardHeight = WordCard.height + WordCard.verticalPadding;
+    final offset = (cardHeight) * (indexOf / 3).floorToDouble();
     return offset;
   }
 }
