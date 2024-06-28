@@ -42,6 +42,7 @@ class _InputWordState extends State<InputWord> {
         final children = <Widget>[];
         for (var i = 0; i < widget.controller.text.length; i++) {
           final letter = widget.controller.text[i];
+
           final defaultStyle = TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w300,
@@ -49,6 +50,7 @@ class _InputWordState extends State<InputWord> {
                 ? colors.primary
                 : colors.onSecondaryContainer,
           );
+
           final foundStyle = defaultStyle.copyWith(
             fontWeight: FontWeight.bold,
             color: colors.primary,
@@ -60,6 +62,7 @@ class _InputWordState extends State<InputWord> {
               ),
             ],
           );
+
           final t = AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeOut,
