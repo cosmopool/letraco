@@ -32,6 +32,7 @@ class _MainPageState extends State<MainPage> {
 
     controller.events.stream.listen((event) {
       _showSnackbarOnEvent(event);
+      _scrollToCard(event);
     });
   }
 
@@ -147,5 +148,15 @@ class _MainPageState extends State<MainPage> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snakbar);
+  }
+
+  void _scrollToCard(Event event) {
+    if (event is! GoToCard) return;
+
+    scrollController.animateTo(
+      event.offset,
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.linear,
+    );
   }
 }
