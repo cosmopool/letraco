@@ -34,6 +34,13 @@ class GameController {
   static const minimumWordCount = 50;
 
   final _events = StreamController<Event>.broadcast();
+  /// Minimum word length permited in a game
+  static const minimumWordLength = 4;
+
+  /// Maximum word length permited in a game
+  static const maximumWordLength = 8;
+
+  final events = StreamController<Event>.broadcast();
   bool _showAllWords = false;
   List<String> _letters = [];
   List<String> _hidden = [];
@@ -110,6 +117,7 @@ class GameController {
     final words = <String>[];
     for (var i = 0; i < dicio.length; i++) {
       final word = dicio[i];
+      if (word.length > maximumWordLength) continue;
       if (!word.contains(mandatory)) continue;
       bool wordIsDenied = false;
       for (var deniedLetter in deniedLetters) {
