@@ -70,15 +70,28 @@ class WordList extends StatelessWidget {
           rows.add(row);
         }
 
-        return ConstrainedBox(
-          constraints: const BoxConstraints(
-            minWidth: (WordCard.width + 10) * 3,
-            maxWidth: (WordCard.width + 10) * 4,
-          ),
-          child: ListView(
-            controller: scrollController,
-            children: rows,
-          ),
+        return StreamBuilder<Event>(
+          stream: controller.events.stream,
+          builder: (context, snapshot) {
+            final data = snapshot.data;
+            if (data is GoToCard) {
+              scrollController.animateTo(
+                data.offset,
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.linear,
+              );
+            }
+            return ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: (WordCard.width + 10) * 3,
+                maxWidth: (WordCard.width + 10) * 4,
+              ),
+              child: ListView(
+                controller: scrollController,
+                children: rows,
+              ),
+            );
+          },
         );
       },
     );

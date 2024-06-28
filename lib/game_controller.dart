@@ -214,6 +214,8 @@ class GameController {
 
     const cardHeight = WordCard.height + WordCard.verticalPadding;
     final offset = cardHeight * (indexOf / 3).floorToDouble();
+    events.add(GoToCard(offset));
+    await Future.delayed(const Duration(milliseconds: 100));
     events.add(Found(_inputWord, offset));
 
     return await Future.delayed(const Duration(seconds: 1), () {

@@ -35,3 +35,9 @@ class SwitchWordsVisibility extends Event {
 
   final bool show;
 }
+
+class GoToCard extends Event {
+  GoToCard(this.offset);
+
+  final double offset;
+}
