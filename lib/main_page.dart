@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
     unawaited(
       scrollController.animateTo(
         offset,
-        duration: const Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
       ),
     );
