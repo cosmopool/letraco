@@ -74,11 +74,7 @@ class ProgressBar extends StatelessWidget {
 
     return Padding(
       padding: padding,
-      child: Column(
-        children: [
-          indicators,
-        ],
-      ),
+      child: indicators,
     );
   }
 }
