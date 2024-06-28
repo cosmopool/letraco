@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:letraco/wigets/input_word.dart';
 
-class WordCard extends StatelessWidget {
+class WordCard extends StatefulWidget {
   const WordCard({
     super.key,
     required this.size,
@@ -14,40 +15,119 @@ class WordCard extends StatelessWidget {
 
   static const width = 120.0;
   static const height = 40.0;
+  static const borderRadius = 20.0;
   static const verticalPadding = 8.0;
 
   @override
+  State<WordCard> createState() => _WordCardState();
+}
+
+class _WordCardState extends State<WordCard> {
+  @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-
-    final text = visible ? word : '${word.length} letras';
+    final text = widget.visible ? widget.word : '${widget.word.length} letras';
     final style = TextStyle(
-      color: visible ? colors.onSurface : colors.outlineVariant,
+      color: widget.visible ? colors.onSurface : colors.outlineVariant,
       fontSize: 12,
-      fontWeight: visible ? FontWeight.w600 : FontWeight.w500,
+      fontWeight: widget.visible ? FontWeight.w600 : FontWeight.w500,
     );
+    final borderColor = widget.visible ? colors.primary : colors.outlineVariant;
 
-    final content = Center(
-      child: Text(
-        text,
-        style: style,
-        textAlign: TextAlign.center,
-      ),
-    );
+    const paddingBetweenCards =
+        EdgeInsets.symmetric(vertical: WordCard.verticalPadding / 2);
+    const borderRadius =
+        BorderRadius.all(Radius.circular(WordCard.borderRadius));
 
-    final borderColor = visible ? colors.primary : colors.outlineVariant;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: verticalPadding / 2),
+    final card = Padding(
+      padding: paddingBetweenCards,
       child: Container(
-        height: height,
-        width: width,
+        height: WordCard.height,
+        width: WordCard.width,
         decoration: BoxDecoration(
           border: Border.all(color: borderColor, width: 1.5),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          borderRadius: borderRadius,
         ),
-        child: content,
+        child: Center(
+          child: Text(text, style: style, textAlign: TextAlign.center),
+        ),
       ),
     );
+
+    return ValueListenableBuilder(
+      valueListenable: wordFoundListenable,
+      builder: (context, wordFound, _) {
+        if (wordFound != widget.word) return card;
+
+        return TweenAnimationBuilder(
+          tween: Tween(begin: 0, end: WordCard.width),
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOutCirc,
+          builder: (context, animationValue, _) {
+            final splash = Padding(
+              padding: paddingBetweenCards,
+              child: CustomPaint(
+                painter: SlpashPainter(
+                  colorScheme: colors,
+                  step: animationValue.toDouble(),
+                ),
+              ),
+            );
+
+            return Stack(
+              children: [
+                splash,
+                card,
+              ],
+            );
+          },
+        );
+      },
+    );
   }
+}
+
+class SlpashPainter extends CustomPainter {
+  SlpashPainter({
+    required this.step,
+    required this.colorScheme,
+  });
+
+  final double step;
+  final ColorScheme colorScheme;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final color = colorScheme.primary;
+    const rect = Rect.fromLTWH(0, 0, WordCard.width, WordCard.height);
+    const center = Offset(WordCard.width / 2, WordCard.height / 2);
+    final radius = step * 2.5;
+    final outerCircle = Rect.fromCircle(center: center, radius: radius);
+    final innerCircle = Rect.fromCircle(center: center, radius: radius / 5);
+
+    final hole = Path.combine(
+      PathOperation.difference,
+      Path()..addRect(rect),
+      Path()
+        ..addOval(outerCircle)
+        ..close(),
+    );
+
+    final ring = Path.combine(
+      PathOperation.difference,
+      Path()
+        ..addOval(outerCircle)
+        ..close(),
+      Path()
+        ..addOval(innerCircle)
+        ..close(),
+    );
+
+    canvas.clipRRect(RRect.fromRectAndRadius(rect, const Radius.circular(33)));
+    canvas.drawPath(hole, Paint()..color = color.withOpacity(.7));
+    canvas.drawPath(ring, Paint()..color = color.withOpacity(0.5));
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
