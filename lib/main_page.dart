@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:letraco/events.dart';
+import 'package:letraco/game_controller.dart';
 import 'package:letraco/instructions_page.dart';
-import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
 import 'package:letraco/wigets/drawer.dart';
 import 'package:letraco/wigets/input_word.dart';
@@ -23,61 +22,24 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   static const double circleSize = 80;
 
-  final scrollController = ScrollController();
   late final controller = widget.controller;
-  String wordText = '';
-
-  void updateWordText() {
-    wordText = controller.text;
-    setState(() {});
-  }
-
-  void checkInputWord() async {
-    final offset = controller.checkInput();
-    if (offset == null) return;
-
-    wordFoundListenable.value = controller.text;
-    unawaited(
-      scrollController.animateTo(
-        offset,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      ),
-    );
-
-    Future.delayed(const Duration(milliseconds: 800), () {
-      controller.clearInputWord();
-      wordFoundListenable.value = controller.text;
-    });
-  }
+  final scrollController = ScrollController();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-    controller.addListener(updateWordText);
     super.initState();
-  }
 
-  @override
-  void dispose() {
-    controller.removeListener(updateWordText);
-    super.dispose();
+    controller.events.stream.listen((event) {
+      _showSnackbarOnEvent(event);
+      _scrollToCard(event);
+    });
   }
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final colors = Theme.of(context).colorScheme;
-
-    final inputWord = InputWord(height: circleSize, controller: controller);
-
-    final wordList = WordList(
-      size: size,
-      controller: controller,
-      scrollController: scrollController,
-      showAllWords: controller.showAllWords,
-    );
 
     final menuDrawer = IconButton(
       onPressed: () {
@@ -96,7 +58,7 @@ class _MainPageState extends State<MainPage> {
     );
 
     final check = ElevatedButton(
-      onPressed: checkInputWord,
+      onPressed: controller.checkInput,
       child: const Text('Checar'),
     );
     final shuffle = IconButton(
@@ -140,14 +102,61 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-            Center(child: inputWord),
+            Center(
+              child: InputWord(height: circleSize, controller: controller),
+            ),
             LettersCircles(size: size, controller: controller),
             buttons,
             ProgressBar(size: size, controller: controller),
-            Expanded(child: wordList),
+            Expanded(
+              child: WordList(
+                size: size,
+                controller: controller,
+                scrollController: scrollController,
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  /// Display a snackbar as feedback whenever a [Miss] event is received
+  void _showSnackbarOnEvent(Event event) {
+    // dismiss snack bar is user start adding letters
+    if (event is AddLetter) {
+      return ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    }
+
+    final content = switch (event) {
+      Miss() => 'Essa palavra, não está na lista, tente outra!',
+      Empty() => 'Utilize as letras para escrever uma palavra!',
+      _ => null
+    };
+    if (content == null) return;
+
+    final snakbar = SnackBar(
+      content: Text(content),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      duration: const Duration(seconds: 2),
+      margin: EdgeInsets.only(
+        bottom: MediaQuery.of(context).size.height - 58,
+        right: 8,
+        left: 8,
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snakbar);
+  }
+
+  void _scrollToCard(Event event) {
+    if (event is! GoToCard) return;
+
+    scrollController.animateTo(
+      event.offset,
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.linear,
     );
   }
 }

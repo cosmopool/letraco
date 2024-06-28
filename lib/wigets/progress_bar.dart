@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letraco/main_page_controller.dart';
+import 'package:letraco/game_controller.dart';
 
 class ProgressBar extends StatelessWidget {
   const ProgressBar({
@@ -74,11 +74,7 @@ class ProgressBar extends StatelessWidget {
 
     return Padding(
       padding: padding,
-      child: Column(
-        children: [
-          indicators,
-        ],
-      ),
+      child: indicators,
     );
   }
 }
