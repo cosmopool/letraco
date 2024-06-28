@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:letraco/events.dart';
 import 'package:letraco/game_controller.dart';
 
 class ProgressBar extends StatefulWidget {
