@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage> {
     final offset = controller.checkInput();
     if (offset == null) return;
 
-    wordFound.value = true;
+    wordFoundListenable.value = controller.text;
     unawaited(
       scrollController.animateTo(
         offset,
@@ -47,7 +47,7 @@ class _MainPageState extends State<MainPage> {
 
     Future.delayed(const Duration(milliseconds: 800), () {
       controller.clearInputWord();
-      wordFound.value = false;
+      wordFoundListenable.value = controller.text;
     });
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letraco/main_page_controller.dart';
 
-final wordFound = ValueNotifier<bool>(false);
+final wordFoundListenable = ValueNotifier<String>('');
 
 class InputWord extends StatefulWidget {
   const InputWord({
@@ -23,13 +23,13 @@ class _InputWordState extends State<InputWord> {
   @override
   void initState() {
     super.initState();
-    wordFound.addListener(_refreshState);
+    wordFoundListenable.addListener(_refreshState);
   }
 
   @override
   void dispose() {
     super.dispose();
-    wordFound.removeListener(_refreshState);
+    wordFoundListenable.removeListener(_refreshState);
   }
 
   @override
@@ -37,8 +37,8 @@ class _InputWordState extends State<InputWord> {
     final colors = Theme.of(context).colorScheme;
 
     return ValueListenableBuilder(
-      valueListenable: wordFound,
-      builder: (context, value, child) {
+      valueListenable: wordFoundListenable,
+      builder: (context, wordFound, child) {
         final children = <Widget>[];
         for (var i = 0; i < widget.controller.text.length; i++) {
           final letter = widget.controller.text[i];
@@ -63,7 +63,7 @@ class _InputWordState extends State<InputWord> {
           final t = AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeOut,
-            style: wordFound.value ? foundStyle : defaultStyle,
+            style: wordFound.isNotEmpty ? foundStyle : defaultStyle,
             child: Text(letter),
           );
           children.add(t);
