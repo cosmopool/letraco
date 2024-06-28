@@ -30,7 +30,7 @@ class GameController {
   }
 
   /// Minimum number of words a game must have
-  static const minimumWordCount = 30;
+  static const minimumWordCount = 50;
 
   bool _showAllWords = false;
   List<String> _letters = [];
