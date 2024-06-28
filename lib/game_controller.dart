@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
+import 'package:letraco/events.dart';
 import 'package:letraco/wigets/word_card.dart';
 import 'package:letraco/words.dart';
 
@@ -32,25 +33,24 @@ class GameController {
   /// Minimum number of words a game must have
   static const minimumWordCount = 50;
 
+  /// Minimum word length permited in a game
+  static const minimumWordLength = 4;
+
+  /// Maximum word length permited in a game
+  static const maximumWordLength = 8;
+
+  final events = StreamController<Event>.broadcast();
   bool _showAllWords = false;
   List<String> _letters = [];
   List<String> _hidden = [];
   List<String> _visible = [];
   String _mandatory = '';
   String _inputWord = '';
-  final List<VoidCallBack> _listeners = [];
 
-  bool get showAllWords => _showAllWords;
   List<String> get letters => _letters;
   List<String> get hidden => _hidden;
   List<String> get visible => _visible;
   String get mandatory => _mandatory;
-  String get text => _inputWord;
-
-  set text(String newText) {
-    _inputWord = newText;
-    notify();
-  }
 
   List<String> get allWords {
     final w = [...hidden, ...visible];
@@ -58,14 +58,9 @@ class GameController {
     return w;
   }
 
-  // ignore: avoid_function_literals_in_foreach_calls
-  void notify() => _listeners.forEach((callback) => callback());
-  void addListener(VoidCallBack fn) => _listeners.add(fn);
-  void removeListener(VoidCallBack fn) => _listeners.remove(fn);
-
   void switchWordsVisibility() {
     _showAllWords = !_showAllWords;
-    notify();
+    events.add(SwitchWordsVisibility(_showAllWords));
   }
 
   static List<String> _sortLetters() {
@@ -110,6 +105,7 @@ class GameController {
     final words = <String>[];
     for (var i = 0; i < dicio.length; i++) {
       final word = dicio[i];
+      if (word.length > maximumWordLength) continue;
       if (!word.contains(mandatory)) continue;
       bool wordIsDenied = false;
       for (var deniedLetter in deniedLetters) {
@@ -131,6 +127,7 @@ class GameController {
     assert(list.isNotEmpty);
     assert(list.length >= minimumWordCount);
     list.sort((a, b) => a.compareTo(b));
+
     Map<int, List<String>> map = {};
     final res = <String>[];
     for (var word in list) {
@@ -138,11 +135,14 @@ class GameController {
       if (!map.containsKey(key)) map[key] = <String>[];
       map[key]!.add(word);
     }
+
     final keys = map.keys.toList();
     keys.sort((a, b) => a.compareTo(b));
+
     for (var key in keys) {
       res.addAll(map[key]!);
     }
+
     for (var i = 0; i < list.length; i++) {
       list[i] = res[i];
     }
@@ -155,8 +155,8 @@ class GameController {
     final mandatory = letters.first;
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
-    if (kDebugMode) debugPrint(words.toString());
     if (words.length < minimumWordCount) return _generateGame(tries);
+    if (kDebugMode) debugPrint(words.toString());
     _groupByLength(words);
     assert(words.length >= 10);
     assert(mandatory.length == 1);
@@ -175,27 +175,52 @@ class GameController {
     clearInputWord();
   }
 
-  void shuffle() {
-    _letters.shuffle();
-    notify();
+  void shuffle() => _letters.shuffle();
+
+  void addLetter(String letter) {
+    assert(letter.length == 1);
+
+    if (letter.isEmpty) return;
+    _inputWord += letter;
+    events.add(AddLetter(_inputWord));
   }
 
   void deleteLetter() {
-    if (text.isEmpty) return;
-    text = text.substring(0, text.length - 1);
+    if (_inputWord.isEmpty) return;
+    _inputWord = _inputWord.substring(0, _inputWord.length - 1);
+    events.add(DeleteLetter(_inputWord));
   }
 
-  void clearInputWord() => text = '';
+  void clearInputWord() {
+    _inputWord = '';
+    events.add(ClearLetters());
+  }
 
-  double? checkInput() {
-    final word = text;
-    final indexOf = allWords.indexOf(word);
-    if (indexOf == -1) return null;
+  /// Check if a word exists in [hidden] list and emmits a [Event]
+  ///
+  /// When the word exists, it will emit a [Found] event with [_inputWord] and a
+  /// offset to be used to scroll to the word and removes from [hidden] and
+  /// adds to [visible].
+  ///
+  /// When the word does not exists, it will emit a [Miss] event.
+  void checkInput() async {
+    final indexOf = allWords.indexOf(_inputWord);
+    if (indexOf == -1) return events.add(Miss());
+
     assert(hidden.isNotEmpty);
-    hidden.remove(word);
-    if (!visible.contains(word)) visible.add(word);
+    hidden.remove(_inputWord);
+    if (!visible.contains(_inputWord)) visible.add(_inputWord);
+
     const cardHeight = WordCard.height + WordCard.verticalPadding;
     final offset = cardHeight * (indexOf / 3).floorToDouble();
-    return offset;
+    events.add(GoToCard(offset));
+    // wait for scroll animation to signal the Found event
+    await Future.delayed(const Duration(milliseconds: 100));
+    events.add(Found(_inputWord));
+
+    // wait for card splash animation to signal the clearInputWord
+    return await Future.delayed(const Duration(seconds: 1), () {
+      return clearInputWord();
+    });
   }
 }

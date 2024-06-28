@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:letraco/game_controller.dart';
 import 'package:letraco/instructions_page.dart';
-import 'package:letraco/main_page_controller.dart';
 import 'package:letraco/wigets/circles.dart';
 import 'package:letraco/wigets/drawer.dart';
 import 'package:letraco/wigets/input_word.dart';
@@ -23,61 +21,14 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   static const double circleSize = 80;
 
-  final scrollController = ScrollController();
   late final controller = widget.controller;
-  String wordText = '';
-
-  void updateWordText() {
-    wordText = controller.text;
-    setState(() {});
-  }
-
-  void checkInputWord() async {
-    final offset = controller.checkInput();
-    if (offset == null) return;
-
-    wordFoundListenable.value = controller.text;
-    unawaited(
-      scrollController.animateTo(
-        offset,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-      ),
-    );
-
-    Future.delayed(const Duration(milliseconds: 800), () {
-      controller.clearInputWord();
-      wordFoundListenable.value = controller.text;
-    });
-  }
-
-  @override
-  void initState() {
-    controller.addListener(updateWordText);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.removeListener(updateWordText);
-    super.dispose();
-  }
-
+  final scrollController = ScrollController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final colors = Theme.of(context).colorScheme;
-
-    final inputWord = InputWord(height: circleSize, controller: controller);
-
-    final wordList = WordList(
-      size: size,
-      controller: controller,
-      scrollController: scrollController,
-      showAllWords: controller.showAllWords,
-    );
 
     final menuDrawer = IconButton(
       onPressed: () {
@@ -96,7 +47,7 @@ class _MainPageState extends State<MainPage> {
     );
 
     final check = ElevatedButton(
-      onPressed: checkInputWord,
+      onPressed: controller.checkInput,
       child: const Text('Checar'),
     );
     final shuffle = IconButton(
@@ -140,11 +91,19 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-            Center(child: inputWord),
+            Center(
+              child: InputWord(height: circleSize, controller: controller),
+            ),
             LettersCircles(size: size, controller: controller),
             buttons,
             ProgressBar(size: size, controller: controller),
-            Expanded(child: wordList),
+            Expanded(
+              child: WordList(
+                size: size,
+                controller: controller,
+                scrollController: scrollController,
+              ),
+            ),
           ],
         ),
       ),

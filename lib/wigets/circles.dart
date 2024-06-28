@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:letraco/main_page_controller.dart';
+import 'package:letraco/game_controller.dart';
 import 'package:letraco/wigets/circle.dart';
 
 class LettersCircles extends StatelessWidget {
@@ -26,7 +26,7 @@ class LettersCircles extends StatelessWidget {
     final mainLetterCircle = Circle(
       x: height,
       y: halfWidth,
-      mainLetter: controller.mandatory,
+      letter: controller.mandatory,
       isMainButton: true,
       controller: controller,
     );
@@ -38,7 +38,7 @@ class LettersCircles extends StatelessWidget {
       final widget = Circle(
         x: math.sin(rad) * (circleSize + circleMargin) + height,
         y: math.cos(rad) * (circleSize + circleMargin) + halfWidth,
-        mainLetter: controller.letters[i],
+        letter: controller.letters[i],
         controller: controller,
       );
       letters.add(widget);
