@@ -2,6 +2,8 @@ import 'package:letraco/game_controller.dart';
 
 sealed class Event {}
 
+class Empty extends Event {}
+
 class Miss extends Event {}
 
 class Found extends Event {

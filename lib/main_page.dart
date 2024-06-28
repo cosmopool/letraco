@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letraco/events.dart';
 import 'package:letraco/game_controller.dart';
 import 'package:letraco/instructions_page.dart';
 import 'package:letraco/wigets/circles.dart';
@@ -24,6 +25,15 @@ class _MainPageState extends State<MainPage> {
   late final controller = widget.controller;
   final scrollController = ScrollController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller.events.stream.listen((event) {
+      _showSnackbarOnEvent(event);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,5 +118,34 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+
+  /// Display a snackbar as feedback whenever a [Miss] event is received
+  void _showSnackbarOnEvent(Event event) {
+    // dismiss snack bar is user start adding letters
+    if (event is AddLetter) {
+      return ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    }
+
+    final content = switch (event) {
+      Miss() => 'Essa palavra, não está na lista, tente outra!',
+      Empty() => 'Utilize as letras para escrever uma palavra!',
+      _ => null
+    };
+    if (content == null) return;
+
+    final snakbar = SnackBar(
+      content: Text(content),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      duration: const Duration(seconds: 2),
+      margin: EdgeInsets.only(
+        bottom: MediaQuery.of(context).size.height - 58,
+        right: 8,
+        left: 8,
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snakbar);
   }
 }

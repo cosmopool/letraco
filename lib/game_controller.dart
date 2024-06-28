@@ -204,10 +204,13 @@ class GameController {
   ///
   /// When the word does not exists, it will emit a [Miss] event.
   void checkInput() async {
-    if (_inputWord.isEmpty) return;
+    if (_inputWord.isEmpty) return events.add(Empty());
 
     final indexOf = allWords.indexOf(_inputWord);
-    if (indexOf == -1) return events.add(Miss());
+    if (indexOf == -1) {
+      clearInputWord();
+      return events.add(Miss());
+    }
 
     assert(hidden.isNotEmpty);
     hidden.remove(_inputWord);
