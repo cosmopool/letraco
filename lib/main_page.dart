@@ -129,7 +129,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     final content = switch (event) {
-      Miss() => 'Essa palavra, não está na lista, tente outra!',
+      Miss() => 'Essa palavra não está na lista, tente outra!',
       Empty() => 'Utilize as letras para escrever uma palavra!',
       _ => null
     };
