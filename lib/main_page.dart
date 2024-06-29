@@ -13,6 +13,7 @@ class MainPage extends StatefulWidget {
     super.key,
     required this.controller,
   });
+
   final GameController controller;
 
   @override
