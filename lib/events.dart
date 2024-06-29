@@ -42,3 +42,13 @@ class GoToCard extends Event {
 
   final double offset;
 }
+
+class Loading extends Event {}
+
+class Loaded extends Event {
+  Loaded(this.game);
+
+  final Game game;
+}
+
+class NoGameToLoad extends Event {}
