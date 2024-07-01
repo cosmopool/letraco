@@ -29,12 +29,13 @@ class _WordCardState extends State<WordCard> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final text = widget.visible ? widget.word : '${widget.word.length} letras';
+    final outlineColor =
+        widget.visible ? colors.onSurface : colors.outlineVariant;
     final style = TextStyle(
-      color: widget.visible ? colors.onSurface : colors.outlineVariant,
+      color: outlineColor,
       fontSize: 12,
       fontWeight: widget.visible ? FontWeight.w600 : FontWeight.w500,
     );
-    final borderColor = widget.visible ? colors.primary : colors.outlineVariant;
 
     const paddingBetweenCards =
         EdgeInsets.symmetric(vertical: WordCard.verticalPadding / 2);
@@ -47,7 +48,7 @@ class _WordCardState extends State<WordCard> {
         height: WordCard.height,
         width: WordCard.width,
         decoration: BoxDecoration(
-          border: Border.all(color: borderColor, width: 1.5),
+          border: Border.all(color: outlineColor, width: 1.5),
           borderRadius: borderRadius,
         ),
         child: Center(
