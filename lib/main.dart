@@ -20,6 +20,15 @@ class GameApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.system,
+      initialRoute: '/initialSplash',
       home: MainPage(controller: controller),
       routes: <String, WidgetBuilder>{
         '/instructions': (BuildContext context) => const InstructionsPage(),
