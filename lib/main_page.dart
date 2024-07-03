@@ -139,13 +139,14 @@ class _MainPageState extends State<MainPage> {
     };
     if (content == null) return;
 
+    final safeArea = MediaQuery.of(context).padding.top;
     final snackbar = SnackBar(
       content: Text(content),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       duration: const Duration(seconds: 2),
       margin: EdgeInsets.only(
-        bottom: MediaQuery.of(context).size.height - 58,
+        bottom: MediaQuery.of(context).size.height - safeArea - 58,
         right: 8,
         left: 8,
       ),
