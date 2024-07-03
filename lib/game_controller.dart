@@ -218,8 +218,8 @@ class GameController {
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
     if (words.length < minimumWordCount) return _generateGame(tries);
-    if (kDebugMode) debugPrint(words.toString());
     groupByLength(words);
+    if (kDebugMode) debugPrint(words.toString());
     assert(words.length >= 10);
     assert(mandatory.length == 1);
     assert(letters.length == 7);
