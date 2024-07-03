@@ -29,12 +29,15 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    super.initState();
+    if (controller.game == null) controller.loadGame();
 
     controller.events.stream.listen((event) {
       _showSnackbarOnEvent(event);
       _scrollToCard(event);
+      _showSplashOnLoading(event);
     });
+
+    super.initState();
   }
 
   @override
@@ -159,5 +162,9 @@ class _MainPageState extends State<MainPage> {
       duration: const Duration(milliseconds: 100),
       curve: Curves.linear,
     );
+  }
+
+  void _showSplashOnLoading(Event event) {
+    if (event is Loading) Navigator.of(context).pushNamed('/splash');
   }
 }
