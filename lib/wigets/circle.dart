@@ -10,7 +10,7 @@ class Circle extends StatelessWidget {
     this.circleSize = 80,
     this.isMainButton = false,
     required this.controller,
-  });
+  }) : assert(letter.length == 1);
 
   final String letter;
   final double circleSize;
