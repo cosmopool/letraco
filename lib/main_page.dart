@@ -139,7 +139,7 @@ class _MainPageState extends State<MainPage> {
     };
     if (content == null) return;
 
-    final snakbar = SnackBar(
+    final snackbar = SnackBar(
       content: Text(content),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -151,7 +151,7 @@ class _MainPageState extends State<MainPage> {
       ),
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(snakbar);
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   void _scrollToCard(Event event) {
