@@ -3,32 +3,35 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
+import 'package:letraco/database/database_datasource.dart';
 import 'package:letraco/events.dart';
 import 'package:letraco/wigets/word_card.dart';
 import 'package:letraco/words.dart';
 
 typedef VoidCallBack = FutureOr<void> Function();
 
-class GameController {
-  GameController._({
-    required List<String> letters,
-    required String mandatory,
-    required List<String> hidden,
-    required List<String> visible,
-  })  : _letters = letters,
-        _mandatory = mandatory,
-        _hidden = hidden,
-        _visible = visible;
+class Game {
+  Game({
+    required this.mandatory,
+    required this.letters,
+    required this.hidden,
+    required this.visible,
+  });
 
-  factory GameController.init() {
-    final (letters, words, mandatory) = _generateGame();
-    return GameController._(
-      letters: letters,
-      mandatory: mandatory,
-      hidden: words,
-      visible: [],
-    );
+  final String mandatory;
+  final List<String> letters;
+  final List<String> hidden;
+  final List<String> visible;
+
+  List<String> get allWords {
+    final w = [...hidden, ...visible];
+    w.sort((a, b) => a.length.compareTo(b.length));
+    return w;
   }
+}
+
+class GameController {
+  GameController([this._game]);
 
   /// Minimum number of words a game must have
   static const minimumWordCount = 50;
@@ -39,32 +42,87 @@ class GameController {
   /// Maximum word length permited in a game
   static const maximumWordLength = 8;
 
+  /// Number of letters that a player have to compose words.
+  /// One of these letters is [mandatory]
+  static const numberOfLetters = 7;
+
   final events = StreamController<Event>.broadcast();
   bool _showAllWords = false;
-  List<String> _letters = [];
-  List<String> _hidden = [];
-  List<String> _visible = [];
-  String _mandatory = '';
   String _inputWord = '';
+  Game? _game;
 
-  List<String> get letters => _letters;
-  List<String> get hidden => _hidden;
-  List<String> get visible => _visible;
-  String get mandatory => _mandatory;
+  Game? get game => _game;
+  Stream<Event> get stream => events.stream;
 
-  List<String> get allWords {
-    final w = [...hidden, ...visible];
-    _groupByLength(w);
-    return w;
+  void _emitEvent(Event event) {
+    if (kDebugMode) print(event);
+    events.add(event);
+  }
+
+  void newGame() {
+    // if (kDebugMode) debugPrint('Generating a new game');
+    _emitEvent(Generating());
+    final (letters, words, mandatory) = _generateGame();
+    assert(letters.length >= numberOfLetters - 1);
+    assert(words.length >= minimumWordCount);
+    assert(mandatory.length == 1);
+
+    _game = Game(
+      mandatory: mandatory,
+      letters: letters,
+      hidden: words,
+      visible: [],
+    );
+    _emitEvent(Generated(_game!));
+    unawaited(saveGame());
+  }
+
+  /// Create a instance of [GameController] from a previouly saved game
+  Future<void> loadGame() async {
+    // if (kDebugMode) debugPrint('Start loading game');
+    _emitEvent(Loading());
+    final (hidden, visible, letters, mandatory) = await SharedPrefs.loadGame();
+    if (hidden.isEmpty ||
+        visible.isEmpty ||
+        letters.isEmpty ||
+        mandatory.length != 1) {
+      _emitEvent(NoGameToLoad());
+      return;
+    }
+
+    assert(hidden.isNotEmpty || visible.isNotEmpty);
+    assert(hidden.length + visible.length >= minimumWordCount);
+
+    _game = Game(
+      mandatory: mandatory,
+      letters: letters,
+      hidden: hidden,
+      visible: visible,
+    );
+    _emitEvent(Loaded(_game!));
+  }
+
+  Future<void> saveGame() async {
+    // if (kDebugMode) debugPrint('Saving game');
+    if (_game == null) {
+      // debugPrint('No game to save');
+      return;
+    }
+    await SharedPrefs.saveGame(
+      hidden: _game!.hidden,
+      visible: _game!.visible,
+      letters: _game!.letters,
+      mandatory: _game!.mandatory,
+    );
   }
 
   void switchWordsVisibility() {
     _showAllWords = !_showAllWords;
-    events.add(SwitchWordsVisibility(_showAllWords));
+    _emitEvent(SwitchWordsVisibility(_showAllWords));
   }
 
   static List<String> _sortLetters() {
-    const numberOfLetters = 7;
+    // if (kDebugMode) debugPrint('Sorting letters');
     final letters = <String>[];
 
     for (var i = 1; i <= numberOfLetters; i++) {
@@ -96,12 +154,14 @@ class GameController {
   /// We call [allowedLetters] the ones that were selected in this game.
   /// We call [deniedLetters] all the remaining ones in the alphabet.
   static List<String> _getDeniedLetters(List<String> allowedLetters) {
+    // if (kDebugMode) debugPrint('Calculating denied letters');
     final alphabet = {...consonants, ...vowels};
     final deniedLetters = alphabet.difference(allowedLetters.toSet());
     return deniedLetters.toList();
   }
 
   static List<String> _getWords(List<String> deniedLetters, String mandatory) {
+    // if (kDebugMode) debugPrint('Calculating words');
     final words = <String>[];
     for (var i = 0; i < dicio.length; i++) {
       final word = dicio[i];
@@ -121,9 +181,10 @@ class GameController {
     return words;
   }
 
-  bool isVisible(String word) => visible.contains(word);
+  bool isVisible(String word) => _game != null && _game!.visible.contains(word);
 
-  static void _groupByLength(List<String> list) {
+  static void groupByLength(List<String> list) {
+    // if (kDebugMode) debugPrint('Grouping words by length');
     assert(list.isNotEmpty);
     assert(list.length >= minimumWordCount);
     list.sort((a, b) => a.compareTo(b));
@@ -149,15 +210,16 @@ class GameController {
   }
 
   static (List<String>, List<String>, String) _generateGame([int tries = 0]) {
+    // if (kDebugMode) debugPrint('Generating game');
     tries++;
-    if (kDebugMode) debugPrint('Trying to generate game ($tries) times');
+    // if (kDebugMode) debugPrint('Trying to generate game ($tries) times');
     final letters = _sortLetters();
     final mandatory = letters.first;
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
     if (words.length < minimumWordCount) return _generateGame(tries);
     if (kDebugMode) debugPrint(words.toString());
-    _groupByLength(words);
+    groupByLength(words);
     assert(words.length >= 10);
     assert(mandatory.length == 1);
     assert(letters.length == 7);
@@ -165,35 +227,48 @@ class GameController {
   }
 
   void restart() {
+    // if (kDebugMode) debugPrint('Restarting game');
     final (letters, words, mandatory) = _generateGame();
-    assert(words.toSet().difference({..._hidden, ..._visible}).isNotEmpty);
-    assert(letters.toSet().difference(_letters.toSet()).isNotEmpty);
-    _letters = letters;
-    _hidden = words;
-    _visible = [];
-    _mandatory = mandatory;
+    if (_game != null) {
+      assert(
+        words
+            .toSet()
+            .difference({..._game!.hidden, ..._game!.visible}).isNotEmpty,
+      );
+      assert(letters.toSet().difference(_game!.letters.toSet()).isNotEmpty);
+    }
+    _game = Game(
+      mandatory: mandatory,
+      letters: letters,
+      hidden: words,
+      visible: [],
+    );
     clearInputWord();
   }
 
-  void shuffle() => _letters.shuffle();
+  void shuffle() {
+    // if (kDebugMode) debugPrint('Shuffleing letters');
+    _game?.letters.shuffle();
+    _emitEvent(Shuffled());
+  }
 
   void addLetter(String letter) {
     assert(letter.length == 1);
 
     if (letter.isEmpty) return;
     _inputWord += letter;
-    events.add(AddLetter(_inputWord));
+    _emitEvent(AddLetter(_inputWord));
   }
 
   void deleteLetter() {
     if (_inputWord.isEmpty) return;
     _inputWord = _inputWord.substring(0, _inputWord.length - 1);
-    events.add(DeleteLetter(_inputWord));
+    _emitEvent(DeleteLetter(_inputWord));
   }
 
   void clearInputWord() {
     _inputWord = '';
-    events.add(ClearLetters());
+    _emitEvent(ClearLetters());
   }
 
   /// Check if a word exists in [hidden] list and emmits a [Event]
@@ -204,25 +279,29 @@ class GameController {
   ///
   /// When the word does not exists, it will emit a [Miss] event.
   void checkInput() async {
-    if (_inputWord.isEmpty) return events.add(Empty());
+    if (_game == null) return _emitEvent(NoGameAvailable());
+    if (_inputWord.isEmpty) return _emitEvent(Empty());
 
-    final indexOf = allWords.indexOf(_inputWord);
+    final indexOf = _game!.allWords.indexOf(_inputWord);
     if (indexOf == -1) {
       clearInputWord();
-      return events.add(Miss());
+      return _emitEvent(Miss());
     }
 
-    assert(hidden.isNotEmpty);
-    hidden.remove(_inputWord);
-    if (!visible.contains(_inputWord)) visible.add(_inputWord);
+    // if new word was found, save the game
+    unawaited(saveGame());
+
+    assert(_game!.hidden.isNotEmpty);
+    _game!.hidden.remove(_inputWord);
+    if (!_game!.visible.contains(_inputWord)) _game!.visible.add(_inputWord);
 
     const cardHeight = WordCard.height + WordCard.verticalPadding;
     final offset = cardHeight * (indexOf / 3).floorToDouble();
-    events.add(GoToCard(offset));
+    _emitEvent(GoToCard(offset));
     // wait for scroll animation to finish
     await Future.delayed(const Duration(milliseconds: 100));
 
-    events.add(Found(_inputWord));
+    _emitEvent(Found(_inputWord));
 
     // wait for card splash animation to finish to signal the clearInputWord
     await Future.delayed(const Duration(seconds: 1), () {

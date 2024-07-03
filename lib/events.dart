@@ -51,4 +51,14 @@ class Loaded extends Event {
   final Game game;
 }
 
+class Generating extends Loading {}
+
+class Generated extends Loaded {
+  Generated(super.game);
+}
+
 class NoGameToLoad extends Event {}
+
+class Shuffled extends Event {}
+
+class NoGameAvailable extends Event {}
