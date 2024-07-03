@@ -29,16 +29,16 @@ class _InputWordState extends State<InputWord> {
         switch (event) {
           case Found():
             word = event.word;
-            break;
           case AddLetter():
             word = event.word;
-            break;
           case DeleteLetter():
             word = event.word;
-            break;
           default:
             word = '';
         }
+
+        final game = widget.controller.game;
+        if (game == null) return const CircularProgressIndicator();
 
         final foundStyle = TextStyle(
           fontSize: 40,
@@ -59,7 +59,7 @@ class _InputWordState extends State<InputWord> {
           final defaultStyle = TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w300,
-            color: letter == widget.controller.mandatory
+            color: letter == game.mandatory
                 ? colors.primary
                 : colors.onSecondaryContainer,
           );

@@ -13,6 +13,7 @@ class MainPage extends StatefulWidget {
     super.key,
     required this.controller,
   });
+
   final GameController controller;
 
   @override
@@ -28,12 +29,15 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    super.initState();
+    if (controller.game == null) controller.loadGame();
 
     controller.events.stream.listen((event) {
       _showSnackbarOnEvent(event);
       _scrollToCard(event);
+      _showSplashOnLoading(event);
     });
+
+    super.initState();
   }
 
   @override
@@ -129,7 +133,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     final content = switch (event) {
-      Miss() => 'Essa palavra, não está na lista, tente outra!',
+      Miss() => 'Essa palavra não está na lista, tente outra!',
       Empty() => 'Utilize as letras para escrever uma palavra!',
       _ => null
     };
@@ -158,5 +162,9 @@ class _MainPageState extends State<MainPage> {
       duration: const Duration(milliseconds: 100),
       curve: Curves.linear,
     );
+  }
+
+  void _showSplashOnLoading(Event event) {
+    if (event is Loading) Navigator.of(context).pushNamed('/splash');
   }
 }

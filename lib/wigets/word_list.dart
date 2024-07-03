@@ -18,22 +18,25 @@ class WordList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Object>(
-      stream: controller.events.stream,
+      stream: controller.stream,
       builder: (context, snapshot) {
         final event = snapshot.data;
         final showAllWords = event is SwitchWordsVisibility && event.show;
 
+        final game = controller.game;
+        if (game == null) return const CircularProgressIndicator();
+
         final rows = <Widget>[];
         List<Widget> cards = [];
-        for (var i = 0; i < controller.allWords.length; i++) {
-          final word = controller.allWords[i];
+        for (var i = 0; i < game.allWords.length; i++) {
+          final word = game.allWords[i];
           if (i % 3 != 0) {
             cards.add(
               WordCard(
                 word: word,
                 visible: showAllWords || controller.isVisible(word),
                 size: size,
-                stream: controller.events.stream,
+                stream: controller.stream,
               ),
             );
             continue;
@@ -52,7 +55,7 @@ class WordList extends StatelessWidget {
               word: word,
               visible: showAllWords || controller.isVisible(word),
               size: size,
-              stream: controller.events.stream,
+              stream: controller.stream,
             ),
           );
         }
