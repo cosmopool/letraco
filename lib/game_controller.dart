@@ -185,29 +185,32 @@ class GameController {
 
   bool isVisible(String word) => _game != null && _game!.visible.contains(word);
 
+  /// Divide [list] into sub-lists of equal length and sort them alphabetically
   static void groupByLength(List<String> list) {
-    // if (kDebugMode) debugPrint('Grouping words by length');
     assert(list.isNotEmpty);
     assert(list.length >= minimumWordCount);
-    list.sort((a, b) => a.compareTo(b));
 
+    // group words by length
     Map<int, List<String>> map = {};
-    final res = <String>[];
     for (var word in list) {
       final key = word.length;
       if (!map.containsKey(key)) map[key] = <String>[];
       map[key]!.add(word);
     }
 
+    // sort each word group alphabetically
+    map.forEach((_, list) => list.sort((a, b) => a.compareTo(b)));
+
+    // sort length groups in ascending order
     final keys = map.keys.toList();
     keys.sort((a, b) => a.compareTo(b));
 
-    for (var key in keys) {
-      res.addAll(map[key]!);
-    }
+    // cleaning list
+    list.removeRange(0, list.length - 1);
 
-    for (var i = 0; i < list.length; i++) {
-      list[i] = res[i];
+    // writing the final sorted words in list
+    for (var key in keys) {
+      list.addAll(map[key]!);
     }
   }
 
