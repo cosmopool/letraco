@@ -62,3 +62,9 @@ class NoGameToLoad extends Event {}
 class Shuffled extends Event {}
 
 class NoGameAvailable extends Event {}
+
+class Saving extends Event {}
+
+class Saved extends Event {}
+
+class ErrorSaving extends Event {}

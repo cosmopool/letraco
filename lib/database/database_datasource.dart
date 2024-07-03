@@ -28,7 +28,7 @@ class SharedPrefs {
     return (hidden, visible, letters, mandatory);
   }
 
-  static Future<void> saveGame({
+  static Future<bool> saveGame({
     required List<String> hidden,
     required List<String> visible,
     required List<String> letters,
@@ -40,9 +40,10 @@ class SharedPrefs {
     assert(hidden.length + visible.length >= GameController.minimumWordCount);
 
     final instance = await getInstance();
-    await instance.setStringList(kHidden, hidden);
-    await instance.setStringList(kVisible, visible);
-    await instance.setStringList(kLetters, letters);
-    await instance.setString(kMandatory, mandatory);
+    final hiddenSaved = await instance.setStringList(kHidden, hidden);
+    final visibleSaved = await instance.setStringList(kVisible, visible);
+    final lettersSaved = await instance.setStringList(kLetters, letters);
+    final mandatorySaved = await instance.setString(kMandatory, mandatory);
+    return hiddenSaved && visibleSaved && lettersSaved && mandatorySaved;
   }
 }

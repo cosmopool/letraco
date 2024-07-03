@@ -73,8 +73,8 @@ class GameController {
       hidden: words,
       visible: [],
     );
+    saveGame();
     _emitEvent(Generated(_game!));
-    unawaited(saveGame());
   }
 
   /// Create a instance of [GameController] from a previouly saved game
@@ -103,17 +103,19 @@ class GameController {
   }
 
   Future<void> saveGame() async {
-    // if (kDebugMode) debugPrint('Saving game');
     if (_game == null) {
-      // debugPrint('No game to save');
+      debugPrint('No game to save');
       return;
     }
-    await SharedPrefs.saveGame(
+    _emitEvent(Saving());
+    final saved = await SharedPrefs.saveGame(
       hidden: _game!.hidden,
       visible: _game!.visible,
       letters: _game!.letters,
       mandatory: _game!.mandatory,
     );
+    if (saved) return _emitEvent(Saved());
+    _emitEvent(ErrorSaving());
   }
 
   void switchWordsVisibility() {
@@ -243,6 +245,7 @@ class GameController {
       hidden: words,
       visible: [],
     );
+    saveGame();
     clearInputWord();
   }
 
