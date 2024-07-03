@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:letraco/game_controller.dart';
 import 'package:letraco/wigets/circle.dart';
 
-class LettersCircles extends StatelessWidget {
+class LettersCircles extends StatefulWidget {
   const LettersCircles({
     super.key,
     required this.size,
@@ -18,40 +18,63 @@ class LettersCircles extends StatelessWidget {
   final GameController controller;
 
   @override
+  State<LettersCircles> createState() => _LettersCirclesState();
+}
+
+class _LettersCirclesState extends State<LettersCircles> {
+  // subtract the mandatory letter
+  static const numberOfLetters = GameController.numberOfLetters - 1;
+  static const divisionAngle = 360 / numberOfLetters;
+
+  late final controller = widget.controller;
+
+  @override
   Widget build(BuildContext context) {
-    final halfWidth = size.width * .5 - circleSize * .5;
-    const height = circleSize * .8 + 20;
+    return StreamBuilder<Object>(
+      stream: controller.stream,
+      builder: (context, snapshot) {
+        final game = controller.game;
+        if (game == null) return const CircularProgressIndicator();
 
-    final letters = <Widget>[];
-    final mainLetterCircle = Circle(
-      x: height,
-      y: halfWidth,
-      letter: controller.mandatory,
-      isMainButton: true,
-      controller: controller,
-    );
+        final halfWidth =
+            widget.size.width * .5 - LettersCircles.circleSize * .5;
+        const height = LettersCircles.circleSize * .8 + 20;
 
-    final numberOfLetters = controller.letters.length;
-    final divisionAngle = 360 / numberOfLetters;
-    for (var i = 0; i < numberOfLetters; i++) {
-      final rad = i * divisionAngle * (math.pi / 180);
-      final widget = Circle(
-        x: math.sin(rad) * (circleSize + circleMargin) + height,
-        y: math.cos(rad) * (circleSize + circleMargin) + halfWidth,
-        letter: controller.letters[i],
-        controller: controller,
-      );
-      letters.add(widget);
-    }
-    return SizedBox(
-      height: size.height * .3,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          mainLetterCircle,
-          ...letters,
-        ],
-      ),
+        final letters = <Widget>[];
+        final mainLetterCircle = Circle(
+          x: height,
+          y: halfWidth,
+          letter: game.mandatory,
+          isMainButton: true,
+          controller: controller,
+        );
+
+        for (var i = 0; i < numberOfLetters; i++) {
+          final rad = i * divisionAngle * (math.pi / 180);
+          final circle = Circle(
+            x: math.sin(rad) *
+                    (LettersCircles.circleSize + LettersCircles.circleMargin) +
+                height,
+            y: math.cos(rad) *
+                    (LettersCircles.circleSize + LettersCircles.circleMargin) +
+                halfWidth,
+            letter: game.letters[i],
+            controller: controller,
+          );
+          letters.add(circle);
+        }
+
+        return SizedBox(
+          height: widget.size.height * .3,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              mainLetterCircle,
+              ...letters,
+            ],
+          ),
+        );
+      },
     );
   }
 }

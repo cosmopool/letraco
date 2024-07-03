@@ -16,14 +16,19 @@ class ProgressBar extends StatefulWidget {
 }
 
 class _ProgressBarState extends State<ProgressBar> {
+  late final controller = widget.controller;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Object>(
       stream: widget.controller.events.stream,
       builder: (context, snapshot) {
+        final game = controller.game;
+        if (game == null) return const CircularProgressIndicator();
+
         final colors = Theme.of(context).colorScheme;
-        final allWords = widget.controller.allWords.length;
-        final visible = widget.controller.visible.length;
+        final allWords = game.allWords.length;
+        final visible = game.visible.length;
         const vertical = 5.0;
         const horizontal = 24.0;
         const indicatorWidth = 30.0;
