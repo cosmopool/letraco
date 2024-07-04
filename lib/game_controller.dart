@@ -185,8 +185,8 @@ class GameController {
 
   bool isVisible(String word) => _game != null && _game!.visible.contains(word);
 
-  /// Divide [list] into sub-lists of equal length and sort them alphabetically
-  static void groupByLength(List<String> list) {
+  /// Divide [list] into chunks of equal length and sort them alphabetically
+  static void groupByLengthAndSortAlphabetically(List<String> list) {
     assert(list.isNotEmpty);
     assert(list.length >= minimumWordCount);
 
@@ -223,7 +223,7 @@ class GameController {
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
     if (words.length < minimumWordCount) return _generateGame(tries);
-    groupByLength(words);
+    groupByLengthAndSortAlphabetically(words);
     if (kDebugMode) debugPrint(words.toString());
     assert(words.length >= 10);
     assert(mandatory.length == 1);
