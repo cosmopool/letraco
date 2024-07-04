@@ -23,44 +23,36 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  static const firstSectionMin = 0.0;
-  static const firstSectionMax = 100.0;
   static const dotSize = 55.56;
   static const logoSize = 100;
   static const verticalWidth = 38.0;
   static const spaceBetween = logoSize - verticalWidth - dotSize;
 
+  bool _showProgressIndicator = false;
+
   final init = DateTime.now();
   int get timePassed => DateTime.now().difference(init).inSeconds;
 
   // animation
-  late final _startController = AnimationController(
+  late final _animationController = AnimationController(
     vsync: this,
-    duration: const Duration(seconds: 1),
+    duration: const Duration(milliseconds: 800),
   );
-  late final _startAnimation = Tween<double>(
-    begin: firstSectionMin,
-    end: firstSectionMax,
-  ).animate(
-    CurvedAnimation(
-      parent: _startController,
-      curve: Curves.elasticOut,
-    ),
+
+  late final _animation = CurvedAnimation(
+    parent: _animationController,
+    curve: Curves.easeOutSine,
   );
 
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    _startController.addListener(() {
-      setState(() {});
-    });
-
     widget.controller.events.stream.listen((event) {
       _dismissSplashWhenGameIsLoaded(event);
     });
 
-    _startController.forward();
+    _playAnimation();
     super.initState();
   }
 
@@ -70,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
       SystemUiMode.manual,
       overlays: SystemUiOverlay.values,
     );
-    _startController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -97,55 +89,64 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    final dot = Positioned(
-      left: normalize(
-        _startAnimation.value,
-        0,
-        firstSectionMax,
-        (centerWidth + halfLogoSize - dotSize),
-      ),
-      bottom: centerHeight - (dotSize / 2) + spaceBetween,
-      child: Container(
-        height: dotSize,
-        width: dotSize,
-        decoration: BoxDecoration(
-          color: colors.primary,
-          borderRadius: BorderRadius.circular(dotSize / 2),
-        ),
-      ),
-    );
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, _) {
+        if (!_showProgressIndicator &&
+            _animationController.status == AnimationStatus.completed) {
+          _showProgressIndicator = true;
+        }
+        final value = _animation.value;
 
-    final lColor = colors.secondary;
-    final vertical = Positioned(
-      left: centerWidth - halfLogoSize,
-      bottom: centerHeight - halfLogoSize,
-      child: Container(
-        width: verticalWidth,
-        height: _startAnimation.value,
-        color: lColor,
-      ),
-    );
+        final dot = Positioned(
+          left: -dotSize,
+          bottom: centerHeight - (dotSize / 2) + spaceBetween,
+          child: Transform(
+            transform: Matrix4.identity()
+              ..translate((centerWidth + halfLogoSize) * value),
+            child: Container(
+              height: dotSize,
+              width: dotSize,
+              decoration: BoxDecoration(
+                color: colors.primary,
+                borderRadius: BorderRadius.circular(dotSize / 2),
+              ),
+            ),
+          ),
+        );
 
-    final hPos = _startAnimation.value / firstSectionMax * 72.22;
-    final horizontal = Positioned(
-      left: centerWidth - halfLogoSize,
-      bottom: centerHeight - halfLogoSize,
-      child: Container(
-        width: hPos,
-        height: 22,
-        color: lColor,
-      ),
-    );
+        final lColor = colors.secondary;
+        final vertical = Positioned(
+          left: centerWidth - halfLogoSize,
+          bottom: centerHeight - halfLogoSize,
+          child: Container(
+            width: verticalWidth,
+            height: value * 100,
+            color: lColor,
+          ),
+        );
 
-    return Stack(
-      children: [
-        bg,
-        dot,
-        vertical,
-        horizontal,
-        if (_startController.status == AnimationStatus.completed)
-          progressIndicator,
-      ],
+        final horizontal = Positioned(
+          left: centerWidth - halfLogoSize,
+          bottom: centerHeight - halfLogoSize,
+          child: Container(
+            // width: hPos,
+            width: value * 72.22,
+            height: 22,
+            color: lColor,
+          ),
+        );
+
+        return Stack(
+          children: [
+            bg,
+            dot,
+            vertical,
+            horizontal,
+            if (_showProgressIndicator) progressIndicator,
+          ],
+        );
+      },
     );
   }
 
@@ -168,6 +169,11 @@ class _SplashScreenState extends State<SplashScreen>
     unawaited(
       Navigator.of(context).pushReplacementNamed('/', arguments: event.game),
     );
+  }
+
+  Future<void> _playAnimation() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (mounted) await _animationController.forward();
   }
 }
 
