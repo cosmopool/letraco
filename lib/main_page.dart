@@ -161,7 +161,7 @@ class _MainPageState extends State<MainPage> {
     scrollController.animateTo(
       event.offset,
       duration: const Duration(milliseconds: 100),
-      curve: Curves.linear,
+      curve: Curves.easeOut,
     );
   }
 
