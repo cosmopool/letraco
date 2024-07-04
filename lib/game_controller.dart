@@ -185,32 +185,28 @@ class GameController {
 
   bool isVisible(String word) => _game != null && _game!.visible.contains(word);
 
+  /// Compare if [String] [a] is shorter OR alphabetically ordered before [b]
+  static bool _isOrderedBefore(String a, String b) {
+    if (a.length < b.length) return true;
+    final isBefore = a.compareTo(b) < 0;
+    return isBefore;
+  }
+
+  /// Group by length and sort [list] alphabetically
   /// Divide [list] into chunks of equal length and sort them alphabetically
-  static void groupByLengthAndSortAlphabetically(List<String> list) {
+  /// This implementation use insertion sort algorithm
+  static void sortWords(List<String> list) {
     assert(list.isNotEmpty);
     assert(list.length >= minimumWordCount);
 
-    // group words by length
-    Map<int, List<String>> map = {};
-    for (var word in list) {
-      final key = word.length;
-      if (!map.containsKey(key)) map[key] = <String>[];
-      map[key]!.add(word);
-    }
-
-    // sort each word group alphabetically
-    map.forEach((_, list) => list.sort((a, b) => a.compareTo(b)));
-
-    // sort length groups in ascending order
-    final keys = map.keys.toList();
-    keys.sort((a, b) => a.compareTo(b));
-
-    // cleaning list
-    list.removeRange(0, list.length - 1);
-
-    // writing the final sorted words in list
-    for (var key in keys) {
-      list.addAll(map[key]!);
+    for (var idx = 1; idx < list.length; idx++) {
+      final word = list[idx];
+      var prevIdx = idx - 1;
+      while (prevIdx >= 0 && _isOrderedBefore(word, list[prevIdx])) {
+        list[prevIdx + 1] = list[prevIdx];
+        prevIdx = prevIdx - 1;
+        list[prevIdx + 1] = word;
+      }
     }
   }
 
@@ -223,7 +219,7 @@ class GameController {
     final denied = _getDeniedLetters(letters);
     final words = _getWords(denied, mandatory);
     if (words.length < minimumWordCount) return _generateGame(tries);
-    groupByLengthAndSortAlphabetically(words);
+    sortWords(words);
     if (kDebugMode) debugPrint(words.toString());
     assert(words.length >= 10);
     assert(mandatory.length == 1);
