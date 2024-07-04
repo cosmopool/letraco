@@ -16,18 +16,13 @@ class Game {
     required this.letters,
     required this.hidden,
     required this.visible,
-  });
+  }) : allWords = hidden.toList(growable: false);
 
   final String mandatory;
   final List<String> letters;
+  final List<String> allWords;
   final List<String> hidden;
   final List<String> visible;
-
-  List<String> get allWords {
-    final w = [...hidden, ...visible];
-    w.sort((a, b) => a.length.compareTo(b.length));
-    return w;
-  }
 }
 
 class GameController {
