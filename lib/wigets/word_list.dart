@@ -20,11 +20,9 @@ class WordList extends StatelessWidget {
     return StreamBuilder<Object>(
       stream: controller.stream,
       builder: (context, snapshot) {
-        final event = snapshot.data;
-        final showAllWords = event is SwitchWordsVisibility && event.show;
-
         final game = controller.game;
         if (game == null) return const CircularProgressIndicator();
+        final showAllWords = game.showAllWords;
 
         final rows = <Widget>[];
         List<Widget> cards = [];

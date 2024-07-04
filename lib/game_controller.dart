@@ -23,6 +23,7 @@ class Game {
   final List<String> allWords;
   final List<String> hidden;
   final List<String> visible;
+  bool showAllWords = false;
 }
 
 class GameController {
@@ -42,7 +43,6 @@ class GameController {
   static const numberOfLetters = 7;
 
   final events = StreamController<Event>.broadcast();
-  bool _showAllWords = false;
   String _inputWord = '';
   Game? _game;
 
@@ -114,8 +114,9 @@ class GameController {
   }
 
   void switchWordsVisibility() {
-    _showAllWords = !_showAllWords;
-    _emitEvent(SwitchWordsVisibility(_showAllWords));
+    if (game == null) return;
+    _game!.showAllWords = !_game!.showAllWords;
+    _emitEvent(SwitchWordsVisibility(_game!.showAllWords));
   }
 
   static List<String> _sortLetters() {
