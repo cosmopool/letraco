@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
+import 'package:letraco/core/extensions.dart';
 import 'package:letraco/database/database_datasource.dart';
 import 'package:letraco/events.dart';
 import 'package:letraco/wigets/word_card.dart';
@@ -183,7 +184,9 @@ class GameController {
 
   /// Compare if [String] [a] is shorter OR alphabetically ordered before [b]
   static bool _isOrderedBefore(String a, String b) {
+    if (a.length > b.length) return false;
     if (a.length < b.length) return true;
+    // only compare alphbetically if words have same length
     final isBefore = a.compareTo(b) < 0;
     return isBefore;
   }
@@ -193,7 +196,6 @@ class GameController {
   /// This implementation use insertion sort algorithm
   static void sortWords(List<String> list) {
     assert(list.isNotEmpty);
-    assert(list.length >= minimumWordCount);
 
     for (var idx = 1; idx < list.length; idx++) {
       final word = list[idx];
