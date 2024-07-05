@@ -16,7 +16,7 @@ class Game {
     required this.letters,
     required this.hidden,
     required this.visible,
-  }) : allWords = hidden.toList(growable: false);
+  }) : allWords = [...hidden, ...visible]..sortWords();
 
   final String mandatory;
   final List<String> letters;
