@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letraco/events.dart';
+import 'package:letraco/game_controller.dart';
 
 class WordCard extends StatefulWidget {
   const WordCard({
@@ -7,13 +8,13 @@ class WordCard extends StatefulWidget {
     required this.size,
     required this.visible,
     required this.word,
-    required this.stream,
+    required this.controller,
   });
 
   final Size size;
   final bool visible;
   final String word;
-  final Stream<Event> stream;
+  final GameController controller;
 
   static const width = 120.0;
   static const height = 40.0;
@@ -57,7 +58,7 @@ class _WordCardState extends State<WordCard> {
     );
 
     return StreamBuilder<Event>(
-      stream: widget.stream,
+      stream: widget.controller.stream,
       builder: (context, snapshot) {
         final event = snapshot.data;
         if (event is! Found) return card;
@@ -67,6 +68,7 @@ class _WordCardState extends State<WordCard> {
           tween: Tween(begin: 0, end: WordCard.width),
           duration: const Duration(seconds: 1),
           curve: Curves.easeInOutCirc,
+          onEnd: widget.controller.finishedHighlightCardAnimation,
           builder: (context, animationValue, _) {
             final splash = Padding(
               padding: paddingBetweenCards,

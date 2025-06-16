@@ -155,14 +155,15 @@ class _MainPageState extends State<MainPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
-  void _scrollToCard(Event event) {
+  void _scrollToCard(Event event) async {
     if (event is! GoToCard) return;
 
-    scrollController.animateTo(
+    await scrollController.animateTo(
       event.offset,
       duration: const Duration(milliseconds: 100),
       curve: Curves.easeOut,
     );
+    controller.finishedScrollingToCard();
   }
 
   void _showSplashOnLoading(Event event) {

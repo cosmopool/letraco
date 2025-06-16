@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:letraco/events.dart';
 import 'package:letraco/game_controller.dart';
 import 'package:letraco/wigets/word_card.dart';
 
@@ -34,7 +33,7 @@ class WordList extends StatelessWidget {
                 word: word,
                 visible: showAllWords || controller.isVisible(word),
                 size: size,
-                stream: controller.stream,
+                controller: controller,
               ),
             );
             continue;
@@ -53,7 +52,7 @@ class WordList extends StatelessWidget {
               word: word,
               visible: showAllWords || controller.isVisible(word),
               size: size,
-              stream: controller.stream,
+              controller: controller,
             ),
           );
         }

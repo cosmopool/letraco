@@ -298,16 +298,13 @@ class GameController {
     const cardHeight = WordCard.height + WordCard.verticalPadding;
     final offset = cardHeight * (indexOf / 3).floorToDouble();
     _emitEvent(GoToCard(offset));
-    // TODO: use events to trigger actions (future.delayed is BAD BAD)
-    // wait for scroll animation to finish
-    await Future.delayed(const Duration(milliseconds: 100));
+  }
 
+  void finishedScrollingToCard() {
     _emitEvent(Found(_inputWord));
+  }
 
-    // TODO: use events to trigger actions (future.delayed is BAD BAD)
-    // wait for card splash animation to finish to signal the clearInputWord
-    await Future.delayed(const Duration(seconds: 1), () {
-      clearInputWord();
-    });
+  void finishedHighlightCardAnimation() {
+    clearInputWord();
   }
 }
