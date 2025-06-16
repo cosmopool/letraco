@@ -18,7 +18,8 @@ class Found extends Event {
 }
 
 class DeleteLetter extends Event {
-  DeleteLetter(this.word);
+  DeleteLetter(this.word)
+      : assert(word.length >= GameController.minimumWordLength);
 
   final String word;
 }
@@ -38,7 +39,7 @@ class SwitchWordsVisibility extends Event {
 }
 
 class GoToCard extends Event {
-  GoToCard(this.offset);
+  GoToCard(this.offset) : assert(offset > 0);
 
   final double offset;
 }
