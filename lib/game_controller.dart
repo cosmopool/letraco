@@ -56,7 +56,7 @@ class GameController {
   }
 
   void newGame() {
-    // if (kDebugMode) debugPrint('Generating a new game');
+    if (kDebugMode) debugPrint('Generating a new game');
     _emitEvent(Generating());
     final (letters, words, mandatory) = _generateGame();
     assert(letters.length >= numberOfLetters - 1);
@@ -75,7 +75,7 @@ class GameController {
 
   /// Create a instance of [GameController] from a previouly saved game
   Future<void> loadGame() async {
-    // if (kDebugMode) debugPrint('Start loading game');
+    if (kDebugMode) debugPrint('Start loading game');
     _emitEvent(Loading());
     final (hidden, visible, letters, mandatory) = await SharedPrefs.loadGame();
     if (hidden.isEmpty ||
@@ -100,7 +100,7 @@ class GameController {
 
   Future<void> saveGame() async {
     if (_game == null) {
-      debugPrint('No game to save');
+      if (kDebugMode) debugPrint('No game to save');
       return;
     }
     _emitEvent(Saving());
@@ -121,7 +121,7 @@ class GameController {
   }
 
   static List<String> _sortLetters() {
-    // if (kDebugMode) debugPrint('Sorting letters');
+    if (kDebugMode) debugPrint('Sorting letters');
     final letters = <String>[];
 
     for (var i = 1; i <= numberOfLetters; i++) {
@@ -153,14 +153,14 @@ class GameController {
   /// We call [allowedLetters] the ones that were selected in this game.
   /// We call [deniedLetters] all the remaining ones in the alphabet.
   static List<String> _getDeniedLetters(List<String> allowedLetters) {
-    // if (kDebugMode) debugPrint('Calculating denied letters');
+    if (kDebugMode) debugPrint('Calculating denied letters');
     final alphabet = {...consonants, ...vowels};
     final deniedLetters = alphabet.difference(allowedLetters.toSet());
     return deniedLetters.toList();
   }
 
   static List<String> _getWords(List<String> deniedLetters, String mandatory) {
-    // if (kDebugMode) debugPrint('Calculating words');
+    if (kDebugMode) debugPrint('Calculating words');
     final words = <String>[];
     for (var i = 0; i < dicio.length; i++) {
       final word = dicio[i];
@@ -209,9 +209,9 @@ class GameController {
   }
 
   static (List<String>, List<String>, String) _generateGame([int tries = 0]) {
-    // if (kDebugMode) debugPrint('Generating game');
+    if (kDebugMode) debugPrint('Generating game');
     tries++;
-    // if (kDebugMode) debugPrint('Trying to generate game ($tries) times');
+    if (kDebugMode) debugPrint('Trying to generate game ($tries) times');
     final letters = _sortLetters();
     final mandatory = letters.first;
     final denied = _getDeniedLetters(letters);
@@ -226,7 +226,7 @@ class GameController {
   }
 
   void restart() {
-    // if (kDebugMode) debugPrint('Restarting game');
+    if (kDebugMode) debugPrint('Restarting game');
     final (letters, words, mandatory) = _generateGame();
     if (_game != null) {
       assert(
@@ -247,7 +247,7 @@ class GameController {
   }
 
   void shuffle() {
-    // if (kDebugMode) debugPrint('Shuffleing letters');
+    if (kDebugMode) debugPrint('Shuffleing letters');
     _game?.letters.shuffle();
     _emitEvent(Shuffled());
   }
