@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:letraco/game_controller.dart';
-import 'package:letraco/wigets/circle.dart';
+import 'package:letraco/wigets/letter_circle.dart';
 
 class LettersCircles extends StatefulWidget {
   const LettersCircles({
