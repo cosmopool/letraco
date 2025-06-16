@@ -41,7 +41,7 @@ class _LettersCirclesState extends State<LettersCircles> {
         const height = LettersCircles.circleSize * .8 + 20;
 
         final letters = <Widget>[];
-        final mainLetterCircle = Circle(
+        final mainLetterCircle = LetterCircle(
           x: height,
           y: halfWidth,
           letter: game.mandatory,
@@ -51,7 +51,7 @@ class _LettersCirclesState extends State<LettersCircles> {
 
         for (var i = 0; i < numberOfLetters; i++) {
           final rad = i * divisionAngle * (math.pi / 180);
-          final circle = Circle(
+          final circle = LetterCircle(
             x: math.sin(rad) *
                     (LettersCircles.circleSize + LettersCircles.circleMargin) +
                 height,

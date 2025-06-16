@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:letraco/game_controller.dart';
 
-class Circle extends StatelessWidget {
-  const Circle({
+class LetterCircle extends StatelessWidget {
+  const LetterCircle({
     super.key,
     required this.letter,
     required this.x,
