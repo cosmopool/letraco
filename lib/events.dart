@@ -18,8 +18,7 @@ class Found extends Event {
 }
 
 class DeleteLetter extends Event {
-  DeleteLetter(this.word)
-      : assert(word.length >= GameController.minimumWordLength);
+  DeleteLetter(this.word);
 
   final String word;
 }
