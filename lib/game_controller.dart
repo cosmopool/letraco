@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
-import 'package:letraco/core/extensions.dart';
 import 'package:letraco/database/database_datasource.dart';
 import 'package:letraco/events.dart';
 import 'package:letraco/wigets/word_card.dart';
@@ -17,7 +16,9 @@ class Game {
     required this.letters,
     required this.hidden,
     required this.visible,
-  }) : allWords = [...hidden, ...visible]..sortWords();
+  }) : allWords = [...hidden, ...visible] {
+    GameController.sortWords(allWords);
+  }
 
   final String mandatory;
   final List<String> letters;
