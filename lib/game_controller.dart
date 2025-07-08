@@ -183,25 +183,25 @@ class GameController {
 
   bool isVisible(String word) => _game != null && _game!.visible.contains(word);
 
-  /// Compare if [String] [a] is shorter OR alphabetically ordered before [b]
-  static bool _isOrderedBefore(String a, String b) {
-    if (a.length > b.length) return false;
-    if (a.length < b.length) return true;
-    // only compare alphbetically if words have same length
-    final isBefore = a.compareTo(b) < 0;
-    return isBefore;
-  }
-
   /// Group by length and sort [list] alphabetically
   /// Divide [list] into chunks of equal length and sort them alphabetically
   /// This implementation use insertion sort algorithm
   static void sortWords(List<String> list) {
     assert(list.isNotEmpty);
 
+    /// Compare if [String] [a] is shorter OR alphabetically ordered before [b]
+    bool isOrderedBefore(String a, String b) {
+      if (a.length > b.length) return false;
+      if (a.length < b.length) return true;
+      // only compare alphbetically if words have same length
+      final isBefore = a.compareTo(b) < 0;
+      return isBefore;
+    }
+
     for (var idx = 1; idx < list.length; idx++) {
       final word = list[idx];
       var prevIdx = idx - 1;
-      while (prevIdx >= 0 && _isOrderedBefore(word, list[prevIdx])) {
+      while (prevIdx >= 0 && isOrderedBefore(word, list[prevIdx])) {
         list[prevIdx + 1] = list[prevIdx];
         prevIdx = prevIdx - 1;
         list[prevIdx + 1] = word;
