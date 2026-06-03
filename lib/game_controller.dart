@@ -247,10 +247,15 @@ class GameController {
     clearInputWord();
   }
 
-  void shuffle() {
-    if (kDebugMode) debugPrint('Shuffleing letters');
+  void shuffleStart() {
+    if (kDebugMode) debugPrint('Starting letters shuffle');
+    _emitEvent(ShuffleStart());
+  }
+
+  void shuffleEnd() {
+    if (kDebugMode) debugPrint('Ending letters shuffle');
     _game?.letters.shuffle();
-    _emitEvent(Shuffled());
+    _emitEvent(ShuffleEnd());
   }
 
   void addLetter(String letter) {

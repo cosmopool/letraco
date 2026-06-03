@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
       child: const Text('Checar'),
     );
     final shuffle = IconButton(
-      onPressed: controller.shuffle,
+      onPressed: controller.shuffleStart,
       icon: const Icon(Icons.shuffle_rounded),
     );
     final delete = ElevatedButton(

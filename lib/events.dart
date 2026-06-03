@@ -59,7 +59,9 @@ class Generated extends Loaded {
 
 class NoGameToLoad extends Event {}
 
-class Shuffled extends Event {}
+class ShuffleStart extends Event {}
+
+class ShuffleEnd extends Event {}
 
 class NoGameAvailable extends Event {}
 
