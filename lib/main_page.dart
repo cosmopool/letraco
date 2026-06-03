@@ -106,12 +106,6 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
             ),
-            Center(
-              child: InputWord(height: circleSize, controller: controller),
-            ),
-            LettersCircles(size: size, controller: controller),
-            buttons,
-            ProgressBar(size: size, controller: controller),
             Expanded(
               child: WordList(
                 size: size,
@@ -119,6 +113,13 @@ class _MainPageState extends State<MainPage> {
                 scrollController: scrollController,
               ),
             ),
+            ProgressBar(size: size, controller: controller),
+            Center(
+              child: InputWord(height: circleSize, controller: controller),
+            ),
+            buttons,
+            LettersCircles(size: size, controller: controller),
+            const SizedBox(height: 32),
           ],
         ),
       ),
