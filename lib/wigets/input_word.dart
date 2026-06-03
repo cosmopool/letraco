@@ -73,11 +73,24 @@ class _InputWordState extends State<InputWord> {
           children.add(t);
         }
 
-        return SizedBox(
-          height: widget.height,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: children,
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(64),
+              color: colors.surfaceContainerHighest,
+            ),
+            height: widget.height,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: children,
+                ),
+              ),
+            ),
           ),
         );
       },
