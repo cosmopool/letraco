@@ -38,37 +38,62 @@ class InstructionsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('O jogo', style: titleStyle),
+              Text('Objetivo', style: titleStyle),
               titleSpace,
               Text(
-                'Descubra as palavras contidas na lista utilizando a letra '
-                'central e as que estão ao redor.',
+                'Encontre todas as palavras válidas que podem ser formadas '
+                'com as 7 letras do dia. A letra do centro é obrigatória em '
+                'todas as palavras.',
+                style: contentStyle,
+              ),
+              SizedBox(height: 32),
+              Text('Como jogar', style: titleStyle),
+              titleSpace,
+              Text(
+                'Toque nas letras (a central e as ao redor) para montar uma '
+                'palavra. Você pode usar a mesma letra várias vezes. '
+                'Quando terminar, pressione "Checar" para confirmar.',
                 style: contentStyle,
               ),
               titleSpace,
               Text(
-                'Após usar as letras para escrever uma palavra, clique no '
-                'botão "Checar" para verificar se a palavra existe na lista.',
+                'Se a palavra for válida, ela aparecerá na lista e a barra de '
+                'progresso avançará.',
                 style: contentStyle,
               ),
               titleSpace,
               Text(
-                'Pressione uma vez o botão "Deletar" para deletar a letra '
-                'mais recente e segure pressionado para deletar todas as '
-                'letras.',
+                'Pressione "Deletar" uma vez para apagar a última letra. '
+                'Segure pressionado para limpar tudo.',
                 style: contentStyle,
+              ),
+              titleSpace,
+              Text(
+                'Toque no ícone de embaralhar para reorganizar as letras ao '
+                'redor e enxergar novas combinações.',
+                style: contentStyle,
+              ),
+              SizedBox(height: 32),
+              Text('Dicas', style: titleStyle),
+              titleSpace,
+              BulletPoint(
+                'Quanto mais longa a palavra, mais ela contribui '
+                'para o progresso.',
+              ),
+              BulletPoint(
+                'Procure por palavras com 4 ou mais letras. '
+                'Não há limite máximo de tamanho.',
+              ),
+              BulletPoint(
+                'Palavras que usam todas as 7 letras ao menos uma vez '
+                'são raras, mas valem muito.',
               ),
               SizedBox(height: 32),
               Text('Regras', style: titleStyle),
               titleSpace,
-              BulletPoint(
-                'Nem todas as palavras que existem '
-                'estão listadas no jogo',
-              ),
               BulletPoint('As palavras devem conter no mínimo 4 letras'),
               BulletPoint(
-                'As palavras devem, obrigatoriamente, '
-                'conter a letra do centro',
+                'Todas as palavras devem conter a letra do centro',
               ),
               BulletPoint('As letras podem ser usadas mais de uma vez'),
               BulletPoint(
