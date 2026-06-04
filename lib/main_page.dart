@@ -136,7 +136,8 @@ class _MainPageState extends State<MainPage> {
     final content = switch (event) {
       Miss() => 'Essa palavra não está na lista, tente outra!',
       Empty() => 'Utilize as letras para escrever uma palavra!',
-      _ => null
+      ReachedMaximumLetters() => 'Limite de letras nesse jogo foi atingido!',
+      _ => null,
     };
     if (content == null) return;
 

@@ -33,6 +33,8 @@ class _InputWordState extends State<InputWord> {
             word = event.word;
           case DeleteLetter():
             word = event.word;
+          case ReachedMaximumLetters():
+            word = event.word;
           default:
             word = '';
         }

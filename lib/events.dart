@@ -31,6 +31,12 @@ class AddLetter extends Event {
 
 class ClearLetters extends Event {}
 
+class ReachedMaximumLetters extends Event {
+  ReachedMaximumLetters(this.word) : assert(word.isNotEmpty);
+
+  final String word;
+}
+
 class SwitchWordsVisibility extends Event {
   SwitchWordsVisibility(this.show);
 

@@ -262,6 +262,9 @@ class GameController {
     assert(letter.length == 1);
 
     if (letter.isEmpty) return;
+    if (_inputWord.length == maximumWordLength) {
+      return _emitEvent(ReachedMaximumLetters(_inputWord));
+    }
     _inputWord += letter;
     _emitEvent(AddLetter(_inputWord));
   }
