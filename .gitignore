@@ -47,6 +47,8 @@ build/
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/android/kls_database.db
+**/*.jks
 
 # iOS/XCode related
 .ios/
