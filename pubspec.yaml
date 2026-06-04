@@ -1,7 +1,7 @@
 name: letraco
 description: "A game of words."
 
-version: 0.1.0+1
+version: 0.1.0+3
 
 environment:
   sdk: '>=3.11.1 <4.0.0'
