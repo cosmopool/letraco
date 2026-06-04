@@ -52,6 +52,12 @@ class _SplashScreenState extends State<SplashScreen>
       _dismissSplashWhenGameIsLoaded(event);
     });
 
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() => _showProgressIndicator = true);
+      }
+    });
+
     _playAnimation();
     super.initState();
   }
@@ -92,10 +98,6 @@ class _SplashScreenState extends State<SplashScreen>
     return AnimatedBuilder(
       animation: _animation,
       builder: (context, _) {
-        if (!_showProgressIndicator &&
-            _animationController.status == AnimationStatus.completed) {
-          _showProgressIndicator = true;
-        }
         final value = _animation.value;
 
         final dot = Positioned(
