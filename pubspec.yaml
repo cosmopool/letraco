@@ -4,7 +4,7 @@ description: "A game of words."
 version: 0.1.0+1
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: '>=3.11.1 <4.0.0'
 
 dependencies:
   flutter:
