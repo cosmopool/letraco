@@ -115,7 +115,6 @@ class BulletPoint extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
               ),
             ),
             TextSpan(
@@ -123,7 +122,6 @@ class BulletPoint extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: Colors.black,
               ),
             ),
           ],
