@@ -132,8 +132,8 @@ class BulletPoint extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: RichText(
-        text: TextSpan(
+      child: Text.rich(
+        TextSpan(
           children: [
             const TextSpan(
               text: '\u2022 ',
