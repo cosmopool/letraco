@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Letraço · Verbete em 4 versões</title>
+<style>
+:root{
+  --bg:#F0EEE9;--card:#FBFAF7;--ink:#20221F;--ink2:#565A53;--mute:#777B72;--line:#DAD6CC;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,dl,ul,figure{margin:0;padding:0}
+ul{list-style:none}
+.wrap{max-width:1180px;margin:0 auto;padding:38px 28px 48px}
+
+.eye{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+h1{font:700 38px/1.1 var(--serif);letter-spacing:-.02em;margin:8px 0 10px}
+.lead{max-width:680px;color:var(--ink2);font-size:15px}
+.same{margin:24px 0 22px;padding:16px 24px;border:1px solid var(--line);border-radius:14px}
+.same h3,.pick h3{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600;margin-bottom:10px}
+.same ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 24px;font-size:13px;color:var(--ink2)}
+.same li b{color:var(--ink);font-weight:650}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+
+/* cartão de versão */
+#cards{display:grid;gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.card>header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.num{font:italic 400 24px/1.1 var(--serif);color:var(--mute)}
+.card h2{font:700 26px/1.1 var(--serif);letter-spacing:-.01em}
+.sub{color:var(--ink2);font-size:13px}
+.body{display:flex;gap:26px;align-items:flex-start}
+.shots{display:flex;gap:14px;flex:none}
+.shots figcaption{text-align:center;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-top:7px}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px;font-size:13px}
+.swap{display:grid;grid-template-columns:74px 1fr;gap:6px 12px;font-size:13px}
+.swap dt{color:var(--mute);font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding-top:3px}
+.swap dd{margin:0}
+.pal{display:flex;gap:6px;border-top:1px solid var(--line);padding-top:12px}
+.pal span{flex:1;min-width:0;font-size:9.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pal i{display:block;height:22px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.09);margin-bottom:3px}
+.meta{color:var(--ink2);font-size:12.5px}
+.meta b{font-weight:650;color:var(--ink)}
+.risk{border-top:1px solid var(--line);padding-top:10px}
+
+/* assinatura */
+.bb{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:10px;background:var(--paper);color:var(--tink);min-height:92px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.07)}
+.ico{width:58px;height:58px;flex:none;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 5px 10px -5px rgba(0,0,0,.35)}
+.ico svg{display:block;width:100%;height:100%}
+.mark{line-height:1.05;white-space:nowrap}
+.tag{font-size:12px;margin-top:6px}
+
+/* mini tela */
+.scr{width:216px;height:412px;flex:none;border-radius:28px;border:5px solid #1B1D1B;background:var(--paper);color:var(--tink);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.hd{display:flex;align-items:center;gap:6px;height:34px;padding:9px 12px 0;flex:none}
+.wm{margin-right:auto;white-space:nowrap}
+.chip{font:600 8.5px var(--sans);padding:3px 7px;border-radius:99px;background:var(--soft);color:var(--chip-ink,var(--brand));white-space:nowrap}
+.bar{height:3px;margin:8px 12px 0;background:var(--tline);border-radius:3px;flex:none}
+.bar i{display:block;width:58%;height:100%;background:var(--brand);border-radius:3px}
+.sky{flex:1;position:relative;overflow:hidden;min-height:0}
+.fw{position:absolute;white-space:nowrap;line-height:1.15}
+.typed{position:absolute;left:0;right:0;top:41%;transform:translateY(-50%);text-align:center}
+.gloss{position:absolute;left:0;right:0;top:calc(41% + 18px);text-align:center;font-size:8.5px}
+.toast{position:absolute;left:50%;top:calc(41% - 38px);transform:translateX(-50%);white-space:nowrap}
+.ult{position:absolute;left:12px;right:12px;bottom:3px;height:23px;border-top:1px solid var(--tline);display:flex;align-items:center;gap:6px}
+.ult em{font:600 6.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--tmute);font-style:normal}
+.ult span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;font-size:9.5px}
+.ult strong{font:700 8.5px var(--sans);color:var(--brand-text);white-space:nowrap}
+.play{display:flex;align-items:center;justify-content:center;gap:5px;padding:4px 0 10px;flex:none}
+.side{display:flex;flex-direction:column;gap:10px;align-self:flex-end;padding-bottom:7px}
+.act{width:24px;height:24px;border-radius:50%;border:1px solid var(--act-line,var(--tline));display:grid;place-items:center;color:var(--tmute)}
+.act svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.keys{position:relative;width:120px;height:124px;flex:none}
+.k{position:absolute;left:calc(var(--x)*1px);top:calc(var(--y)*1px);width:36px;height:36px;margin:-18px 0 0 -18px;display:grid;place-items:center;color:var(--tink)}
+/* lista aberta */
+.dim{position:absolute;inset:0;background:var(--scrim)}
+.sheet{position:absolute;left:0;right:0;top:56px;bottom:0;border-radius:16px 16px 0 0;background:var(--sheet-bg);padding:15px 13px 0;overflow:hidden;color:var(--tink)}
+.sheet::before{content:"";position:absolute;left:50%;top:5px;width:28px;height:3px;margin-left:-14px;border-radius:3px;background:var(--tline)}
+.st{display:flex;align-items:baseline;justify-content:space-between}
+.st span{font:500 8.5px var(--sans);color:var(--tmute)}
+
+/* 1 · Míni */
+.v1{--paper:#FBFAF5;--tink:#151B2E;--tmute:#767C90;--tline:#DADBE2;--brand:#2456C8;--brand-text:#2456C8;--acc:#F0643C;--soft:#DDE6FA;--sheet-bg:#fff;--scrim:rgba(21,27,46,.45);
+  --hw:"Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif;--df:Charter,"Iowan Old Style",Georgia,serif}
+.v1 .mark{font:800 36px/1 var(--hw);color:var(--brand);letter-spacing:-.01em}
+.v1 .mark b,.v1 .wm b{color:var(--acc);font-weight:inherit}
+.v1 .mark i{font:italic 400 15px var(--df);color:var(--tmute);margin-left:7px;letter-spacing:0}
+.v1 .tag{font:400 12.5px var(--df)}
+.v1 .wm{font:800 15px/1 var(--hw);color:var(--brand)}
+.v1 .fw{font-family:var(--hw);font-weight:700;color:var(--brand)}
+.v1 .fw:nth-child(2n){color:var(--tink)}
+.v1 .fw i{font:italic 400 .6em var(--df);color:var(--tmute);margin-left:2px}
+.v1 .fw.pg{color:#A07600}
+.v1 .tabs{position:absolute;right:0;top:30px;display:grid;gap:2px;justify-items:end}
+.v1 .tabs b{width:13px;height:18px;border-radius:7px 0 0 7px;background:var(--soft);color:var(--brand);font:700 7.5px var(--sans);display:grid;place-items:center}
+.v1 .tabs b.on{width:21px;background:var(--brand);color:#fff}
+.v1 .typed{font:800 27px/1 var(--hw);letter-spacing:-.01em}
+.v1 .typed b{color:var(--acc);font-weight:inherit}
+.v1 .gloss{font:400 9px var(--df)}
+.v1 .gloss b{font:700 9px var(--hw);color:var(--brand)}
+.v1 .gloss i{color:var(--tmute)}
+.v1 .toast{font:700 9px var(--sans);background:#FCEBAE;padding:3px 8px;border-radius:99px}
+.v1 .toast b{color:#8E6A00}
+.v1 .ult span{font-family:var(--hw);font-weight:600}
+.v1 .k{width:33px;height:33px;margin:-16.5px 0 0 -16.5px;border-radius:10px;background:#fff;border:1px solid var(--tline);box-shadow:0 2px 0 var(--tline);font:700 15px var(--hw)}
+.v1 .k.c{background:var(--acc);border-color:var(--acc);box-shadow:0 2px 0 #C24B27;color:#fff}
+.v1 .st b{font:800 16px var(--hw);color:var(--brand)}
+.v1 .idx{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:10px}
+.v1 .idx b{height:21px;border-radius:7px 7px 0 0;background:var(--soft);color:var(--brand);font:700 9px var(--sans);display:grid;place-items:center}
+.v1 .idx b.on{background:var(--brand);color:#fff}
+.v1 .grp{display:flex;justify-content:space-between;border-top:2px solid var(--brand);padding:7px 0 2px;font:700 7.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--tmute)}
+.v1 .ent li{font:400 9px/1.35 var(--df);padding:5px 0;border-bottom:1px dotted #C9CBD6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v1 .ent b{font:700 10px var(--hw);color:var(--brand)}
+.v1 .ent i{color:var(--tmute)}
+.v1 .miss{margin-top:10px;font:600 8.5px var(--sans);color:var(--tmute);border:1px dashed #C9CBD6;border-radius:7px;padding:6px;text-align:center}
+
+/* 2 · Fichário */
+.v2{--paper:#E7D8B2;--tink:#2A2622;--tmute:#7C6F56;--tline:#CDBB8E;--act-line:#B9A777;--brand:#3F6F57;--brand-text:#2F5A45;--soft:#FCF8EC;--chip-ink:#2F5A45;--sheet-bg:#DBC998;--scrim:rgba(42,38,34,.5);
+  --fcard:#FCF8EC;--fedge:#D9CCA5;--red:#CF4B3A;--blue:#A9C0DA;--tw:"American Typewriter","Courier Prime","Courier New",monospace}
+.v2 .fch{background:linear-gradient(var(--red) 0 0) 0 47px/100% 1.2px no-repeat,var(--fcard);border:1px solid var(--fedge);border-radius:2px;padding:8px 16px 9px;box-shadow:0 2px 6px -1px rgba(60,45,20,.35)}
+.v2 .mark{font:700 30px/1.1 var(--tw)}
+.v2 .tag{font:400 10.5px var(--tw);margin-top:11px;color:#5E5546}
+.v2 .wm{font:700 12px/1 var(--tw);background:var(--fcard);padding:4px 7px 3px;border:1.5px solid #B48A3C;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+.v2 .chip{border:1px solid var(--tline)}
+.v2 .fw{font-family:var(--tw);background:var(--fcard);border:1px solid var(--fedge);border-top:2px solid var(--red);padding:1px 5px 2px;border-radius:1.5px;box-shadow:0 1px 2px rgba(60,45,20,.2);transform:rotate(var(--r,0deg))}
+.v2 .fw.pg{border-top-color:#B48A3C;background:#F8EBC6}
+.v2 .ficha{position:absolute;left:50%;top:42%;width:166px;height:88px;margin:-44px 0 0 -83px;border:1px solid var(--fedge);border-radius:2px;box-shadow:0 4px 9px -3px rgba(60,45,20,.45);
+  background:linear-gradient(var(--red) 0 0) 0 32px/100% 1.2px no-repeat,linear-gradient(var(--blue) 0 0) 0 47px/100% .8px no-repeat,linear-gradient(var(--blue) 0 0) 0 60px/100% .8px no-repeat,var(--fcard)}
+.v2 .ficha::after{content:"";position:absolute;left:50%;bottom:5px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--paper);box-shadow:inset 0 1px 1px rgba(0,0,0,.3)}
+.v2 .typed{position:absolute;left:12px;right:auto;top:8px;transform:none;text-align:left;font:700 22px/1 var(--tw)}
+.v2 .typed b{color:var(--brand);font-weight:inherit}
+.v2 .gloss{position:absolute;left:12px;right:auto;top:36px;text-align:left;font:400 8.5px var(--tw)}
+.v2 .stamp{position:absolute;right:9px;top:52px;border:1.5px solid var(--red);color:var(--red);font:700 8px var(--sans);letter-spacing:.09em;padding:2px 5px;border-radius:2px;transform:rotate(-8deg);opacity:.88}
+.v2 .ult span{font-family:var(--tw)}
+.v2 .k{width:31px;height:33px;margin:-16.5px 0 0 -15.5px;border-radius:2px;background:var(--fcard);border:1px solid #D0C095;box-shadow:0 1.5px 2px rgba(60,45,20,.25);font:700 15px var(--tw)}
+.v2 .k.c{background:var(--brand);border-color:var(--brand);color:#FCF8EC}
+.v2 .k.c::before{content:"";position:absolute;left:3px;top:-5px;width:13px;height:5px;background:var(--brand);border-radius:2px 2px 0 0}
+.v2 .sheet{padding:15px 11px 0}
+.v2 .sheet::before{background:#B9A777}
+.v2 .st b{font:700 15px var(--tw)}
+.v2 .st span{color:#665A42}
+.v2 .idx{display:flex;gap:3px;align-items:flex-end;margin-top:9px;padding:0 5px;height:23px}
+.v2 .idx b{flex:1;height:17px;border-radius:5px 5px 0 0;background:#C9B680;border:1px solid #B5A16B;border-bottom:0;font:700 9px var(--tw);display:grid;place-items:center;color:#5B4F36}
+.v2 .idx b.on{height:23px;background:var(--fcard);border-color:var(--fedge);color:var(--tink)}
+.v2 .stack{position:relative;height:232px}
+.v2 .fc{position:absolute;left:0;right:0;top:calc(var(--i)*24px);height:86px;border:1px solid var(--fedge);border-radius:2px;box-shadow:0 -1px 3px rgba(60,45,20,.14);padding:5px 9px;font:400 8px var(--tw);color:#6A604E;white-space:nowrap;overflow:hidden;
+  background:linear-gradient(var(--red) 0 0) 0 21px/100% 1px no-repeat,linear-gradient(var(--blue) 0 0) 0 37px/100% .8px no-repeat,linear-gradient(var(--blue) 0 0) 0 51px/100% .8px no-repeat,var(--fcard)}
+.v2 .fc b{font:700 11px var(--tw);color:var(--tink);margin-right:5px}
+.v2 .fc:last-child::after{content:"";position:absolute;left:50%;bottom:6px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--sheet-bg);box-shadow:inset 0 1px 1px rgba(0,0,0,.3)}
+.v2 .miss{margin-top:9px;font:400 9px var(--tw);color:#665A42;text-align:center}
+
+/* 3 · Ilustrado */
+.v3{--paper:#F2EAD8;--tink:#2B2119;--tmute:#85755E;--tline:#D3C6A8;--brand:#264D42;--brand-text:#264D42;--soft:transparent;--sheet-bg:#F7F1E3;--scrim:rgba(43,33,25,.5);--gold:#A8842C;
+  --did:Didot,"Bodoni 72","Bodoni MT",Georgia,serif;--ital:"Hoefler Text",Cochin,"Iowan Old Style",Georgia,serif}
+.v3 .mark{font:700 27px/1 var(--did);letter-spacing:.16em;border-top:.75px solid;border-bottom:.75px solid;padding:8px 0 6px}
+.v3 .tag{font:italic 400 13px var(--ital);margin-top:8px}
+.v3 .wm{font:700 11.5px/1 var(--did);letter-spacing:.16em}
+.v3 .wm span{color:var(--gold);letter-spacing:0;margin-left:2px}
+.v3 .chip{border:.75px solid var(--brand);font:italic 400 9.5px var(--ital);padding:2px 7px}
+.v3 .bar{height:2px}
+.v3 .sky::before{content:"";position:absolute;inset:7px 9px 31px;border:1px solid var(--tline);outline:.5px solid var(--tline);outline-offset:-3px}
+.v3 .rh{position:absolute;left:0;right:0;top:13px;text-align:center;font:700 6px var(--did);letter-spacing:.22em;color:var(--tmute)}
+.v3 .fw{font-family:var(--ital);font-style:italic}
+.v3 .fw.pg{font-style:normal;font-variant:small-caps;letter-spacing:.06em;color:#8A6A1C}
+.v3 .typed{font:700 25px/1 var(--did);letter-spacing:.09em}
+.v3 .typed::before,.v3 .typed::after{content:"";display:block;width:74px;margin:0 auto;border-top:.75px solid var(--tink)}
+.v3 .typed::before{margin-bottom:6px}
+.v3 .typed::after{margin-top:5px}
+.v3 .typed b{color:var(--brand);font-weight:inherit}
+.v3 .gloss{top:calc(41% + 24px);font:italic 400 9.5px var(--ital)}
+.v3 .toast{top:calc(41% - 44px);font:italic 600 10px var(--ital);color:#8A6A1C;border-top:.75px solid var(--gold);border-bottom:.75px solid var(--gold);padding:1px 9px}
+.v3 .ult{border-top:0}
+.v3 .ult span{font:italic 400 10.5px var(--ital)}
+.v3 .ult strong{font:italic 600 10px var(--ital)}
+.v3 .k{width:33px;height:33px;margin:-16.5px 0 0 -16.5px;border-radius:1px;background:var(--paper);border:1px solid var(--brand);box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 2.6px var(--brand);font:700 16px var(--did);color:var(--brand)}
+.v3 .k.c{background:var(--brand);color:#F2EAD8;box-shadow:inset 0 0 0 2px var(--brand),inset 0 0 0 2.6px #C9A64A}
+.v3 .sheet{padding:19px 15px 0}
+.v3 .sheet::after{content:"";position:absolute;inset:11px 7px -6px;border:1px solid var(--tline);outline:.5px solid var(--tline);outline-offset:-3px;pointer-events:none}
+.v3 .st{display:block;text-align:center}
+.v3 .st b{display:block;font:700 13px var(--did);letter-spacing:.22em}
+.v3 .st span{font:italic 400 9px var(--ital)}
+.v3 .orn{text-align:center;color:var(--gold);font-size:9px;line-height:1;margin:3px 0 5px}
+.v3 .rhd{display:flex;justify-content:space-between;border-top:.75px solid var(--tink);border-bottom:.75px solid var(--tink);padding:2.5px 0 2px;font:700 6.5px var(--did);letter-spacing:.14em;text-transform:uppercase}
+.v3 .cols{column-count:2;column-gap:11px;column-rule:.5px solid var(--tline);margin-top:6px;font:400 8px/1.32 var(--ital)}
+.v3 .cols p{margin:0 0 4px;break-inside:avoid}
+.v3 .cols i{color:var(--tmute)}
+.v3 .cap{float:left;font:700 23px/.8 var(--did);color:var(--brand);margin:2px 1px 0 0}
+.v3 .more{text-align:center;font:italic 400 8.5px var(--ital);color:var(--tmute);margin:3px 0 7px}
+
+/* 4 · Grifado */
+.v4{--paper:#F5F0E6;--tink:#1D2626;--ink2:#56605E;--tmute:#8A918C;--tline:#DCD4C4;--brand:#D99A1E;--brand-text:#8A6200;--soft:#FBEBA6;--chip-ink:#7A5600;--sheet-bg:#FFFDF8;--scrim:rgba(29,38,38,.38);
+  --yellow:#FFD84D;--mustard:#EBC25C}
+.v4 .hl{background:linear-gradient(transparent 50%,var(--yellow) 50% 92%,transparent 92%);padding:0 4px;margin:0 -4px}
+.v4 .mark{font:700 38px/1 var(--serif);letter-spacing:-.01em}
+.v4 .mark i{font:italic 400 15px var(--serif);color:var(--brand-text);margin-left:10px;letter-spacing:0}
+.v4 .tag{font:400 12.5px var(--serif)}
+.v4 .wm{font:700 17px/1 var(--serif)}
+.v4 .wm .hl{padding:0 3px;margin:0 -3px}
+.v4 .fw{font-family:var(--serif);font-weight:600}
+.v4 .fw:nth-child(3n+2){color:var(--ink2)}
+.v4 .fw.new{background:linear-gradient(transparent 16%,var(--yellow) 16% 92%,transparent 92%);padding:0 3px}
+.v4 .fw.pg{background:linear-gradient(transparent 16%,var(--mustard) 16% 92%,transparent 92%);padding:0 3px}
+.v4 .typed{font:700 28px/1 var(--serif);letter-spacing:.03em}
+.v4 .typed b{font-weight:inherit;background:linear-gradient(transparent 10%,var(--yellow) 10% 94%,transparent 94%);padding:0 1.5px;border-radius:2px}
+.v4 .gloss{color:var(--ink2)}
+.v4 .toast{font:600 9px var(--sans);background:#F7E6BF;padding:3px 8px;border-radius:99px}
+.v4 .toast b{color:var(--brand-text)}
+.v4 .ult em{display:none}
+.v4 .ult span{font:600 10.5px var(--serif)}
+.v4 .ult mark{background:linear-gradient(transparent 18%,var(--yellow) 18% 92%,transparent 92%);color:inherit;padding:0 2px}
+.v4 .k{border-radius:50%;background:#E6DFCF;font:700 16px var(--serif)}
+.v4 .k.c{background:var(--yellow);box-shadow:inset 0 0 0 1.5px var(--brand)}
+.v4 .st{display:block}
+.v4 .st b{display:block;font:700 17px/1.2 var(--serif)}
+.v4 .st span{color:var(--ink2)}
+.v4 .grp{display:flex;justify-content:space-between;font:600 7px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--tmute);border-bottom:1px solid var(--tline);padding:9px 0 3px;margin-bottom:4px}
+.v4 .ws{display:flex;flex-wrap:wrap;align-items:center;gap:1px 9px;font:600 11.5px/1.5 var(--serif)}
+.v4 .ws .new{background:linear-gradient(transparent 16%,var(--yellow) 16% 90%,transparent 90%);padding:0 3px;margin:0 -3px}
+.v4 .ws .pg{background:linear-gradient(transparent 16%,var(--mustard) 16% 90%,transparent 90%);padding:0 3px;margin:0 -3px}
+.v4 .ws .sel{background:var(--tink);color:var(--paper);border-radius:4px;padding:0 5px;margin:0 -3px}
+.v4 .ws .mi{font:600 8px var(--sans);color:var(--tmute);border:1px dashed #C9C0AE;border-radius:99px;padding:0 6px;line-height:1.75}
+.v4 .mean{position:absolute;left:10px;right:10px;bottom:10px;background:var(--tink);color:#F5F0E6;border-radius:10px;padding:8px 11px;font:400 9px/1.35 var(--sans)}
+.v4 .mean b{font:700 12.5px var(--serif);margin-right:4px}
+.v4 .mean i{opacity:.7}
+
+/* fecho */
+.pick{margin-top:22px;padding:20px 24px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px 26px}
+.picks span{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.picks b{display:block;font:700 21px/1.2 var(--serif);margin:2px 0 4px}
+.picks p{color:var(--ink2);font-size:13px}
+footer{margin-top:20px;display:grid;gap:5px;color:var(--mute);font-size:12px;max-width:900px}
+
+@media(max-width:1000px){.body{flex-direction:column;align-items:center}.txt{width:100%}}
+@media(max-width:520px){
+  .wrap{padding:24px 14px 36px}
+  h1{font-size:30px}
+  .card{padding:16px 12px}
+  .shots{flex-direction:column;align-items:center}
+}
+@media print{body{background:#fff}.card,.pick{break-inside:avoid}.bb,.scr,.pal i{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eye">Letraço · estudo de tema · Verbete</p>
+    <h1>Verbete em 4 versões</h1>
+    <p class="lead">A ideia do dicionário fica; mudam as cores e a interface. As três primeiras partem de dicionários diferentes. A quarta usa as fontes do mock de referência com uma paleta de amarelo e mostarda.</p>
+  </header>
+
+  <section class="same">
+    <h3>Igual nas quatro</h3>
+    <ul>
+      <li><b>O nome é um verbete:</b> le·tra·ço, s.m.</li>
+      <li><b>Toda palavra achada</b> mostra classe gramatical e significado.</li>
+      <li><b>Os níveis atuais ficam:</b> Letrado, Erudito, Sábio, Letraço.</li>
+      <li><b>Sai a abelha:</b> nada de hexágono, Favo ou mel.</li>
+    </ul>
+    <p class="note">Cada versão traz duas telas: o jogo no momento do acerto e a lista aberta. Mesma partida do mock (R + E H A L O C).</p>
+  </section>
+
+  <main id="cards"></main>
+
+  <section class="pick">
+    <h3>Se a escolha fosse minha</h3>
+    <div class="picks">
+      <div><span>Aposta</span><b>4 · Grifado</b><p>Parte do mock de que você já gosta, e o marca-texto dá ao amarelo um motivo que não é a abelha.</p></div>
+      <div><span>Mais personalidade</span><b>2 · Fichário</b><p>É a que mais muda o jeito de jogar: a palavra vira ficha, o acerto leva carimbo.</p></div>
+      <div><span>Dá para levar junto</span><b>Dedeiras e carimbo</b><p>As abas por tamanho de palavra (versão 1) e o carimbo no acerto (versão 2) funcionam em qualquer uma das quatro.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>As quatro mostram classe gramatical; a 1 mostra também as sílabas. Isso depende do mesmo pacote de significados que o app ainda não tem.</p>
+    <p>Telas ilustrativas, com fontes do macOS. Não é layout final.</p>
+  </footer>
+</div>
+
+<script>
+const KEYS = [["E", 60, 22], ["H", 94.6, 42], ["A", 94.6, 82], ["L", 60, 102], ["O", 25.4, 82], ["C", 25.4, 42]];
+const IC = {
+  shuffle: '<path d="M3 7h3c4 0 6 10 10 10h5m-3-3 3 3-3 3M3 17h3c1.5 0 3-2 4-4m4-4c1-1 1.5-2 3-2h4m-3-3 3 3-3 3"/>',
+  erase: '<path d="m9 5-7 7 7 7h12V5zM12 9l6 6m0-6-6 6"/>',
+  send: '<path d="m5 12 4 4 10-10"/>'
+};
+const act = n => `<span class="act"><svg viewBox="0 0 24 24">${IC[n]}</svg></span>`;
+const play = `<div class="play"><div class="side">${act("shuffle")}${act("erase")}</div><div class="keys">${
+  KEYS.map(k => `<span class="k" style="--x:${k[1]};--y:${k[2]}">${k[0]}</span>`).join("")}<span class="k c" style="--x:60;--y:62">R</span></div><div class="side">${act("send")}</div></div>`;
+const head = t => `<div class="hd"><span class="wm">${t.wm}</span><span class="chip">Erudito · 71</span></div><div class="bar"><i></i></div>`;
+// palavra, posição, tamanho, opacidade, classe, rotação
+const fw = list => list.map(w => `<span class="fw ${w[4] || ""}" style="${w[1]};font-size:${w[2]}px;opacity:${w[3]}${w[5] ? ";--r:" + w[5] + "deg" : ""}">${w[0]}</span>`).join("");
+const ult = (words, name) => `<div class="ult"><em>Últimas</em><span>${words}</span><strong>${name} ›</strong></div>`;
+const typed = `<div class="typed">CHO<b>R</b>A<b>R</b></div>`;
+
+const versions = [
+  { n: 1, name: "Míni", sub: "o dicionário escolar de bolso · claro, jovem, direto",
+    wm: "le<b>·</b>tra<b>·</b>ço", mark: "le<b>·</b>tra<b>·</b>ço<i>s.m.</i>", tag: "<b>1.</b> Palavra bem achada. <b>2.</b> Quem acha muitas.",
+    icon: `<rect width="100" height="100" rx="22" fill="#2456C8"/><text x="44" y="71" text-anchor="middle" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-weight="800" font-size="60" fill="#fff">L</text><circle cx="71" cy="53" r="6.5" fill="#F0643C"/>`,
+    sky: fw([["olhar<i>v.</i>", "left:7%;top:17%", 15, .9], ["coral<i>s.m.</i>", "left:66%;top:9%", 11, .55], ["rocha<i>s.f.</i>", "left:8%;top:62%", 12, .65],
+        ["hora<i>s.f.</i>", "right:14%;top:60%", 16, .95], ["acolher<i>v.</i>", "left:30%;top:7%", 12, 1, "pg"]]) +
+      `<div class="tabs"><b>4</b><b>5</b><b class="on">6</b><b>7</b><b>8</b></div><span class="toast"><b>+6</b> Ótima!</span>${typed}
+       <div class="gloss"><b>cho·rar</b> <i>v.</i> derramar lágrimas</div>` + ult("calhar · orla · ralo", "Glossário"),
+    sheet: `<div class="st"><b>Glossário</b><span>20 de 47 · 71 pts</span></div>
+      <div class="idx"><b>4</b><b class="on">5</b><b>6</b><b>7</b><b>8</b></div>
+      <div class="grp"><span>5 letras</span><span>7 de 20</span></div>
+      <ul class="ent"><li><b>cer·ca</b> <i>s.f.</i> grade que fecha um terreno</li><li><b>cho·ro</b> <i>s.m.</i> ato de chorar</li><li><b>co·ral</b> <i>s.m.</i> grupo que canta junto</li>
+      <li><b>co·rar</b> <i>v.</i> ficar vermelho</li><li><b>o·lhar</b> <i>v.</i> dirigir a vista</li><li><b>ro·cha</b> <i>s.f.</i> massa de pedra dura</li><li><b>ro·lha</b> <i>s.f.</i> tampa de cortiça</li></ul>
+      <div class="miss">+13 por achar</div>`,
+    rows: [["Teclas", "Quadradas de canto redondo, brancas, como teclas de plástico. A obrigatória em coral."],
+      ["Digitada", "Em negrito sem serifa, como cabeça de verbete. Ao acertar, ganha sílabas e classe: cho·rar <i>v.</i>"],
+      ["Flutuantes", "Cada palavra leva a classe gramatical em miúdo: v., s.f., adj."],
+      ["Lista", "Glossário com abas de 4 a 8 letras. Cada linha é um verbete com o significado."],
+      ["Só nesta", "Dedeiras na borda direita do céu, uma por tamanho de palavra. A do tamanho que você está digitando salta para fora."]],
+    pal: [["#2456C8", "azul-vinil"], ["#FBFAF5", "papel"], ["#151B2E", "tinta"], ["#F0643C", "coral"], ["#DDE6FA", "azul-claro"], ["#F2B90F", "amarelo"]],
+    fonts: "Avenir Next nas palavras e no logo, Charter nos significados.",
+    risk: "É a mais distante do mock de que você gostou: sem serifa e com azul forte, perde o ar de papel." },
+
+  { n: 2, name: "Fichário", sub: "as fichas do lexicógrafo · metódico, tátil, caloroso", wrap: "fch",
+    wm: "Letraço", mark: "Letraço", tag: "s.m. Palavra bem achada.",
+    icon: `<rect width="100" height="100" rx="22" fill="#E7D8B2"/><rect x="15" y="23" width="70" height="56" rx="2.5" fill="#D2C08F" transform="translate(1.5 2.5)"/><rect x="15" y="23" width="70" height="56" rx="2.5" fill="#FCF8EC"/><path d="M15 49h70" stroke="#CF4B3A" stroke-width="1.6"/><path d="M15 59h70M15 68h70" stroke="#A9C0DA" stroke-width="1.1"/><text x="24" y="44" font-family="'American Typewriter','Courier New',monospace" font-weight="700" font-size="23" fill="#2A2622">L</text><circle cx="50" cy="74" r="3" fill="#E7D8B2"/>`,
+    sky: fw([["olhar", "left:6%;top:10%", 14, .92, "", -4], ["coral", "right:8%;top:14%", 11, .6, "", 3], ["rocha", "left:8%;top:67%", 12, .7, "", 2],
+        ["hora", "right:9%;top:66%", 15, .95, "", -3], ["acolher", "left:36%;top:2%", 11, 1, "pg", 1]]) +
+      `<div class="ficha">${typed}<div class="gloss">v. derramar lágrimas</div><span class="stamp">+6 FICHADA</span></div>` + ult("calhar · orla · ralo", "Fichário"),
+    sheet: `<div class="st"><b>Fichário</b><span>20 de 47 fichas · 71 pts</span></div>
+      <div class="idx"><b>4</b><b class="on">5</b><b>6</b><b>7</b><b>8</b></div>
+      <div class="stack">${[["cerca", "s.f. grade que fecha um terreno"], ["choro", "s.m. ato de chorar"], ["coral", "s.m. grupo que canta junto"], ["corar", "v. ficar vermelho"],
+        ["olhar", "v. dirigir a vista"], ["rocha", "s.f. massa de pedra dura"], ["rolha", "s.f. tampa de cortiça"]].map((c, i) => `<div class="fc" style="--i:${i}"><b>${c[0]}</b>${c[1]}</div>`).join("")}</div>
+      <div class="miss">+13 fichas em branco</div>`,
+    rows: [["Teclas", "Fichinhas de canto reto. A obrigatória é a ficha-guia verde, com aba."],
+      ["Digitada", "É datilografada numa ficha em branco no meio da tela. Ao acertar, a ficha vai para a gaveta."],
+      ["Flutuantes", "Fichas pequenas, levemente tortas. As mais distantes ficam menores e mais apagadas."],
+      ["Lista", "Fichário: uma gaveta com abas de 4 a 8 letras e as fichas empilhadas. As que faltam são fichas em branco."],
+      ["Só nesta", "Carimbo no lugar do selo de pontos: “+6 FICHADA” no acerto, “SEM REGISTRO” no erro."]],
+    pal: [["#E7D8B2", "manilha"], ["#FCF8EC", "ficha"], ["#2A2622", "tinta"], ["#3F6F57", "verde-arquivo"], ["#CF4B3A", "fio vermelho"], ["#A9C0DA", "pauta"], ["#B48A3C", "latão"]],
+    fonts: "American Typewriter nas palavras, sans do sistema no resto.",
+    risk: "Ficha flutuando pesa mais na tela do que palavra solta, e a letra de máquina encosta no Tipo de Aço já explorado." },
+
+  { n: 3, name: "Ilustrado", sub: "o dicionário de capa de pano · clássico, caprichado, com charme de coisa antiga",
+    wm: "LETRAÇO<span>❦</span>", mark: "LETRAÇO", tag: "s. m. Palavra bem achada; quem acha muitas.",
+    icon: `<rect width="100" height="100" rx="22" fill="#264D42"/><rect x="11" y="11" width="78" height="78" rx="12" fill="none" stroke="#C9A64A" stroke-width="1.6"/><rect x="15" y="15" width="70" height="70" rx="9" fill="none" stroke="#C9A64A" stroke-width=".7"/><text x="50" y="66" text-anchor="middle" font-family="Didot,'Bodoni 72',Georgia,serif" font-weight="700" font-size="52" fill="#F2EAD8">L</text><text x="50" y="81" text-anchor="middle" font-size="10" fill="#C9A64A">❦</text>`,
+    sky: `<div class="rh">CHO — CHU</div>` + fw([["olhar", "left:10%;top:20%", 15, .85], ["coral", "right:12%;top:25%", 11, .55], ["rocha", "left:11%;top:63%", 12, .6],
+        ["hora", "right:13%;top:61%", 16, .9], ["acolher", "left:33%;top:12%", 11, 1, "pg"]]) +
+      `<span class="toast">+6 · Erudita!</span>${typed}<div class="gloss">☞ <b>chorar</b>, v. Derramar lágrimas.</div>` + ult("calhar · orla · ralo", "Glossário"),
+    sheet: `<div class="st"><b>GLOSSÁRIO</b><span>20 de 47 verbetes · 71 pts</span></div><div class="orn">❦</div>
+      <div class="rhd"><span>arca</span><span>4 letras · 10 de 18</span><span>real</span></div>
+      <div class="cols"><p><span class="cap">A</span><b>rca</b>, <i>s.f.</i> Caixa grande com tampa.</p><p><b>arco</b>, <i>s.m.</i> Linha curva; arma de atirar flechas.</p><p><b>caro</b>, <i>adj.</i> De preço alto; querido.</p>
+        <p><b>cera</b>, <i>s.f.</i> Matéria de que se fazem velas.</p><p><b>erro</b>, <i>s.m.</i> Engano; falta.</p><p><b>hera</b>, <i>s.f.</i> Planta trepadeira.</p>
+        <p><b>hora</b>, <i>s.f.</i> Cada uma das 24 partes do dia.</p><p><b>orla</b>, <i>s.f.</i> Borda; margem.</p><p><b>ralo</b>, <i>s.m.</i> Abertura por onde escoa a água.</p><p><b>real</b>, <i>adj.</i> Que existe de fato.</p></div>
+      <div class="more">⁂ mais 8 por achar</div>
+      <div class="rhd"><span>cerca</span><span>5 letras · 7 de 20</span><span>rolha</span></div>
+      <div class="cols"><p><b>cerca</b>, <i>s.f.</i> Grade que fecha um terreno.</p><p><b>choro</b>, <i>s.m.</i> Ato de chorar.</p><p><b>coral</b>, <i>s.m.</i> Grupo que canta junto.</p><p><b>corar</b>, <i>v.</i> Ficar vermelho.</p>
+        <p><b>olhar</b>, <i>v.</i> Dirigir a vista.</p><p><b>rocha</b>, <i>s.f.</i> Massa de pedra dura.</p></div>`,
+    rows: [["Teclas", "Quadradas com moldura dupla, como capitulares. A obrigatória em verde cheio."],
+      ["Digitada", "Em Didot, entre dois fios finos. O significado entra em itálico, apontado por uma manícula (☞)."],
+      ["Flutuantes", "Itálico de livro, em tons de sépia. Pangrama em versalete dourado."],
+      ["Lista", "Glossário em duas colunas, com capitular e palavras-guia no alto de cada bloco."],
+      ["Só nesta", "Moldura de página em volta do céu e ornamentos tipográficos (❦, ⁂) no lugar de ícones."]],
+    pal: [["#F2EAD8", "papel antigo"], ["#2B2119", "sépia"], ["#264D42", "verde-garrafa"], ["#A8842C", "ouro velho"], ["#D3C6A8", "fio"]],
+    fonts: "Didot nas palavras e no logo, Hoefler Text nos itálicos.",
+    risk: "Fio fino e Didot sofrem em tela pequena e em Android barato. Pode ficar solene demais para um jogo." },
+
+  { n: 4, name: "Grifado", sub: "o dicionário de quem estuda · caloroso, estudioso, com a cara do mock",
+    wm: `<span class="hl">Letraço</span>`, mark: `<span class="hl">Letraço</span><i>s.m.</i>`, tag: "<b>1.</b> Palavra bem achada. <b>2.</b> Quem acha muitas.",
+    icon: `<rect width="100" height="100" rx="22" fill="#FFD84D"/><text x="50" y="66" text-anchor="middle" font-family="'Iowan Old Style',Palatino,Georgia,serif" font-weight="700" font-size="58" fill="#1D2626">L</text><text x="50" y="83" text-anchor="middle" font-family="'Iowan Old Style',Palatino,Georgia,serif" font-style="italic" font-size="12" fill="#7A5600">s.m.</text>`,
+    sky: fw([["olhar", "left:8%;top:17%", 15, .8], ["coral", "right:11%;top:23%", 11, .5], ["rocha", "left:10%;top:62%", 12, .6],
+        ["calhar", "right:9%;top:60%", 15, 1, "new"], ["acolher", "left:33%;top:7%", 12, 1, "pg"]]) +
+      `<span class="toast"><b>+6</b> Ótima!</span>${typed}<div class="gloss">chorar · v. derramar lágrimas</div>` + ult("<mark>calhar</mark> · orla · ralo", "Glossário"),
+    sheet: `<div class="st"><b>Glossário</b><span>20 de 47 palavras · 71 pts</span></div>
+      <div class="grp"><span>4 letras</span><span>10 de 18</span></div><div class="ws"><span>arca</span><span>arco</span><span>caro</span><span>cera</span><span>erro</span><span>hera</span><span>hora</span><span>orla</span><span>ralo</span><span>real</span><span class="mi">+8</span></div>
+      <div class="grp"><span>5 letras</span><span>7 de 20</span></div><div class="ws"><span>cerca</span><span>choro</span><span class="sel">coral</span><span>corar</span><span>olhar</span><span>rocha</span><span>rolha</span><span class="mi">+13</span></div>
+      <div class="grp"><span>6 letras</span><span>2 de 6</span></div><div class="ws"><span class="new">calhar</span><span>colher</span><span class="mi">+4</span></div>
+      <div class="grp"><span>7 letras</span><span>1 de 2</span></div><div class="ws"><span class="pg">acolher</span><span class="mi">+1</span></div>
+      <div class="mean"><b>coral</b><i>s.m.</i> grupo que canta junto</div>`,
+    rows: [["Teclas", "Redondas, cor de papel. A obrigatória é a amarela. São redondas de propósito: amarelo com hexágono volta a ser abelha."],
+      ["Digitada", "Na serifa do mock. A letra obrigatória não muda de cor: ganha um traço de marca-texto por trás."],
+      ["Flutuantes", "Como no mock, em tons de tinta. A mais nova vem grifada em amarelo; pangrama, em mostarda."],
+      ["Lista", "Glossário em folha clara: a mais nova grifada, faltantes como “+N”, significado num cartão escuro no rodapé."],
+      ["Só nesta", "O amarelo nunca é texto, só grifo e preenchimento. O que precisa ser lido em cor usa mostarda escura."]],
+    pal: [["#F5F0E6", "papel"], ["#1D2626", "tinta"], ["#FFD84D", "amarelo"], ["#FBEBA6", "amarelo-claro"], ["#EBC25C", "mostarda clara"], ["#D99A1E", "mostarda"], ["#8A6200", "mostarda escura"]],
+    fonts: "As do mock: Iowan Old Style (com Palatino de reserva) nas palavras, no logo e nos níveis; sans do sistema no resto.",
+    risk: "Amarelo é a cor da abelha: sem o grifo bem resolvido, o app parece o de antes. E amarelo sobre papel tem pouco contraste, por isso nunca vira texto." }
+];
+
+const card = t => `<article class="card v${t.n}">
+<header><span class="num">0${t.n}</span><h2>${t.name}</h2><p class="sub">${t.sub}</p></header>
+<div class="body">
+<div class="shots">
+  <figure><div class="scr" role="img" aria-label="Tela de jogo na versão ${t.name}">${head(t)}<div class="sky">${t.sky}</div>${play}</div><figcaption>Jogo</figcaption></figure>
+  <figure><div class="scr" role="img" aria-label="Lista aberta na versão ${t.name}">${head(t)}<div class="dim"></div><div class="sheet">${t.sheet}</div></div><figcaption>Lista aberta</figcaption></figure>
+</div>
+<div class="txt">
+  <div class="bb"><div class="ico"><svg viewBox="0 0 100 100" role="img" aria-label="Ícone da versão ${t.name}">${t.icon}</svg></div><div${t.wrap ? ` class="${t.wrap}"` : ""}><div class="mark">${t.mark}</div><div class="tag">${t.tag}</div></div></div>
+  <dl class="swap">${t.rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("")}</dl>
+  <div class="pal">${t.pal.map(p => `<span><i style="background:${p[0]}"></i>${p[1]}</span>`).join("")}</div>
+  <p class="meta"><b>Fontes.</b> ${t.fonts}</p>
+  <p class="meta risk"><b>Risco.</b> ${t.risk}</p>
+</div>
+</div></article>`;
+
+document.getElementById("cards").innerHTML = versions.map(card).join("");
+</script>
+</body>
+</html>
