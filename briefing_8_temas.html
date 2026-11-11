@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Letraço · 8 temas para o lugar da abelha</title>
+<style>
+:root{
+  --bg:#F0EEE9;--card:#FBFAF7;--ink:#20221F;--ink2:#565A53;--mute:#777B72;--line:#DAD6CC;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,dl,ul{margin:0;padding:0}
+.wrap{max-width:1320px;margin:0 auto;padding:38px 28px 48px}
+
+/* topo */
+.eye{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+h1{font:700 38px/1.1 var(--serif);letter-spacing:-.02em;margin:8px 0 10px}
+.lead{max-width:640px;color:var(--ink2);font-size:15px}
+
+.verdict{display:grid;grid-template-columns:230px 1fr;gap:28px;margin:28px 0 14px;padding:22px 24px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.verdict .q span{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.verdict .q strong{display:block;font:700 54px/1 var(--serif);letter-spacing:-.03em;margin-top:6px}
+.verdict .q small{display:block;color:var(--mute);font-size:12px;margin-top:6px}
+.verdict .a{display:grid;gap:8px;max-width:780px;align-content:center}
+
+.reads{margin:0 0 26px;padding:16px 24px 14px;border:1px solid var(--line);border-radius:14px}
+.reads h3,.pick h3{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600;margin-bottom:10px}
+.reads ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px 22px}
+.reads li b{display:block;font:700 19px/1.2 var(--serif)}
+.reads li span{display:block;color:var(--ink2);font-size:12.5px}
+.reads li em{font-style:normal;font-size:11px;color:var(--mute);letter-spacing:.06em}
+.note{color:var(--mute);font-size:12px;margin-top:10px}
+
+/* cartões */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(560px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card>header{display:flex;align-items:flex-start;gap:12px}
+.num{font:italic 400 24px/1.1 var(--serif);color:var(--mute)}
+.card h2{font:700 25px/1.1 var(--serif);letter-spacing:-.01em}
+.sub{color:var(--ink2);font-size:12.5px;margin-top:2px}
+.fit{margin-left:auto;display:grid;gap:1px;font-size:11px;color:var(--mute);white-space:nowrap;text-align:right;padding-top:3px}
+.fit i{font-style:normal;letter-spacing:2px;color:var(--ink);margin-left:4px}
+.body{display:flex;gap:18px;align-items:flex-start}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.txt p b{font-weight:650}
+.swap{display:grid;grid-template-columns:58px 1fr;gap:4px 10px;font-size:12.5px;border-top:1px solid var(--line);padding-top:10px}
+.swap dt{color:var(--mute);font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding-top:2.5px}
+.swap dd{margin:0}
+.swap small{color:var(--mute);font-size:11.5px}
+.pal{display:flex;gap:6px}
+.pal span{flex:1;min-width:0;font-size:9.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pal i{display:block;height:20px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.09);margin-bottom:3px}
+.risk{color:var(--ink2);font-size:12.5px;border-top:1px solid var(--line);padding-top:9px}
+
+/* assinatura: ícone + logo */
+.bb{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:10px;background:var(--paper);color:var(--tink);min-height:90px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.07)}
+.ico{width:56px;height:56px;flex:none;border-radius:13px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 5px 10px -5px rgba(0,0,0,.35)}
+.ico svg{display:block;width:100%;height:100%}
+.mark{line-height:1.05;white-space:nowrap}
+.tag{font-size:11.5px;margin-top:6px;opacity:.82}
+
+/* mini tela de jogo */
+.scr{width:206px;height:384px;flex:none;border-radius:27px;border:5px solid #1B1D1B;background:var(--paper);color:var(--tink);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:6px;height:34px;padding:8px 12px 0}
+.wm{white-space:nowrap}
+.chip{font:600 8.5px var(--sans);padding:3px 7px;border-radius:99px;background:var(--soft);color:var(--acc);white-space:nowrap}
+.bar{height:3px;margin:8px 12px 0;background:var(--tline);border-radius:3px;flex:none}
+.bar i{display:block;width:58%;height:100%;background:var(--acc);border-radius:3px}
+.sky{flex:1;position:relative;overflow:hidden;min-height:0}
+.fw{position:absolute;white-space:nowrap;color:var(--tink);line-height:1.15}
+.fw.pg{color:var(--pg,var(--rare));opacity:1!important}
+.typed{position:absolute;left:0;right:0;top:44%;transform:translateY(-50%);text-align:center}
+.typed b{color:var(--acc);font-weight:inherit}
+.gloss{position:absolute;left:0;right:0;top:calc(44% + 17px);text-align:center;font:500 8.5px var(--sans);color:var(--tink);opacity:.7}
+.toast{position:absolute;left:50%;top:calc(44% - 38px);transform:translateX(-50%);font:700 9px var(--sans);background:var(--rare-soft);color:var(--tink);padding:3px 8px;border-radius:99px;white-space:nowrap}
+.shelf{position:absolute;left:8px;right:8px;bottom:6px;height:24px;border-radius:9px;background:var(--shelf,rgba(255,255,255,.72));border:1px solid var(--tline);display:flex;align-items:center;gap:6px;padding:0 4px 0 8px;font:600 9.5px var(--sans)}
+.shelf em{font-style:normal;font-size:6.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tmute)}
+.shelf span{flex:1;white-space:nowrap}
+.shelf strong{background:var(--acc);color:var(--acc-ink);border-radius:6px;padding:3px 7px;font-size:8px;font-weight:700}
+.keys{position:relative;width:120px;height:124px;margin:6px auto 12px;flex:none}
+.k{position:absolute;left:calc(var(--x)*1px);top:calc(var(--y)*1px);width:36px;height:36px;margin:-18px 0 0 -18px;border-radius:50%;display:grid;place-items:center;background:var(--key);color:var(--key-ink);border:1px solid var(--tline)}
+.k.c{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.hex .keys{filter:drop-shadow(0 1.5px 0 rgba(0,0,0,.24))}
+.hex .k{width:44px;height:38px;margin:-19px 0 0 -22px;border:0;border-radius:0;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+
+/* 01 Golaço */
+.t1{--paper:#F2F0E3;--tink:#14261C;--tmute:#6E7B70;--acc:#1F7A4D;--acc-ink:#fff;--soft:#D5E8DA;--rare:#E0A91B;--rare-soft:#F8E3A0;--pg:#A97F00;--tline:#D4D0BE;--key:#fff;--key-ink:#14261C;
+  --cond:"Avenir Next Condensed","DIN Condensed",Impact,"Arial Narrow",sans-serif}
+.t1 .mark{font:italic 800 40px/1 var(--cond);text-transform:uppercase;color:var(--acc)}
+.t1 .mark::after{content:"";display:block;height:5px;margin-top:4px;background:#E0A91B;transform:skewX(-24deg)}
+.t1 .wm{font:italic 800 17px/1 var(--cond);text-transform:uppercase;color:var(--acc)}
+.t1 .fw{font-family:var(--cond);font-weight:600}
+.t1 .typed{font:italic 800 29px/1 var(--cond)}
+.t1 .k{font:700 17px var(--cond)}
+.t1 .sky::before{content:"";position:absolute;left:50%;top:44%;width:132px;height:132px;margin:-66px;border:1.5px solid rgba(31,122,77,.2);border-radius:50%}
+
+/* 02 Pescaria */
+.t2{--paper:#E6F0EB;--tink:#17302D;--tmute:#5F7B75;--acc:#0E6E64;--acc-ink:#fff;--soft:#CDE5DE;--rare:#C98A12;--rare-soft:#F7E6BF;--tline:#B7D0C8;--key:#FAFDFB;--key-ink:#17302D}
+.t2 .bb,.t2 .scr{background:linear-gradient(#F3F1E4,#DCEBE5 45%,#C4DFD7)}
+.t2 .mark{font:700 38px/1 var(--serif);color:var(--acc);letter-spacing:-.02em}
+.t2 .mark b,.t2 .wm b,.t2 .typed b{color:#E4572E}
+.t2 .wm{font:700 17px/1 var(--serif);color:var(--acc)}
+.t2 .fw{font-family:var(--serif);font-style:italic;font-weight:600;color:var(--acc)}
+.t2 .typed{font:700 27px/1 var(--serif)}
+.t2 .k{font:700 15px var(--serif);border:1.5px solid rgba(14,110,100,.5)}
+.t2 .k.c{background:#E4572E;border-color:#E4572E}
+.t2 .sky::before,.t2 .sky::after{content:"";position:absolute;left:50%;top:44%;border:1px solid rgba(14,110,100,.3);border-radius:50%}
+.t2 .sky::before{width:112px;height:50px;margin:-25px -56px}
+.t2 .sky::after{width:184px;height:92px;margin:-46px -92px;opacity:.5}
+
+/* 03 Lousa */
+.t3{--paper:#24483C;--tink:#F1EEE3;--tmute:#A9BDB3;--acc:#F2D15C;--acc-ink:#24483C;--soft:rgba(255,255,255,.12);--rare:#F4A9A0;--rare-soft:transparent;--tline:rgba(241,238,227,.28);--key:transparent;--key-ink:#F1EEE3;--shelf:rgba(255,255,255,.07);
+  --chalk:"Chalkboard SE",Chalkboard,"Marker Felt","Comic Sans MS",cursive;--dust:Chalkduster,"Chalkboard SE","Comic Sans MS",cursive}
+.t3 .bb,.t3 .scr{background:radial-gradient(ellipse at 30% 35%,rgba(255,255,255,.08),transparent 62%),#24483C;box-shadow:inset 0 0 0 4px #B98A55}
+.t3 .mark{font:400 30px/1.1 var(--dust)}
+.t3 .tag{font:400 13px var(--chalk);color:#F2D15C;opacity:1}
+.t3 .wm{font:400 14px/1 var(--dust)}
+.t3 .hd{padding-top:11px}
+.t3 .fw,.t3 .gloss,.t3 .shelf span{font-family:var(--chalk)}
+.t3 .typed{font:400 24px/1 var(--dust)}
+.t3 .k{font:700 16px var(--chalk);border:1.5px solid rgba(241,238,227,.85)}
+.t3 .k.c{border-color:#F2D15C}
+.t3 .toast{font:700 12px var(--chalk);color:#F2D15C;transform:translateX(-50%) rotate(-4deg)}
+
+/* 04 Verbete */
+.t4{--paper:#F7F3E8;--tink:#1B1A17;--tmute:#7C766A;--acc:#B3261E;--acc-ink:#fff;--soft:#F1DAD5;--rare:#9A7420;--rare-soft:#EFE0B6;--tline:#D9D2C0;--key:#1B1A17;--key-ink:#F7F3E8;
+  --bask:Baskerville,"Iowan Old Style","Palatino Linotype",Georgia,serif}
+.t4 .mark{font:700 36px/1 var(--bask)}
+.t4 .mark i{font:italic 400 15px var(--bask);color:var(--acc);margin-left:7px}
+.t4 .tag{font:400 12.5px/1.35 var(--bask);opacity:1}
+.t4 .tag b{color:var(--acc)}
+.t4 .wm{font:700 17px/1 var(--bask)}
+.t4 .d{font-family:Georgia,"Times New Roman",serif;font-style:normal;font-weight:700;margin:0 .04em}
+.t4 .fw{font-family:var(--bask);font-weight:600}
+.t4 .typed{font:700 27px/1 var(--bask)}
+.t4 .gloss{font:italic 400 9.5px var(--bask);opacity:.8}
+.t4 .k{font:700 16px var(--bask);border-color:#1B1A17}
+.t4 .sky{border-top:1px solid var(--tline);margin-top:7px}
+.t4 .sky::before,.t4 .sky::after{position:absolute;top:4px;font:700 7px var(--bask);letter-spacing:.14em;color:var(--tmute)}
+.t4 .sky::before{content:"CHOQUE";left:11px}
+.t4 .sky::after{content:"CHORAR";right:11px}
+
+/* 05 Letreiro */
+.t5{--paper:#F6F1E4;--tink:#1C1B1A;--tmute:#7D7667;--acc:#D63A2A;--acc-ink:#fff;--soft:#FADFA0;--rare:#B98300;--rare-soft:#F9D866;--tline:#DCD3BF;--key:#fff;--key-ink:#1E4FA3;
+  --slab:Rockwell,"American Typewriter","Roboto Slab",Georgia,serif;--script:SignPainter,"SignPainter-HouseScript","Brush Script MT","Marker Felt",cursive}
+.t5 .bb{box-shadow:inset 0 0 0 3px #1E4FA3,inset 0 0 0 5px #F6F1E4,inset 0 0 0 6px #D63A2A}
+.t5 .mark{font:400 54px/.85 var(--script);color:#D63A2A;text-shadow:1.5px 1.5px 0 #F4B81E,3.5px 3.5px 0 #1E4FA3;padding-right:6px}
+.t5 .tag{font:700 9.5px var(--slab);letter-spacing:.14em;text-transform:uppercase;color:#1E4FA3;opacity:1;margin-top:9px}
+.t5 .scr{background:linear-gradient(#F6F1E4 0 calc(100% - 140px),#F4B81E calc(100% - 140px) calc(100% - 136px),#1E4FA3 calc(100% - 136px))}
+.t5 .wm{font:400 25px/.8 var(--script);color:#D63A2A}
+.t5 .chip{color:#1E4FA3}
+.t5 .fw{font-family:var(--slab);font-weight:700;color:#1E4FA3}
+.t5 .typed{font:700 26px/1 var(--slab);color:#1E4FA3;text-shadow:1.5px 1.5px 0 #F4B81E}
+.t5 .k{font:700 15px var(--slab);border:2px solid #F4B81E}
+.t5 .k.c{border-color:#fff}
+
+/* 06 Lado A */
+.t6{--paper:#F2E8D5;--tink:#2A1C14;--tmute:#86705C;--acc:#D9541E;--acc-ink:#FFF6E6;--soft:#F5D5BD;--rare:#B07F0C;--rare-soft:#F3DC9A;--tline:#DCCDB1;--key:#1A1716;--key-ink:#F2E8D5;
+  --fut:Futura,"Avenir Next","Century Gothic",sans-serif}
+.t6 .mark{font:700 38px/1 var(--fut);color:#D9541E;letter-spacing:-.03em;text-shadow:2.5px 2.5px 0 #E3A82B,5px 5px 0 #5E7F4A;padding:0 6px 6px 0}
+.t6 .wm{font:700 15px/1 var(--fut);color:#D9541E}
+.t6 .chip{color:#9E3A10}
+.t6 .fw{font-family:var(--fut);font-weight:500}
+.t6 .typed{font:700 25px/1 var(--fut)}
+.t6 .k{font:700 14px var(--fut);border:0;box-shadow:inset 0 0 0 4px #1A1716,inset 0 0 0 5px #4A413B}
+.t6 .k.c{background:#D9541E;box-shadow:inset 0 0 0 5px #1A1716}
+.t6 .sky::before{content:"";position:absolute;right:-50px;top:-58px;width:106px;height:106px;border-radius:50%;background:repeating-radial-gradient(circle,#D9541E 0 8px,#E3A82B 8px 16px,#5E7F4A 16px 24px,#F2E8D5 24px 30px)}
+
+/* 07 Sopa de letrinhas */
+.t7{--paper:#FBF8F0;--tink:#3A2417;--tmute:#8C7A68;--acc:#E8862A;--acc-ink:#fff;--soft:#FBE3C2;--rare:#C48A00;--rare-soft:#fff;--pg:#FFE08A;--tline:#E6DDCA;--key:#F6E3B0;--key-ink:#5A3A1E;
+  --round:"Arial Rounded MT Bold","Helvetica Rounded","Helvetica Neue",Arial,sans-serif}
+.t7 .bb{background:#CE4E2C;color:#FFF3D1}
+.t7 .mark{font:400 34px/1 var(--round);color:#F9E7B5;letter-spacing:.02em}
+.t7 .mark span{display:inline-block;transform:rotate(var(--r)) translateY(var(--y,0))}
+.t7 .wm{font:400 15px/1 var(--round);color:#CE4E2C}
+.t7 .chip{color:#A8540C}
+.t7 .fw{font-family:var(--round);color:#F9E7B5}
+.t7 .typed{font:400 25px/1 var(--round);color:#FFF6DC}
+.t7 .typed b{color:#FFC94D}
+.t7 .gloss{color:#FFEBCB;opacity:.95}
+.t7 .k{font:400 15px var(--round);border-color:#E3C987}
+.t7 .typed{font-size:23px}
+.t7 .gloss{font-size:8px}
+.t7 .sky::before{content:"";position:absolute;left:50%;top:42%;width:128px;height:128px;margin:-64px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#DD6238,#C6452A);box-shadow:0 0 0 5px #fff,0 0 0 7px #2B4C9B,0 5px 8px 6px rgba(60,40,20,.13)}
+
+/* 08 Ladrilho */
+.t8{--paper:#F4F1E8;--tink:#1B2740;--tmute:#7B8292;--acc:#1F4E9E;--acc-ink:#fff;--soft:#D9E4F5;--rare:#B5821A;--rare-soft:#F1DFA9;--tline:#CFC8B8;--key:#fff;--key-ink:#1F4E9E;
+  --did:Didot,"Bodoni 72","Bodoni MT",Georgia,serif}
+.t8 .mark{display:flex;gap:2px}
+.t8 .mark span{width:24px;height:32px;display:grid;place-items:center;background:#fff;border:1px solid #1F4E9E;box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3px #A9C3E6;font:700 18px var(--did);color:#1F4E9E}
+.t8 .wm{font:700 12px/1 var(--did);letter-spacing:.1em;text-transform:uppercase;color:#1F4E9E}
+.t8 .fw{font-family:var(--did);font-style:italic;color:#1F4E9E}
+.t8 .typed{font:700 26px/1 var(--did);letter-spacing:.06em}
+.t8 .k{font:700 16px var(--did)}
+.t8 .bar{height:8px;border-radius:0;background:#fff;box-shadow:0 0 0 1px var(--tline);position:relative}
+.t8 .bar i{border-radius:0}
+.t8 .bar::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 9.5px,var(--paper) 9.5px 11px)}
+
+/* fecho */
+.pick{margin-top:26px;padding:20px 24px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px 26px}
+.picks span{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.picks b{display:block;font:700 21px/1.2 var(--serif);margin:2px 0 4px}
+.picks p{color:var(--ink2);font-size:13px}
+footer{margin-top:22px;display:grid;gap:5px;color:var(--mute);font-size:12px;max-width:900px}
+footer b{color:var(--ink2);font-weight:600}
+
+@media(max-width:640px){
+  .wrap{padding:24px 14px 36px}
+  h1{font-size:30px}
+  .verdict{grid-template-columns:1fr;gap:12px}
+  .grid{grid-template-columns:1fr}
+  .body{flex-direction:column;align-items:center}
+  .txt{width:100%}
+}
+@media print{body{background:#fff}.card,.verdict,.pick{break-inside:avoid}.bb,.scr,.pal i{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eye">Letraço · estudo de tema · novembro de 2026</p>
+    <h1>8 temas para o lugar da abelha</h1>
+    <p class="lead">Briefing curto por tema: de onde vem a ideia, como ela aparece na tela nova e que nomes ela troca. Nenhum repete os oito que já estão no repo.</p>
+  </header>
+
+  <section class="verdict">
+    <div class="q"><span>A abelha faz sentido?</span><strong>Não.</strong><small>Minha leitura; a decisão é sua.</small></div>
+    <div class="a">
+      <p>Ela veio junto com o gênero. No Spelling Bee, do New York Times, <i>bee</i> é trocadilho com <i>spelling bee</i>, o concurso de soletrar. Em português o trocadilho não existe e sobrou uma colmeia sem motivo.</p>
+      <p><b>Sai:</b> colmeia, Favo e mel, os três nomes de abelha que ainda estão no mock. <b>Fica:</b> as 7 letras em flor com a obrigatória no centro, que é regra do jogo. O hexágono só continua se o tema der outro motivo para ele.</p>
+    </div>
+  </section>
+
+  <section class="reads">
+    <h3>Como dá para ler o nome</h3>
+    <ul>
+      <li><b>letra + -aço</b><span>o aumentativo de elogio, como em golaço</span><em>tema 01</em></li>
+      <li><b>ç</b><span>a cedilha é um anzol</span><em>tema 02</em></li>
+      <li><b>letr-</b><span>soletrar, letrado, letreiro</span><em>temas 03 · 04 · 05</em></li>
+      <li><b>letra</b><span>a de música</span><em>tema 06</em></li>
+      <li><b>o jogo</b><span>palavras que flutuam, sete peças em flor</span><em>temas 07 · 08</em></li>
+    </ul>
+    <p class="note">As leituras “aço” e “traço” já viraram Tipo de Aço e Traço Livre. Em cada cartão, as bolinhas dizem quanto o tema combina com o nome e com o jogo (de 1 a 3).</p>
+  </section>
+
+  <main id="cards" class="grid"></main>
+
+  <section class="pick">
+    <h3>Se a escolha fosse minha</h3>
+    <div class="picks">
+      <div><span>Aposta</span><b>02 Pescaria</b><p>É o único que explica o nome e ainda aproveita o que a tela nova já tem: palavras que flutuam, a onda da letra tocada, o teal.</p></div>
+      <div><span>Caminho seguro</span><b>04 Verbete</b><p>Troca nomes e tipografia, quase sem redesenho. O risco é o app continuar sem personalidade.</p></div>
+      <div><span>Caminho ousado</span><b>01 Golaço</b><p>O melhor encaixe com o nome, mas muda o clima da partida.</p></div>
+    </div>
+    <p class="note">A assinatura “le·tra·ço, s.m.” do Verbete funciona como logo em qualquer um dos outros.</p>
+  </section>
+
+  <footer>
+    <p><b>Já explorados, fora desta leva:</b> Caderno, Oficina tipográfica, Lambe-lambe, Constelação e Clube de passatempos (briefing_temas.html); Tipo de Aço, Xilo e Traço Livre (theme_proposals.html).</p>
+    <p><b>Ficaram na gaveta:</b> Bloco de carnaval (o -aço de panelaço e buzinaço), Cartório (cada acerto leva carimbo de “confere”) e Bordado (abecedário em ponto-cruz).</p>
+    <p>Telas ilustrativas, com a partida do mock (R + E H A L O C) e fontes do macOS. Não é layout final.</p>
+  </footer>
+</div>
+
+<script>
+// Hexágono de topo reto, raio a, centrado em (cx, cy).
+const hex = (cx, cy, a) => [0, 1, 2, 3, 4, 5].map(i =>
+  (cx + a * Math.cos(Math.PI / 3 * i)).toFixed(1) + "," + (cy + a * Math.sin(Math.PI / 3 * i)).toFixed(1)).join(" ");
+const dots = n => "●".repeat(n) + "○".repeat(3 - n);
+// Baskerville não tem o ponto mediano; a classe .d troca a fonte só dele no tema 04.
+const DOT = '<span class="d">·</span>';
+
+// As 6 letras de fora, em flor; a central (R) fica em 60,62.
+const KEYS = [["E", 60, 22], ["H", 94.6, 42], ["A", 94.6, 82], ["L", 60, 102], ["O", 25.4, 82], ["C", 25.4, 42]];
+// palavra, posição, tamanho, opacidade, pangrama
+const FW = [["olhar", "left:8%;top:13%", 15, .8], ["coral", "right:9%;top:31%", 11, .5], ["rocha", "left:10%;top:68%", 12, .55],
+  ["hora", "right:11%;top:66%", 16, .85], ["acolher", "left:35%;top:3%", 12, 1, 1]];
+// No prato, as palavras ficam dentro do círculo do caldo.
+const FW_PRATO = [["acolher", "left:39%;top:11%", 12, 1, 1], ["rocha", "left:31%;top:61%", 12, .75], ["hora", "left:53%;top:60%", 14, .95]];
+
+const seams = [0, 1, 2, 3, 4, 5].map(i => {
+  const c = Math.cos(Math.PI / 3 * i), s = Math.sin(Math.PI / 3 * i);
+  return `<path d="M${(50 + 15 * c).toFixed(1)} ${(50 + 15 * s).toFixed(1)}L${(50 + 33 * c).toFixed(1)} ${(50 + 33 * s).toFixed(1)}"/>`;
+}).join("");
+const ring = [[50, 26], [70.8, 38], [70.8, 62], [50, 74], [29.2, 62], [29.2, 38]];
+
+const themes = [
+  { n: 1, hex: 1, name: "Golaço", sub: "grito de narrador · vibrante, popular, de arquibancada", fit: [3, 2],
+    mark: "Letraço!", wm: "Letraço", tag: "Achou a palavra, pode gritar.", chip: "Craque · 71", toast: "Na gaveta!", list: "Súmula",
+    icon: `<rect width="100" height="100" rx="22" fill="#1F7A4D"/><circle cx="50" cy="50" r="33" fill="#F7F5EC"/><g stroke="#14261C" stroke-width="2.5">${seams}</g><polygon points="${hex(50, 50, 15)}" fill="#14261C"/><path d="M46 43v13h9" stroke="#F7F5EC" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+    from: "<i>-aço</i> é o sufixo com que o brasileiro comemora: golaço, jogaço, timaço. Letraço já nasce como grito de narrador.",
+    game: "O nível máximo já se chama Letraço e o jogo já tem placar. A palavra entra em campo no círculo central; a que não existe bate na trave.",
+    swap: [["7 letras", "A bola. <small>O hexágono fica: são os gomos.</small>"], ["Central", "Camisa 10"], ["Lista", "Súmula"], ["Raro", "Gol de placa <small>(dourado de taça)</small>"],
+      ["Níveis", "Peladeiro → Titular → Craque → Letraço"], ["Voz", "“+6 Na gaveta!” · “Na trave: não está na lista”"]],
+    pal: [["#1F7A4D", "gramado"], ["#F2F0E3", "cal"], ["#14261C", "tinta"], ["#E0A91B", "taça"], ["#D8402F", "cartão"]],
+    risk: "Afasta quem não liga para futebol e, na loja, pode passar por app de esporte." },
+
+  { n: 2, name: "Pescaria", sub: "história de pescador · calmo, bem-humorado, de beira de rio", fit: [2, 3],
+    mark: "Letra<b>ç</b>o", wm: "Letra<b>ç</b>o", tag: "Era deste tamanho.", chip: "Traíra · 71", toast: "Fisgou!", list: "Samburá",
+    icon: `<rect width="100" height="100" rx="22" fill="#0E6E64"/><path d="M65 31A21 21 0 1 0 65 61" stroke="#F3EEDF" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M50 71v7q0 8-8 8q-7 0-7-7l4.5-2.5" stroke="#F58A5B" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+    from: "A cedilha é um anzol pendurado no c. E pescador sempre aumenta o peixe: “era um letraço deste tamanho”.",
+    game: "É o tema que menos mexe na tela nova. As palavras já flutuam em profundidades diferentes, a letra tocada já solta uma onda e o teal já é cor de água. Enviar vira fisgar.",
+    swap: [["7 letras", "As boias. <small>Redondas; o hexágono sai.</small>"], ["Central", "A boia vermelha"], ["Lista", "Samburá <small>(o cesto do pescador)</small>"], ["Raro", "Peixão <small>(dourado)</small>"],
+      ["Níveis", "Lambari → Traíra → Dourado → Letraço"], ["Voz", "“+6 Fisgou!” · “Essa escapou”"]],
+    pal: [["#0E6E64", "água"], ["#DCEBE5", "remanso"], ["#F3F1E4", "areia"], ["#17302D", "tinta"], ["#E4572E", "boia"], ["#C98A12", "dourado"]],
+    risk: "Jogo de pesca é um gênero próprio. O ícone precisa deixar claro que aqui se pescam palavras." },
+
+  { n: 3, name: "Lousa", sub: "soletrando no quadro · nostálgico, carinhoso, de sala de aula", fit: [2, 3],
+    mark: "Letraço", wm: "Letraço", tag: "Hoje tem ditado.", chip: "Nota 10 · 71", toast: "Ótima! ★", list: "Ditado",
+    icon: `<rect width="100" height="100" rx="22" fill="#B98A55"/><rect x="9" y="9" width="82" height="82" rx="14" fill="#24483C"/><path d="M36 27v40h30" stroke="#F1EEE3" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M37 80h28" stroke="#F2D15C" stroke-width="3.5" stroke-linecap="round"/><path d="M68 24l2.3 4.8 5.2.7-3.8 3.6 1 5.2-4.7-2.6-4.7 2.6 1-5.2-3.8-3.6 5.2-.7z" fill="#F2D15C"/>`,
+    from: "A abelha era a tradução errada de <i>spelling bee</i>, que é concurso de soletrar. Soletrar tem “letra” dentro, e o lugar disso em português é a sala de aula, onde “que letraço!” é elogio de professora.",
+    game: "A palavra é escrita a giz, o erro some numa passada de apagador e o “+6 Ótima!” que já existe vira nota no canto do quadro.",
+    swap: [["7 letras", "O alfabeto da lição. <small>Círculos de giz; o hexágono sai.</small>"], ["Central", "A letra da lição <small>(giz amarelo)</small>"], ["Lista", "Ditado"], ["Raro", "Estrelinha <small>(giz rosa)</small>"],
+      ["Níveis", "Recreio → Lição de casa → Nota 10 → Letraço"], ["Voz", "“+6 Ótima! ★” · “Apaga e tenta de novo”"]],
+    pal: [["#24483C", "lousa"], ["#F1EEE3", "giz"], ["#F2D15C", "giz amarelo"], ["#F4A9A0", "giz rosa"], ["#B98A55", "moldura"]],
+    risk: "É um tema escuro, e a tela nova foi decidida só em claro. Também pode soar infantil." },
+
+  { n: 4, name: "Verbete", sub: "dicionário de bolso · culto, seco, espirituoso", fit: [2, 3],
+    mark: `le${DOT}tra${DOT}ço<i>s.m.</i>`, wm: `le${DOT}tra${DOT}ço`, tag: "<b>1.</b> Palavra bem achada. <b>2.</b> Quem acha muitas.", chip: "Erudito · 71", toast: "Culta!", list: "Glossário",
+    icon: `<rect width="100" height="100" rx="22" fill="#1F2F4A"/><rect x="11" y="11" width="78" height="78" rx="13" fill="none" stroke="#B8923A" stroke-width="1.5"/><text x="50" y="64" text-anchor="middle" font-family="Baskerville,Georgia,serif" font-weight="700" font-size="50" fill="#F7F3E8">L</text><text x="50" y="80" text-anchor="middle" font-family="Baskerville,Georgia,serif" font-style="italic" font-size="11" fill="#D9B45A">s.m.</text>`,
+    from: "Quem sabe palavra é letrado; quem sabe demais é letraço. O nome vira verbete de dicionário, com separação de sílabas e classe gramatical.",
+    game: "Toda palavra achada já mostra o significado, e os níveis atuais (Letrado, Erudito, Sábio) já falam essa língua. O jogo assume que é um dicionário sendo preenchido.",
+    swap: [["7 letras", "As dedeiras <small>(as letras recortadas na borda do dicionário). O hexágono sai.</small>"], ["Central", "A rubrica <small>(em vermelho)</small>"], ["Lista", "Glossário"], ["Raro", "Palavrão <small>(dourado de lombada)</small>"],
+      ["Níveis", "Os atuais servem: Letrado → Erudito → Sábio → Letraço"], ["Voz", "“+6 Culta!” · “Não consta”"]],
+    pal: [["#F7F3E8", "papel-bíblia"], ["#1B1A17", "tinta"], ["#B3261E", "rubrica"], ["#1F2F4A", "capa"], ["#B8923A", "douração"]],
+    risk: "É o vizinho mais próximo do Caderno atual. Muda pouco e pode continuar sem graça." },
+
+  { n: 5, name: "Letreiro", sub: "pintado à mão · popular, caloroso, de bairro", fit: [3, 2],
+    mark: "Letraço", wm: "Letraço", tag: "Palavra no capricho", chip: "Letrista · 71", toast: "No capricho!", list: "Fachada",
+    icon: `<rect width="100" height="100" rx="22" fill="#F4B81E"/><path d="M31 20h17v41h25v17H31z" fill="#D63A2A" transform="translate(5 5)"/><path d="M31 20h17v41h25v17H31z" fill="#1E4FA3"/><path d="M35.5 25v48" stroke="#fff" stroke-width="2" opacity=".55" stroke-linecap="round"/>`,
+    from: "Letraço é letra grande, e letra grande no Brasil é letreiro: fachada de mercearia, para-choque de caminhão, casco de barco. A raiz é a mesma, <i>letr-</i>.",
+    game: "A palavra digitada ganha sombra e filete, como letra de fachada. Cada acerto é uma placa a mais na parede.",
+    swap: [["7 letras", "As latas de tinta, vistas de cima. <small>O hexágono sai.</small>"], ["Central", "A lata vermelha"], ["Lista", "Fachada"], ["Raro", "Folha de ouro"],
+      ["Níveis", "Ajudante → Pintor → Letrista → Letraço"], ["Voz", "“+6 No capricho!” · “Borrou”"]],
+    pal: [["#F6F1E4", "cal"], ["#1E4FA3", "anil"], ["#D63A2A", "zarcão"], ["#F4B81E", "gema"], ["#1C1B1A", "piche"]],
+    risk: "É parente do Lambe-lambe já explorado, e sem lettering bem desenhado vira caricatura." },
+
+  { n: 6, name: "Lado A", sub: "letra de música · boêmio, solar, anos 70", fit: [3, 1],
+    mark: "letraço", wm: "letraço", tag: "Sete letras, um disco inteiro.", chip: "Lado A · 71", toast: "Sucesso!", list: "Encarte",
+    icon: `<rect width="100" height="100" rx="22" fill="#E3A82B"/><circle cx="50" cy="50" r="37" fill="#1A1716"/><circle cx="50" cy="50" r="30.5" fill="none" stroke="#4A413B"/><circle cx="50" cy="50" r="24" fill="none" stroke="#4A413B"/><circle cx="50" cy="50" r="16" fill="#D9541E"/><text x="50" y="56" text-anchor="middle" font-family="Futura,'Avenir Next',sans-serif" font-weight="700" font-size="17" fill="#F2E8D5">L</text>`,
+    from: "Letra também é o que se canta. “Que letraço” é o que se diz de um samba bem escrito.",
+    game: "Cada partida é um disco, cada palavra uma faixa e a lista é o encarte. As teclas redondas viram bolachas.",
+    swap: [["7 letras", "As bolachas. <small>O hexágono sai.</small>"], ["Central", "O selo do disco"], ["Lista", "Encarte"], ["Raro", "Refrão <small>(disco de ouro)</small>"],
+      ["Níveis", "Demo → Lado B → Lado A → Letraço"], ["Voz", "“+6 Sucesso!” · “Desafinou”"]],
+    pal: [["#F2E8D5", "capa"], ["#1A1716", "vinil"], ["#D9541E", "laranja"], ["#E3A82B", "mostarda"], ["#5E7F4A", "abacate"]],
+    risk: "O jogo não tem música. O tema promete uma coisa que a partida não entrega." },
+
+  { n: 7, name: "Sopa de letrinhas", sub: "prato cheio · caseiro, brincalhão, de almoço de vó", fit: [1, 3], fw: FW_PRATO,
+    mark: `<span style="--r:-8deg">L</span><span style="--r:5deg;--y:2px">E</span><span style="--r:-3deg">T</span><span style="--r:7deg;--y:-2px">R</span><span style="--r:-6deg;--y:1px">A</span><span style="--r:4deg">Ç</span><span style="--r:-9deg;--y:-1px">O</span>`,
+    wm: "Letraço", tag: "Tem palavra no seu prato.", chip: "Servido · 71", toast: "Que delícia!", list: "Panela",
+    icon: `<rect width="100" height="100" rx="22" fill="#2B4C9B"/><circle cx="50" cy="50" r="39" fill="#FBF8F0"/><circle cx="50" cy="50" r="34.5" fill="none" stroke="#2B4C9B" stroke-width="2"/><circle cx="50" cy="50" r="28" fill="#CE4E2C"/><path d="M43 37v24h15" stroke="#F9E7B5" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="64" cy="41" r="4.5" fill="#F29A2E"/><circle cx="64" cy="41" r="1.6" fill="#F7BE62"/><circle cx="37" cy="66" r="2" fill="#6DAA52"/><circle cx="61" cy="69" r="1.6" fill="#6DAA52"/>`,
+    from: "Todo mundo caçou palavra no prato antes de saber escrever direito. Combina mais com o jogo do que com o nome.",
+    game: "As palavras da tela nova já boiam, então o céu vira caldo. As letras são macarrãozinho e a obrigatória vem numa rodela de cenoura.",
+    swap: [["7 letras", "O macarrãozinho. <small>O hexágono sai.</small>"], ["Central", "A rodela de cenoura"], ["Lista", "Panela"], ["Raro", "Prato cheio <small>(amarelo-gema)</small>"],
+      ["Níveis", "Com fome → Beliscando → Servido → Letraço"], ["Voz", "“+6 Que delícia!” · “Faltou sal”"]],
+    pal: [["#CE4E2C", "caldo"], ["#F6E3B0", "massa"], ["#E8862A", "cenoura"], ["#FBF8F0", "ágata"], ["#2B4C9B", "borda"], ["#5E9A45", "salsinha"]],
+    risk: "Em Portugal, “sopa de letras” é o nome do caça-palavras, o que confunde o gênero. E puxa para o infantil." },
+
+  { n: 8, hex: 1, name: "Ladrilho", sub: "piso de casa antiga · elegante, sereno, artesanal", fit: [1, 2],
+    mark: "LETRAÇO".split("").map(c => `<span>${c}</span>`).join(""), wm: "Letraço", tag: "Palavra por palavra, peça por peça.", chip: "Ladrilheiro · 71", toast: "Assentou!", list: "Painel",
+    icon: `<rect width="100" height="100" rx="22" fill="#F4F1E8"/>${ring.map((p, i) => `<polygon points="${hex(p[0], p[1], 13)}" fill="${i % 2 ? "#A9C3E6" : "#fff"}" stroke="#1F4E9E" stroke-width="1.5"/>`).join("")}<polygon points="${hex(50, 50, 13)}" fill="#1F4E9E"/><path d="M46.5 43.5v13h8.5" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+    from: "É a saída para manter o hexágono sem a abelha: ladrilho hidráulico sextavado, piso de casa antiga e de boteco. O azulejo veio no mesmo navio que a língua.",
+    game: "Cada palavra achada assenta uma peça. A lista vira um painel, e dá para ver de longe quanto falta.",
+    swap: [["7 letras", "O piso. <small>O hexágono fica: são ladrilhos.</small>"], ["Central", "O miolo"], ["Lista", "Painel"], ["Raro", "Florão <small>(ocre)</small>"],
+      ["Níveis", "Servente → Ladrilheiro → Mestre → Letraço"], ["Voz", "“+6 Assentou!” · “Não encaixa”"]],
+    pal: [["#F4F1E8", "cal"], ["#1F4E9E", "cobalto"], ["#A9C3E6", "azul-claro"], ["#C9952A", "ocre"], ["#1B2740", "tinta"]],
+    risk: "Bonito, mas mudo. Não dá voz nem humor ao jogo, e a ligação com o nome é só visual." }
+];
+
+const card = t => `<article class="card t${t.n}${t.hex ? " hex" : ""}">
+<header><span class="num">0${t.n}</span><div><h2>${t.name}</h2><p class="sub">${t.sub}</p></div>
+<div class="fit"><span>nome<i>${dots(t.fit[0])}</i></span><span>jogo<i>${dots(t.fit[1])}</i></span></div></header>
+<div class="body">
+<div class="scr" role="img" aria-label="Tela de jogo no tema ${t.name}">
+  <div class="hd"><span class="wm">${t.wm}</span><span class="chip">${t.chip}</span></div>
+  <div class="bar"><i></i></div>
+  <div class="sky">${(t.fw || FW).map(w => `<span class="fw${w[4] ? " pg" : ""}" style="${w[1]};font-size:${w[2]}px;opacity:${w[3]}">${w[0]}</span>`).join("")}
+    <span class="toast">+6 ${t.toast}</span>
+    <div class="typed">CHO<b>R</b>A<b>R</b></div>
+    <div class="gloss">chorar ${DOT} derramar lágrimas</div>
+    <div class="shelf"><em>Últimas</em><span>ralo · orla</span><strong>${t.list}</strong></div>
+  </div>
+  <div class="keys">${KEYS.map(k => `<span class="k" style="--x:${k[1]};--y:${k[2]}">${k[0]}</span>`).join("")}<span class="k c" style="--x:60;--y:62">R</span></div>
+</div>
+<div class="txt">
+  <div class="bb"><div class="ico"><svg viewBox="0 0 100 100" role="img" aria-label="Ícone do tema ${t.name}">${t.icon}</svg></div><div><div class="mark">${t.mark}</div><div class="tag">${t.tag}</div></div></div>
+  <p><b>De onde vem.</b> ${t.from}</p>
+  <p><b>No jogo.</b> ${t.game}</p>
+  <dl class="swap">${t.swap.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("")}</dl>
+  <div class="pal">${t.pal.map(p => `<span><i style="background:${p[0]}"></i>${p[1]}</span>`).join("")}</div>
+  <p class="risk"><b>Risco.</b> ${t.risk}</p>
+</div>
+</div></article>`;
+
+document.getElementById("cards").innerHTML = themes.map(card).join("");
+</script>
+</body>
+</html>
