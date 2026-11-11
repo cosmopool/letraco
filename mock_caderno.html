@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Letraço Mock</title>
+<style>
+:root{
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.app{
+  --paper:#F5F0E6;--paper2:#EDE6D8;--card:#FFFDF8;--ink:#1D2626;--ink2:#56605E;--muted:#8A918C;--line:#DCD4C4;
+  --brand:#0E6E64;--brand-ink:#FFFFFF;--brand-soft:#D3E9E4;--honey:#D99A1E;--honey-soft:#F7E6BF;--err:#B8402F;
+  --tile:#E6DFCF;--tile-ink:#1D2626;--scrim:rgba(29,38,38,.38);
+  --w1:#1D2626;--w2:#0E6E64;--w3:#56605E;--w4:#3E8C82;--w5:#8A918C;--w6:#9C7A3C;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#2b2f2e;font-family:var(--sans);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px 16px}
+button{font:inherit;color:inherit}
+
+.app{width:390px;height:844px;border-radius:44px;border:10px solid #0d1010;background:var(--paper);color:var(--ink);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);transition:background .3s,color .3s;user-select:none;-webkit-user-select:none}
+@media (max-width:480px){body{padding:0;background:var(--paper)}.app{width:100vw;height:100dvh;border:0;border-radius:0;box-shadow:none}}
+
+/* header */
+.top{display:flex;align-items:center;gap:8px;padding:18px 14px 4px 20px}
+.wm{font:700 22px/1 var(--serif);letter-spacing:-.01em;margin-right:auto}
+.chip{display:flex;gap:6px;align-items:center;background:var(--brand-soft);color:var(--brand);border-radius:99px;padding:5px 11px;font:600 12.5px var(--sans)}
+.chip .pts{color:var(--ink2);font-weight:500}
+.ib{all:unset;width:40px;height:40px;display:grid;place-items:center;border-radius:20px;color:var(--ink);cursor:pointer}
+.ib:active{background:var(--paper2)}
+.trk{padding:2px 20px 0}
+.bar{position:relative;height:6px;background:var(--line);border-radius:6px;margin:8px 0 6px}
+.bar>span{position:absolute;inset:0 auto 0 0;background:var(--brand);border-radius:6px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.trkl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2)}
+.trkl b{color:var(--ink)}
+
+/* sky of floating words */
+.sky{flex:1;min-height:0;position:relative;overflow:hidden;margin-top:4px}
+.fw{position:absolute;left:0;top:0;font-family:var(--serif);white-space:nowrap;cursor:pointer;will-change:transform}
+.fw span{display:inline-block;font-size:32px;font-weight:600;transform-origin:0 50%;transform:translate(calc(var(--px,0px) * var(--d)),calc(var(--py,0px) * var(--d))) scale(var(--s));transition:color .25s}
+.fw.front{z-index:44!important}
+.fw.front span{font-weight:700;opacity:.9!important;filter:none!important;color:var(--ink)!important;text-shadow:0 0 10px var(--paper),0 0 22px var(--paper)}
+
+.wave{position:absolute;left:0;top:0;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:2px solid var(--brand);opacity:0;pointer-events:none;z-index:2}
+.wave.go{animation:wave .75s cubic-bezier(.2,.7,.3,1)}
+@keyframes wave{0%{transform:scale(1);opacity:.35}100%{transform:scale(24);opacity:0}}
+.sky::after{content:"";position:absolute;inset:auto 0 0 0;height:64px;background:linear-gradient(transparent,var(--paper));pointer-events:none}
+
+/* recent words: a quiet footer line under a hairline, no card; tap it or drag it up to open the favo */
+.foot{position:absolute;left:20px;right:20px;bottom:0;z-index:50;display:flex;align-items:baseline;gap:10px;border-top:1px solid var(--line);
+  padding:10px 0 4px;cursor:pointer;touch-action:none}
+.foot::before{content:"";position:absolute;inset:-10px 0 0}   /* touch area taller than the drawing */
+.foot .rw{flex:1;min-width:0;font:600 16px/1.2 var(--serif);white-space:nowrap;overflow:hidden}
+.foot .rw b{display:inline-block;font-weight:600}
+.foot .rw b:first-child{color:var(--brand)}
+.foot .rw i{display:inline-block;font-style:normal;color:var(--muted);margin:0 7px}
+.foot .go{display:inline-flex;align-items:center;gap:6px;font:600 12.5px var(--sans);color:var(--brand);white-space:nowrap}
+.foot.in .rw>*{animation:footin .45s cubic-bezier(.2,.8,.2,1)}   /* a new word pushes the line in from the left */
+.foot.in .rw b:first-child{animation-name:footnew}
+@keyframes footin{from{transform:translateX(-22px)}}
+@keyframes footnew{from{transform:translateX(-22px);opacity:0}}
+
+/* the word being typed lives in the sky, centered */
+.cur{position:absolute;left:0;right:0;top:calc((100% - 50px) / 2);transform:translateY(-50%);z-index:45;text-align:center;pointer-events:none;
+  transition:opacity .45s ease-in,transform .45s ease-in,filter .45s ease-in}
+.lt{display:inline-flex;justify-content:center;align-items:flex-end;height:58px;vertical-align:top;font:600 46px/1 var(--serif);letter-spacing:.04em;pointer-events:auto;cursor:pointer;
+  text-shadow:0 0 4px var(--paper),0 0 12px var(--paper),0 0 20px var(--paper)}
+.lt span{display:inline-block;animation:in .12s ease-out}
+.lt .m{color:var(--brand)}
+@keyframes in{from{transform:translateY(8px);opacity:0}}
+.caret{width:2px;height:40px;background:var(--brand);margin-left:4px;align-self:center;animation:blink 1s steps(1) infinite}
+.lt .caret{animation:blink 1s steps(1) infinite}
+.cur.empty .lt{pointer-events:none}
+@keyframes blink{50%{opacity:0}}
+/* nothing typed yet: a firmer caret; floating words fade as they pass it (see paint) */
+.cur.empty .caret{width:3px;height:48px;margin-left:0}
+.fb{min-height:22px;padding:6px 24px 0;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 5px var(--paper),0 0 10px var(--paper)}
+.fb .ok{font:italic 14px var(--serif);color:var(--ink2)}
+.fb .ok b{font-style:normal;color:var(--brand)}
+.fb .err{color:var(--err);font-weight:500}
+.fb .neu{color:var(--muted)}
+.cur.good .lt span{color:var(--brand);animation:hop .42s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--i)*40ms)}
+@keyframes hop{40%{transform:translateY(-10px)}}
+.cur.bad .lt{animation:shake .3s}
+.cur.bad .lt span{color:var(--err)}
+.cur.dup .lt span{color:var(--muted)}
+.cur.gone{opacity:0;transform:translateY(-50%) scale(.86);filter:blur(4px)}
+.cur.flown .lt{visibility:hidden}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.toast{position:absolute;left:50%;top:-34px;transform:translateX(-50%);background:var(--honey-soft);color:var(--ink);font:600 13.5px var(--sans);
+  padding:5px 12px;border-radius:99px;opacity:0;pointer-events:none;z-index:60}
+.toast b{color:var(--honey)}
+.toast.show{animation:rise 1.6s ease-out}
+@keyframes rise{0%{opacity:0;transform:translate(-50%,8px)}15%{opacity:1;transform:translate(-50%,0)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-8px)}}
+
+/* hive row: delete | hive | confirm */
+.play{display:flex;align-items:center;justify-content:center;gap:6px;padding:4px 10px 26px}
+.side{display:flex;flex-direction:column;align-items:center;gap:10px;width:70px}
+.hive{position:relative;width:196px;height:204px;flex:0 0 196px}
+.hx{all:unset;position:absolute;width:76px;height:66px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--tile);color:var(--tile-ink);
+  display:grid;place-items:center;font:700 26px/1 var(--sans);cursor:pointer;transition:transform .32s cubic-bezier(.65,0,.35,1),background .2s}
+.hx:active{transform:scale(.9)}
+.hx.c{background:var(--brand);color:var(--brand-ink)}
+.hx.pulse{animation:pulse .4s 2}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.act{all:unset;width:46px;height:40px;border-radius:20px;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink2);cursor:pointer;transition:transform .12s}
+.act:active{transform:scale(.9)}
+
+/* caderno sheet */
+.scrim{position:absolute;inset:0;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80}
+.sheet{position:absolute;left:0;right:0;bottom:0;top:120px;z-index:90;background:var(--card);border-radius:28px 28px 0 0;transform:translateY(105%);
+  transition:transform .42s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column}
+.app.cad-open .scrim{opacity:1;pointer-events:auto}
+.app.cad-open .sheet{transform:none}
+.handle{width:40px;height:4px;border-radius:2px;background:var(--line);margin:10px auto 8px}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;padding:0 20px 12px;border-bottom:1px solid var(--line)}
+.sh h2{margin:0;font:700 26px/1.1 var(--serif)}
+.sh p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.page{flex:1;overflow:auto;position:relative;padding:10px 16px 90px}
+.sec{display:flex;align-items:baseline;gap:8px;margin:14px 0 8px;font:600 12px var(--sans);color:var(--ink2)}
+.sec:first-child{margin-top:4px}
+.sec b{font:700 17px var(--serif);color:var(--brand)}
+.sec .bar2{flex:1;height:3px;border-radius:3px;background:var(--line);position:relative;align-self:center}
+.sec .bar2 i{position:absolute;inset:0 auto 0 0;background:var(--brand);border-radius:3px}
+[data-w]{cursor:pointer}
+/* Favo: every found word is a cell of the honeycomb, empty cells are the ones still missing */
+.fv{display:flex;flex-wrap:wrap;row-gap:4px;width:274px;margin:0 auto;padding-bottom:38px}
+.fv .c{margin-right:-14px;width:78px;height:68px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);display:grid;place-items:center;
+  background:var(--tile);font:600 14px var(--serif);color:var(--ink)}
+.fv .c:nth-child(2n){transform:translateY(36px)}
+.fv .c.pg{background:var(--honey-soft);color:var(--ink)}
+.fv .c.new{background:var(--brand);color:var(--brand-ink)}
+.fv .c.sel{background:var(--ink);color:var(--paper)}
+.fv .c.no{background:var(--paper2);color:var(--muted);font:600 11px var(--sans)}
+.gloss{position:absolute;left:12px;right:12px;bottom:14px;z-index:95;background:var(--ink);color:var(--paper);border-radius:14px;padding:10px 14px;font-size:13.5px;line-height:1.35;
+  transform:translateY(20px);opacity:0;transition:.2s;pointer-events:none}
+.gloss.show{transform:none;opacity:1}
+.gloss b{font:700 16px var(--serif);margin-right:6px}
+
+/* floating word tooltip */
+.tip{position:absolute;z-index:70;max-width:240px;background:var(--ink);color:var(--paper);border-radius:12px;padding:8px 12px;font-size:13px;line-height:1.35;
+  pointer-events:none;opacity:0;transform:translate(-50%,calc(-100% - 6px)) scale(.96);transition:opacity .15s,transform .15s}
+.tip.show{opacity:1;transform:translate(-50%,calc(-100% - 10px))}
+.tip b{font:700 15px var(--serif);margin-right:5px}
+
+.note{position:fixed;left:16px;bottom:12px;color:#a8aea9;font:12px var(--sans);max-width:300px}
+@media (max-width:480px){.note{display:none}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="top">
+    <span class="wm">Letraço</span>
+    <span class="chip"><span id="lv">Letrado</span><span class="pts" id="pts">0 pts</span></span>
+    <button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+  </div>
+  <div class="trk">
+    <div class="bar"><span id="barfill" style="width:0"></span></div>
+    <div class="trkl"><span id="next"></span><span style="color:var(--muted)" id="count"></span></div>
+  </div>
+
+  <div class="sky" id="sky">
+    <div class="wave" id="wave"></div>
+    <div class="cur empty" id="cur">
+      <div class="toast" id="toast"></div>
+      <div class="lt" id="lt"><span class="caret"></span></div>
+      <div class="fb" id="fb"><span class="neu">Toque nas letras · toda palavra usa o <b style="color:var(--brand)">R</b></span></div>
+    </div>
+    <div class="foot" id="foot" role="button" aria-label="Abrir favo">
+      <span class="rw" id="recent"></span>
+      <span class="go"><span id="favon">Favo</span><svg viewBox="0 0 8 12" width="7" height="11"><path d="M1.5 1.5L6 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+  </div>
+
+
+  <div class="play">
+    <div class="side">
+      <button class="act" id="shuffle" aria-label="Embaralhar" title="Embaralhar">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="act" id="del" title="Apagar (segure para limpar)" aria-label="Apagar (segure para limpar)">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M20 6H9l-6 6 6 6h11z M12 9l6 6 M18 9l-6 6" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="hive" id="hive"></div>
+    <div class="side">
+      <div style="height:40px"></div>
+      <button class="act" id="go" title="Enviar" aria-label="Enviar">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="tip" id="tip"></div>
+  <div class="scrim" id="scrim"></div>
+  <div class="sheet" id="sheet" aria-hidden="true">
+    <div class="handle"></div>
+    <div class="sh"><div><h2>Favo</h2><p id="cadsub"></p></div>
+      <button class="ib" id="close" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+    <div class="page" id="page"></div>
+    <div class="gloss" id="gloss"></div>
+  </div>
+</div>
+<p class="note">Mock interativo · palavras e significados mockados. A palavra digitada aparece no centro, entre as outras. Toque numa palavra voando para trazê-la para a frente e ver o significado; toque na linha das últimas palavras, na base do céu (ou arraste-a para cima), para abrir o Favo.</p>
+
+<script>
+(function () {
+  // mocked puzzle: center R, outer letters
+  var CENTER = "R";
+  var OUTER = ["E", "H", "A", "L", "O", "C"];
+  var GLOSS = {
+    arar: "lavrar a terra com arado", arca: "caixa grande com tampa; baú", arco: "curva; arma de atirar flechas",
+    cara: "rosto; sujeito, pessoa", caro: "de preço alto; querido", cera: "substância de abelhas usada em velas",
+    coar: "passar por um filtro", coro: "grupo que canta junto", erro: "engano, falha", hera: "planta trepadeira de folhas perenes",
+    hora: "cada uma das 24 partes do dia", oral: "da boca; falado", ralo: "peça com furos por onde escoa a água",
+    real: "que existe de fato; moeda do Brasil", rola: "ave parecida com a pomba", rolo: "cilindro; confusão",
+    roca: "instrumento de fiar", orla: "borda; beira-mar", ralar: "esfregar no ralador",
+    achar: "encontrar; ter uma opinião", arara: "ave grande e colorida", arcar: "assumir, suportar (um custo)",
+    areal: "terreno coberto de areia", carro: "veículo de rodas", cerca: "vedação em volta de um terreno",
+    cerco: "ato de cercar; bloqueio", choro: "ato de chorar; gênero musical brasileiro", colar: "unir com cola; enfeite do pescoço",
+    coral: "esqueleto de colônias marinhas; grupo que canta", corar: "ficar com o rosto vermelho", coroa: "ornamento circular usado na cabeça",
+    locar: "alugar", olhar: "dirigir a vista para; observar", relha: "lâmina do arado que corta a terra",
+    rocha: "massa de pedra dura", rolar: "girar sobre si mesmo", rolha: "peça que tapa o gargalo de garrafas",
+    calhar: "acontecer a propósito; coincidir", cercar: "pôr cerca em volta; rodear", chorar: "derramar lágrimas",
+    colher: "apanhar frutos ou flores; talher côncavo", orelha: "parte externa do ouvido", acolher: "receber, dar abrigo",
+    recolha: "ato de recolher; coleta", recolher: "juntar, guardar; retirar-se", rachar: "abrir fenda; partir ao meio",
+    errar: "cometer erro; vaguear"
+  };
+  var ALL = Object.keys(GLOSS);
+  var PANGRAM = function (w) { return "cehalor".split("").every(function (c) { return w.indexOf(c) >= 0; }); };
+  var found = ["hora", "caro", "cera", "olhar", "coral", "rocha", "arco", "real", "cerca", "erro", "colher", "rolha",
+               "hera", "choro", "arca", "acolher", "corar", "calhar", "orla", "ralo"]; // oldest → newest
+  var input = "";
+  var points = function (w) { return (w.length === 4 ? 1 : w.length) + (PANGRAM(w) ? 7 : 0); };
+  var MAXPTS = ALL.reduce(function (s, w) { return s + points(w); }, 0);
+  var LEVELS = [["Iniciante", 0], ["Aquecendo", .03], ["Leitor", .1], ["Curioso", .2], ["Letrado", .33], ["Erudito", .5], ["Sábio", .62], ["Letraço", .7]];
+  var $ = function (id) { return document.getElementById(id); };
+  var app = $("app"), sky = $("sky");
+  var FOOT = 44;                              // base of the sky kept free for the footer line
+
+  // hive
+  var HX = 60, HY = 69;
+  var SLOTS = [[0, -HY], [HX, -HY / 2], [HX, HY / 2], [0, HY], [-HX, HY / 2], [-HX, -HY / 2]];
+  var hive = $("hive"), tiles = [];
+  var c = document.createElement("button");
+  c.className = "hx c"; c.textContent = CENTER; c.style.left = HX + "px"; c.style.top = HY + "px";
+  c.setAttribute("aria-label", "Letra R, obrigatória");
+  c.onclick = function () { add(CENTER); };
+  hive.appendChild(c);
+  OUTER.forEach(function (l, i) {
+    var b = document.createElement("button");
+    b.className = "hx"; b.textContent = l;
+    b.onclick = function () { add(b.textContent); };
+    hive.appendChild(b); tiles.push(b);
+  });
+  function placeTiles() {
+    tiles.forEach(function (b, i) { b.style.left = (HX + SLOTS[i][0]) + "px"; b.style.top = (HY + SLOTS[i][1]) + "px"; });
+  }
+  placeTiles();
+
+  // input: the typed word sits in the middle of the sky
+  var clearT = 0;
+  function renderInput(state) {
+    var lt = $("lt"), html = "";
+    for (var i = 0; i < input.length; i++)
+      html += '<span class="' + (input[i] === CENTER ? "m" : "") + '" style="--i:' + i + '">' + input[i] + "</span>";
+    if (state !== "good" && state !== "bad" && state !== "dup") html += '<span class="caret"></span>';
+    lt.innerHTML = html;
+    $("cur").className = "cur" + (state ? " " + state : "") + (input ? "" : " empty");
+  }
+  function fb(html) { $("fb").innerHTML = html; }
+  // after a result the word leaves; the next tap starts a fresh one
+  function leave(cls, delay) {
+    clearTimeout(clearT);
+    clearT = setTimeout(function () {
+      $("cur").classList.add(cls);
+      clearT = setTimeout(reset, 480);
+    }, delay);
+  }
+  function reset() { clearTimeout(clearT); clearT = 0; input = ""; renderInput(); fb(""); }
+  function add(l) {
+    if (clearT) reset();
+    if (input.length >= 8) { fb('<span class="err">Máximo de 8 letras</span>'); return; }
+    input += l; renderInput(); fb('<span class="neu">' + input.length + (input.length === 1 ? " letra" : " letras") + "</span>");
+    wave();
+  }
+  var holdT;
+  $("del").onpointerdown = function () { holdT = setTimeout(function () { input = ""; renderInput(); fb(""); holdT = null; }, 450); };
+  $("del").onpointerup = function () {
+    if (holdT) { clearTimeout(holdT); if (clearT) return; input = input.slice(0, -1); renderInput(); fb(input ? '<span class="neu">' + input.length + " letras</span>" : ""); }
+  };
+  $("shuffle").onclick = function () {
+    var order = tiles.slice();
+    for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = order[i]; order[i] = order[j]; order[j] = t; }
+    tiles = order; placeTiles();
+  };
+  $("go").onclick = submit;
+  $("lt").onclick = submit;
+  document.addEventListener("keydown", function (e) {
+    var k = e.key.toUpperCase();
+    if (k === "ENTER") submit();
+    else if (k === "BACKSPACE" && !clearT) { input = input.slice(0, -1); renderInput(); }
+    else if (k === CENTER || OUTER.indexOf(k) >= 0) add(k);
+    else if (k === "ESCAPE") closeCad();
+  });
+
+  function bad(msg, pulse) {
+    renderInput("bad"); fb('<span class="err">' + msg + "</span>");
+    leave("gone", 650);
+    if (pulse) { c.classList.remove("pulse"); void c.offsetWidth; c.classList.add("pulse"); }
+    if (navigator.vibrate) navigator.vibrate([20, 60, 20]);
+  }
+  function submit() {
+    var w = input.toLowerCase();
+    if (!w || clearT) return;
+    if (w.length < 4) return bad("Curta demais — mínimo 4 letras");
+    if (w.indexOf("r") < 0) return bad('Falta o <b>R</b>, a letra do centro', true);
+    if (found.indexOf(w) >= 0) {
+      renderInput("dup"); fb('<span class="neu">Já encontrada</span>'); if (floats[w]) { bringFront(floats[w]); showTip(w, floats[w]); } leave("gone", 650); return;
+    }
+    if (!GLOSS[w]) return bad("Não está na lista");
+    found.push(w);
+    renderInput("good");
+    fb('<span class="ok"><b>' + w + "</b> · " + GLOSS[w] + "</span>");
+    var t = $("toast");
+    t.innerHTML = PANGRAM(w) ? "<b>+" + points(w) + "</b> Pangrama!" : "<b>+" + points(w) + "</b> " + (w.length >= 6 ? "Ótima!" : "Boa!");
+    t.classList.remove("show"); void t.offsetWidth; t.classList.add("show");
+    if (navigator.vibrate) navigator.vibrate(15);
+    clearTimeout(clearT);
+    clearT = setTimeout(function () {         // the word takes off into the sky, its meaning lingers a moment
+      flyIn(w); $("cur").classList.add("flown");
+      clearT = setTimeout(function () { $("cur").classList.add("gone"); clearT = setTimeout(reset, 480); }, 900);
+    }, 650);
+    update();
+    var f = $("foot"); f.classList.remove("in"); void f.offsetWidth; f.classList.add("in");
+  }
+
+  // floating words: each one at its own depth, with its own tone
+  var TONES = ["--w1", "--w2", "--w3", "--w4", "--w5", "--w6"];
+  var floats = {};
+  function rnd(seed) { var x = Math.sin(seed * 9301 + 49297) * 233280; return x - Math.floor(x); }
+  function hash(w) { var h = 0; for (var i = 0; i < w.length; i++) h = (h * 31 + w.charCodeAt(i)) % 100000; return h; }
+  var placed = [];
+  function spot(w) {
+    var h = hash(w), W = sky.clientWidth, H = sky.clientHeight - FOOT - 6;
+    var z = rnd(h + 1);                       // 0 far … 1 near
+    var size = 24, ww = w.length * size * .55 + 14, hh = size * 1.15 + 6;
+    var x = 12, y = 10, best = Infinity;
+    for (var k = 0; k < 300 && best > 0; k++) { // keep the spot that overlaps the others least
+      var cx = 8 + rnd(h + 10 + k) * Math.max(1, W - 16 - Math.max(ww, w.length * 32 * .58)); // fits even when nearest
+      var cy = 6 + rnd(h + 400 + k) * Math.max(1, H - hh - 6);
+      var area = placed.reduce(function (s, r) {
+        var ox = Math.min(cx + ww, r.x + r.w) - Math.max(cx, r.x), oy = Math.min(cy + hh, r.y + r.h) - Math.max(cy, r.y);
+        return s + (ox > 0 && oy > 0 ? ox * oy : 0);
+      }, 0);
+      if (area < best) { best = area; x = cx; y = cy; }
+    }
+    placed.push({ x: x, y: y, w: ww, h: hh });
+    return { z: z, x: x + 7, y: y + 3, size: size, tone: TONES[Math.floor(rnd(h + 4) * TONES.length)] };
+  }
+  // every word drifts between far and near on its own slow cycle, and moves freely:
+  // position is integrated each frame from velocity (wander + walls + neighbours + the typed word's push)
+  var depth = [];
+  function makeFloat(w, from) {
+    var p = spot(w), h = hash(w);
+    var el = document.createElement("div");
+    el.className = "fw";
+    var span = document.createElement("span");
+    span.textContent = w;
+    span.style.color = PANGRAM(w) ? "var(--honey)" : "var(" + p.tone + ")";
+    el.appendChild(span);
+    el.onclick = function () { bringFront(el); showTip(w, el); };
+    sky.insertBefore(el, $("foot"));
+    floats[w] = el;
+    var a = rnd(h + 12) * Math.PI * 2;
+    var d = {
+      el: el, span: span, base: span.offsetWidth, z: p.z,
+      phase: rnd(h + 11) < .5 ? Math.asin(p.z * 2 - 1) : Math.PI - Math.asin(p.z * 2 - 1),
+      speed: 2 * Math.PI / (25000 + rnd(h + 9) * 20000),
+      x: p.x, y: p.y, vx: Math.cos(a) * 8, vy: Math.sin(a) * 8, heading: a
+    };
+    if (from) {                               // a fresh find starts exactly where it was typed, at the typed size
+      var sr = sky.getBoundingClientRect();
+      d.phase -= (performance.now() - t0) * d.speed;   // its depth cycle starts at its own depth now
+      d.z = p.z; d.boost0 = d.boost = 46 / (NEAR + p.z * FAR_SPAN); // starts at the typed size, shrinks into that depth
+      var s0 = 46 / 32;                       // scale origin is the left middle of the word
+      d.x = from.cx - sr.left - d.base * s0 / 2; d.y = from.cy - sr.top - span.offsetHeight / 2;
+      d.vx = 0; d.vy = 0;
+    }
+    depth.push(d); paint(d);
+  }
+  var NEAR = 12, FAR_SPAN = 16, FRONT = 30;   // floating sizes: 12px far … 28px near, 30px tapped; the typed word is 46px
+  function scaleOf(d) { return (d.el === frontEl ? FRONT : NEAR + d.z * FAR_SPAN) / 32 * (d.boost || 1); }
+  function paint(d) {
+    var z = d.z, front = d.el === frontEl;
+    d.el.style.zIndex = front ? 44 : Math.round(z * 40);
+    d.el.style.transform = "translate(" + d.x.toFixed(1) + "px," + d.y.toFixed(1) + "px)";
+    d.el.style.setProperty("--d", (z * 1.6 - .3).toFixed(2));
+    d.span.style.setProperty("--s", scaleOf(d).toFixed(3));
+    var f = d.boost ? (d.boost - 1) / (d.boost0 - 1 || 1) : 0;   // 1 just found … 0 settled
+    var clear = 1;                            // words fade as they pass the empty caret
+    if (!input && !front) {
+      var W = sky.clientWidth, H = sky.clientHeight - FOOT, s4 = scaleOf(d);
+      var dist = Math.hypot(d.x + d.base * s4 / 2 - W / 2, (d.y + 22 - (H + 6) / 2) * 1.8);
+      clear = Math.max(.08, Math.min(1, (dist - 40) / 90));
+    }
+    var op = .26 + z * .56;                   // never as solid as the typed word
+    d.span.style.opacity = front ? .9 : ((op + (1 - op) * f) * clear).toFixed(2);
+    d.span.style.filter = !front && z < .3 ? "blur(" + ((.3 - z) * 5 * (1 - f)).toFixed(1) + "px)" : "none";
+  }
+  // the area the typed word occupies, in sky coordinates; empty when nothing is typed
+  function keepOut() {
+    if (!input) return null;
+    var sr = sky.getBoundingClientRect(), a = $("lt").getBoundingClientRect(), b = $("fb").getBoundingClientRect();
+    var l = Math.min(a.left, b.left + b.width / 2 - 90) - sr.left - 18, r = Math.max(a.right, b.left + b.width / 2 + 90) - sr.left + 18;
+    return { l: l, r: r, t: a.top - sr.top - 14, b: b.bottom - sr.top + 10, cx: (l + r) / 2, cy: (a.top + b.bottom) / 2 - sr.top };
+  }
+  // each typed letter sends a wave out from the word: nearer words get pushed harder, a little later the farther they are
+  function wave() {
+    var k = keepOut(); if (!k) return;
+    var wv = $("wave");
+    wv.style.left = k.cx + "px"; wv.style.top = k.cy + "px";
+    wv.classList.remove("go"); void wv.offsetWidth; wv.classList.add("go");
+    var now = performance.now();
+    depth.forEach(function (d) {
+      var s = scaleOf(d), cx = d.x + d.base * s / 2, cy = d.y + 16;
+      var dx = cx - k.cx, dy = (cy - k.cy) * 1.6, dist = Math.max(1, Math.hypot(dx, dy));
+      var power = 50 * Math.exp(-dist / 150) * (.6 + d.z * .6);
+      d.kick = { at: now + dist * 1.4, vx: dx / dist * power, vy: dy / dist * power * .8 };
+    });
+  }
+  var still = false, px = 0, py = 0, tpx = 0, tpy = 0, t0 = performance.now(), last = t0;
+  try { still = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  function tick(now) {
+    var t = now - t0, dt = Math.min(.05, (now - last) / 1000); last = now;
+    var W = sky.clientWidth, H = sky.clientHeight - FOOT, k = keepOut(), damp = Math.pow(.55, dt);
+    depth.forEach(function (d) {
+      var target = d.el === frontEl ? 1 : (still ? d.z : .5 + .5 * Math.sin(t * d.speed + d.phase));
+      var before = scaleOf(d);
+      d.z += (target - d.z) * (d.el === frontEl ? .18 : .03);
+      if (d.boost) { d.boost += (1 - d.boost) * .025; if (Math.abs(d.boost - 1) < .005) d.boost = 0; }
+      var s = scaleOf(d), ww = d.base * s, hh = 38 * s;
+      d.x += d.base * (before - s) / 2;       // grow and shrink around the word's center, not its left edge
+      if (!still) {                           // wander: a slowly turning heading, faster when near
+        d.heading += (Math.random() - .5) * 1.6 * dt;
+        var cruise = 6 + d.z * 10;
+        d.vx += (Math.cos(d.heading) * cruise - d.vx) * .6 * dt;
+        d.vy += (Math.sin(d.heading) * cruise * .7 - d.vy) * .6 * dt;
+      }
+      if (d.kick && now >= d.kick.at) { d.vx += d.kick.vx; d.vy += d.kick.vy; d.kick = null; }
+      if (k && !d.boost) {                    // stay out from behind the typed word
+        var ox = Math.min(d.x + ww, k.r) - Math.max(d.x, k.l), oy = Math.min(d.y + hh, k.b) - Math.max(d.y, k.t);
+        if (ox > 0 && oy > 0) {
+          var mx = d.x + ww / 2 - k.cx, my = d.y + hh / 2 - k.cy;
+          if (Math.abs(my) * 2.2 > Math.abs(mx)) d.vy += (my < 0 ? -1 : 1) * Math.min(oy, 40) * 1 * dt;
+          else d.vx += (mx < 0 ? -1 : 1) * Math.min(ox, 40) * 1 * dt;
+        }
+      }
+      // fast motion fades out with damping; cruising speed is kept
+      var sp = Math.hypot(d.vx, d.vy);
+      if (sp > 18) { d.vx *= damp; d.vy *= damp; }
+      d.x += d.vx * dt; d.y += d.vy * dt;
+      // soft walls
+      if (d.x < 4) { d.x = 4; d.vx = Math.abs(d.vx) * .5; d.heading = Math.PI - d.heading; }
+      if (d.x + ww > W - 4) { d.x = W - 4 - ww; d.vx = -Math.abs(d.vx) * .5; d.heading = Math.PI - d.heading; }
+      if (d.y < 2) { d.y = 2; d.vy = Math.abs(d.vy) * .5; d.heading = -d.heading; }
+      if (d.y + hh > H) { d.y = H - hh; d.vy = -Math.abs(d.vy) * .5; d.heading = -d.heading; }
+    });
+    // words at a similar depth nudge each other apart; different depths pass through
+    for (var i = 0; i < depth.length; i++) for (var j = i + 1; j < depth.length; j++) {
+      var a = depth[i], b = depth[j];
+      if (Math.abs(a.z - b.z) > .3) continue;
+      var sa = scaleOf(a), sb = scaleOf(b);
+      var ox = Math.min(a.x + a.base * sa, b.x + b.base * sb) - Math.max(a.x, b.x);
+      var oy = Math.min(a.y + 38 * sa, b.y + 38 * sb) - Math.max(a.y, b.y);
+      if (ox > 0 && oy > 0) {
+        var push = Math.min(ox, oy) * 6 * dt, dir = (a.y + 19 * sa) < (b.y + 19 * sb) ? -1 : 1;
+        a.vy += dir * push; b.vy -= dir * push;
+      }
+    }
+    depth.forEach(paint);
+    if (tipFor) placeTip();
+    px += (tpx - px) * .08; py += (tpy - py) * .08;
+    sky.style.setProperty("--px", px.toFixed(2) + "px");
+    sky.style.setProperty("--py", py.toFixed(2) + "px");
+    requestAnimationFrame(tick);
+  }
+  function flyIn(w) {
+    var r = $("lt").getBoundingClientRect();
+    makeFloat(w, { cx: r.left + r.width / 2, cy: r.top + r.height / 2 });
+  }
+  // tapping a floating word pulls it to the nearest depth, in ink
+  var frontEl = null;
+  function bringFront(el) {
+    if (frontEl && frontEl !== el) frontEl.classList.remove("front");
+    frontEl = el; el.classList.add("front");
+  }
+  var tipT, tipFor = null;
+  // meaning card above the word; it follows the word while it floats
+  function placeTip() {
+    var tip = $("tip"), ar = app.getBoundingClientRect(), r = tipFor.firstChild.getBoundingClientRect();
+    tip.style.left = Math.min(Math.max(r.left + r.width / 2 - ar.left, 130), ar.width - 130) + "px";
+    tip.style.top = (r.top - ar.top) + "px";
+  }
+  function showTip(w, el) {
+    var tip = $("tip");
+    clearTimeout(tipT);
+    tip.innerHTML = "<b>" + w + "</b>" + GLOSS[w];
+    tipFor = el; placeTip(); tip.classList.add("show");
+    tipT = setTimeout(function () { tip.classList.remove("show"); tipFor = null; }, 5000);
+  }
+  function hideTip() { clearTimeout(tipT); $("tip").classList.remove("show"); tipFor = null; }
+  // a tap anywhere else closes the meaning
+  document.addEventListener("pointerdown", function (e) { if (tipFor && !e.target.closest(".fw")) hideTip(); });
+
+  // header, footer line, favo
+  function update() {
+    var pts = found.reduce(function (s, w) { return s + points(w); }, 0), frac = pts / MAXPTS, lv = 0;
+    for (var i = 0; i < LEVELS.length; i++) if (frac >= LEVELS[i][1]) lv = i;
+    $("lv").textContent = LEVELS[lv][0];
+    $("pts").textContent = pts + " pts";
+    var goal = Math.ceil(MAXPTS * .7);
+    $("barfill").style.width = Math.min(100, pts / goal * 100) + "%";
+    var nx = LEVELS[lv + 1];
+    $("next").innerHTML = nx ? "Faltam <b>" + Math.max(1, Math.ceil(nx[1] * MAXPTS - pts)) + " pts</b> para " + nx[0] : "<b>Partida ganha!</b>";
+    $("count").textContent = found.length + " de " + ALL.length + " palavras";
+    $("recent").innerHTML = found.slice(-3).reverse().map(function (w) { return "<b>" + w + "</b>"; }).join("<i>·</i>");
+    $("favon").textContent = "Favo · " + found.length;
+    $("cadsub").textContent = found.length + " de " + ALL.length + " palavras · " + pts + " pts";
+    renderPage();
+  }
+  var selected = null;
+  function cls(w, last) { return (PANGRAM(w) ? " pg" : "") + (w === last ? " new" : "") + (w === selected ? " sel" : ""); }
+  function byLen(n) {
+    var all = ALL.filter(function (w) { return w.length === n; });
+    return { all: all, got: all.filter(function (w) { return found.indexOf(w) >= 0; }).sort() };
+  }
+  function sec(label, got, all) {
+    return '<div class="sec"><b>' + label + "</b><span>" + got + " de " + all + '</span><span class="bar2"><i style="width:' + (got / all * 100) + '%"></i></span></div>';
+  }
+  function renderPage() {
+    var html = "", last = found[found.length - 1], n, g;
+    for (n = 4; n <= 8; n++) {
+      g = byLen(n); if (!g.all.length) continue;
+      html += sec(n + " letras", g.got.length, g.all.length) + '<div class="fv">' +
+        g.got.map(function (w) { return '<div class="c' + cls(w, last) + '" data-w="' + w + '">' + w + "</div>"; }).join("") +
+        g.all.slice(g.got.length).map(function () { return '<div class="c no">' + n + "</div>"; }).join("") + "</div>";
+    }
+    $("page").innerHTML = html;
+  }
+  $("page").onclick = function (e) {
+    var t = e.target.closest("[data-w]"), w = t && t.dataset.w; if (!w) return;
+    selected = w; renderPage();
+    $("gloss").innerHTML = "<b>" + w + "</b>" + GLOSS[w]; $("gloss").classList.add("show");
+  };
+  function openCad() { app.classList.add("cad-open"); $("sheet").setAttribute("aria-hidden", "false"); }
+  function closeCad() { app.classList.remove("cad-open"); $("sheet").setAttribute("aria-hidden", "true"); $("gloss").classList.remove("show"); selected = null; renderPage(); }
+  var foot = $("foot"), dragY = null;         // a tap opens; so does dragging the line up
+  foot.onclick = openCad;
+  foot.onpointerdown = function (e) { dragY = e.clientY; };
+  foot.onpointermove = function (e) { if (dragY !== null && dragY - e.clientY > 24) { dragY = null; openCad(); } };
+  foot.onpointerup = foot.onpointercancel = foot.onpointerleave = function () { dragY = null; };
+  $("scrim").onclick = closeCad;
+  $("close").onclick = closeCad;
+
+  // depth parallax from tilting the phone: near words move more than far ones
+  window.addEventListener("deviceorientation", function (e) {
+    if (e.gamma == null) return;
+    tpx = Math.max(-30, Math.min(30, e.gamma)) * -.45;
+    tpy = Math.max(-30, Math.min(30, e.beta - 45)) * -.3;
+  });
+  renderPage();
+  found.forEach(function (w) { makeFloat(w); });
+  requestAnimationFrame(tick);
+
+  update();
+})();
+</script>
+</body>
+</html>
