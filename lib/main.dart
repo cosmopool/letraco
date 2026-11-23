@@ -25,10 +25,11 @@ class GameApp extends StatelessWidget {
       home: MainPage(controller: controller),
       routes: <String, WidgetBuilder>{
         '/instructions': (context) => const InstructionsPage(),
-        '/splash': (context) => SplashScreen(controller: controller),
-        '/initialSplash': (context) =>
-            SplashScreen(controller: controller, firstTimeInitializing: true),
       },
+      // the splash lies over the game screen, which it reveals at the end
+      onGenerateRoute: (settings) => settings.name == '/initialSplash'
+          ? SplashScreen.route(controller, settings)
+          : null,
     );
   }
 }

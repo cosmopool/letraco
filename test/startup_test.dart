@@ -16,7 +16,7 @@ void main() {
 
   Future<void> openApp(WidgetTester tester) async {
     await tester.pumpWidget(GameApp(controller: GameController()));
-    // the splash waits 2 s of wall-clock time, not of the fake test clock
+    // generating a new game takes real time, so wait on the wall clock
     final clock = Stopwatch()..start();
     while (clock.elapsed < const Duration(seconds: 5)) {
       await tester.pump(const Duration(milliseconds: 100));
