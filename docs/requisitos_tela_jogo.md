@@ -1,7 +1,7 @@
 # Requisitos — nova tela de jogo (palavras flutuantes)
 
-Referência visual e de comportamento: [`mock_caderno.html`](../mock_caderno.html) (mock interativo, palavras e significados mockados). Paleta: [`palette.md`](palette.md).
-Quando este documento e o mock divergirem, vale este documento.
+Referência visual e de comportamento: [`mock_caderno.html`](../mock_caderno.html) (mock interativo, palavras e significados mockados). Paleta: `Caderno` em [`lib/theme.dart`](../lib/theme.dart).
+Quando este documento e o mock divergirem, vale este documento. O mock ainda mostra nível e pontos (chip, "Faltam N pts", "+N" no selo); no app eles não existem.
 
 ## Contexto
 
@@ -10,17 +10,18 @@ Hoje a tela de jogo é: ícones de ajuda e menu; grade de 3 colunas com os pills
 ## Decidido
 
 - Paleta "Caderno", **só tema claro**. Não há tema escuro nem botão de trocar tema.
-- Fontes: serifa de livro para palavras, wordmark e níveis (`"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif`); sans do sistema para o resto da UI.
-- Palavras encontradas aparecem com o significado.
-- A lista completa (Favo) abre como bottom sheet: um favo de hexágonos por tamanho de palavra, cada encontrada numa célula com a palavra e cada faltante numa célula vazia.
+- Fontes: serifa de livro para palavras, wordmark e títulos (`"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif`); sans do sistema para o resto da UI.
+- Palavras encontradas aparecem com o significado, quando ele existe.
+- **Sem pontuação e sem níveis.** O app atual não classifica o jogador por pontos, e a tela nova também não: o progresso é contado em palavras.
+- A lista completa (Glossário) abre como bottom sheet: uma lista corrida com uma seção por tamanho de palavra, cada encontrada numa linha de verbete, e no fim de cada seção quantas faltam.
 - Apagar, Enviar e Embaralhar ficam ao lado da colmeia; nada abaixo dela.
 - Não existe campo de texto: a palavra digitada vive no céu, junto das flutuantes.
 - Cursor vazio: versão 4 do mock (cursor teal que pisca e palavras que somem perto dele).
 
 ## Layout (de cima para baixo)
 
-1. Header: wordmark "Letraço", chip de nível com pontos, menu.
-2. Trilha de progresso: barra + "Faltam N pts para <nível>" e "X de Y palavras".
+1. Header: wordmark "Letraço" e menu.
+2. Trilha de progresso: barra + "X de Y palavras".
 3. Céu: ocupa todo o espaço restante. Contém as palavras flutuantes, a palavra digitada no centro e, encostada na base, a linha "Últimas".
 4. Linha de jogo: coluna esquerda (Embaralhar acima, Apagar abaixo), colmeia de hexágonos no centro, Enviar à direita na altura do Apagar.
 
@@ -28,7 +29,7 @@ Hoje a tela de jogo é: ícones de ajuda e menu; grade de 3 colunas com os pills
 
 ### Palavras flutuantes
 
-- **AC-1** Dado um jogo com palavras encontradas, quando a tela abre, então cada palavra encontrada aparece no céu em minúsculas, sem sobrepor outra palavra de profundidade parecida, e totalmente dentro da área do céu.
+- **AC-1** Dado um jogo com palavras encontradas, quando a tela abre, então cada palavra encontrada aparece no céu em minúsculas, numa posição e profundidade sorteadas a cada abertura, espalhadas pelo céu inteiro, sem sobrepor outra palavra de profundidade parecida, e totalmente dentro da área do céu. As posições só são sorteadas depois que o céu tem tamanho: nunca começam todas agrupadas num canto.
 - **AC-2** Dado o céu aberto, quando o tempo passa, então cada palavra se move livremente com física de posição (velocidade, direção que muda devagar, quique suave nas bordas), sem sair da área do céu.
 - **AC-3** Dado o céu aberto, quando o tempo passa, então a profundidade de cada palavra muda continuamente num ciclo próprio de 25–45 s, com ponto e sentido iniciais diferentes por palavra (umas se aproximam enquanto outras se afastam).
 - **AC-4** Dada uma palavra numa profundidade z (0 longe, 1 perto), então: tamanho 12 px (longe) a 28 px (perto); opacidade 0,26 a 0,82; desfoque leve só nas mais distantes (z < 0,3); a mais perto fica na frente. A mudança de tamanho é em torno do centro da palavra.
@@ -58,7 +59,7 @@ Hoje a tela de jogo é: ícones de ajuda e menu; grade de 3 colunas com os pills
 
 ### Enviar
 
-- **AC-22** Dada uma palavra válida e nova, quando o jogador envia, então as letras ficam teal e pulam, o significado aparece embaixo ("palavra · significado"), um selo mel mostra os pontos ("+N Boa!", "+N Ótima!" para 6+ letras, "+N Pangrama!"), e na linha "Últimas" a palavra nova entra pela esquerda, em teal (~450 ms), a mais antiga das três sai e o contador "Favo · N" sobe.
+- **AC-22** Dada uma palavra válida e nova, quando o jogador envia, então as letras ficam teal e pulam, o significado aparece embaixo ("palavra · significado", só se houver significado), um selo mel comemora sem pontos ("Boa!", "Ótima!" para 6+ letras, "Pangrama!"), a barra de progresso avança, e na linha "Últimas" a palavra nova entra pela esquerda, em teal (~450 ms), a mais antiga das três sai e o contador "Glossário · N" sobe.
 - **AC-23** Dada uma palavra válida e nova, depois de ~650 ms, então ela vira uma flutuante **no mesmo lugar e no mesmo tamanho** em que foi digitada, sem velocidade inicial, e diminui em torno do centro até o tamanho e a opacidade da profundidade dela; só então passa a flutuar e ser empurrada como as outras.
 - **AC-24** Dada uma palavra com menos de 4 letras, quando enviada, então fica vermelha, treme, mostra "Curta demais — mínimo 4 letras" e some (encolhe, desfoca e desaparece em ~0,5 s depois de ~650 ms).
 - **AC-25** Dada uma palavra sem a letra central, quando enviada, então fica vermelha, treme, mostra "Falta o R, a letra do centro", o hexágono central pulsa duas vezes, e a palavra some como no AC-24.
@@ -73,33 +74,35 @@ Hoje a tela de jogo é: ícones de ajuda e menu; grade de 3 colunas com os pills
 - **AC-31** Dado letras digitadas, quando o jogador toca Apagar, então a última letra sai; quando segura Apagar por 450 ms, então a palavra inteira é limpa.
 - **AC-32** Quando o jogador toca Embaralhar, então as 6 letras externas trocam de lugar com animação (~320 ms) e a letra central não se move.
 
-### Últimas e Favo
+### Últimas e Glossário
 
-- **AC-33** A linha "Últimas" fica parada na base do céu, sempre visível: um fio fino alinhado às margens da trilha de progresso (20 px) e, embaixo dele, as 3 palavras mais recentes em serifa, separadas por "·" (a mais nova primeiro, em teal), com "Favo · N ›" em teal à direita, onde N é o total de palavras encontradas. Sem card, sombra, rótulo, botão ou ponto pulsando. A linha reserva 44 px na base do céu (as flutuantes não entram nessa faixa) e tem área de toque de 44 px de altura.
-- **AC-34** Quando o jogador toca a linha "Últimas" ou a arrasta para cima (24 px), então o Favo abre como bottom sheet: título "Favo", "X de Y palavras · N pts" e, para cada tamanho de palavra que existe no jogo (4 a 8 letras), um cabeçalho ("N letras", "f de t" e uma barrinha de progresso) seguido de um favo de hexágonos (78 × 68 px, 4 por linha, um sim um não deslocado meia célula para baixo). Cada palavra encontrada é uma célula com a palavra escrita, em ordem alfabética; depois delas, cada palavra que falta é uma célula vazia, mais clara, que mostra só o número de letras. Pangramas em mel claro, a mais recente em teal com texto branco.
-- **AC-35** Dado o Favo aberto, quando o jogador toca numa célula com palavra, então a célula fica em tinta (fundo escuro, texto claro) e um card escuro com a palavra e o significado aparece no rodapé do sheet; tocar em outra célula troca a seleção. Células vazias não respondem ao toque.
-- **AC-36** Dado o Favo aberto, quando o jogador toca no X, no fundo escurecido ou aperta Esc, então o Favo fecha, e a seleção e o card de significado somem.
+- **AC-33** A linha "Últimas" fica parada na base do céu, sempre visível: um fio fino alinhado às margens da trilha de progresso (20 px) e, embaixo dele, as 3 palavras mais recentes em serifa, separadas por "·" (a mais nova primeiro, em teal), com "Glossário · N ›" em teal à direita, onde N é o total de palavras encontradas. Sem card, sombra, rótulo, botão ou ponto pulsando. A linha reserva 44 px na base do céu (as flutuantes não entram nessa faixa) e tem área de toque de 44 px de altura.
+- **AC-34** Quando o jogador toca a linha "Últimas" ou a arrasta para cima (24 px), então o Glossário abre como bottom sheet, com fundo de folha (`card`, um branco quente mais claro que o papel da tela, para a folha parecer estar por cima): título "Glossário" e "X de Y palavras", e uma lista corrida (sem abas) com uma seção para cada tamanho de palavra que existe no jogo (4 a 8 letras). Cada seção abre com um fio teal de 2 px e o cabeçalho "N LETRAS" à esquerda e "F DE T" à direita.
+- **AC-35** Dentro de cada seção, cada palavra encontrada é uma linha de verbete, em ordem alfabética: a palavra em minúsculas, serifa, negrito, teal, seguida do significado quando existir (sem significado, a linha mostra só a palavra). As linhas são separadas por pontilhado. Pangramas ficam em mel com o selo "pangrama"; a mais recente leva o selo "nova" e um fundo teal-claro que some aos poucos (~1,6 s).
+- **AC-36** No fim de cada seção, uma faixa teal-clara cheia, sem borda, diz quantas faltam: "Faltam **N** palavras" ("Falta **1** palavra" no singular), com o número maior, na serifa. Seção completa mostra "Todas achadas" só com contorno. As palavras que faltam não aparecem, nem como vagas em branco.
+- **AC-37** Dado o Glossário aberto, quando o jogador toca no X, no fundo escurecido ou aperta Esc, então ele fecha.
 
-### Pontos e progresso
+### Progresso
 
-- **AC-37** Pontos por palavra: 1 para 4 letras, N para N letras, +7 para pangrama. O chip mostra o nível e o total.
-- **AC-38** Níveis por fração do total de pontos: Iniciante 0, Aquecendo 3%, Leitor 10%, Curioso 20%, Letrado 33%, Erudito 50%, Sábio 62%, Letraço 70%. A barra enche até 70% ("Partida ganha!" ao chegar lá).
+- **AC-38** A barra enche pela fração de palavras encontradas sobre o total do jogo, e o texto embaixo diz "X de Y palavras". Não há pontos por palavra, nível, chip de nível nem "Partida ganha!".
 
 ### Teclado físico
 
-- **AC-39** Letras do jogo, Backspace e Enter funcionam como toque, Apagar e Enviar; Esc fecha o Favo; outras teclas são ignoradas.
+- **AC-39** Letras do jogo, Backspace e Enter funcionam como toque, Apagar e Enviar; Esc fecha o Glossário; outras teclas são ignoradas.
 
 ## Fora do escopo
 
 - Tema escuro.
 - Paralaxe pelo mouse.
+- Pontuação e níveis.
 - Dicas, ranking, estatísticas e onboarding (estão nas propostas, não neste pedido).
 - O seletor de versões do cursor e a nota explicativa fora do celular (existem só no mock).
 
 ## Assumido (confirmar)
 
-- **Origem dos significados.** O app não tem definições hoje. O mock usa 47 significados escritos à mão. Para o app é preciso uma definição curta por palavra do dicionário (~18 mil), por exemplo gerada a partir do Wiktionary pt (CC BY-SA, exige atribuição), guardada junto de `word_frequency.dart`. **Falha:** palavra sem significado mostra só a palavra, sem card vazio e sem texto "sem significado".
+- **Origem dos significados.** O app não tem definições hoje. O mock usa 47 significados escritos à mão. Para o app é preciso uma definição curta por palavra do dicionário (~18 mil), por exemplo gerada a partir do Wiktionary pt (CC BY-SA, exige atribuição), guardada junto de `word_frequency.dart`. **Falha:** palavra sem significado mostra só a palavra, sem card vazio e sem texto "sem significado". No app, os significados vêm de `lib/definitions.dart`, que por enquanto está vazio.
 - **Maiúsculas → minúsculas.** Ao virar flutuante (AC-23), a palavra troca de MAIÚSCULAS para minúsculas na hora.
 - **Haptics.** Toque leve ao acertar e duplo ao errar, como no mock (`navigator.vibrate`); no app, `HapticFeedback`.
 - **Constantes de física.** Força da onda 50, empurrão contínuo 1, ciclo de profundidade 25–45 s e encolhimento da palavra nova (~3 s até a profundidade) são os valores ajustados no mock; podem ser recalibrados no aparelho.
+- **Fonte.** Iowan Old Style vem no iOS; no Android a serifa cai para a Noto Serif. Para ter a mesma letra nas duas plataformas, a fonte precisa ir junto com o app.
 - **Persistência.** Palavras encontradas continuam salvas como hoje; a posição e a profundidade das flutuantes não são salvas e são sorteadas a cada abertura.
