@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:letraco/alphabet.dart';
 import 'package:letraco/database/database_datasource.dart';
 import 'package:letraco/events.dart';
-import 'package:letraco/wigets/word_card.dart';
 import 'package:letraco/words.dart';
 
 typedef VoidCallBack = FutureOr<void> Function();
@@ -24,8 +23,14 @@ class Game {
   final List<String> letters;
   final List<String> allWords;
   final List<String> hidden;
+
+  /// Found words, oldest first.
   final List<String> visible;
   bool showAllWords = false;
+
+  /// Whether [word] uses all seven letters of the game.
+  bool isPangram(String word) =>
+      word.contains(mandatory) && letters.every(word.contains);
 }
 
 class GameController {
@@ -136,8 +141,10 @@ class GameController {
         var letter =
             consonantsNormalMode[Random().nextInt(consonantsNormalMode.length)];
         while (letters.contains(letter)) {
-          letter = consonantsNormalMode[
-              Random().nextInt(consonantsNormalMode.length)];
+          letter =
+              consonantsNormalMode[Random().nextInt(
+                consonantsNormalMode.length,
+              )];
         }
         letters.add(letter);
       }
@@ -231,9 +238,10 @@ class GameController {
     final (letters, words, mandatory) = _generateGame();
     if (_game != null) {
       assert(
-        words
-            .toSet()
-            .difference({..._game!.hidden, ..._game!.visible}).isNotEmpty,
+        words.toSet().difference({
+          ..._game!.hidden,
+          ..._game!.visible,
+        }).isNotEmpty,
       );
       assert(letters.toSet().difference(_game!.letters.toSet()).isNotEmpty);
     }
@@ -245,17 +253,14 @@ class GameController {
     );
     saveGame();
     clearInputWord();
+    _emitEvent(Generated(_game!));
   }
 
-  void shuffleStart() {
-    if (kDebugMode) debugPrint('Starting letters shuffle');
-    _emitEvent(ShuffleStart());
-  }
-
-  void shuffleEnd() {
-    if (kDebugMode) debugPrint('Ending letters shuffle');
-    _game?.letters.shuffle();
-    _emitEvent(ShuffleEnd());
+  /// Change the places of the outer letters. The mandatory one stays put.
+  void shuffle() {
+    if (_game == null) return;
+    _game!.letters.shuffle();
+    _emitEvent(Shuffled());
   }
 
   void addLetter(String letter) {
@@ -280,40 +285,29 @@ class GameController {
     _emitEvent(ClearLetters());
   }
 
-  /// Check if a word exists in [hidden] list and emmits a [Event]
+  /// Check the input word and emit a [CheckResult].
   ///
-  /// When the word exists, it will emit a [Found] event with [_inputWord] and a
-  /// offset to be used to scroll to the word and removes from [hidden] and
-  /// adds to [visible].
-  ///
-  /// When the word does not exists, it will emit a [Miss] event.
-  void checkInput() async {
+  /// The input is cleared first, so the next letter starts a new word.
+  /// A new word moves from [Game.hidden] to the end of [Game.visible] and the
+  /// game is saved.
+  void checkInput() {
     if (_game == null) return _emitEvent(NoGameAvailable());
     if (_inputWord.isEmpty) return _emitEvent(Empty());
 
-    final indexOf = _game!.allWords.indexOf(_inputWord);
-    if (indexOf == -1) {
-      clearInputWord();
-      return _emitEvent(Miss());
+    final word = _inputWord;
+    _inputWord = '';
+    final game = _game!;
+
+    if (word.length < minimumWordLength) return _emitEvent(TooShort(word));
+    if (!word.contains(game.mandatory)) {
+      return _emitEvent(MissingMandatory(word));
     }
+    if (game.visible.contains(word)) return _emitEvent(AlreadyFound(word));
+    if (!game.hidden.contains(word)) return _emitEvent(Miss(word));
 
-    // if new word was found, save the game
+    game.hidden.remove(word);
+    game.visible.add(word);
     unawaited(saveGame());
-
-    assert(_game!.hidden.isNotEmpty);
-    _game!.hidden.remove(_inputWord);
-    if (!_game!.visible.contains(_inputWord)) _game!.visible.add(_inputWord);
-
-    const cardHeight = WordCard.height + WordCard.verticalPadding;
-    final offset = cardHeight * (indexOf / 3).floorToDouble();
-    _emitEvent(GoToCard(offset));
-  }
-
-  void finishedScrollingToCard() {
-    _emitEvent(Found(_inputWord));
-  }
-
-  void finishedHighlightCardAnimation() {
-    clearInputWord();
+    _emitEvent(Found(word));
   }
 }
