@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Modify this file to customize your launch splash screen -->
+<!-- Splash before Android 12: the icon at 288 dp on paper, the same first frame
+     the Flutter splash starts from -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:color/white" />
-
-    <!-- You can insert your own image assets here -->
-    <!-- <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/launch_image" />
-    </item> -->
+    <item android:drawable="@color/paper" />
+    <item android:width="288dp" android:height="288dp" android:gravity="center">
+        <bitmap android:src="@drawable/ic_launcher_foreground" android:filter="true" />
+    </item>
 </layer-list>
