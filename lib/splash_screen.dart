@@ -64,7 +64,12 @@ class _SplashScreenState extends State<SplashScreen>
   late final Ticker _ticker;
   final _repaint = _Repaint();
 
+  /// Story clock, in seconds. It moves by frame, at most 1/30 s per frame,
+  /// so a stall while the app starts holds the animation instead of
+  /// skipping it.
   double _now = 0;
+  Duration _lastFrame = Duration.zero;
+  static const _maxStep = 1 / 30;
   double? _loadedAt;
   bool _done = false;
   bool _reduced = false;
@@ -108,7 +113,9 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _tick(Duration elapsed) {
-    _now = elapsed.inMicroseconds / 1e6;
+    final step = (elapsed - _lastFrame).inMicroseconds / 1e6;
+    _lastFrame = elapsed;
+    _now += math.min(step, _maxStep);
     final gate = _reduced ? 0.0 : _Beat.gate;
     final loaded = _loadedAt ?? double.infinity;
     if (_now < gate || loaded <= gate) {
