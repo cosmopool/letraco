@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Letraço · Proposta 3 · Céu de palavras</title>
+<style>
+:root{
+  --paper:#F5F0E6;--paper2:#EDE6D8;--card:#FFFDF8;--ink:#1D2626;--ink2:#56605E;--muted:#8A918C;--line:#DCD4C4;
+  --brand:#0E6E64;--brand-ink:#FFFFFF;--brand-soft:#D3E9E4;--honey:#D99A1E;--honey-soft:#F7E6BF;--tile:#E6DFCF;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,dl,ul,ol,figure,pre{margin:0;padding:0}
+ul,ol{list-style:none}
+button{font:inherit;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:38px 28px 48px}
+
+/* cabeçalho */
+.eye{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 38px/1.1 var(--serif);letter-spacing:-.02em;margin:8px 0 10px}
+.lead{max-width:720px;color:var(--ink2);font-size:15px}
+.same{margin:24px 0 8px;padding:16px 24px;border:1px solid var(--line);border-radius:14px}
+.same h3,.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
+.same ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 24px;font-size:13px;color:var(--ink2)}
+.same li b{color:var(--ink);font-weight:650}
+
+/* seções */
+.sec{margin-top:40px}
+.sech{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.num{font:italic 400 24px/1.1 var(--serif);color:var(--muted)}
+.sech h2{font:700 28px/1.1 var(--serif);letter-spacing:-.01em}
+.sub{color:var(--ink2);font-size:13px}
+.grid{display:grid;gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.card h3{font:700 19px/1.2 var(--serif);margin-bottom:4px}
+.card .sub{margin-bottom:14px}
+.txt{font-size:13px;color:var(--ink2);display:grid;gap:10px}
+.txt b{color:var(--ink);font-weight:650}
+.cap{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:7px}
+.note{color:var(--muted);font-size:12px}
+svg{display:block}
+
+/* ícone mestre */
+.master{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.master figure{flex:none}
+.master .art{width:256px;height:256px;max-width:100%;border-radius:52px;box-shadow:0 0 0 1px rgba(29,38,38,.07),0 14px 30px -16px rgba(29,38,38,.45);overflow:hidden}
+.master .art svg{width:100%;height:100%}
+.legend{flex:1;min-width:250px;display:grid;gap:12px}
+.legend li{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;font-size:13px;color:var(--ink2)}
+.legend .gl{font:700 30px/1 var(--serif);text-align:center}
+.legend b{color:var(--ink);font-weight:650}
+.pal{display:flex;gap:6px;border-top:1px solid var(--line);padding-top:12px;margin-top:4px;flex-wrap:wrap}
+.pal span{flex:1 1 70px;min-width:0;font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pal i{display:block;height:22px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.09);margin-bottom:3px}
+
+/* adaptativo */
+.adapt{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+.canvas svg{width:216px;height:216px;border-radius:6px;box-shadow:0 0 0 1px var(--line)}
+.keys{display:grid;gap:6px;font-size:12px;color:var(--ink2);margin-top:10px;max-width:216px}
+.keys span{display:flex;align-items:center;gap:8px}
+.keys i{width:18px;height:0;border-top:1.5px dashed var(--muted);flex:none}
+.keys i.safe{border-color:var(--brand)}
+.keys i.dim{height:10px;border:0;background:repeating-linear-gradient(45deg,rgba(29,38,38,.12) 0 2px,transparent 2px 4px);border-radius:2px}
+.masks{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+.masks svg{width:112px;height:112px;filter:drop-shadow(0 6px 8px rgba(29,38,38,.18))}
+
+/* tema monocromático */
+.themed{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.wall{border-radius:14px;padding:22px 18px 16px;display:flex;flex-direction:column;gap:14px}
+.wall.l{background:linear-gradient(160deg,#E9EFEA,#D5E0DA)}
+.wall.d{background:linear-gradient(160deg,#27302E,#161C1B)}
+.wall .row{display:flex;justify-content:space-around;align-items:flex-start}
+.wall .row div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px}
+.wall.l .row div{color:#2B3633}
+.wall.d .row div{color:#DCE6E1}
+.wall .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.wall.l .t{color:#5C6B66}.wall.d .t{color:#90A29B}
+
+/* tamanhos pequenos */
+.small{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end}
+.sizes{display:flex;gap:18px;align-items:flex-end;padding:18px 20px;border-radius:12px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+.sizes svg{filter:drop-shadow(0 2px 3px rgba(29,38,38,.18))}
+.home{flex:1;min-width:280px;border-radius:14px;padding:18px 12px 14px;background:linear-gradient(170deg,#7E8E88 0%,#5D6B67 55%,#47524F 100%)}
+.home .row{display:flex;justify-content:space-around}
+.home .row div{display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;font-size:11.5px;text-shadow:0 1px 2px rgba(0,0,0,.35);width:64px}
+.home .row svg{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+.home .dock{margin-top:16px;height:4px;width:96px;border-radius:2px;background:rgba(255,255,255,.55);margin-left:auto;margin-right:auto}
+
+details{margin-top:14px}
+summary{cursor:pointer;color:var(--brand);font-weight:600;font-size:13px}
+pre{background:var(--paper2);border-radius:10px;padding:12px 14px;overflow:auto;font:11.5px/1.5 var(--mono);color:var(--ink);margin-top:8px;max-height:260px;white-space:pre}
+
+/* splash */
+.splash{display:grid;grid-template-columns:minmax(0,430px) minmax(0,1fr);gap:28px;align-items:start}
+.stagecol{min-width:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.phoneBox{position:relative}
+.phone{position:absolute;left:0;top:0;width:410px;height:864px;transform-origin:0 0;border-radius:44px;border:10px solid #0d1010;background:var(--paper);overflow:hidden;box-shadow:0 30px 60px -24px rgba(29,38,38,.55)}
+.stage{position:absolute;left:0;top:0;width:390px;height:844px;overflow:hidden;background:var(--paper);color:var(--ink);user-select:none;-webkit-user-select:none}
+.sb{position:absolute;left:0;right:0;top:0;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 20px 0 24px;font:600 12px var(--sans);color:var(--ink2);z-index:5}
+.sb svg{display:inline-block;vertical-align:middle}
+/* tela do jogo, simplificada a partir do mock_caderno */
+.hd{position:absolute;right:14px;top:42px;height:40px;display:flex;align-items:center;gap:8px;z-index:4}
+.chip{display:flex;gap:6px;align-items:center;background:var(--brand-soft);color:var(--brand);border-radius:99px;padding:5px 11px;font:600 12.5px var(--sans)}
+.chip .pts{color:var(--ink2);font-weight:500}
+.ib{width:40px;height:40px;display:grid;place-items:center;color:var(--ink)}
+.trk{position:absolute;left:20px;right:20px;top:84px;z-index:4}
+.bar{position:relative;height:6px;background:var(--line);border-radius:6px;margin:8px 0 6px}
+.bar>span{position:absolute;inset:0 auto 0 0;background:var(--brand);border-radius:6px;width:0}
+.trkl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2)}
+.trkl b{color:var(--ink)}
+.skyw{position:absolute;inset:0;z-index:2;pointer-events:none}
+.fw{position:absolute;left:0;top:0;font:600 32px/1 var(--serif);white-space:nowrap;transform-origin:0 0;will-change:transform,opacity,filter}
+.fade{position:absolute;left:0;right:0;top:546px;height:64px;background:linear-gradient(rgba(245,240,230,0),var(--paper));z-index:3}
+.foot{position:absolute;left:20px;right:20px;top:572px;z-index:4;display:flex;align-items:baseline;gap:10px;border-top:1px solid var(--line);padding:10px 0 4px}
+.foot .rw{flex:1;min-width:0;font:600 16px/1.2 var(--serif);white-space:nowrap;overflow:hidden}
+.foot .rw b{font-weight:600}
+.foot .rw b:first-child{color:var(--brand)}
+.foot .rw i{font-style:normal;color:var(--muted);margin:0 7px}
+.foot .go{display:inline-flex;align-items:center;gap:6px;font:600 12.5px var(--sans);color:var(--brand);white-space:nowrap}
+.hive{position:absolute;left:97px;top:614px;width:196px;height:204px;z-index:4}
+.hx{position:absolute;width:76px;height:66px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--tile);color:var(--ink);
+  display:grid;place-items:center;font:700 26px/1 var(--sans)}
+.hx.c{background:var(--brand);color:var(--brand-ink)}
+.side{position:absolute;width:70px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:4}
+.act{width:46px;height:40px;border-radius:20px;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--ink2)}
+.ov{position:absolute;left:0;top:0;z-index:6;pointer-events:none;overflow:visible}
+.lmsg{position:absolute;left:0;right:0;text-align:center;font-size:13.5px;color:var(--muted);z-index:7;opacity:0}
+
+/* controles */
+.ctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:center;width:100%;max-width:430px}
+.btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:99px;background:var(--brand);color:#fff;font:600 13px var(--sans)}
+.btn:focus-visible,.seg button:focus-visible,.chk input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:99px;padding:2px;background:var(--card)}
+.seg button{all:unset;cursor:pointer;padding:4px 11px;border-radius:99px;font:600 12.5px var(--sans);color:var(--ink2)}
+.seg button[aria-pressed="true"]{background:var(--brand-soft);color:var(--brand)}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2);cursor:pointer}
+.chk input{accent-color:var(--brand);margin:0}
+.tl{width:100%;max-width:430px}
+.tlh{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;margin-bottom:6px;gap:10px}
+.tlh b{font:700 15px var(--serif)}
+.tlh span{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.track{position:relative;height:30px}
+.segs{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px}
+.segs i{display:block;height:100%}
+.segs .s0{background:repeating-linear-gradient(45deg,#C9C0AE 0 3px,#DCD4C4 3px 6px)}
+.segs .s1{background:var(--brand)}
+.segs .sh{background:repeating-linear-gradient(45deg,var(--brand) 0 3px,#3E8C82 3px 6px);opacity:.55}
+.segs .s2{background:var(--line)}
+.track input{position:absolute;left:-2px;right:-2px;top:-6px;width:calc(100% + 4px);margin:0;height:20px;opacity:0;cursor:pointer}
+.head{position:absolute;top:-4px;width:2px;height:16px;background:var(--ink);border-radius:1px;margin-left:-1px;pointer-events:none}
+.tlk{display:flex;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px;gap:2px}
+.tlk span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+.story{display:grid;gap:16px}
+.steps{display:grid;gap:10px;counter-reset:st}
+.steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:13px;color:var(--ink2)}
+.steps li::before{counter-increment:st;content:counter(st);font:italic 700 20px/1 var(--serif);color:var(--brand)}
+.steps b{color:var(--ink);font-weight:650}
+.rot{display:grid;grid-template-columns:86px 1fr;gap:8px 12px;font-size:13px;color:var(--ink2)}
+.rot dt{font:600 12px var(--mono);color:var(--brand);padding-top:1px;white-space:nowrap}
+.rot dd{margin:0}
+.load{border-left:3px solid var(--brand-soft);padding:4px 0 4px 14px}
+.load .txt{display:block}
+
+/* como implementar */
+.impl{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.impl ul{display:grid;gap:7px;font-size:13px;color:var(--ink2)}
+.impl li b{color:var(--ink);font-weight:650}
+code{font:12px var(--mono);background:var(--paper2);padding:1px 5px;border-radius:4px;color:var(--ink)}
+pre code{background:none;padding:0}
+
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+footer ul{display:grid;gap:8px;font-size:13px;color:var(--ink2);max-width:860px}
+footer li{padding-left:16px;position:relative}
+footer li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--honey)}
+footer li b{color:var(--ink);font-weight:650}
+footer .note{margin-top:14px}
+
+@media(max-width:900px){.splash{grid-template-columns:1fr}.stagecol{order:0}}
+@media(max-width:640px){
+  .wrap{padding:24px 16px 36px}
+  h1{font-size:30px}
+  .sech h2{font-size:24px}
+  .card{padding:16px}
+  .master{gap:18px}
+  .master figure{margin:0 auto}
+  .master .art{width:220px;height:220px;border-radius:44px}
+  .adapt{gap:18px}
+  .canvas{margin:0 auto}
+  .masks{gap:14px;justify-content:center}
+  .masks svg{width:90px;height:90px}
+  .home .row div{width:56px}
+}
+@media print{.card,.same{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eye">Letraço · ícone e splash · proposta 3 de 3</p>
+    <h1>Proposta 3 · Céu de palavras</h1>
+    <p class="lead">O que o Letraço tem de mais seu é o céu: as palavras achadas flutuam sobre o papel, cada uma numa profundidade, as de perto grandes e firmes, as de longe pequenas, claras e um pouco desfocadas. Esta proposta tira o ícone e o splash desse céu. O ícone é um <b>L</b> em tinta, na frente, com um <b>ç</b> verde-azulado logo atrás e duas letras miúdas ao fundo: três planos de profundidade numa peça só. O splash começa exatamente nesse desenho, abre o L e o ç para formar <b>Letraço</b> com letras que chegam do fundo, enche o papel de palavras vindas de longe e leva o nome para o cabeçalho, onde o jogo já está esperando.</p>
+  </header>
+
+  <section class="same">
+    <h3>Em três linhas</h3>
+    <ul>
+      <li><b>Ícone:</b> perto, meio e longe. O L na frente, o ç no canto dele e, lá no fundo, as outras letras do nome: e, t, r, a, o.</li>
+      <li><b>Splash:</b> o nome se forma no centro, o céu se enche, o nome sobe e vira o cabeçalho.</li>
+      <li><b>Sem clichê:</b> nada de abelha, mel, nuvem ou estrela. Só papel, tinta e o verde da marca.</li>
+    </ul>
+  </section>
+
+  <!-- ÍCONE -->
+  <section class="sec" id="icone">
+    <div class="sech"><span class="num">01</span><h2>Ícone</h2><p class="sub">Tudo abaixo é SVG desenhado na página, a partir da mesma composição.</p></div>
+    <div class="grid">
+
+      <article class="card">
+        <h3>Ícone mestre</h3>
+        <p class="sub">512 px na Play Store. Aqui em 256, sobre papel, com o canto que a loja aplica.</p>
+        <div class="master">
+          <figure><div class="art" id="masterArt"></div><figcaption class="cap">Mestre · 256 px</figcaption></figure>
+          <ul class="legend">
+            <li><span class="gl" style="color:var(--ink)">L</span><span><b>Perto.</b> A inicial em tinta (#1D2626), negrito, a maior coisa do ícone. Nada encosta nela nem passa por trás: a profundidade vem do tamanho, da cor e da nitidez, sem recortes nem contorno.</span></li>
+            <li><span class="gl" style="color:var(--brand)">ç</span><span><b>Meio.</b> O ç do nome, no teal da marca (#0E6E64), no canto do L: acima do pé, com a cedilha inteira à vista e um respiro entre os dois.</span></li>
+            <li><span class="gl" style="color:var(--muted);opacity:.6;filter:blur(.6px)">e</span><span><b>Longe.</b> As outras letras do nome (e, t, r, a, o) em cinza (#8A918C), pequenas, cada uma numa profundidade: de 36 a 58% de opacidade, mais desfocadas quanto mais longe. Nenhuma encosta em outra. Em 48 px viram textura, e tudo bem: a leitura fica com L + ç.</span></li>
+            <li><span class="gl" style="background:var(--paper);border-radius:8px;box-shadow:inset 0 0 0 1px var(--line);height:30px"></span><span><b>Fundo.</b> Papel liso (#F5F0E6), sem textura, o mesmo do jogo e do splash do sistema.</span></li>
+          </ul>
+        </div>
+        <div class="pal" id="pal"></div>
+      </article>
+
+      <article class="card">
+        <h3>Ícone adaptativo do Android</h3>
+        <p class="sub">Primeiro plano numa tela de 108 × 108 dp; o fundo é só a cor do papel. As letras cabem no círculo seguro de 66 dp, então nenhuma máscara corta nada que importa.</p>
+        <div class="adapt">
+          <div class="canvas">
+            <div id="canvas108"></div>
+            <div class="keys">
+              <span><i></i>área visível · 72 dp</span>
+              <span><i class="safe"></i>zona segura · círculo de 66 dp</span>
+              <span><i class="dim"></i>sangria · o launcher pode cortar ou mover (efeito parallax)</span>
+            </div>
+          </div>
+          <div>
+            <div class="masks" id="masks"></div>
+            <p class="note" style="margin-top:12px;max-width:420px">Cada fabricante aplica uma máscara. O L e o ç ficam dentro dos 66 dp em todas; as letras de longe também, mas por pouco. Se uma máscara mais apertada encostar neles, eles somem antes do resto, que é a ordem certa.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Tema monocromático (Android 13+)</h3>
+        <p class="sub">O sistema usa só o canal alfa e pinta com as cores do papel de parede. Sem cor e sem desfoque, a profundidade fica no tamanho e na opacidade: L 100%, ç 62%, a e o 30 a 38%.</p>
+        <div class="themed" id="themed"></div>
+      </article>
+
+      <article class="card">
+        <h3>Tamanhos pequenos</h3>
+        <p class="sub">A prova de fogo: 48 px é o tamanho da tela inicial; 32 px aparece em notificações recentes e configurações.</p>
+        <div class="small">
+          <div class="sizes" id="sizes"></div>
+          <div class="home" id="home"></div>
+        </div>
+        <details>
+          <summary>Ver o SVG do primeiro plano (108 × 108, fundo transparente)</summary>
+          <pre id="src"></pre>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- SPLASH -->
+  <section class="sec" id="splash">
+    <div class="sech"><span class="num">02</span><h2>Splash animado</h2><p class="sub">1,6 s do primeiro quadro do Flutter até o jogo. Toque em "Repetir".</p></div>
+    <div class="card">
+      <div class="splash">
+        <div class="stagecol" id="stagecol">
+          <div class="phoneBox" id="phoneBox"><div class="phone" id="phone"><div class="stage" id="stage"></div></div></div>
+          <div class="tl">
+            <div class="tlh"><b id="phase">Splash do sistema</b><span id="clock">0,00 s</span></div>
+            <div class="track">
+              <div class="segs" id="segs"></div>
+              <div class="head" id="head"></div>
+              <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Linha do tempo: arraste para ver quadro a quadro">
+            </div>
+            <div class="tlk" id="tlk"></div>
+          </div>
+          <div class="ctl">
+            <button class="btn" id="replay"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v5h5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Repetir</button>
+            <span class="seg" role="group" aria-label="Velocidade"><button id="sp1" aria-pressed="true">1×</button><button id="sp4" aria-pressed="false">0,25×</button></span>
+            <label class="chk"><input type="checkbox" id="loop">Em loop</label>
+            <label class="chk"><input type="checkbox" id="slow">Carregamento lento</label>
+            <label class="chk"><input type="checkbox" id="reduced">Movimento reduzido</label>
+          </div>
+        </div>
+
+        <div class="story">
+          <div>
+            <p class="lbl">A sequência real de abertura</p>
+            <ol class="steps">
+              <li><span><b>Splash do sistema (Android 12+).</b> Antes de o Flutter existir, o Android mostra uma imagem parada: fundo papel #F5F0E6 e o primeiro plano do ícone no centro da tela, num quadro de 288 dp. Não dá para animar nada aqui.</span></li>
+              <li><span><b>Splash do Flutter.</b> O primeiro quadro desenhado pelo Flutter é idêntico: mesma cor, mesmas letras, mesmo tamanho, mesmo centro. A troca não se vê. A animação parte daí.</span></li>
+              <li><span><b>Jogo.</b> O último quadro da animação já é a tela do jogo: o nome no cabeçalho, a barra, o céu, a colmeia e o cursor piscando. Não há corte nem transição de rota.</span></li>
+            </ol>
+          </div>
+          <div>
+            <p class="lbl">Roteiro · velocidade normal</p>
+            <dl class="rot">
+              <dt>0,00</dt><dd>Quadro do sistema, parado por 0,1 s.</dd>
+              <dt>0,10–0,58</dt><dd>O L e o ç se afastam e encolhem até 46 px; e, t, r, a, o saem do fundo do próprio ícone, do desfocado ao nítido, e completam <b>Letraço</b>.</dd>
+              <dt>0,14–1,28</dt><dd>As palavras já achadas chegam do fundo: saem do centro, pequenas e borradas, e se abrem até a profundidade de cada uma.</dd>
+              <dt>0,62–1,10</dt><dd>O nome sobe para o canto do cabeçalho (46 → 22 px). No caminho, o ç passa do verde para a tinta.</dd>
+              <dt>0,98–1,50</dt><dd>Barra de progresso, colmeia (do centro para fora) e a linha das últimas palavras aparecem.</dd>
+              <dt>1,30–1,60</dt><dd>O cursor verde surge no meio do céu. Fim: é o jogo.</dd>
+            </dl>
+          </div>
+          <div class="load">
+            <p class="lbl">Se o jogo demorar</p>
+            <p class="txt">A animação para em 0,62 s, com <b>Letraço</b> montado no centro. As palavras continuam à deriva, aproximando-se e afastando-se, e depois de 0,25 s um cursor verde pisca logo após o nome, como quem vai continuar a escrever. Se a espera passar de 0,6 s, aparece embaixo, em cinza, <i>Espalhando as palavras…</i> Quando o jogo carrega, a animação segue de onde parou. Nada de spinner. Marque "Carregamento lento" para ver.</p>
+          </div>
+          <div class="load">
+            <p class="lbl">Movimento reduzido</p>
+            <p class="txt">Com <code>prefers-reduced-motion</code> (no Android, "Remover animações"), nada se move: o quadro do sistema se dissolve na tela do jogo em 0,4 s, e as palavras ficam paradas. Na espera, só a frase aparece embaixo do ícone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPLEMENTAÇÃO -->
+  <section class="sec" id="impl">
+    <div class="sech"><span class="num">03</span><h2>Como implementar</h2><p class="sub">Uma composição, quatro saídas.</p></div>
+    <div class="impl">
+      <article class="card">
+        <h3>Ícone · flutter_launcher_icons</h3>
+        <ul>
+          <li><b>Fonte única:</b> o SVG do primeiro plano (acima), com as letras <b>convertidas em curvas</b>. O Android não tem Iowan nem Palatino.</li>
+          <li><b>foreground.png</b> 1024², transparente, conteúdo no círculo de 66/108.</li>
+          <li><b>monochrome.png</b> 1024², só alfa, sem desfoque: L 100%, ç 62%, a/o 30–38%.</li>
+          <li><b>Fundo:</b> cor sólida, sem PNG.</li>
+        </ul>
+<pre><code>flutter_launcher_icons:
+  android: ic_launcher
+  min_sdk_android: 21
+  image_path_android: assets/icon/legacy.png      # papel + letras, 1024²
+  adaptive_icon_background: "#F5F0E6"
+  adaptive_icon_foreground: assets/icon/foreground.png
+  adaptive_icon_monochrome: assets/icon/monochrome.png
+  ios: true
+  image_path_ios: assets/icon/legacy.png
+  remove_alpha_ios: true
+  background_color_ios: "#F5F0E6"</code></pre>
+        <p class="note" style="margin-top:8px">O <code>adaptive_icon_monochrome</code> já existe na 0.13.1, a versão do projeto. Trocar também o <code>#00695C</code> do web/iOS.</p>
+      </article>
+
+      <article class="card">
+        <h3>Splash do sistema · Android 12+</h3>
+        <ul>
+          <li><b>Fundo:</b> #F5F0E6. <b>Ícone:</b> o mesmo primeiro plano como vetor (<code>drawable/splash_letras.xml</code>), sem fundo de ícone. O Android o desenha em 288 dp; o círculo de 66/108 vira 176 dp, dentro do limite de 192.</li>
+          <li>Criar <code>values-v31/styles.xml</code> e <code>values-night-v31/styles.xml</code> com os mesmos valores, já que o tema é só claro. Antes do 12, o <code>launch_background.xml</code> mostra o mesmo quadro: cor + bitmap centralizado.</li>
+        </ul>
+<pre><code>&lt;style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar"&gt;
+  &lt;item name="android:windowSplashScreenBackground"&gt;#F5F0E6&lt;/item&gt;
+  &lt;item name="android:windowSplashScreenAnimatedIcon"&gt;@drawable/splash_letras&lt;/item&gt;
+  &lt;item name="android:windowBackground"&gt;@drawable/launch_background&lt;/item&gt;
+&lt;/style&gt;</code></pre>
+        <p class="note" style="margin-top:8px">Dá para gerar tudo com <code>flutter_native_splash</code> (bloco <code>android_12</code>: <code>color</code> + <code>image</code> de 1152², conteúdo no círculo de 768 px), mas o XML à mão é curto.</p>
+      </article>
+
+      <article class="card">
+        <h3>Animação · widgets</h3>
+        <ul>
+          <li><b>Um <code>AnimationController</code> de 1600 ms</b>; cada peça lê um <code>Interval</code> (os tempos do roteiro).</li>
+          <li><b>O splash vira uma camada sobre a <code>MainPage</code></b>, não uma rota. Cabeçalho, barra, <code>Sky</code> e colmeia são os widgets reais, com opacidade presa ao controller. A entrega é o controller terminar.</li>
+          <li><b>Primeiro quadro = sistema:</b> <code>SystemUiMode.edgeToEdge</code> (não <code>immersive</code>, que esconde a barra e muda o centro) e as letras centradas em <code>MediaQuery.sizeOf</code>, no mesmo 288 dp.</li>
+          <li><b>Letras do nome:</b> um <code>CustomPainter</code> com um <code>TextPainter</code> por letra (<code>Caderno.serifStyle</code>, w700); posições de 46 e 22 px via <code>getOffsetForCaret</code>; desfoque com <code>MaskFilter.blur</code>.</li>
+          <li><b>Palavras do céu:</b> o <code>Sky</code> (<code>lib/wigets/sky.dart</code>) ganha um parâmetro <code>emergence</code> 0→1 que escala tamanho, opacidade e desfoque a partir do centro.</li>
+          <li><b>Espera:</b> <code>animateTo(0.39)</code>, esperar o evento <code>Loaded</code>, <code>forward()</code>. Sai o <code>minimumDurationInSecs = 2</code>.</li>
+          <li><b>Movimento reduzido:</b> <code>MediaQuery.disableAnimationsOf</code> → <code>FadeTransition</code> de 400 ms.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p class="lbl">Riscos e escolhas</p>
+    <ul>
+      <li><b>Desfoque e transparência somem no pequeno.</b> Em 32–48 px, as letras de longe viram um borrão claro e o desfoque quase não aparece. A leitura depende do L + ç, que foram pensados para aguentar sozinhos. No tema monocromático não há desfoque nenhum.</li>
+      <li><b>A letra do ícone e a do cabeçalho podem não ser a mesma.</b> O ícone vai em curvas, desenhado com uma serifa de livro; no Android, o cabeçalho cai na serifa do sistema (Noto Serif). Na troca, o L muda de desenho no meio do movimento. Embutir uma serifa livre no app resolve isso e deixa a marca igual em todo lugar.</li>
+      <li><b>O quadro do sistema não é 100% nosso.</b> Alguns fabricantes alteram o tamanho do ícone no splash, e o Android encurta ou pula o splash em aberturas quentes. A animação continua bonita se começar com um leve salto, mas o encaixe perfeito só vale no Android puro, numa abertura a frio.</li>
+    </ul>
+    <p class="note">Protótipo com as fontes do sistema (Iowan/Palatino no macOS, outra serifa no Linux e no Windows), por isso a página mede a fonte disponível e reposiciona o ç e as letras de fundo para manter o encaixe. Palavras e pontuação mockadas, mesma partida do mock_caderno (R + E H A L O C).</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var C = {
+    paper: "#F5F0E6", paper2: "#EDE6D8", card: "#FFFDF8", ink: "#1D2626", ink2: "#56605E", muted: "#8A918C", line: "#DCD4C4",
+    brand: "#0E6E64", brandSoft: "#D3E9E4", honey: "#D99A1E", honeySoft: "#F7E6BF", tile: "#E6DFCF", teal2: "#3E8C82", bronze: "#9C7A3C"
+  };
+  var SERIF = "'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif";
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ---------- the icon composition, in the 108 × 108 dp adaptive canvas ----------
+  // far → near; x/y are the text origin (left, baseline)
+  var ICON = [
+    { id: "e", ch: "e", x: 0, y: 0, s: 13, w: 700, fill: C.muted, op: .58, mono: .42, blur: .3, at: [.40, .30] },
+    { id: "t", ch: "t", x: 0, y: 0, s: 11.5, w: 700, fill: C.muted, op: .5, mono: .36, blur: .45, at: [.78, .06] },
+    { id: "r", ch: "r", x: 0, y: 0, s: 12, w: 700, fill: C.muted, op: .54, mono: .38, blur: .4, at: [.66, .60] },
+    { id: "a", ch: "a", x: 0, y: 0, s: 10.5, w: 700, fill: C.muted, op: .44, mono: .32, blur: .6, at: [.98, .36] },
+    { id: "o", ch: "o", x: 0, y: 0, s: 9, w: 700, fill: C.muted, op: .36, mono: .28, blur: .8, at: [.12, .04] },
+    { id: "c", ch: "ç", x: 54.5, y: 71.5, s: 34, w: 700, fill: C.brand, op: 1, mono: .62, blur: 0, halo: 0 },
+    { id: "L", ch: "L", x: 30, y: 78, s: 58, w: 700, fill: C.ink, op: 1, mono: 1, blur: 0, halo: 0 }
+  ];
+  var IL = ICON[ICON.length - 1], IC = ICON[ICON.length - 2], IFAR = ICON.slice(0, ICON.length - 2);
+  // The final asset is outlined, but this prototype uses the system serif, so the layout is
+  // fitted to the font's real ink. Nothing touches anything else: the ç sits in the L's corner,
+  // above the foot with its whole cedilla showing, and the far letters (the rest of the name)
+  // fill the open space above it. Depth comes from size, colour and softness, not cut-outs.
+  function ink(ch, weight) {
+    var cv = document.createElement("canvas"); cv.width = 420; cv.height = 320;
+    var x = cv.getContext("2d"); x.font = weight + " 200px " + SERIF; x.textBaseline = "alphabetic";
+    var m = x.measureText(ch);
+    var r = { l: -m.actualBoundingBoxLeft / 200, r: m.actualBoundingBoxRight / 200, a: m.actualBoundingBoxAscent / 200, d: m.actualBoundingBoxDescent / 200 };
+    if (!(r.a > 0) || !(r.r > r.l)) return null;
+    if (ch === "L") {                       // scan the drawing for the stem's right edge and the top of the foot
+      x.fillStyle = "#000"; x.fillText(ch, 60, 260);
+      var px = x.getImageData(0, 0, 420, 320).data, A = function (X, Y) { return px[(Math.round(Y) * 420 + Math.round(X)) * 4 + 3]; };
+      var x0 = 60 + r.l * 200, x1 = 60 + r.r * 200, top = 260 - r.a * 200, row = 260 - r.a * 100, col = x0 + (x1 - x0) * .6, X = x0 + 1, Y = top;
+      while (X < x1 && A(X, row) < 128) X++;
+      while (X < x1 && A(X, row) >= 128) X++;
+      while (Y < 260 && A(col, Y) < 128) Y++;
+      r.stem = (X - 60) / 200; r.foot = (260 - Y) / 200;
+      if (!(r.stem > r.l) || !(r.foot > 0) || r.foot > r.a * .5) { r.stem = r.l + (r.r - r.l) * .32; r.foot = r.a * .12; }
+    }
+    return r;
+  }
+  function box(e, m) { return { l: e.x + m.l * e.s, r: e.x + m.r * e.s, t: e.y - m.a * e.s, b: e.y + m.d * e.s }; }
+  function hits(a, b, pad) { return a.l < b.r + pad && b.l < a.r + pad && a.t < b.b + pad && b.t < a.b + pad; }
+  (function layoutIcon() {
+    var L = IL, c = IC, mL, mC, mF;
+    try { mL = ink("L", 700); mC = ink("ç", 700); mF = IFAR.map(function (e) { return ink(e.ch, e.w); }); } catch (e) { return; }
+    if (!mL || !mC || mL.stem === undefined || mF.some(function (m) { return !m; })) return;
+    var GAP = 2.4;
+    L.s = 41 / mL.a; c.s = L.s * .5;                          // cap height of the L ≈ 41 dp
+    L.x = 0; L.y = 0;
+    c.x = mL.stem * L.s + GAP - mC.l * c.s;                   // ç starts a gap right of the stem
+    c.y = -mL.foot * L.s - GAP - mC.d * c.s;                  // its cedilla ends a gap above the foot
+    var gx0 = L.x + mL.l * L.s, gx1 = Math.max(L.x + mL.r * L.s, c.x + mC.r * c.s), gy0 = -mL.a * L.s, gy1 = 0;
+    var dx = 54 - (gx0 + gx1) / 2, dy = 57.5 - (gy0 + gy1) / 2;
+    L.x += dx; L.y += dy; c.x += dx; c.y += dy;
+    // what the far letters must not touch: the L's stem, the L's foot and the ç
+    var stemR = L.x + mL.stem * L.s, capTop = L.y - mL.a * L.s, cb = box(c, mC);
+    var taken = [
+      { l: L.x + mL.l * L.s, r: stemR, t: capTop, b: L.y },
+      { l: L.x + mL.l * L.s, r: L.x + mL.r * L.s, t: L.y - mL.foot * L.s, b: L.y },
+      cb
+    ];
+    // the open space above the ç and right of the stem, inside the 66 dp circle
+    var R0 = { l: 24, r: 87, t: 21, b: cb.t - 1 };
+    IFAR.forEach(function (e, i) {
+      var m = mF[i], best = null, bestD = Infinity;
+      for (var tries = 0; tries < 4 && !best; tries++) {
+        var ax = R0.l + (R0.r - R0.l) * e.at[0], ay = R0.t + (R0.b - R0.t) * e.at[1];
+        for (var X = R0.l; X <= R0.r; X += .5) for (var Y = R0.t; Y <= R0.b + 8; Y += .5) {
+          var w = (m.r - m.l) * e.s, h = (m.a + m.d) * e.s;
+          var cand = { x: X - m.l * e.s, y: Y + m.a * e.s }, bb = { l: X, r: X + w, t: Y, b: Y + h };
+          var cx = X + w / 2, cy = Y + h / 2, rr = Math.max(w, h) / 2;
+          if (Math.hypot(cx - 54, cy - 54) > 32.5 - rr) continue;
+          if (taken.some(function (t) { return hits(bb, t, 2.6); })) continue;
+          var d = Math.hypot(cx - ax, cy - ay);
+          if (d < bestD) { bestD = d; best = cand; }
+        }
+        if (!best) e.s *= .85;
+      }
+      if (!best) { e.op = 0; return; }
+      e.x = best.x; e.y = best.y;
+      taken.push(box(e, m));
+    });
+    ICON.forEach(function (e) { e.x = +e.x.toFixed(2); e.y = +e.y.toFixed(2); e.s = +e.s.toFixed(2); });
+  })();
+  var uid = 0;
+  function glyph(e, fill, op, extra) {
+    return '<text x="' + e.x + '" y="' + e.y + '" font-size="' + e.s + '" font-weight="' + e.w + '" font-family="' + SERIF +
+      '" text-rendering="geometricPrecision" fill="' + fill + '"' + (op < 1 ? ' fill-opacity="' + op + '"' : "") + (extra || "") + ">" + e.ch + "</text>";
+  }
+  function squircle(cx, cy, r, n) {
+    var d = "";
+    for (var i = 0; i <= 96; i++) {
+      var t = i / 96 * 2 * Math.PI, c = Math.cos(t), s = Math.sin(t);
+      var x = cx + r * Math.sign(c) * Math.pow(Math.abs(c), 2 / n), y = cy + r * Math.sign(s) * Math.pow(Math.abs(s), 2 / n);
+      d += (i ? "L" : "M") + x.toFixed(2) + " " + y.toFixed(2);
+    }
+    return d + "Z";
+  }
+  function shape(name) {
+    if (name === "circle") return '<circle cx="54" cy="54" r="36"/>';
+    if (name === "squircle") return '<path d="' + squircle(54, 54, 36, 4.4) + '"/>';
+    if (name === "rsq") return '<rect x="18" y="18" width="72" height="72" rx="12"/>';
+    if (name === "store") return '<rect x="18" y="18" width="72" height="72" rx="14.4"/>';
+    return "";
+  }
+  // o: { px, view: "canvas"|"visible", shape, mono: {bg, fg} | null, bg, noBg, guides, label }
+  function iconSVG(o) {
+    var id = "ic" + (++uid), mono = o.mono, L = IL, Cc = IC;
+    var defs = "", far = "";
+    IFAR.forEach(function (e, i) {
+      if (!e.op) return;
+      var ex = "";
+      if (!mono && e.blur) {
+        defs += '<filter id="' + id + "b" + i + '" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + e.blur + '"/></filter>';
+        ex = ' filter="url(#' + id + "b" + i + ')"';
+      }
+      far += glyph(e, mono ? mono.fg : e.fill, mono ? e.mono : e.op, ex);
+    });
+    var body = (o.noBg ? "" : '<rect width="108" height="108" fill="' + (mono ? mono.bg : (o.bg || C.paper)) + '"/>') +
+      far + glyph(Cc, mono ? mono.fg : Cc.fill, mono ? Cc.mono : Cc.op) + glyph(L, mono ? mono.fg : L.fill, 1);
+    if (o.shape) {
+      defs += '<clipPath id="' + id + 's">' + shape(o.shape) + "</clipPath>";
+      body = '<g clip-path="url(#' + id + 's)">' + body + "</g>";
+    }
+    if (o.guides) {
+      body += '<path d="M0 0H108V108H0Z M18 18V90H90V18Z" fill-rule="evenodd" fill="url(#' + id + 'p)"/>' +
+        '<rect x="18" y="18" width="72" height="72" fill="none" stroke="' + C.muted + '" stroke-width=".5" stroke-dasharray="1.6 1.4"/>' +
+        '<circle cx="54" cy="54" r="33" fill="none" stroke="' + C.brand + '" stroke-width=".55" stroke-dasharray="2 1.5"/>' +
+        '<path d="M54 50v8M50 54h8" stroke="' + C.brand + '" stroke-width=".35" opacity=".6"/>';
+      defs += '<pattern id="' + id + 'p" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2.6" height="2.6" fill="' + C.card + '" fill-opacity=".5"/><rect width="1" height="2.6" fill="' + C.ink + '" fill-opacity=".1"/></pattern>';
+    }
+    var vb = o.view === "canvas" ? "0 0 108 108" : "18 18 72 72";
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + vb + '" width="' + o.px + '" height="' + o.px + '" role="img" aria-label="' +
+      (o.label || "Ícone do Letraço") + '"><defs>' + defs + "</defs>" + body + "</svg>";
+  }
+
+  // ---------- icon section ----------
+  $("masterArt").innerHTML = iconSVG({ px: 256, view: "visible", label: "Ícone mestre do Letraço" });
+  $("pal").innerHTML = [["Papel · fundo", C.paper], ["Tinta · L", C.ink], ["Marca · ç", C.brand], ["Cinza · longe", C.muted]]
+    .map(function (p) { return '<span><i style="background:' + p[1] + '"></i>' + p[0] + " " + p[1] + "</span>"; }).join("");
+  $("canvas108").innerHTML = iconSVG({ px: 216, view: "canvas", guides: true, label: "Primeiro plano na tela de 108 dp" }) +
+    '<p class="cap">108 × 108 dp · primeiro plano + fundo</p>';
+  $("masks").innerHTML = [["circle", "Círculo"], ["squircle", "Squircle"], ["rsq", "Quadrado arredondado"]].map(function (m) {
+    return "<figure>" + iconSVG({ px: 112, view: "visible", shape: m[0], label: "Ícone com máscara " + m[1] }) + '<figcaption class="cap">' + m[1] + "</figcaption></figure>";
+  }).join("");
+
+  // neutral placeholder icons for context rows (no brands)
+  function placeholder(kind, px, bg, fg, shapeName) {
+    var g = {
+      cal: '<rect x="40" y="42" width="28" height="26" rx="3" fill="none" stroke="' + fg + '" stroke-width="3"/><path d="M40 50h28M47 38v7M61 38v7" stroke="' + fg + '" stroke-width="3" stroke-linecap="round"/>',
+      cam: '<rect x="37" y="44" width="34" height="24" rx="5" fill="none" stroke="' + fg + '" stroke-width="3"/><circle cx="54" cy="56" r="6.5" fill="none" stroke="' + fg + '" stroke-width="3"/><path d="M47 44l3-5h8l3 5" fill="none" stroke="' + fg + '" stroke-width="3" stroke-linejoin="round"/>',
+      note: '<path d="M42 38h18l8 8v24H42z" fill="none" stroke="' + fg + '" stroke-width="3" stroke-linejoin="round"/><path d="M47 52h14M47 59h10" stroke="' + fg + '" stroke-width="3" stroke-linecap="round"/>',
+      clock: '<circle cx="54" cy="54" r="15" fill="none" stroke="' + fg + '" stroke-width="3"/><path d="M54 46v8l6 4" fill="none" stroke="' + fg + '" stroke-width="3" stroke-linecap="round"/>'
+    }[kind];
+    var id = "ph" + (++uid);
+    return '<svg viewBox="18 18 72 72" width="' + px + '" height="' + px + '" aria-hidden="true"><defs><clipPath id="' + id + '">' + shape(shapeName || "circle") +
+      '</clipPath></defs><g clip-path="url(#' + id + ')"><rect width="108" height="108" fill="' + bg + '"/>' + g + "</g></svg>";
+  }
+
+  var THEMES = [
+    { cls: "l", t: "Papel de parede claro", bg: "#D2E4DC", fg: "#1E3D36", pbg: "#D2E4DC", pfg: "#1E3D36" },
+    { cls: "d", t: "Papel de parede escuro", bg: "#26332F", fg: "#B7D5CB", pbg: "#26332F", pfg: "#B7D5CB" }
+  ];
+  $("themed").innerHTML = THEMES.map(function (th) {
+    var m = { bg: th.bg, fg: th.fg };
+    return '<div class="wall ' + th.cls + '"><span class="t">' + th.t + '</span><div class="row">' +
+      "<div>" + iconSVG({ px: 84, view: "visible", shape: "circle", mono: m, label: "Ícone temático" }) + "<span>84 px</span></div>" +
+      "<div>" + placeholder("cal", 48, th.pbg, th.pfg) + "<span>Agenda</span></div>" +
+      "<div>" + iconSVG({ px: 48, view: "visible", shape: "circle", mono: m, label: "Ícone temático 48 px" }) + "<span>Letraço</span></div>" +
+      "<div>" + placeholder("note", 48, th.pbg, th.pfg) + "<span>Notas</span></div>" +
+      "</div></div>";
+  }).join("");
+
+  $("sizes").innerHTML =
+    "<figure>" + iconSVG({ px: 96, view: "visible", shape: "circle" }) + '<figcaption class="cap">96</figcaption></figure>' +
+    "<figure>" + iconSVG({ px: 48, view: "visible", shape: "circle" }) + '<figcaption class="cap">48</figcaption></figure>' +
+    "<figure>" + iconSVG({ px: 32, view: "visible", shape: "circle" }) + '<figcaption class="cap">32</figcaption></figure>' +
+    "<figure>" + iconSVG({ px: 32, view: "visible", shape: "rsq" }) + '<figcaption class="cap">32 · quadrado</figcaption></figure>';
+  $("home").innerHTML = '<div class="row">' +
+    "<div>" + placeholder("cal", 48, "#E7E3DA", "#5B6461") + "<span>Agenda</span></div>" +
+    "<div>" + placeholder("cam", 48, "#3B4744", "#E9ECEA") + "<span>Câmera</span></div>" +
+    "<div>" + iconSVG({ px: 48, view: "visible", shape: "circle" }) + "<span>Letraço</span></div>" +
+    "<div>" + placeholder("clock", 48, "#C9D6DA", "#33474D") + "<span>Relógio</span></div>" +
+    '</div><div class="dock"></div>';
+  $("src").textContent = iconSVG({ px: 432, view: "canvas", noBg: true, label: "Letraço, primeiro plano" })
+    .replace(/></g, ">\n<");
+
+  // ---------- splash ----------
+  var W = 390, H = 844, CX = 195, CY = 422;
+  var K = 288 / 108;                      // the system splash draws the 108 dp foreground in a 288 dp box
+  var GATE = .62, END = 1.6, SYS = .5, TAIL = 1.4, RED_END = .4;
+  var LOAD_FAST = .35, LOAD_SLOW = 2.9;
+  var WORD = "Letraço";
+  var COMP = 46, HDR = 22;               // the typed word in the game is 46 px; the header wordmark is 22 px
+  var HDR_X = 20, HDR_BASE = 70;         // header row centre is y = 62 (status bar 24 + padding 18 + 40/2)
+  var CARET = { x: 195, y: 331 };        // centre of the empty caret in the sky
+
+  var SKY = [ // word, centre x, centre y, depth 0 far … 1 near, tone
+    ["hora", 78, 152, .80, C.ink], ["cera", 300, 146, .35, C.teal2], ["olhar", 190, 188, .12, C.muted],
+    ["coral", 316, 224, .70, C.brand], ["rocha", 72, 234, .50, C.ink2], ["arco", 214, 252, .22, C.bronze],
+    ["real", 348, 292, .08, C.ink2], ["cerca", 64, 318, .64, C.brand], ["erro", 324, 372, .44, C.ink],
+    ["rolha", 52, 404, .26, C.teal2], ["colher", 288, 478, .86, C.ink], ["hera", 96, 470, .18, C.muted],
+    ["choro", 156, 528, .58, C.ink2], ["acolher", 306, 538, .48, C.honey]
+  ];
+
+  var stage = $("stage");
+  var hiveHX = 60, hiveHY = 69, SLOTS = [[0, -hiveHY], [hiveHX, -hiveHY / 2], [hiveHX, hiveHY / 2], [0, hiveHY], [-hiveHX, hiveHY / 2], [-hiveHX, -hiveHY / 2]];
+  var OUTER = ["E", "H", "A", "L", "O", "C"];
+  var tilesHTML = '<span class="hx c" style="left:' + hiveHX + "px;top:" + hiveHY + 'px">R</span>' + OUTER.map(function (l, i) {
+    return '<span class="hx" style="left:' + (hiveHX + SLOTS[i][0]) + "px;top:" + (hiveHY + SLOTS[i][1]) + 'px">' + l + "</span>";
+  }).join("");
+
+  stage.innerHTML =
+    '<div class="sb"><span>9:41</span><span><svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 10h2V7H1zM5 10h2V5H5zM9 10h2V3H9zM13 10h2V1h-2z" fill="currentColor"/></svg> ' +
+    '<svg width="22" height="11" viewBox="0 0 22 11"><rect x=".75" y=".75" width="18" height="9.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="2.5" y="2.5" width="12" height="6" rx="1.2" fill="currentColor"/><rect x="19.8" y="3.6" width="1.6" height="3.8" rx=".8" fill="currentColor"/></svg></span></div>' +
+    '<div class="hd" id="g_hd"><span style="flex:1"></span>' +
+    '<span class="ib"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span></div>' +
+    '<div class="trk" id="g_trk"><div class="bar"><span id="g_fill"></span></div><div class="trkl"><span><b>8</b> de 47 palavras</span></div></div>' +
+    '<div class="skyw" id="g_sky"></div><div class="fade" id="g_fade"></div>' +
+    '<div class="foot" id="g_foot"><span class="rw"><b>corar</b><i>·</i><b>calhar</b><i>·</i><b>orla</b></span>' +
+    '<span class="go">Glossário · 8<svg viewBox="0 0 8 12" width="7" height="11"><path d="M1.5 1.5L6 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>' +
+    '<div class="side" id="g_sl" style="left:21px;top:667px"><span class="act"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+    '<span class="act"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M20 6H9l-6 6 6 6h11z M12 9l6 6 M18 9l-6 6" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></span></div>' +
+    '<div class="side" id="g_sr" style="left:299px;top:717px"><span class="act"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>' +
+    '<div class="hive" id="g_hive">' + tilesHTML + "</div>" +
+    '<svg class="ov" id="ov" width="390" height="844" viewBox="0 0 390 844" aria-hidden="true"></svg>' +
+    '<div class="lmsg" id="lmsg">Espalhando as palavras…</div>';
+
+  // overlay: brand letters (halo pass then fill pass), far icon letters, carets
+  var NS = "http://www.w3.org/2000/svg", ov = $("ov");
+  function mk(tag, attrs, parent) {
+    var el = document.createElementNS(NS, tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    (parent || ov).appendChild(el); return el;
+  }
+  var defs = mk("defs", {});
+  var nf = 0;
+  function blurFilter() {
+    var f = mk("filter", { id: "sf" + (++nf), x: "-60%", y: "-60%", width: "220%", height: "220%" }, defs);
+    var g = mk("feGaussianBlur", { stdDeviation: "0" }, f);
+    return { id: "sf" + nf, node: g };
+  }
+  function letter(ch, parent, halo) {
+    var g = mk("g", {}, parent);
+    var t = mk("text", { x: 0, y: 0, "font-size": 100, "font-weight": 700, "font-family": SERIF, "text-rendering": "geometricPrecision" }, g);
+    t.textContent = ch;
+    if (halo) { t.setAttribute("fill", "none"); t.setAttribute("stroke", C.paper); t.setAttribute("stroke-linejoin", "round"); }
+    return { g: g, t: t };
+  }
+  var meas = mk("text", { x: 0, y: -200, "font-size": 100, "font-weight": 700, "font-family": SERIF, "text-rendering": "geometricPrecision", opacity: 0 });
+  meas.textContent = WORD;
+
+  var gFar = mk("g", {}), gHaloB = mk("g", {}), gFillB = mk("g", {}), gHaloL = mk("g", {}), gFillL = mk("g", {}), gGhost = mk("g", {});
+  var FAR = IFAR.map(function (e) {
+    var l = letter(e.ch, gFar), f = blurFilter();
+    l.t.setAttribute("font-weight", e.w); l.t.setAttribute("fill", e.fill); l.g.setAttribute("filter", "url(#" + f.id + ")");
+    return { e: e, l: l, f: f };
+  });
+  var BR = WORD.split("").map(function (ch, i) {
+    var isL = i === 0;
+    var h = letter(ch, isL ? gHaloL : gHaloB, true), fl = letter(ch, isL ? gFillL : gFillB), f = blurFilter();
+    fl.g.setAttribute("filter", "url(#" + f.id + ")");
+    return { ch: ch, i: i, h: h, fl: fl, f: f };
+  });
+  // which far icon letter becomes each letter of the name
+  var FARBY = WORD.split("").map(function (ch, i) {
+    if (i === 0 || i === 5) return null;
+    for (var j = 0; j < IFAR.length; j++) if (IFAR[j].ch === ch) return IFAR[j];
+    return null;
+  });
+  // ghosts of the icon L and ç, used only by the reduced-motion cross-fade
+  var GH = [IC, IL].map(function (e) {
+    var h = letter(e.ch, gGhost, true), fl = letter(e.ch, gGhost);
+    fl.t.setAttribute("fill", e.fill);
+    return { e: e, h: h, fl: fl };
+  });
+  var caretA = mk("rect", { width: 2.5, height: 40, rx: 1.25, fill: C.brand, opacity: 0 });
+  var caretB = mk("rect", { x: CARET.x - 1.5, y: CARET.y - 24, width: 3, height: 48, rx: 1.5, fill: C.brand, opacity: 0 });
+
+  var OFF = [], ADV = 0;
+  function measure() {
+    try {
+      for (var i = 0; i < WORD.length; i++) OFF[i] = meas.getStartPositionOfChar(i).x;
+      ADV = meas.getComputedTextLength();
+    } catch (e) { for (var j = 0; j < WORD.length; j++) OFF[j] = j * 55; ADV = 385; }
+    if (!(ADV > 0)) { for (var k = 0; k < WORD.length; k++) OFF[k] = k * 55; ADV = 385; }
+  }
+
+  // sky words (HTML, like the game)
+  var skyEl = $("g_sky");
+  var WORDS = SKY.map(function (w, i) {
+    var el = document.createElement("span");
+    el.className = "fw"; el.textContent = w[0]; el.style.color = w[4];
+    skyEl.appendChild(el);
+    var r = function (n) { var x = Math.sin((i + 1) * 9301 + n * 49297) * 233280; return x - Math.floor(x); };
+    return {
+      el: el, x: w[1], y: w[2], z: w[3], w32: 0,
+      ax: 6 + r(1) * 8, ay: 3 + r(2) * 5, px: 7 + r(3) * 6, py: 8 + r(4) * 6, pz: 18 + r(5) * 12,
+      fx: r(6) * 6.28, fy: r(7) * 6.28, fz: r(8) * 6.28
+    };
+  });
+  function measureWords() { WORDS.forEach(function (d) { d.w32 = d.el.offsetWidth || d.el.textContent.length * 17; }); }
+
+  var tiles = Array.prototype.slice.call($("g_hive").children);
+  var G = { hd: $("g_hd"), trk: $("g_trk"), fill: $("g_fill"), foot: $("g_foot"), sl: $("g_sl"), sr: $("g_sr"), fade: $("g_fade"), lmsg: $("lmsg") };
+
+  // ---------- math ----------
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function seg(t, a, b) { return clamp01((t - a) / (b - a)); }
+  function eio(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function eo(x) { return 1 - Math.pow(1 - x, 3); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function hex(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
+  function mix(a, b, t) {
+    var x = hex(a), y = hex(b);
+    return "rgb(" + Math.round(lerp(x[0], y[0], t)) + "," + Math.round(lerp(x[1], y[1], t)) + "," + Math.round(lerp(x[2], y[2], t)) + ")";
+  }
+  function iconPose(e) { return { x: CX + (e.x - 54) * K, y: CY + (e.y - 54) * K, s: e.s * K }; }
+  function compPose(i) { return { x: CX - ADV * COMP / 200 + OFF[i] * COMP / 100, y: CY + COMP * .34, s: COMP }; }
+  function hdrPose(i) { return { x: HDR_X + OFF[i] * HDR / 100, y: HDR_BASE, s: HDR }; }
+  function lp(a, b, t) { return { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), s: lerp(a.s, b.s, t) }; }
+  function adv(i) { return ((i < WORD.length - 1 ? OFF[i + 1] : ADV) - OFF[i]); }
+  // scale a pose around the glyph's visual centre
+  function shrink(p, i, f) {
+    var cx = p.x + adv(i) * p.s / 200, cy = p.y - p.s * .3, s = p.s * f;
+    return { x: cx - (cx - p.x) * f, y: cy - (cy - p.y) * f, s: s };
+  }
+  function place(l, p) { l.g.setAttribute("transform", "translate(" + p.x.toFixed(2) + " " + p.y.toFixed(2) + ") scale(" + (p.s / 100).toFixed(4) + ")"); }
+  function setBlur(f, px, s) { f.node.setAttribute("stdDeviation", px > .05 ? (px * 100 / s).toFixed(2) : "0"); }
+
+  // ---------- state ----------
+  var S = { vt: -SYS, speed: 1, playing: true, loop: false, slow: false, reduced: false, scrub: false };
+  try { S.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  $("reduced").checked = S.reduced;
+
+  function loadAt() { return S.scrub && !S.slow ? 0 : (S.slow ? LOAD_SLOW : LOAD_FAST); }
+  function gateAt() { return S.reduced ? 0 : GATE; }
+  function endAt() { return S.reduced ? RED_END : END; }
+  function holdLen() { return Math.max(0, loadAt() - gateAt()); }
+  function doneAt() { return endAt() + holdLen(); }
+
+  function times(vt) {
+    var tw = Math.max(0, vt), g = gateAt(), la = loadAt(), tg, held = 0, rel = Infinity;
+    if (tw < g || la <= g) tg = tw;
+    else if (tw < la) { tg = g; held = tw - g; }
+    else { tg = tw - (la - g); held = la - g; rel = tw - la; }
+    return { tw: tw, tg: tg, held: held, rel: rel, holding: tw >= g && tw < la };
+  }
+
+  function renderNormal(T) {
+    var tg = T.tg, tw = T.tw;
+    // brand letters
+    var m = eio(seg(tg, .10, .58)), fly = eio(seg(tg, .62, 1.10));
+    BR.forEach(function (b, i) {
+      var comp = compPose(i), hdr = hdrPose(i), p, op = 1, blur = 0, col = C.ink, halo;
+      if (i === 0 || i === 5) {
+        var e = i === 0 ? IL : IC;
+        p = lp(lp(iconPose(e), comp, m), hdr, fly);
+        halo = lerp(0, i === 0 ? 0 : 3, m);
+        if (i === 5) col = mix(C.brand, C.ink, seg(tg, .62, .98));
+      } else {
+        // e, t, r, a, o leave the back of the icon and take their place in the name
+        var k = [0, 0, 1, 2, 3, 0, 4][i], fe = FARBY[i];
+        var a = eio(seg(tg, .10 + k * .035, .52 + k * .015));
+        if (fe && fe.op) {
+          p = lp(lp(iconPose(fe), comp, a), hdr, fly);
+          op = lerp(fe.op, 1, a); blur = lerp(fe.blur * K, 0, a);
+        } else {
+          p = shrink(lp(comp, hdr, fly), i, .6 + .4 * a);
+          op = a; blur = (1 - a) * 5;
+        }
+        col = mix(C.muted, C.ink, a); halo = 3 * a;
+      }
+      halo = lerp(halo, 0, fly);
+      place(b.fl, p); place(b.h, p); b.lastPose = p;
+      b.fl.t.setAttribute("fill", col);
+      b.fl.g.setAttribute("opacity", op.toFixed(3));
+      b.h.g.setAttribute("opacity", op.toFixed(3));
+      b.h.t.setAttribute("stroke-width", (halo * 2 * 100 / p.s).toFixed(2));
+      setBlur(b.f, blur, p.s);
+    });
+    gGhost.setAttribute("opacity", 0);
+    // the far icon letters are drawn by the name's own letters (they fly into it)
+    FAR.forEach(function (f) { f.l.g.setAttribute("opacity", 0); });
+    // loading: caret after the composed word, then the line under it
+    var fadeOut = T.rel === Infinity ? 1 : 1 - seg(T.rel, 0, .18);
+    var blinkOn = (T.held % 1) < .5 ? 1 : 0;
+    var cA = seg(T.held, .25, .4) * fadeOut;
+    var endX = compPose(6).x + adv(6) * COMP / 100;
+    caretA.setAttribute("x", (endX + 5).toFixed(1)); caretA.setAttribute("y", CY - 22);
+    caretA.setAttribute("opacity", (cA * (T.holding ? blinkOn : 1)).toFixed(3));
+    G.lmsg.style.top = (CY + 34) + "px";
+    var msgOp = seg(T.held, .6, .9) * fadeOut;
+    G.lmsg.style.opacity = msgOp.toFixed(3);
+    // sky words come forward from depth
+    var cB = eo(seg(tg, 1.30, 1.50));
+    // while the name is in the sky, words passing behind it fade, as they do behind the typed word in the game
+    var p0 = BR[0].lastPose, p6 = BR[6].lastPose, box = null;
+    if (fly < 1 && p0 && p6) box = { l: p0.x - 6, r: p6.x + adv(6) * p6.s / 100 + 6, t: p0.y - p0.s * .78, b: p0.y + p0.s * .26 + 34 * msgOp };
+    if (box && msgOp > 0) { box.l = Math.min(box.l, CX - 90); box.r = Math.max(box.r, CX + 90); }
+    WORDS.forEach(function (d, i) {
+      var e = eo(seg(tw, .14 + i * .04, .76 + i * .04));
+      drawWord(d, tw, e, cB, false, box);
+    });
+    // game chrome
+    var a;
+    a = eo(seg(tg, .95, 1.25)); G.hd.style.opacity = a; G.hd.style.transform = "translateY(" + ((1 - a) * -4).toFixed(1) + "px)";
+    a = eo(seg(tg, 1.0, 1.3)); G.trk.style.opacity = a;
+    G.fill.style.width = (17 * eio(seg(tg, 1.08, 1.5))).toFixed(2) + "%";
+    tiles.forEach(function (t, j) {
+      var b = eo(seg(tg, .98 + j * .035, 1.26 + j * .035));
+      t.style.opacity = b; t.style.transform = "scale(" + (.8 + .2 * b).toFixed(3) + ")";
+    });
+    a = eo(seg(tg, 1.12, 1.42)); G.sl.style.opacity = a; G.sr.style.opacity = a;
+    a = eo(seg(tg, 1.2, 1.5)); G.foot.style.opacity = a; G.foot.style.transform = "translateY(" + ((1 - a) * 6).toFixed(1) + "px)";
+    G.fade.style.opacity = eo(seg(tg, 1.0, 1.4));
+    var blinkB = tg >= END ? (((tg - END) % 1) < .5 ? 1 : 0) : 1;
+    caretB.setAttribute("opacity", (cB * blinkB).toFixed(3));
+  }
+
+  function drawWord(d, tw, e, caretVis, still, box) {
+    var dz = still ? 0 : .08 * Math.sin(tw * 6.283 / d.pz + d.fz);
+    var z = clamp01(d.z + dz);
+    var cx = d.x + (still ? 0 : d.ax * Math.sin(tw * 6.283 / d.px + d.fx));
+    var cy = d.y + (still ? 0 : d.ay * Math.sin(tw * 6.283 / d.py + d.fy));
+    var size = 12 + z * 16, op = .26 + z * .56, blur = z < .3 ? (.3 - z) * 5 : 0;
+    if (!still) {
+      cx = CX + (cx - CX) * (.7 + .3 * e); cy = CY + (cy - CY) * (.7 + .3 * e);
+      size *= .4 + .6 * e; blur += (1 - e) * 4; op *= e;
+    } else op *= e;
+    if (caretVis > 0) {   // words fade as they pass the empty caret, as in the game
+      var dist = Math.hypot(cx - CARET.x, (cy - CARET.y) * 1.8);
+      var clear = Math.max(.08, Math.min(1, (dist - 40) / 90));
+      op *= 1 - caretVis * (1 - clear);
+    }
+    if (box) {
+      var hw = d.w32 * size / 64, hh = size * .55;
+      var gx = Math.max(box.l - (cx + hw), cx - hw - box.r, 0), gy = Math.max(box.t - (cy + hh), cy - hh - box.b, 0);
+      op *= .1 + .9 * clamp01(Math.hypot(gx, gy) / 28);
+    }
+    var sc = size / 32;
+    d.el.style.transform = "translate(" + (cx - d.w32 * sc / 2).toFixed(1) + "px," + (cy - 17 * sc).toFixed(1) + "px) scale(" + sc.toFixed(3) + ")";
+    d.el.style.opacity = op.toFixed(3);
+    d.el.style.filter = blur > .1 ? "blur(" + blur.toFixed(1) + "px)" : "none";
+  }
+
+  // reduced motion: the system frame dissolves into the game screen, nothing moves
+  function renderReduced(T) {
+    var x = eio(seg(T.tg, 0, RED_END));
+    BR.forEach(function (b, i) {
+      var p = hdrPose(i);
+      place(b.fl, p); place(b.h, p);
+      b.fl.t.setAttribute("fill", C.ink);
+      b.fl.g.setAttribute("opacity", x.toFixed(3)); b.h.g.setAttribute("opacity", 0);
+      setBlur(b.f, 0, p.s);
+    });
+    gGhost.setAttribute("opacity", (1 - x).toFixed(3));
+    GH.forEach(function (g) {
+      var p = iconPose(g.e);
+      place(g.fl, p); place(g.h, p);
+      g.h.t.setAttribute("stroke-width", g.e.halo ? (g.e.halo * K * 2 * 100 / p.s).toFixed(2) : 0);
+    });
+    FAR.forEach(function (f) {
+      var p = iconPose(f.e);
+      place(f.l, p); f.l.g.setAttribute("opacity", (f.e.op * (1 - x)).toFixed(3));
+      setBlur(f.f, f.e.blur * K, p.s);
+    });
+    var fadeOut = T.rel === Infinity ? 1 : 1 - seg(T.rel, 0, .18);
+    caretA.setAttribute("opacity", 0);
+    G.lmsg.style.top = (CY + 112) + "px";
+    G.lmsg.style.opacity = (seg(T.held, .6, .9) * fadeOut).toFixed(3);
+    WORDS.forEach(function (d) { drawWord(d, 0, x, x, true); });
+    [G.hd, G.trk, G.sl, G.sr, G.foot, G.fade].forEach(function (el) { el.style.opacity = x; el.style.transform = "none"; });
+    G.fill.style.width = "17%";
+    tiles.forEach(function (t) { t.style.opacity = x; t.style.transform = "none"; });
+    caretB.setAttribute("opacity", x.toFixed(3));
+  }
+
+  // ---------- timeline UI ----------
+  function fmt(s) { return (Math.max(0, s)).toFixed(2).replace(".", ",") + " s"; }
+  function buildSegs() {
+    var hl = holdLen(), tot = SYS + doneAt() + 1, g = gateAt();
+    var parts = [["s0", SYS]];
+    if (hl > 0) { if (g > 0) parts.push(["s1", g]); parts.push(["sh", hl]); parts.push(["s1", endAt() - g]); }
+    else parts.push(["s1", endAt()]);
+    parts.push(["s2", 1]);
+    $("segs").innerHTML = parts.map(function (p) { return '<i class="' + p[0] + '" style="flex:' + (p[1] / tot).toFixed(4) + '"></i>'; }).join("");
+    $("tlk").innerHTML = '<span style="flex:' + (SYS / tot).toFixed(4) + '">Sistema</span><span style="flex:' + (doneAt() / tot).toFixed(4) + '">Flutter' +
+      (hl > 0 ? " · espera" : "") + '</span><span style="flex:' + (1 / tot).toFixed(4) + '">Jogo</span>';
+  }
+  function ui(T) {
+    var vt = S.vt, done = doneAt(), tot = SYS + done + 1, ph;
+    if (vt < 0) ph = "Splash do sistema · estático";
+    else if (T.holding) ph = "Esperando o jogo carregar";
+    else if (vt < done) ph = S.reduced ? "Splash do Flutter · dissolve" : "Splash do Flutter · animação";
+    else ph = "Jogo";
+    $("phase").textContent = ph;
+    $("clock").textContent = vt < 0 ? "antes do Flutter" : (vt < done ? fmt(vt) : fmt(done) + " · pronto") + (S.speed !== 1 ? " · 0,25×" : "");
+    var pos = Math.min(1, (vt + SYS) / tot);
+    $("head").style.left = (pos * 100).toFixed(2) + "%";
+    if (!S.scrub) $("scrub").value = Math.round(pos * 1000);
+  }
+
+  function render() {
+    var T = times(S.vt);
+    if (S.reduced) renderReduced(T); else renderNormal(T);
+    ui(T);
+  }
+
+  var last = performance.now();
+  function frame(now) {
+    var dt = Math.min(.05, (now - last) / 1000); last = now;
+    if (S.playing) {
+      S.vt += dt * S.speed;
+      if (S.loop && S.vt > doneAt() + TAIL) S.vt = -SYS;
+    }
+    render();
+    requestAnimationFrame(frame);
+  }
+
+  function replay() { S.scrub = false; S.playing = true; S.vt = -SYS; buildSegs(); }
+  $("replay").onclick = replay;
+  function speed(v) {
+    S.speed = v;
+    $("sp1").setAttribute("aria-pressed", v === 1 ? "true" : "false");
+    $("sp4").setAttribute("aria-pressed", v === 1 ? "false" : "true");
+  }
+  $("sp1").onclick = function () { speed(1); };
+  $("sp4").onclick = function () { speed(.25); };
+  $("loop").onchange = function () { S.loop = this.checked; if (S.loop && S.vt > doneAt()) replay(); };
+  $("slow").onchange = function () { S.slow = this.checked; replay(); };
+  $("reduced").onchange = function () { S.reduced = this.checked; replay(); };
+  $("scrub").oninput = function () {
+    S.scrub = true; S.playing = false; buildSegs();
+    var tot = SYS + doneAt() + 1;
+    S.vt = -SYS + this.value / 1000 * tot;
+  };
+
+  // phone scales to the column
+  function fit() {
+    var col = $("stagecol"), avail = Math.min(col.clientWidth, 430);
+    var s = Math.min(avail / 410, .88);
+    $("phone").style.transform = "scale(" + s.toFixed(4) + ")";
+    $("phoneBox").style.width = (410 * s) + "px";
+    $("phoneBox").style.height = (864 * s) + "px";
+  }
+  window.addEventListener("resize", fit);
+
+  // a frame can be linked: #t=0.8 pauses there (Flutter time, in seconds); #slow and #reduced set the toggles
+  function fromHash() {
+    var h = location.hash || "";
+    if (/slow/.test(h)) { S.slow = true; $("slow").checked = true; }
+    if (/reduced/.test(h)) { S.reduced = true; $("reduced").checked = true; }
+    var m = /t=(-?[\d.]+)/.exec(h);
+    if (m) { S.playing = false; S.vt = parseFloat(m[1]); }
+  }
+  function start() { measure(); measureWords(); fromHash(); fit(); buildSegs(); render(); requestAnimationFrame(frame); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
+})();
+</script>
+</body>
+</html>
