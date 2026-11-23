@@ -3,32 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Letraço Mock</title>
+<title>Caderno · Design System</title>
 <style>
 :root{
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-}
-.app{
   --paper:#F5F0E6;--paper2:#EDE6D8;--card:#FFFDF8;--ink:#1D2626;--ink2:#56605E;--muted:#8A918C;--line:#DCD4C4;
-  --brand:#0E6E64;--brand-ink:#FFFFFF;--brand-soft:#D3E9E4;--honey:#D99A1E;--honey-soft:#F7E6BF;--err:#B8402F;
+  --brand:#0E6E64;--brand-ink:#FFFFFF;--brand-soft:#D3E9E4;--honey:#D99A1E;--honey-ink:#8A6200;--honey-soft:#F7E6BF;--err:#B8402F;--dots:#C9C0AE;
   --tile:#E6DFCF;--tile-ink:#1D2626;--scrim:rgba(29,38,38,.38);
   --w1:#1D2626;--w2:#0E6E64;--w3:#56605E;--w4:#3E8C82;--w5:#8A918C;--w6:#9C7A3C;
 }
 *,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;height:100%}
-body{background:#2b2f2e;font-family:var(--sans);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px 16px}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans)}
 button{font:inherit;color:inherit}
 
 .app{width:390px;height:844px;border-radius:44px;border:10px solid #0d1010;background:var(--paper);color:var(--ink);position:relative;overflow:hidden;
   display:flex;flex-direction:column;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);transition:background .3s,color .3s;user-select:none;-webkit-user-select:none}
-@media (max-width:480px){body{padding:0;background:var(--paper)}.app{width:100vw;height:100dvh;border:0;border-radius:0;box-shadow:none}}
+@media (max-width:480px){.app{width:100%;height:760px;border-width:6px;border-radius:30px}}
 
 /* header */
 .top{display:flex;align-items:center;gap:8px;padding:18px 14px 4px 20px}
 .wm{font:700 22px/1 var(--serif);letter-spacing:-.01em;margin-right:auto}
-.chip{display:flex;gap:6px;align-items:center;background:var(--brand-soft);color:var(--brand);border-radius:99px;padding:5px 11px;font:600 12.5px var(--sans)}
-.chip .pts{color:var(--ink2);font-weight:500}
 .ib{all:unset;width:40px;height:40px;display:grid;place-items:center;border-radius:20px;color:var(--ink);cursor:pointer}
 .ib:active{background:var(--paper2)}
 .trk{padding:2px 20px 0}
@@ -49,7 +45,7 @@ button{font:inherit;color:inherit}
 @keyframes wave{0%{transform:scale(1);opacity:.35}100%{transform:scale(24);opacity:0}}
 .sky::after{content:"";position:absolute;inset:auto 0 0 0;height:64px;background:linear-gradient(transparent,var(--paper));pointer-events:none}
 
-/* recent words: a quiet footer line under a hairline, no card; tap it or drag it up to open the favo */
+/* recent words: a quiet footer line under a hairline, no card; tap it or drag it up to open the glossário */
 .foot{position:absolute;left:20px;right:20px;bottom:0;z-index:50;display:flex;align-items:baseline;gap:10px;border-top:1px solid var(--line);
   padding:10px 0 4px;cursor:pointer;touch-action:none}
 .foot::before{content:"";position:absolute;inset:-10px 0 0}   /* touch area taller than the drawing */
@@ -92,7 +88,7 @@ button{font:inherit;color:inherit}
 @keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
 .toast{position:absolute;left:50%;top:-34px;transform:translateX(-50%);background:var(--honey-soft);color:var(--ink);font:600 13.5px var(--sans);
   padding:5px 12px;border-radius:99px;opacity:0;pointer-events:none;z-index:60}
-.toast b{color:var(--honey)}
+.toast b{color:var(--honey-ink)}
 .toast.show{animation:rise 1.6s ease-out}
 @keyframes rise{0%{opacity:0;transform:translate(-50%,8px)}15%{opacity:1;transform:translate(-50%,0)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-8px)}}
 
@@ -116,29 +112,28 @@ button{font:inherit;color:inherit}
 .app.cad-open .scrim{opacity:1;pointer-events:auto}
 .app.cad-open .sheet{transform:none}
 .handle{width:40px;height:4px;border-radius:2px;background:var(--line);margin:10px auto 8px}
-.sh{display:flex;justify-content:space-between;align-items:flex-end;padding:0 20px 12px;border-bottom:1px solid var(--line)}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;padding:0 20px 14px}
 .sh h2{margin:0;font:700 26px/1.1 var(--serif)}
 .sh p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
-.page{flex:1;overflow:auto;position:relative;padding:10px 16px 90px}
-.sec{display:flex;align-items:baseline;gap:8px;margin:14px 0 8px;font:600 12px var(--sans);color:var(--ink2)}
-.sec:first-child{margin-top:4px}
-.sec b{font:700 17px var(--serif);color:var(--brand)}
-.sec .bar2{flex:1;height:3px;border-radius:3px;background:var(--line);position:relative;align-self:center}
-.sec .bar2 i{position:absolute;inset:0 auto 0 0;background:var(--brand);border-radius:3px}
-[data-w]{cursor:pointer}
-/* Favo: every found word is a cell of the honeycomb, empty cells are the ones still missing */
-.fv{display:flex;flex-wrap:wrap;row-gap:4px;width:274px;margin:0 auto;padding-bottom:38px}
-.fv .c{margin-right:-14px;width:78px;height:68px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);display:grid;place-items:center;
-  background:var(--tile);font:600 14px var(--serif);color:var(--ink)}
-.fv .c:nth-child(2n){transform:translateY(36px)}
-.fv .c.pg{background:var(--honey-soft);color:var(--ink)}
-.fv .c.new{background:var(--brand);color:var(--brand-ink)}
-.fv .c.sel{background:var(--ink);color:var(--paper)}
-.fv .c.no{background:var(--paper2);color:var(--muted);font:600 11px var(--sans)}
-.gloss{position:absolute;left:12px;right:12px;bottom:14px;z-index:95;background:var(--ink);color:var(--paper);border-radius:14px;padding:10px 14px;font-size:13.5px;line-height:1.35;
-  transform:translateY(20px);opacity:0;transition:.2s;pointer-events:none}
-.gloss.show{transform:none;opacity:1}
-.gloss b{font:700 16px var(--serif);margin-right:6px}
+/* Glossário: one running list, a section per word length, each opened by a brand rule; words are entries with their meaning */
+.page{flex:1;overflow:auto;position:relative;padding:0 16px 40px}
+.grp{display:flex;justify-content:space-between;margin-top:22px;border-top:2px solid var(--brand);padding:10px 2px 4px;font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.grp:first-child{margin-top:2px}
+.ent{list-style:none;margin:0;padding:0}
+.ent li{padding:9px 2px 10px;border-bottom:1px dotted var(--dots);font:400 15px/1.4 var(--serif);color:var(--ink2)}
+.ent b{font:700 18px var(--serif);color:var(--brand);margin-right:3px}
+.ent i{color:var(--muted)}
+.ent em{font:600 10.5px var(--sans);font-style:normal;letter-spacing:.04em;border-radius:99px;padding:2px 7px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.ent .pg b{color:var(--honey)}
+.ent .pg em{background:var(--honey-soft);color:var(--honey-ink)}
+.ent .new em{background:var(--brand-soft);color:var(--brand)}
+.ent .new{animation:entnew 1.6s ease-out}
+@keyframes entnew{0%,30%{background:var(--brand-soft)}100%{background:transparent}}
+/* what is still missing in the section: a soft brand band, the count in the book serif */
+.miss{display:flex;align-items:baseline;justify-content:center;gap:6px;margin-top:14px;padding:10px 12px;border-radius:12px;background:var(--brand-soft);
+  color:var(--brand);font:600 14px var(--sans)}
+.miss b{font:700 20px/1 var(--serif)}
+.miss.done{background:none;box-shadow:inset 0 0 0 1.5px var(--brand-soft)}
 
 /* floating word tooltip */
 .tip{position:absolute;z-index:70;max-width:240px;background:var(--ink);color:var(--paper);border-radius:12px;padding:8px 12px;font-size:13px;line-height:1.35;
@@ -146,20 +141,281 @@ button{font:inherit;color:inherit}
 .tip.show{opacity:1;transform:translate(-50%,calc(-100% - 10px))}
 .tip b{font:700 15px var(--serif);margin-right:5px}
 
-.note{position:fixed;left:16px;bottom:12px;color:#a8aea9;font:12px var(--sans);max-width:300px}
-@media (max-width:480px){.note{display:none}}
+
+/* ============================== design system book ============================== */
+.ds{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+.ds-nav{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 18px 28px 24px;border-right:1px solid var(--line);background:var(--paper2)}
+.ds-brand{font:700 26px/1 var(--serif);letter-spacing:-.01em}
+.ds-brand small{display:block;margin-top:6px;font:500 12px var(--sans);color:var(--ink2);letter-spacing:0}
+.ds-nav ol{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:2px}
+.ds-nav li.h{margin:14px 0 4px;font:600 10.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ds-nav a{display:block;padding:5px 10px;border-radius:8px;color:var(--ink2);text-decoration:none;font-size:13.5px}
+.ds-nav a:hover{background:var(--line);color:var(--ink)}
+.ds-nav a.on{background:var(--brand-soft);color:var(--brand);font-weight:600}
+.ds-main{min-width:0;padding:44px 48px 96px;max-width:1080px}
+.ds-eye{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ds-hero h1{margin:8px 0 12px;font:700 44px/1.05 var(--serif);letter-spacing:-.02em}
+.ds-lead{max-width:680px;margin:0;color:var(--ink2);font-size:15.5px;line-height:1.55}
+.ds-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ds-pill{font:600 12px var(--sans);padding:4px 10px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+.ds-pill.n{background:var(--line);color:var(--ink2)}
+.ds-sec{padding-top:56px;scroll-margin-top:12px}
+.ds-sec>h2{margin:0 0 6px;font:700 30px/1.1 var(--serif);letter-spacing:-.01em}
+.ds-sec>p.ds-intro{margin:0 0 22px;max-width:680px;color:var(--ink2);line-height:1.55}
+.ds-sec h3{margin:30px 0 10px;font:700 19px/1.2 var(--serif)}
+.ds-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.ds-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.ds-card h4{margin:0 0 6px;font:700 16px var(--serif)}
+.ds-card p{margin:0;color:var(--ink2);font-size:13.5px;line-height:1.5}
+code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--paper2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink)}
+.ds-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.ds-table th{text-align:left;font:600 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--brand)}
+.ds-table td{padding:9px 10px;border-bottom:1px dotted var(--dots);vertical-align:top;color:var(--ink2)}
+.ds-table td:first-child{color:var(--ink);font-weight:600}
+.ds-scroll{overflow-x:auto}
+/* colors */
+.ds-sw{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.ds-sw i{display:block;height:74px;border-bottom:1px solid rgba(0,0,0,.06)}
+.ds-sw div{padding:10px 12px 12px}
+.ds-sw b{display:block;font:700 15px var(--serif)}
+.ds-sw span{display:block;font-size:12px;color:var(--ink2);margin-top:2px}
+.ds-sw .c{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.ds-sw .c em{font:600 10.5px var(--sans);font-style:normal;padding:1px 6px;border-radius:99px;background:var(--paper2);color:var(--ink2)}
+.ds-sw .c em.ok{background:var(--brand-soft);color:var(--brand)}
+.ds-sw .c em.no{background:#F3D9D3;color:var(--err)}
+.ds-tones{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline;padding:18px 20px;background:var(--paper);border:1px solid var(--line);border-radius:14px;font:600 24px var(--serif)}
+/* type */
+.ds-type{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:8px 24px;align-items:baseline;padding:14px 0;border-bottom:1px dotted var(--dots)}
+.ds-type .spec{font-size:12.5px;color:var(--ink2);line-height:1.5}
+.ds-type .spec b{color:var(--ink)}
+/* shape */
+.ds-radius{display:flex;flex-wrap:wrap;gap:16px}
+.ds-radius div{width:96px;text-align:center;font-size:12px;color:var(--ink2)}
+.ds-radius i{display:block;width:96px;height:64px;background:var(--brand-soft);border:1.5px solid var(--brand);margin-bottom:6px}
+.ds-space{display:grid;gap:6px}
+.ds-space div{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--ink2)}
+.ds-space i{display:block;height:12px;background:var(--brand);border-radius:2px}
+/* components */
+.ds-comp{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;scroll-margin-top:12px}
+.ds-comp>header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:16px 20px 12px;border-bottom:1px solid var(--line)}
+.ds-comp>header h3{margin:0;font:700 21px var(--serif)}
+.ds-comp>header p{margin:0;flex-basis:100%;color:var(--ink2);font-size:13.5px;line-height:1.5}
+.ds-comp>header code{margin-left:auto}
+.ds-stage{position:relative;background:var(--paper);min-height:150px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;padding:28px 20px;overflow:hidden}
+.ds-stage.dotgrid{background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:16px 16px}
+.ds-states{display:flex;flex-wrap:wrap;gap:6px;padding:12px 20px;border-top:1px solid var(--line);background:var(--card)}
+.ds-states button{all:unset;cursor:pointer;font:600 12.5px var(--sans);padding:5px 11px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink2)}
+.ds-states button:hover{border-color:var(--brand);color:var(--brand)}
+.ds-states button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.ds-specs{padding:4px 20px 16px}
+.ds-label{display:block;text-align:center;font:600 10.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.ds-cell{display:flex;flex-direction:column;align-items:center}
+.ds-hexbox{position:relative;width:76px;height:66px}
+.ds-hexbox .hx{left:0;top:0}
+.ds-phonebar{width:390px;max-width:100%;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding-bottom:10px}
+.ds-sheet{width:390px;max-width:100%;background:var(--card);border-radius:28px 28px 0 0;box-shadow:0 -1px 0 var(--line),0 10px 30px -12px rgba(29,38,38,.3);padding-bottom:18px}
+.ds-sheet .body{padding:0 16px}
+.ds-depth{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
+.ds-depth .row{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--ink2)}
+.ds-depth input{accent-color:var(--brand);width:220px}
+.ds-depth .out{font:12px ui-monospace,Menlo,monospace;color:var(--ink2)}
+.ds-ladder{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;justify-content:center;font-family:var(--serif);font-weight:600}
+/* screens */
+.ds-screen{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:start}
+.ds-screen ul{margin:0;padding-left:18px;color:var(--ink2);line-height:1.6;font-size:14px}
+.ds-screen li b{color:var(--ink)}
+/* do / don't */
+.ds-dd{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ds-dd .ds-card h4{display:flex;align-items:center;gap:8px}
+.ds-dd .ds-card h4::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.ds-dd .ds-card.no h4::before{background:var(--err)}
+.ds-dd ul{margin:6px 0 0;padding-left:18px;color:var(--ink2);font-size:13.5px;line-height:1.6}
+.ds-hidden{display:none}
+@media (max-width:980px){
+  .ds{grid-template-columns:1fr}
+  .ds-nav{position:sticky;z-index:200;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:14px;overflow-x:auto}
+  .ds-brand small{display:none}
+  .ds-nav ol{display:flex;margin:0;gap:2px}
+  .ds-nav li.h{display:none}
+  .ds-nav a{white-space:nowrap}
+  .ds-main{padding:28px 16px 80px}
+  .ds-sec,.ds-comp{scroll-margin-top:64px}
+  .ds-screen{grid-template-columns:1fr}
+  .ds-type{grid-template-columns:1fr}
+  .ds-dd{grid-template-columns:1fr}
+}
+@media (max-width:480px){.ds-hero h1{font-size:34px}.ds-stage{padding:22px 12px}}
 </style>
 </head>
 <body>
+<div class="ds">
+<nav class="ds-nav" aria-label="Seções">
+  <div class="ds-brand">Caderno<small>Design system do Letraço</small></div>
+  <ol>
+    <li class="h">Começo</li>
+    <li><a href="#principios">Princípios</a></li>
+    <li class="h">Fundamentos</li>
+    <li><a href="#cores">Cores</a></li>
+    <li><a href="#tipografia">Tipografia</a></li>
+    <li><a href="#forma">Espaço e forma</a></li>
+    <li><a href="#movimento">Movimento</a></li>
+    <li class="h">Componentes</li>
+    <li><a href="#c-header">Cabeçalho e trilha</a></li>
+    <li><a href="#c-floating">Palavra flutuante</a></li>
+    <li><a href="#c-typed">Palavra digitada</a></li>
+    <li><a href="#c-toast">Selo de acerto</a></li>
+    <li><a href="#c-wave">Onda</a></li>
+    <li><a href="#c-tip">Card de significado</a></li>
+    <li><a href="#c-foot">Linha das últimas</a></li>
+    <li><a href="#c-hex">Tecla hexagonal</a></li>
+    <li><a href="#c-actions">Botões de ação</a></li>
+    <li><a href="#c-glossary">Glossário</a></li>
+    <li class="h">Telas</li>
+    <li><a href="#tela-jogo">Tela de jogo</a></li>
+    <li class="h">Uso</li>
+    <li><a href="#voz">Voz e textos</a></li>
+    <li><a href="#regras">Fazer e não fazer</a></li>
+  </ol>
+</nav>
+<main class="ds-main">
+  <header class="ds-hero">
+    <p class="ds-eye">Letraço · design system</p>
+    <h1>Caderno</h1>
+    <p class="ds-lead">Papel, tinta e um teal de caneta. É a identidade da tela de jogo nova: as palavras achadas flutuam num céu, a palavra digitada fica no centro, e o Glossário guarda tudo como verbetes. Cada componente aqui funciona de verdade e aponta para o widget correspondente no app.</p>
+    <div class="ds-meta"><span class="ds-pill">Só tema claro</span><span class="ds-pill">Sem pontos e sem níveis</span><span class="ds-pill n">Fonte da verdade no código: lib/theme.dart</span></div>
+  </header>
+
+  <section class="ds-sec" id="principios">
+    <h2>Princípios</h2>
+    <p class="ds-intro">Quatro ideias decidem o resto. Quando um detalhe não estiver neste livro, volte a elas.</p>
+    <div class="ds-grid">
+      <div class="ds-card"><h4>Papel, não tela</h4><p>Fundo cor de papel, tinta quase preta, nada de branco puro nem preto puro. A folha do Glossário é o único papel mais claro, porque está por cima.</p></div>
+      <div class="ds-card"><h4>A palavra é a heroína</h4><p>Palavras sempre em serifa de livro. Interface (contagens, botões, rótulos) em sans do sistema, menor e mais quieta.</p></div>
+      <div class="ds-card"><h4>Um teal só</h4><p>O teal marca o que importa agora: a letra central, a palavra nova, o progresso. O mel aparece só no pangrama.</p></div>
+      <div class="ds-card"><h4>Progresso em palavras</h4><p>O jogo conta palavras, não pontos. Não há nível, ranking nem “partida ganha”.</p></div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="cores">
+    <h2>Cores</h2>
+    <p class="ds-intro">Tokens do tema <code>Caderno</code>. O contraste é medido contra o papel (<code>--paper</code>); “AA” vale para texto de 14 px ou mais, “AA+” para texto grande.</p>
+    <div class="ds-grid" id="ds-colors"></div>
+    <h3>Tons das palavras flutuantes</h3>
+    <p class="ds-intro">Cada palavra recebe um destes tons e fica com ele. O pangrama usa o mel.</p>
+    <div class="ds-tones" id="ds-tones"></div>
+  </section>
+
+  <section class="ds-sec" id="tipografia">
+    <h2>Tipografia</h2>
+    <p class="ds-intro">Serifa de livro (<code>Iowan Old Style</code>, com Palatino e Georgia de reserva; no Android cai para Noto Serif) para palavras e títulos. Sans do sistema para a interface.</p>
+    <div id="ds-type"></div>
+  </section>
+
+  <section class="ds-sec" id="forma">
+    <h2>Espaço e forma</h2>
+    <p class="ds-intro">Margem lateral de 20 px na tela de jogo e 16 px dentro do Glossário. Raios seguem o tamanho da peça: pílulas para selos, 20 para botões, 28 para a folha.</p>
+    <h3>Espaçamento</h3>
+    <div class="ds-space" id="ds-space"></div>
+    <h3>Raios</h3>
+    <div class="ds-radius" id="ds-radius"></div>
+    <h3>Profundidade</h3>
+    <div class="ds-grid">
+      <div class="ds-card"><h4>Véu</h4><p>Quando o Glossário abre, o jogo escurece com <code>--scrim</code> (tinta a 38%).</p></div>
+      <div class="ds-card"><h4>Halo de papel</h4><p>A palavra digitada e o texto embaixo têm sombras cor de papel (4/12/20 px e 5/10 px) para se separar das flutuantes sem escondê-las.</p></div>
+      <div class="ds-card"><h4>Sem sombra de card</h4><p>Nada de sombra projetada na tela de jogo. Profundidade vem de tamanho, opacidade e desfoque das palavras.</p></div>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="movimento">
+    <h2>Movimento</h2>
+    <p class="ds-intro">Movimento curto e com propósito. Com “reduzir movimento” ativo no sistema, as palavras param de vagar e de mudar de profundidade sozinhas.</p>
+    <div class="ds-scroll" id="ds-motion"></div>
+  </section>
+
+  <section class="ds-sec" id="componentes">
+    <h2>Componentes</h2>
+    <p class="ds-intro">Cada componente tem uma demonstração ao vivo, os estados que ele assume e as medidas. O caminho no canto aponta para o widget no app.</p>
+    
+    <article class="ds-comp" id="c-header">
+      <header><h3>Cabeçalho e trilha</h3><code>lib/main_page.dart</code><p>Nome do jogo em serifa à esquerda, menu à direita. Embaixo, a trilha: barra fina e a contagem em palavras. Não existe pontuação nem nível.</p></header>
+      <div class="ds-stage" id="c-header-stage"><div class="ds-phonebar"><div class="top"><span class="wm">Letraço</span><button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div>
+ <div class="trk"><div class="bar"><span id="ds-bar" style="width:43%"></span></div><div class="trkl"><span><b id="ds-barn">20</b> de 47 palavras</span></div></div></div></div>
+      <div class="ds-states" data-for="c-header"><button data-v="0">Início</button><button class="on" data-v="20">Meio</button><button data-v="47">Completo</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody><tr><td>Wordmark</td><td>22 px, serif 700, −0,01em</td><td>--ink</td></tr><tr><td>Margens</td><td>20 px nas laterais</td><td>—</td></tr><tr><td>Barra</td><td>6 px de altura, raio 6</td><td>--line / --brand</td></tr><tr><td>Contagem</td><td>12,5 px sans, número em negrito</td><td>--ink2 / --ink</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-floating">
+      <header><h3>Palavra flutuante</h3><code>lib/wigets/sky.dart · _Floater</code><p>Cada palavra achada flutua numa profundidade z entre 0 (longe) e 1 (perto). A profundidade decide tamanho, opacidade e desfoque. Nunca chega ao tamanho, à opacidade ou à cor sólida da palavra digitada.</p></header>
+      <div class="ds-stage" id="c-floating-stage"><div class="ds-depth"><div class="ds-ladder" id="ds-ladder"></div>
+ <div class="row">longe <input type="range" id="ds-z" min="0" max="1" step="0.01" value="0.6"> perto</div>
+ <div class="ds-ladder"><span id="ds-zword" style="font-size:24px">colher</span></div>
+ <div class="out" id="ds-zout"></div></div></div>
+      <div class="ds-states" data-for="c-floating"><button class="on" data-v="tone">Tom fixo</button><button data-v="pg">Pangrama</button><button data-v="front">Tocada</button><button data-v="fade">Perto do cursor</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Propriedade</th><th>Valor</th></tr></thead><tbody><tr><td>Tamanho</td><td>12 px (z 0) a 28 px (z 1); tocada 30 px</td></tr><tr><td>Opacidade</td><td>0,26 a 0,82; tocada 0,9; perto do cursor vazio cai até 8%</td></tr><tr><td>Desfoque</td><td>só com z &lt; 0,3: (0,3 − z) × 5 px</td></tr><tr><td>Cor</td><td>um tom fixo por palavra; pangrama em --honey; tocada em --ink</td></tr><tr><td>Ciclo</td><td>profundidade oscila em 25–45 s, fase própria por palavra</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-typed">
+      <header><h3>Palavra digitada</h3><code>lib/wigets/sky.dart · _buildTyped</code><p>Não há campo de texto: a palavra vive no centro do céu, em serifa de 46 px, com a letra central em teal. Embaixo, uma linha de retorno. Um halo cor de papel a separa das flutuantes.</p></header>
+      <div class="ds-stage" id="c-typed-stage"><div class="ds-typedbox" id="ds-typed" style="position:relative;width:100%;max-width:390px;height:190px"></div></div>
+      <div class="ds-states" data-for="c-typed"><button class="on" data-v="empty">Vazio</button><button data-v="typing">Digitando</button><button data-v="good">Acerto</button><button data-v="bad">Erro</button><button data-v="dup">Repetida</button><button data-v="max">8 letras</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Estado</th><th>Letras</th><th>Linha de retorno</th></tr></thead><tbody><tr><td>Vazio</td><td>cursor teal 3 × 48 px piscando (500/500 ms)</td><td>“Toque nas letras · toda palavra usa o R”</td></tr><tr><td>Digitando</td><td>--ink, central em --brand, cursor 2 × 40 px</td><td>“N letras”</td></tr><tr><td>Acerto</td><td>todas em --brand, pulam em sequência (40 ms por letra)</td><td>“palavra · significado” se houver significado</td></tr><tr><td>Erro</td><td>--err e tremida de 300 ms</td><td>mensagem do erro em --err</td></tr><tr><td>Repetida</td><td>--muted</td><td>“Já encontrada”</td></tr><tr><td>Saída</td><td>encolhe a 86%, desfoca 4 px e some em 450 ms</td><td>—</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-toast">
+      <header><h3>Selo de acerto</h3><code>lib/wigets/sky.dart · _Toast</code><p>Comemora o acerto acima da palavra, sem pontos. Sobe, fica e some em 1,6 s.</p></header>
+      <div class="ds-stage" id="c-toast-stage"><div style="position:relative;width:260px;height:70px"><div style="position:absolute;left:0;right:0;top:44px"><div class="toast show" id="ds-toast"><b>Ótima!</b></div></div></div></div>
+      <div class="ds-states" data-for="c-toast"><button data-v="Boa!">Boa!</button><button class="on" data-v="Ótima!">Ótima!</button><button data-v="Pangrama!">Pangrama!</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Texto</th><th>Quando</th></tr></thead><tbody><tr><td>Boa!</td><td>palavra de 4 ou 5 letras</td></tr><tr><td>Ótima!</td><td>6 letras ou mais</td></tr><tr><td>Pangrama!</td><td>usa as 7 letras</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-wave">
+      <header><h3>Onda</h3><code>lib/wigets/sky.dart · _sendWave</code><p>Cada letra tocada solta um anel teal fraco a partir da palavra, que empurra as flutuantes para fora: mais forte nas próximas, um pouco depois nas distantes.</p></header>
+      <div class="ds-stage" id="c-wave-stage"><div style="position:relative;width:100%;height:170px"><div class="wave" id="ds-wave" style="left:50%;top:50%"></div><div style="position:absolute;inset:0;display:grid;place-items:center;font:600 46px var(--serif);letter-spacing:.04em">CHO<span style="color:var(--brand)">R</span></div></div></div>
+      <div class="ds-states" data-for="c-wave"><button class="on" data-v="go">Soltar onda</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Propriedade</th><th>Valor</th></tr></thead><tbody><tr><td>Duração</td><td>750 ms, cubic-bezier(.2,.7,.3,1)</td></tr><tr><td>Anel</td><td>2 px --brand, de 20 px a 24× o tamanho, opacidade 0,35 → 0</td></tr><tr><td>Força</td><td>50 × e^(−distância/150), atraso de 1,4 ms por px</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-tip">
+      <header><h3>Card de significado</h3><code>lib/wigets/sky.dart · _buildTip</code><p>Aparece acima da palavra flutuante tocada e a acompanha. Some em 5 s ou com um toque fora. Sem significado, não aparece.</p></header>
+      <div class="ds-stage" id="c-tip-stage"><div style="position:relative;width:100%;height:150px"><div class="tip show" style="left:50%;top:92px"><b>colher</b>apanhar frutos ou flores; talher côncavo</div><div style="position:absolute;left:0;right:0;top:94px;text-align:center;font:700 30px var(--serif);opacity:.9;text-shadow:0 0 10px var(--paper)">colher</div></div></div>
+      
+      
+    </article>
+    <article class="ds-comp" id="c-foot">
+      <header><h3>Linha das últimas</h3><code>lib/wigets/sky.dart · _RecentLine</code><p>Fio fino na base do céu com as três palavras mais recentes, a mais nova primeiro em teal, e a entrada do Glossário. Toque ou arraste para cima para abrir. Sem card, sombra ou rótulo.</p></header>
+      <div class="ds-stage" id="c-foot-stage"><div style="position:relative;width:390px;max-width:100%;height:64px"><div class="foot" id="ds-foot"><span class="rw"><b>calhar</b><i>·</i><b>orla</b><i>·</i><b>ralo</b></span><span class="go"><span>Glossário · 20</span><svg viewBox="0 0 8 12" width="7" height="11"><path d="M1.5 1.5L6 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div></div>
+      <div class="ds-states" data-for="c-foot"><button class="on" data-v="in">Entrar palavra nova</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Área reservada</td><td>44 px na base do céu, onde as flutuantes não entram</td></tr><tr><td>Palavras</td><td>serifa 16 px 600, separadas por “·” em --muted</td></tr><tr><td>Entrada</td><td>sans 12,5 px 600 em --brand, com chevron</td></tr><tr><td>Palavra nova</td><td>entra pela esquerda em 450 ms</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-hex">
+      <header><h3>Tecla hexagonal</h3><code>lib/wigets/hive.dart · HexKey, Hive</code><p>Sete hexágonos de topo plano. A letra central, obrigatória, é teal com letra branca; as outras são cor de papel escuro. Ao embaralhar, só as seis de fora trocam de lugar.</p></header>
+      <div class="ds-stage" id="c-hex-stage"><div class="ds-cell"><div class="ds-hexbox"><button class="hx">E</button></div><span class="ds-label">Normal</span></div><div class="ds-cell"><div class="ds-hexbox"><button class="hx" style="transform:scale(.9)">E</button></div><span class="ds-label">Pressionada</span></div><div class="ds-cell"><div class="ds-hexbox"><button class="hx c" id="ds-hexc">R</button></div><span class="ds-label">Central</span></div></div>
+      <div class="ds-states" data-for="c-hex"><button class="on" data-v="pulse">Pulsar central</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Propriedade</th><th>Valor</th></tr></thead><tbody><tr><td>Tamanho</td><td>76 × 66 px; colmeia de 196 × 204 px</td></tr><tr><td>Letra</td><td>sans 26 px 700</td></tr><tr><td>Cores</td><td>--tile / --ink; central --brand / --brand-ink</td></tr><tr><td>Toque</td><td>escala 0,9</td></tr><tr><td>Pulso</td><td>2 × 400 ms até 1,08 quando falta a letra central</td></tr><tr><td>Embaralhar</td><td>320 ms, cubic-bezier(.65,0,.35,1)</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-actions">
+      <header><h3>Botões de ação</h3><code>lib/wigets/hive.dart · ActionButton, DeleteButton</code><p>Embaralhar, Apagar e Enviar têm o mesmo estilo: contorno fino, fundo transparente, ícone cinza, sem legenda. Segurar Apagar por 450 ms limpa a palavra.</p></header>
+      <div class="ds-stage" id="c-actions-stage"><div class="ds-cell"><button class="act"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="ds-label">Embaralhar</span></div><div class="ds-cell"><button class="act"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M20 6H9l-6 6 6 6h11z M12 9l6 6 M18 9l-6 6" stroke="currentColor" stroke-width="1.9" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></button><span class="ds-label">Apagar</span></div><div class="ds-cell"><button class="act"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="ds-label">Enviar</span></div><div class="ds-cell"><button class="act" style="transform:scale(.9)"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="ds-label">Pressionado</span></div></div>
+      
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Propriedade</th><th>Valor</th></tr></thead><tbody><tr><td>Tamanho</td><td>46 × 40 px, raio 20; área de toque ≥ 40 px</td></tr><tr><td>Contorno</td><td>1,5 px --line</td></tr><tr><td>Ícone</td><td>--ink2, 20–24 px</td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-glossary">
+      <header><h3>Glossário</h3><code>lib/wigets/glossary.dart</code><p>Folha que sobe sobre o jogo, em --card (mais clara que o papel, para parecer estar por cima). Lista corrida, uma seção por tamanho de palavra, cada uma aberta por um fio teal.</p></header>
+      <div class="ds-stage" id="c-glossary-stage"><div class="ds-sheet"><div class="handle"></div>
+  <div class="sh"><div><h2>Glossário</h2><p>20 de 47 palavras</p></div></div>
+  <div class="body" id="ds-gloss"></div></div></div>
+      <div class="ds-states" data-for="c-glossary"><button class="on" data-v="missing">Com faltantes</button><button data-v="done">Seção completa</button><button data-v="nomeaning">Sem significados</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Folha</td><td>raio 28 no topo, alça 40 × 4, título serif 26 px 700</td></tr><tr><td>Seção</td><td>fio 2 px --brand, “N LETRAS” e “F DE T” em 11 px caixa-alta</td></tr><tr><td>Verbete</td><td>palavra serif 18 px 700 --brand, significado serif 15 px --ink2, pontilhado --dots</td></tr><tr><td>Selos</td><td>“pangrama” em --honey-soft / --honey-ink; “nova” em --brand-soft / --brand</td></tr><tr><td>Faltantes</td><td>faixa --brand-soft cheia, número serif 20 px; completa só com contorno</td></tr></tbody></table></div>
+    </article>
+  </section>
+
+  <section class="ds-sec" id="tela-jogo">
+    <h2>Tela de jogo</h2>
+    <p class="ds-intro">Tudo junto e funcionando. Palavras e significados são de exemplo, numa partida com R no centro e E H A L O C em volta.</p>
+    <div class="ds-screen">
 <div class="app" id="app">
   <div class="top">
     <span class="wm">Letraço</span>
-    <span class="chip"><span id="lv">Letrado</span><span class="pts" id="pts">0 pts</span></span>
     <button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
   </div>
   <div class="trk">
     <div class="bar"><span id="barfill" style="width:0"></span></div>
-    <div class="trkl"><span id="next"></span><span style="color:var(--muted)" id="count"></span></div>
+    <div class="trkl"><span id="count"></span></div>
   </div>
 
   <div class="sky" id="sky">
@@ -169,9 +425,9 @@ button{font:inherit;color:inherit}
       <div class="lt" id="lt"><span class="caret"></span></div>
       <div class="fb" id="fb"><span class="neu">Toque nas letras · toda palavra usa o <b style="color:var(--brand)">R</b></span></div>
     </div>
-    <div class="foot" id="foot" role="button" aria-label="Abrir favo">
+    <div class="foot" id="foot" role="button" aria-label="Abrir glossário">
       <span class="rw" id="recent"></span>
-      <span class="go"><span id="favon">Favo</span><svg viewBox="0 0 8 12" width="7" height="11"><path d="M1.5 1.5L6 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="go"><span id="glon">Glossário</span><svg viewBox="0 0 8 12" width="7" height="11"><path d="M1.5 1.5L6 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </div>
   </div>
 
@@ -198,13 +454,51 @@ button{font:inherit;color:inherit}
   <div class="scrim" id="scrim"></div>
   <div class="sheet" id="sheet" aria-hidden="true">
     <div class="handle"></div>
-    <div class="sh"><div><h2>Favo</h2><p id="cadsub"></p></div>
+    <div class="sh"><div><h2>Glossário</h2><p id="cadsub"></p></div>
       <button class="ib" id="close" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
     <div class="page" id="page"></div>
-    <div class="gloss" id="gloss"></div>
   </div>
 </div>
-<p class="note">Mock interativo · palavras e significados mockados. A palavra digitada aparece no centro, entre as outras. Toque numa palavra voando para trazê-la para a frente e ver o significado; toque na linha das últimas palavras, na base do céu (ou arraste-a para cima), para abrir o Favo.</p>
+
+      <ul>
+        <li><b>Toque nas letras</b> (ou use o teclado) para montar a palavra no centro do céu. Enter ou um toque na palavra envia; Backspace apaga.</li>
+        <li><b>Segure Apagar</b> por meio segundo para limpar tudo.</li>
+        <li><b>Toque numa palavra flutuante</b> para trazê-la para a frente e ver o significado.</li>
+        <li><b>Toque na linha das últimas</b>, ou arraste-a para cima, para abrir o Glossário. Esc fecha.</li>
+        <li>Tente <code>CHORAR</code> (nova), <code>HORA</code> (repetida), <code>CHALE</code> (sem o R) e <code>ARO</code> (curta).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="voz">
+    <h2>Voz e textos</h2>
+    <p class="ds-intro">Curto, direto, em português do dia a dia. O jogo fala com quem joga, nunca culpa: diz o que falta.</p>
+    <div class="ds-scroll" id="ds-copy"></div>
+  </section>
+
+  <section class="ds-sec" id="regras">
+    <h2>Fazer e não fazer</h2>
+    <div class="ds-dd">
+      <div class="ds-card"><h4>Fazer</h4><ul>
+        <li>Usar serifa em toda palavra do jogo, inclusive no Glossário e na linha das últimas.</li>
+        <li>Reservar o teal para a letra central, o que é novo e o progresso.</li>
+        <li>Contar progresso em palavras: “20 de 47 palavras”.</li>
+        <li>Mostrar só a palavra quando não houver significado.</li>
+        <li>Manter as flutuantes sempre mais fracas que a palavra digitada.</li>
+      </ul></div>
+      <div class="ds-card no"><h4>Não fazer</h4><ul>
+        <li>Pontos, níveis, ranking ou “partida ganha”.</li>
+        <li>Abelha, mel escorrendo ou favo como ilustração.</li>
+        <li>Amarelo como cor de texto: use <code>--honey-ink</code>.</li>
+        <li>Tema escuro ou troca de tema.</li>
+        <li>Cards, sombras ou rótulos na linha das últimas.</li>
+        <li>Vagas em branco para palavras que faltam: só a contagem.</li>
+      </ul></div>
+    </div>
+  </section>
+</main>
+</div>
+
 
 <script>
 (function () {
@@ -229,14 +523,22 @@ button{font:inherit;color:inherit}
     recolha: "ato de recolher; coleta", recolher: "juntar, guardar; retirar-se", rachar: "abrir fenda; partir ao meio",
     errar: "cometer erro; vaguear"
   };
+  // glossário entry: syllables | word class (mocked, like the meanings)
+  var ENTRY = {
+    arar: "a·rar|v.", arca: "ar·ca|s.f.", arco: "ar·co|s.m.", cara: "ca·ra|s.f.", caro: "ca·ro|adj.", cera: "ce·ra|s.f.",
+    coar: "co·ar|v.", coro: "co·ro|s.m.", erro: "er·ro|s.m.", hera: "he·ra|s.f.", hora: "ho·ra|s.f.", oral: "o·ral|adj.",
+    ralo: "ra·lo|s.m.", real: "re·al|adj.", rola: "ro·la|s.f.", rolo: "ro·lo|s.m.", roca: "ro·ca|s.f.", orla: "or·la|s.f.",
+    ralar: "ra·lar|v.", achar: "a·char|v.", arara: "a·ra·ra|s.f.", arcar: "ar·car|v.", areal: "a·re·al|s.m.", carro: "car·ro|s.m.",
+    cerca: "cer·ca|s.f.", cerco: "cer·co|s.m.", choro: "cho·ro|s.m.", colar: "co·lar|v., s.m.", coral: "co·ral|s.m.", corar: "co·rar|v.",
+    coroa: "co·ro·a|s.f.", locar: "lo·car|v.", olhar: "o·lhar|v.", relha: "re·lha|s.f.", rocha: "ro·cha|s.f.", rolar: "ro·lar|v.",
+    rolha: "ro·lha|s.f.", errar: "er·rar|v.", calhar: "ca·lhar|v.", cercar: "cer·car|v.", chorar: "cho·rar|v.", colher: "co·lher|v., s.f.",
+    orelha: "o·re·lha|s.f.", rachar: "ra·char|v.", acolher: "a·co·lher|v.", recolha: "re·co·lha|s.f.", recolher: "re·co·lher|v."
+  };
   var ALL = Object.keys(GLOSS);
   var PANGRAM = function (w) { return "cehalor".split("").every(function (c) { return w.indexOf(c) >= 0; }); };
   var found = ["hora", "caro", "cera", "olhar", "coral", "rocha", "arco", "real", "cerca", "erro", "colher", "rolha",
                "hera", "choro", "arca", "acolher", "corar", "calhar", "orla", "ralo"]; // oldest → newest
   var input = "";
-  var points = function (w) { return (w.length === 4 ? 1 : w.length) + (PANGRAM(w) ? 7 : 0); };
-  var MAXPTS = ALL.reduce(function (s, w) { return s + points(w); }, 0);
-  var LEVELS = [["Iniciante", 0], ["Aquecendo", .03], ["Leitor", .1], ["Curioso", .2], ["Letrado", .33], ["Erudito", .5], ["Sábio", .62], ["Letraço", .7]];
   var $ = function (id) { return document.getElementById(id); };
   var app = $("app"), sky = $("sky");
   var FOOT = 44;                              // base of the sky kept free for the footer line
@@ -326,7 +628,7 @@ button{font:inherit;color:inherit}
     renderInput("good");
     fb('<span class="ok"><b>' + w + "</b> · " + GLOSS[w] + "</span>");
     var t = $("toast");
-    t.innerHTML = PANGRAM(w) ? "<b>+" + points(w) + "</b> Pangrama!" : "<b>+" + points(w) + "</b> " + (w.length >= 6 ? "Ótima!" : "Boa!");
+    t.innerHTML = "<b>" + (PANGRAM(w) ? "Pangrama!" : w.length >= 6 ? "Ótima!" : "Boa!") + "</b>";
     t.classList.remove("show"); void t.offsetWidth; t.classList.add("show");
     if (navigator.vibrate) navigator.vibrate(15);
     clearTimeout(clearT);
@@ -346,12 +648,12 @@ button{font:inherit;color:inherit}
   var placed = [];
   function spot(w) {
     var h = hash(w), W = sky.clientWidth, H = sky.clientHeight - FOOT - 6;
-    var z = rnd(h + 1);                       // 0 far … 1 near
+    var z = Math.random();                    // 0 far … 1 near; drawn again on every load
     var size = 24, ww = w.length * size * .55 + 14, hh = size * 1.15 + 6;
     var x = 12, y = 10, best = Infinity;
     for (var k = 0; k < 300 && best > 0; k++) { // keep the spot that overlaps the others least
-      var cx = 8 + rnd(h + 10 + k) * Math.max(1, W - 16 - Math.max(ww, w.length * 32 * .58)); // fits even when nearest
-      var cy = 6 + rnd(h + 400 + k) * Math.max(1, H - hh - 6);
+      var cx = 8 + Math.random() * Math.max(1, W - 16 - Math.max(ww, w.length * 32 * .58)); // fits even when nearest
+      var cy = 6 + Math.random() * Math.max(1, H - hh - 6);
       var area = placed.reduce(function (s, r) {
         var ox = Math.min(cx + ww, r.x + r.w) - Math.max(cx, r.x), oy = Math.min(cy + hh, r.y + r.h) - Math.max(cy, r.y);
         return s + (ox > 0 && oy > 0 ? ox * oy : 0);
@@ -516,48 +818,40 @@ button{font:inherit;color:inherit}
   // a tap anywhere else closes the meaning
   document.addEventListener("pointerdown", function (e) { if (tipFor && !e.target.closest(".fw")) hideTip(); });
 
-  // header, footer line, favo
+  // header, footer line, glossário
   function update() {
-    var pts = found.reduce(function (s, w) { return s + points(w); }, 0), frac = pts / MAXPTS, lv = 0;
-    for (var i = 0; i < LEVELS.length; i++) if (frac >= LEVELS[i][1]) lv = i;
-    $("lv").textContent = LEVELS[lv][0];
-    $("pts").textContent = pts + " pts";
-    var goal = Math.ceil(MAXPTS * .7);
-    $("barfill").style.width = Math.min(100, pts / goal * 100) + "%";
-    var nx = LEVELS[lv + 1];
-    $("next").innerHTML = nx ? "Faltam <b>" + Math.max(1, Math.ceil(nx[1] * MAXPTS - pts)) + " pts</b> para " + nx[0] : "<b>Partida ganha!</b>";
-    $("count").textContent = found.length + " de " + ALL.length + " palavras";
+    $("barfill").style.width = found.length / ALL.length * 100 + "%";
+    $("count").innerHTML = "<b>" + found.length + "</b> de " + ALL.length + " palavras";
     $("recent").innerHTML = found.slice(-3).reverse().map(function (w) { return "<b>" + w + "</b>"; }).join("<i>·</i>");
-    $("favon").textContent = "Favo · " + found.length;
-    $("cadsub").textContent = found.length + " de " + ALL.length + " palavras · " + pts + " pts";
+    $("glon").textContent = "Glossário · " + found.length;
+    $("cadsub").textContent = found.length + " de " + ALL.length + " palavras";
     renderPage();
   }
-  var selected = null;
-  function cls(w, last) { return (PANGRAM(w) ? " pg" : "") + (w === last ? " new" : "") + (w === selected ? " sel" : ""); }
   function byLen(n) {
     var all = ALL.filter(function (w) { return w.length === n; });
     return { all: all, got: all.filter(function (w) { return found.indexOf(w) >= 0; }).sort() };
   }
-  function sec(label, got, all) {
-    return '<div class="sec"><b>' + label + "</b><span>" + got + " de " + all + '</span><span class="bar2"><i style="width:' + (got / all * 100) + '%"></i></span></div>';
+  function entry(w, last) {
+    var e = ENTRY[w].split("|"), pg = PANGRAM(w), nw = w === last;
+    return '<li class="' + (pg ? "pg " : "") + (nw ? "new" : "") + '"><b>' + e[0] + "</b> <i>" + e[1] + "</i> " + GLOSS[w] +
+      (pg ? "<em>pangrama</em>" : nw ? "<em>nova</em>" : "") + "</li>";
   }
   function renderPage() {
-    var html = "", last = found[found.length - 1], n, g;
-    for (n = 4; n <= 8; n++) {
-      g = byLen(n); if (!g.all.length) continue;
-      html += sec(n + " letras", g.got.length, g.all.length) + '<div class="fv">' +
-        g.got.map(function (w) { return '<div class="c' + cls(w, last) + '" data-w="' + w + '">' + w + "</div>"; }).join("") +
-        g.all.slice(g.got.length).map(function () { return '<div class="c no">' + n + "</div>"; }).join("") + "</div>";
+    var last = found[found.length - 1], html = "";
+    for (var n = 4; n <= 8; n++) {
+      var g = byLen(n), left = g.all.length - g.got.length; if (!g.all.length) continue;
+      html += '<div class="grp"><span>' + n + " letras</span><span>" + g.got.length + " de " + g.all.length + "</span></div>" +
+        '<ul class="ent">' + g.got.map(function (w) { return entry(w, last); }).join("") + "</ul>" +
+        (left ? '<div class="miss">' + (left === 1 ? "Falta <b>1</b> palavra" : "Faltam <b>" + left + "</b> palavras") + "</div>"
+              : '<div class="miss done">Todas achadas</div>');
     }
     $("page").innerHTML = html;
   }
-  $("page").onclick = function (e) {
-    var t = e.target.closest("[data-w]"), w = t && t.dataset.w; if (!w) return;
-    selected = w; renderPage();
-    $("gloss").innerHTML = "<b>" + w + "</b>" + GLOSS[w]; $("gloss").classList.add("show");
-  };
-  function openCad() { app.classList.add("cad-open"); $("sheet").setAttribute("aria-hidden", "false"); }
-  function closeCad() { app.classList.remove("cad-open"); $("sheet").setAttribute("aria-hidden", "true"); $("gloss").classList.remove("show"); selected = null; renderPage(); }
+  function openCad() {
+    renderPage(); $("page").scrollTop = 0;
+    app.classList.add("cad-open"); $("sheet").setAttribute("aria-hidden", "false");
+  }
+  function closeCad() { app.classList.remove("cad-open"); $("sheet").setAttribute("aria-hidden", "true"); }
   var foot = $("foot"), dragY = null;         // a tap opens; so does dragging the line up
   foot.onclick = openCad;
   foot.onpointerdown = function (e) { dragY = e.clientY; };
@@ -573,10 +867,212 @@ button{font:inherit;color:inherit}
     tpy = Math.max(-30, Math.min(30, e.beta - 45)) * -.3;
   });
   renderPage();
-  found.forEach(function (w) { makeFloat(w); });
+  // spread the words only once the sky has a size: placed before layout,
+  // every word would start piled in the top-left corner
+  (function seed() {
+    if (sky.clientWidth < 50 || sky.clientHeight < 100) return requestAnimationFrame(seed);
+    placed = [];
+    found.forEach(function (w) { makeFloat(w); });
+  })();
   requestAnimationFrame(tick);
 
   update();
+})();
+</script>
+
+<script>
+/* design system book: token tables, specimens and live component states */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var css = getComputedStyle(document.documentElement);
+  var v = function (name) { return css.getPropertyValue(name).trim(); };
+
+  // ------------------------------------------------------------ colors
+  var COLORS = [
+    ["paper", "Papel", "Fundo da tela de jogo."],
+    ["paper2", "Papel escuro", "Toque em botões de ícone, áreas de apoio."],
+    ["card", "Folha", "Fundo do Glossário: mais claro, parece estar por cima."],
+    ["ink", "Tinta", "Texto principal, palavra digitada, palavra tocada."],
+    ["ink2", "Tinta 2", "Texto secundário, significados, ícones dos botões."],
+    ["muted", "Apagado", "Dicas, contagens, rótulos, palavra repetida."],
+    ["line", "Fio", "Fios, contornos dos botões, trilha vazia."],
+    ["dots", "Pontilhado", "Separador entre verbetes do Glossário."],
+    ["brand", "Teal", "Letra central, palavra nova, progresso, entradas."],
+    ["brand-soft", "Teal claro", "Faixa “Faltam N”, selo “nova”, chips."],
+    ["honey", "Mel", "Só o pangrama. Nunca como cor de texto pequeno."],
+    ["honey-ink", "Mel escuro", "Texto sobre mel claro: selos e “pangrama”."],
+    ["honey-soft", "Mel claro", "Fundo do selo de acerto e do selo “pangrama”."],
+    ["err", "Erro", "Palavra recusada e mensagem de erro."],
+    ["tile", "Tecla", "Hexágonos das letras de fora."]
+  ];
+  var DART = { "brand-soft": "brandSoft", "honey-ink": "honeyInk", "honey-soft": "honeySoft", "paper2": "paper2", err: "error" };
+  function lum(hex) {
+    var c = hex.replace("#", ""); if (c.length === 3) c = c.replace(/./g, "$&$&");
+    return [0, 2, 4].map(function (i) {
+      var x = parseInt(c.substr(i, 2), 16) / 255;
+      return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4);
+    }).reduce(function (s, x, i) { return s + x * [.2126, .7152, .0722][i]; }, 0);
+  }
+  function ratio(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); }
+  var paper = v("--paper");
+  $("ds-colors").innerHTML = COLORS.map(function (c) {
+    var hex = v("--" + c[0]).toUpperCase(), r = ratio(hex, paper);
+    var grade = r >= 4.5 ? ["ok", "AA"] : r >= 3 ? ["", "AA+"] : ["no", "decorativo"];
+    return '<div class="ds-sw"><i style="background:var(--' + c[0] + ')"></i><div><b>' + c[1] + '</b><span>' + c[2] +
+      '</span><div class="c"><em>--' + c[0] + '</em><em>' + hex + '</em><em>Caderno.' + (DART[c[0]] || c[0]) +
+      '</em><em class="' + grade[0] + '">' + r.toFixed(1) + ':1 ' + grade[1] + '</em></div></div></div>';
+  }).join("");
+  $("ds-tones").innerHTML = ["w1", "w2", "w3", "w4", "w5", "w6"].map(function (t, i) {
+    return '<span style="color:var(--' + t + ')">' + ["orla", "hora", "rocha", "coral", "erro", "cerca"][i] + '</span>';
+  }).join("") + '<span style="color:var(--honey)">acolher</span>';
+
+  // ------------------------------------------------------------ type
+  var TYPE = [
+    ['<span style="font:600 46px/1 var(--serif);letter-spacing:.04em">CHO<span style="color:var(--brand)">R</span>AR</span>', "Palavra digitada", "serif 46 px 600, espaçamento 0,04em"],
+    ['<span style="font:700 26px/1.1 var(--serif)">Glossário</span>', "Título de folha", "serif 26 px 700"],
+    ['<span style="font:700 22px/1 var(--serif)">Letraço</span>', "Wordmark", "serif 22 px 700, −0,01em"],
+    ['<span style="font:600 12px var(--serif);opacity:.5">longe</span> <span style="font:600 20px var(--serif);opacity:.7">meio</span> <span style="font:600 28px var(--serif)">perto</span>', "Palavra flutuante", "serif 12 a 28 px 600 conforme a profundidade"],
+    ['<span style="font:700 18px var(--serif);color:var(--brand)">colher</span> <span style="font:400 15px var(--serif);color:var(--ink2)">apanhar frutos</span>', "Verbete", "serif 18 px 700 + significado serif 15 px"],
+    ['<span style="font:600 16px var(--serif)"><span style="color:var(--brand)">calhar</span> · orla</span>', "Linha das últimas", "serif 16 px 600"],
+    ['<span style="font:700 26px var(--sans)">R</span>', "Letra da tecla", "sans 26 px 700"],
+    ['<span style="font:400 13.5px var(--sans);color:var(--muted)">Toque nas letras · toda palavra usa o <b style="color:var(--brand)">R</b></span>', "Linha de retorno", "sans 13,5 px"],
+    ['<span style="font:600 12.5px var(--sans);color:var(--brand)">Glossário · 20</span>', "Entrada / contagem", "sans 12,5 px 600"],
+    ['<span style="font:600 11px var(--sans);letter-spacing:.1em;color:var(--muted)">5 LETRAS</span>', "Rótulo de seção", "sans 11 px 600, caixa-alta, 0,1em"]
+  ];
+  $("ds-type").innerHTML = TYPE.map(function (t) {
+    return '<div class="ds-type"><div>' + t[0] + '</div><div class="spec"><b>' + t[1] + '</b><br>' + t[2] + '</div></div>';
+  }).join("");
+
+  // ------------------------------------------------------------ shape
+  $("ds-space").innerHTML = [[4, "entre palavras e selo"], [8, "dentro de componentes"], [10, "entre botões de ação"], [16, "margem dentro do Glossário"], [20, "margem da tela de jogo"], [22, "entre seções do Glossário"], [44, "faixa da linha das últimas"]].map(function (x) {
+    return '<div><i style="width:' + x[0] * 3 + 'px"></i>' + x[0] + ' px · ' + x[1] + '</div>';
+  }).join("");
+  $("ds-radius").innerHTML = [[6, "barra"], [12, "card e faixa"], [14, "cards do livro"], [20, "botão de ação"], [28, "folha"], [99, "selo, chip"]].map(function (x) {
+    return '<div><i style="border-radius:' + Math.min(x[0], 32) + 'px"></i>' + x[0] + ' · ' + x[1] + '</div>';
+  }).join("");
+
+  // ------------------------------------------------------------ motion
+  function table(head, rows) {
+    return '<table class="ds-table"><thead><tr>' + head.map(function (h) { return "<th>" + h + "</th>"; }).join("") + '</tr></thead><tbody>' +
+      rows.map(function (r) { return "<tr>" + r.map(function (c) { return "<td>" + c + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table>";
+  }
+  $("ds-motion").innerHTML = table(["Movimento", "Duração", "Curva", "Onde"], [
+    ["Cursor piscando", "1000 ms (500 aceso)", "steps", "palavra digitada"],
+    ["Letra entrando", "120 ms", "ease-out, sobe 8 px", "palavra digitada"],
+    ["Pulo do acerto", "420 ms + 40 ms por letra", "cubic-bezier(.34,1.56,.64,1)", "palavra digitada"],
+    ["Tremida do erro", "300 ms", "linear", "palavra digitada"],
+    ["Saída da palavra", "450 ms após 650 ms", "ease-in", "palavra digitada"],
+    ["Vira flutuante", "650 ms após o acerto; encolhe em ~3 s", "exponencial", "céu"],
+    ["Selo de acerto", "1600 ms", "ease-out", "selo"],
+    ["Onda", "750 ms", "cubic-bezier(.2,.7,.3,1)", "céu"],
+    ["Ciclo de profundidade", "25–45 s por palavra", "senoide", "céu"],
+    ["Embaralhar", "320 ms", "cubic-bezier(.65,0,.35,1)", "colmeia"],
+    ["Pulso da central", "2 × 400 ms", "ease", "colmeia"],
+    ["Palavra nova na linha", "450 ms", "cubic-bezier(.2,.8,.2,1)", "linha das últimas"],
+    ["Folha subindo", "420 ms", "cubic-bezier(.2,.9,.3,1)", "Glossário"],
+    ["Verbete novo", "1600 ms", "ease-out, fundo teal claro some", "Glossário"]
+  ]);
+
+  // ------------------------------------------------------------ copy
+  $("ds-copy").innerHTML = table(["Situação", "Texto"], [
+    ["Nada digitado", "Toque nas letras · toda palavra usa o <b>R</b>"],
+    ["Digitando", "4 letras"],
+    ["Limite", "Máximo de 8 letras"],
+    ["Curta", "Curta demais — mínimo 4 letras"],
+    ["Sem a central", "Falta o R, a letra do centro"],
+    ["Fora da lista", "Não está na lista"],
+    ["Repetida", "Já encontrada"],
+    ["Acerto", "Boa! · Ótima! · Pangrama!"],
+    ["Progresso", "20 de 47 palavras"],
+    ["Entrada do Glossário", "Glossário · 20"],
+    ["Faltantes", "Faltam 8 palavras · Falta 1 palavra · Todas achadas"]
+  ]);
+
+  // ------------------------------------------------------------ states
+  function states(id, fn) {
+    var box = document.querySelector('.ds-states[data-for="' + id + '"]'); if (!box) return;
+    box.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      box.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      fn(b.dataset.v);
+    });
+  }
+  function replay(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+
+  states("c-header", function (n) { $("ds-bar").style.width = n / 47 * 100 + "%"; $("ds-barn").textContent = n; });
+
+  // floating word: depth slider and its looks
+  var zmode = "tone";
+  function depth() {
+    var z = +$("ds-z").value, w = $("ds-zword");
+    var size = zmode === "front" ? 30 : 12 + z * 16, op = zmode === "front" ? .9 : .26 + z * .56, blur = zmode === "front" ? 0 : z < .3 ? (.3 - z) * 5 : 0;
+    if (zmode === "fade") op *= .2;
+    w.style.fontSize = size + "px"; w.style.opacity = op.toFixed(2); w.style.filter = blur ? "blur(" + blur.toFixed(1) + "px)" : "none";
+    w.style.color = zmode === "pg" ? "var(--honey)" : zmode === "front" ? "var(--ink)" : "var(--w4)";
+    w.style.fontWeight = zmode === "front" ? 700 : 600;
+    w.textContent = zmode === "pg" ? "acolher" : "colher";
+    $("ds-zout").textContent = zmode === "front" ? "tocada · 30 px · opacidade 0,90" :
+      "z " + z.toFixed(2) + " · " + size.toFixed(1) + " px · opacidade " + op.toFixed(2) + (blur ? " · desfoque " + blur.toFixed(1) + " px" : "");
+  }
+  $("ds-ladder").innerHTML = [0, .25, .5, .75, 1].map(function (z) {
+    return '<span style="font-size:' + (12 + z * 16) + 'px;opacity:' + (.26 + z * .56) + ';filter:' + (z < .3 ? "blur(" + ((.3 - z) * 5).toFixed(1) + "px)" : "none") + ';color:var(--w' + (1 + Math.round(z * 4)) + ')">z ' + z + '</span>';
+  }).join("");
+  $("ds-z").addEventListener("input", depth);
+  states("c-floating", function (m) { zmode = m; depth(); });
+  depth();
+
+  // typed word
+  function typed(st) {
+    var word = { empty: "", typing: "CHO", good: "CHORAR", bad: "CHALE", dup: "HORA", max: "RECOLHER" }[st];
+    var cls = { empty: "empty", typing: "", good: "good", bad: "bad", dup: "dup", max: "" }[st];
+    var fb = {
+      empty: '<span class="neu">Toque nas letras · toda palavra usa o <b style="color:var(--brand)">R</b></span>',
+      typing: '<span class="neu">3 letras</span>',
+      good: '<span class="ok"><b>chorar</b> · derramar lágrimas</span>',
+      bad: '<span class="err">Falta o R, a letra do centro</span>',
+      dup: '<span class="neu">Já encontrada</span>',
+      max: '<span class="err">Máximo de 8 letras</span>'
+    }[st];
+    var letters = word.split("").map(function (l, i) { return '<span class="' + (l === "R" && !cls ? "m" : "") + '" style="--i:' + i + '">' + l + "</span>"; }).join("");
+    if (st === "empty" || st === "typing" || st === "max") letters += '<span class="caret"></span>';
+    $("ds-typed").innerHTML = '<div class="cur ' + cls + '" style="top:calc((100% + 20px) / 2)">' +
+      (st === "good" ? '<div class="toast show"><b>Ótima!</b></div>' : "") +
+      '<div class="lt">' + letters + '</div><div class="fb">' + fb + "</div></div>";
+  }
+  states("c-typed", typed);
+  typed("empty");
+
+  states("c-toast", function (t) { var el = $("ds-toast"); el.innerHTML = "<b>" + t + "</b>"; replay(el, "show"); });
+  states("c-wave", function () { replay($("ds-wave"), "go"); });
+  states("c-foot", function () { replay($("ds-foot"), "in"); });
+  states("c-hex", function () { replay($("ds-hexc"), "pulse"); });
+
+  // glossário
+  var G4 = [["arca", "caixa grande com tampa; baú"], ["arco", "curva; arma de atirar flechas"], ["hora", "cada uma das 24 partes do dia"], ["ralo", "peça com furos por onde escoa a água", "new"]];
+  var G7 = [["acolher", "receber, dar abrigo", "pg"], ["recolha", "ato de recolher; coleta"]];
+  function gloss(m) {
+    function ent(e) {
+      var tag = e[2] === "pg" ? "<em>pangrama</em>" : e[2] === "new" ? "<em>nova</em>" : "";
+      return '<li class="' + (e[2] || "") + '"><b>' + e[0] + "</b>" + (m === "nomeaning" ? "" : " " + e[1]) + tag + "</li>";
+    }
+    var miss = function (n) { return n ? '<div class="miss">' + (n === 1 ? "Falta <b>1</b> palavra" : "Faltam <b>" + n + "</b> palavras") + "</div>" : '<div class="miss done">Todas achadas</div>'; };
+    var done = m === "done";
+    $("ds-gloss").innerHTML =
+      '<div class="grp"><span>4 letras</span><span>4 de 12</span></div><ul class="ent">' + G4.map(ent).join("") + "</ul>" + miss(8) +
+      '<div class="grp"><span>7 letras</span><span>' + (done ? "2 de 2" : "1 de 2") + '</span></div><ul class="ent">' + (done ? G7 : G7.slice(0, 1)).map(ent).join("") + "</ul>" + miss(done ? 0 : 1);
+  }
+  states("c-glossary", gloss);
+  gloss("missing");
+
+  // nav: mark the section in view
+  var links = Array.prototype.slice.call(document.querySelectorAll(".ds-nav a"));
+  var targets = links.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+  function mark() {
+    var y = window.scrollY + 120, cur = 0;
+    targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top + window.scrollY <= y) cur = i; });
+    links.forEach(function (a, i) { a.classList.toggle("on", i === cur); });
+  }
+  window.addEventListener("scroll", mark, { passive: true }); mark();
 })();
 </script>
 </body>
