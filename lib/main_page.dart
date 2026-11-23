@@ -8,6 +8,7 @@ import 'package:letraco/theme.dart';
 import 'package:letraco/wigets/drawer.dart';
 import 'package:letraco/wigets/glossary.dart';
 import 'package:letraco/wigets/hive.dart';
+import 'package:letraco/wigets/logo.dart';
 import 'package:letraco/wigets/sky.dart';
 
 /// Game screen: header, progress, the sky of found words and the hive.
@@ -87,17 +88,8 @@ class _MainPageState extends State<MainPage> {
       padding: const EdgeInsets.fromLTRB(20, 14, 10, 4),
       child: Row(
         children: [
-          Expanded(
-            child: Text(
-              'Letraço',
-              style: Caderno.serifStyle(
-                size: 22,
-                weight: FontWeight.w700,
-                height: 1,
-                letterSpacing: -.2,
-                color: Caderno.ink,
-              ),
-            ),
+          const Expanded(
+            child: Align(alignment: Alignment.centerLeft, child: Logo()),
           ),
           IconButton(
             tooltip: 'Menu',
