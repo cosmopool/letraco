@@ -3,6 +3,7 @@ import 'package:letraco/game_controller.dart';
 import 'package:letraco/instructions_page.dart';
 import 'package:letraco/main_page.dart';
 import 'package:letraco/splash_screen.dart';
+import 'package:letraco/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,10 +11,7 @@ void main() async {
 }
 
 class GameApp extends StatelessWidget {
-  const GameApp({
-    super.key,
-    required this.controller,
-  });
+  const GameApp({super.key, required this.controller});
 
   final GameController controller;
 
@@ -21,27 +19,15 @@ class GameApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Letraço',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.teal,
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
-      themeMode: ThemeMode.system,
+      theme: Caderno.theme(),
+      themeMode: ThemeMode.light,
       initialRoute: '/initialSplash',
       home: MainPage(controller: controller),
       routes: <String, WidgetBuilder>{
         '/instructions': (context) => const InstructionsPage(),
         '/splash': (context) => SplashScreen(controller: controller),
-        '/initialSplash': (context) => SplashScreen(
-              controller: controller,
-              firstTimeInitializing: true,
-            ),
+        '/initialSplash': (context) =>
+            SplashScreen(controller: controller, firstTimeInitializing: true),
       },
     );
   }
