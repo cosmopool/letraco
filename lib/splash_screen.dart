@@ -156,10 +156,6 @@ class _SplashScreenState extends State<SplashScreen>
                 this,
                 safeTop: media.padding.top,
                 reduced: _reduced,
-                // the header logo follows the system font size, the icon not
-                headerSize: MediaQuery.textScalerOf(
-                  context,
-                ).scale(Logo.textSize),
               ),
             ),
           ),
@@ -221,50 +217,25 @@ class _Pose {
 }
 
 class _SplashPainter extends CustomPainter {
-  _SplashPainter(
-    this.state, {
-    required this.safeTop,
-    required this.reduced,
-    required this.headerSize,
-  }) : super(repaint: state._repaint);
+  _SplashPainter(this.state, {required this.safeTop, required this.reduced})
+    : super(repaint: state._repaint);
 
   final _SplashScreenState state;
   final double safeTop;
   final bool reduced;
 
-  /// Font size of the header logo's name, after the system text scale.
-  final double headerSize;
-
+  /// Font size of "etraço" while the name is spelled in the middle; the L
+  /// is bigger, as in the header logo, so the flight is a plain scale-down.
   static const _composed = 46.0;
 
-  /// Name in the header logo of the game screen: after the icon, 20 px from
-  /// the left, centered in a 48 px row that starts 14 px under the safe area.
-  static const _headerLeft = 20.0 + Logo.iconSize + Logo.gap;
+  /// Header logo of the game screen: 20 px from the left, centered in a
+  /// 48 px row that starts 14 px under the safe area.
+  static const _headerLeft = 20.0;
   static const _headerRowTop = 14.0;
   static const _headerRowHeight = kMinInteractiveDimension;
 
-  static TextStyle _style(double size, {double letterSpacing = 0}) {
-    return Caderno.serifStyle(
-      size: size,
-      weight: FontWeight.w700,
-      height: 1,
-      letterSpacing: letterSpacing,
-    );
-  }
-
-  /// Left edge of each letter inside the name, and the name's width.
-  static (List<double>, double) _offsets(TextStyle style) {
-    final offsets = <double>[];
-    const name = BrandMark.name;
-    for (var i = 0; i <= name.length; i++) {
-      final painter = TextPainter(
-        text: TextSpan(text: name.substring(0, i), style: style),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      offsets.add(painter.width);
-      painter.dispose();
-    }
-    return (offsets.sublist(0, name.length), offsets.last);
+  static TextStyle _style(double size) {
+    return Caderno.serifStyle(size: size, weight: FontWeight.w700, height: 1);
   }
 
   @override
@@ -303,15 +274,13 @@ class _SplashPainter extends CustomPainter {
       return;
     }
 
-    final (compOff, compWidth) = _offsets(_style(_composed));
-    final headerStyle = _style(headerSize, letterSpacing: Logo.letterSpacing);
-    final (headerOff, _) = _offsets(headerStyle);
-    final (lineHeight, baseline) = _line(headerStyle);
-    final headerBaseline =
-        safeTop +
-        _headerRowTop +
-        (_headerRowHeight - lineHeight) / 2 +
-        baseline;
+    // the logo's own layout, scaled up in the middle and at size in the header
+    const scale = _composed / Logo.nameSize;
+    const logo = Logo.size;
+    final composedLeft = center.dx - logo.width * scale / 2;
+    final composedTop = center.dy - logo.height * scale / 2;
+    final headerTop =
+        safeTop + _headerRowTop + (_headerRowHeight - logo.height) / 2;
 
     final spell = _Curve.eio(_Curve.seg(tg, _Beat.spellStart, _Beat.spelled));
     final fly = _Curve.eio(_Curve.seg(tg, _Beat.gate, _Beat.landed));
@@ -319,15 +288,16 @@ class _SplashPainter extends CustomPainter {
 
     for (var i = 0; i < BrandMark.name.length; i++) {
       final m = BrandMark.letterOf(i);
+      final (origin, letterSize) = Logo.letter(i);
       final composed = _Pose(
-        center.dx - compWidth / 2 + compOff[i],
-        center.dy + _composed * .34,
-        _composed,
+        composedLeft + origin.dx * scale,
+        composedTop + origin.dy * scale,
+        letterSize * scale,
       );
       final header = _Pose(
-        _headerLeft + headerOff[i],
-        headerBaseline,
-        headerSize,
+        _headerLeft + origin.dx,
+        headerTop + origin.dy,
+        letterSize,
       );
       final Color color;
       double opacity = 1, blur = 0, a = spell;
@@ -354,30 +324,17 @@ class _SplashPainter extends CustomPainter {
           : 1.0;
       final caret = _Curve.seg(state.held, .25, .4) * fade * on;
       if (caret > 0) {
-        final x = center.dx + compWidth / 2 + 5;
+        final x = composedLeft + logo.width * scale + 5;
+        final baseline = composedTop + Logo.letter(0).$1.dy * scale;
         canvas.drawRRect(
           RRect.fromRectAndRadius(
-            Rect.fromLTWH(x, center.dy - 22, 2.5, 40),
+            Rect.fromLTWH(x, baseline - 36, 2.5, 40),
             const Radius.circular(1.25),
           ),
           Paint()..color = Caderno.brand.withValues(alpha: caret),
         );
       }
     }
-  }
-
-  /// Height of a line of the name and the distance to its baseline.
-  static (double, double) _line(TextStyle style) {
-    final painter = TextPainter(
-      text: TextSpan(text: BrandMark.name, style: style),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    final line = (
-      painter.height,
-      painter.computeDistanceToActualBaseline(TextBaseline.alphabetic),
-    );
-    painter.dispose();
-    return line;
   }
 
   void _letter(
@@ -407,7 +364,5 @@ class _SplashPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_SplashPainter oldDelegate) =>
-      oldDelegate.safeTop != safeTop ||
-      oldDelegate.reduced != reduced ||
-      oldDelegate.headerSize != headerSize;
+      oldDelegate.safeTop != safeTop || oldDelegate.reduced != reduced;
 }
