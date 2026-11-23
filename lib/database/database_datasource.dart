@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:letraco/game_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,6 +12,10 @@ class SharedPrefs {
   static const kVisible = 'visibleWords';
   static const kLetters = 'letters';
   static const kMandatory = 'mandatory';
+
+  /// Forget the cached instance, so a test starts from its own mock values.
+  @visibleForTesting
+  static void reset() => _db = null;
 
   static Future<SharedPreferences> getInstance() async {
     if (_db != null) return _db!;
