@@ -4,6 +4,7 @@ import 'package:letraco/game_controller.dart';
 import 'package:letraco/main_page.dart';
 import 'package:letraco/theme.dart';
 import 'package:letraco/wigets/glossary.dart';
+import 'package:letraco/wigets/logo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'check_input_test.dart' show buildGame;
@@ -28,7 +29,7 @@ void main() {
 
   testWidgets('shows progress in words, no points or level', (tester) async {
     await pumpGame(tester);
-    expect(find.text('Letraço'), findsOneWidget);
+    expect(find.byType(Logo), findsOneWidget);
     expect(find.textContaining('de 53 palavras'), findsOneWidget);
     expect(find.textContaining('pts'), findsNothing);
     expect(find.text('Glossário · 1'), findsOneWidget);
