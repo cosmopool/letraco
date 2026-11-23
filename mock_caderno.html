@@ -24,7 +24,9 @@ button{font:inherit;color:inherit}
 
 /* header */
 .top{display:flex;align-items:center;gap:8px;padding:18px 14px 4px 20px}
-.wm{font:700 22px/1 var(--serif);letter-spacing:-.01em;margin-right:auto}
+.wm{display:flex;align-items:center;gap:10px;font:700 22px/1 var(--serif);letter-spacing:-.01em;margin-right:auto}
+.wm i{display:block;flex:none;width:30px;height:30px;border-radius:8px;background:url(data:image/png;base64,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) center/cover}
+.wm .c{color:var(--brand)}
 .ib{all:unset;width:40px;height:40px;display:grid;place-items:center;border-radius:20px;color:var(--ink);cursor:pointer}
 .ib:active{background:var(--paper2)}
 .trk{padding:2px 20px 0}
@@ -291,7 +293,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <div class="ds-grid">
       <div class="ds-card"><h4>Papel, não tela</h4><p>Fundo cor de papel, tinta quase preta, nada de branco puro nem preto puro. A folha do Glossário é o único papel mais claro, porque está por cima.</p></div>
       <div class="ds-card"><h4>A palavra é a heroína</h4><p>Palavras sempre em serifa de livro. Interface (contagens, botões, rótulos) em sans do sistema, menor e mais quieta.</p></div>
-      <div class="ds-card"><h4>Um teal só</h4><p>O teal marca o que importa agora: a letra central, a palavra nova, o progresso. O mel aparece só no pangrama.</p></div>
+      <div class="ds-card"><h4>Um teal só</h4><p>O teal marca o que importa agora: a letra central, a palavra nova, o progresso. Fora do jogo, só o ç do logo. O mel aparece só no pangrama.</p></div>
       <div class="ds-card"><h4>Progresso em palavras</h4><p>O jogo conta palavras, não pontos. Não há nível, ranking nem “partida ganha”.</p></div>
     </div>
   </section>
@@ -337,11 +339,11 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <p class="ds-intro">Cada componente tem uma demonstração ao vivo, os estados que ele assume e as medidas. O caminho no canto aponta para o widget no app.</p>
     
     <article class="ds-comp" id="c-header">
-      <header><h3>Cabeçalho e trilha</h3><code>lib/main_page.dart</code><p>Nome do jogo em serifa à esquerda, menu à direita. Embaixo, a trilha: barra fina e a contagem em palavras. Não existe pontuação nem nível.</p></header>
-      <div class="ds-stage" id="c-header-stage"><div class="ds-phonebar"><div class="top"><span class="wm">Letraço</span><button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div>
+      <header><h3>Cabeçalho e trilha</h3><code>lib/main_page.dart · lib/wigets/logo.dart</code><p>Logo à esquerda: o ícone do app e o nome em serifa, com o ç em teal. Menu à direita. Embaixo, a trilha: barra fina e a contagem em palavras. Não existe pontuação nem nível.</p></header>
+      <div class="ds-stage" id="c-header-stage"><div class="ds-phonebar"><div class="top"><span class="wm"><i aria-hidden="true"></i><span>Letra<span class="c">ç</span>o</span></span><button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div>
  <div class="trk"><div class="bar"><span id="ds-bar" style="width:43%"></span></div><div class="trkl"><span><b id="ds-barn">20</b> de 47 palavras</span></div></div></div></div>
       <div class="ds-states" data-for="c-header"><button data-v="0">Início</button><button class="on" data-v="20">Meio</button><button data-v="47">Completo</button></div>
-      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody><tr><td>Wordmark</td><td>22 px, serif 700, −0,01em</td><td>--ink</td></tr><tr><td>Margens</td><td>20 px nas laterais</td><td>—</td></tr><tr><td>Barra</td><td>6 px de altura, raio 6</td><td>--line / --brand</td></tr><tr><td>Contagem</td><td>12,5 px sans, número em negrito</td><td>--ink2 / --ink</td></tr></tbody></table></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody><tr><td>Logo</td><td>ícone de 30 px (raio 8), 10 px de espaço e o nome em serif 22 px 700, −0,01em</td><td>--ink, ç em --brand</td></tr><tr><td>Margens</td><td>20 px nas laterais</td><td>—</td></tr><tr><td>Barra</td><td>6 px de altura, raio 6</td><td>--line / --brand</td></tr><tr><td>Contagem</td><td>12,5 px sans, número em negrito</td><td>--ink2 / --ink</td></tr></tbody></table></div>
     </article>
     <article class="ds-comp" id="c-floating">
       <header><h3>Palavra flutuante</h3><code>lib/wigets/sky.dart · _Floater</code><p>Cada palavra achada flutua numa profundidade z entre 0 (longe) e 1 (perto). A profundidade decide tamanho, opacidade e desfoque. Nunca chega ao tamanho, à opacidade ou à cor sólida da palavra digitada.</p></header>
@@ -410,7 +412,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <div class="ds-screen">
 <div class="app" id="app">
   <div class="top">
-    <span class="wm">Letraço</span>
+    <span class="wm"><i aria-hidden="true"></i><span>Letra<span class="c">ç</span>o</span></span>
     <button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
   </div>
   <div class="trk">
@@ -897,7 +899,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     ["muted", "Apagado", "Dicas, contagens, rótulos, palavra repetida."],
     ["line", "Fio", "Fios, contornos dos botões, trilha vazia."],
     ["dots", "Pontilhado", "Separador entre verbetes do Glossário."],
-    ["brand", "Teal", "Letra central, palavra nova, progresso, entradas."],
+    ["brand", "Teal", "Letra central, palavra nova, progresso, entradas, ç do logo."],
     ["brand-soft", "Teal claro", "Faixa “Faltam N”, selo “nova”, chips."],
     ["honey", "Mel", "Só o pangrama. Nunca como cor de texto pequeno."],
     ["honey-ink", "Mel escuro", "Texto sobre mel claro: selos e “pangrama”."],
@@ -930,7 +932,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
   var TYPE = [
     ['<span style="font:600 46px/1 var(--serif);letter-spacing:.04em">CHO<span style="color:var(--brand)">R</span>AR</span>', "Palavra digitada", "serif 46 px 600, espaçamento 0,04em"],
     ['<span style="font:700 26px/1.1 var(--serif)">Glossário</span>', "Título de folha", "serif 26 px 700"],
-    ['<span style="font:700 22px/1 var(--serif)">Letraço</span>', "Wordmark", "serif 22 px 700, −0,01em"],
+    ['<span style="font:700 22px/1 var(--serif)">Letra<span style="color:var(--brand)">ç</span>o</span>', "Nome no logo", "serif 22 px 700, −0,01em, ç em teal"],
     ['<span style="font:600 12px var(--serif);opacity:.5">longe</span> <span style="font:600 20px var(--serif);opacity:.7">meio</span> <span style="font:600 28px var(--serif)">perto</span>', "Palavra flutuante", "serif 12 a 28 px 600 conforme a profundidade"],
     ['<span style="font:700 18px var(--serif);color:var(--brand)">colher</span> <span style="font:400 15px var(--serif);color:var(--ink2)">apanhar frutos</span>', "Verbete", "serif 18 px 700 + significado serif 15 px"],
     ['<span style="font:600 16px var(--serif)"><span style="color:var(--brand)">calhar</span> · orla</span>', "Linha das últimas", "serif 16 px 600"],
