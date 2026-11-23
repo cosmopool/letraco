@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#F5F0E6</color>
+    <!-- Caderno paper: behind the splash and the app, so nothing flashes white -->
+    <color name="paper">#F5F0E6</color>
+</resources>

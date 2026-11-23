@@ -3,19 +3,20 @@ flutter_launcher_icons:
   android: ic_launcher
   image_path_android: assets/images/android_icon.png
   min_sdk_android: 21
-  adaptive_icon_background: assets/images/background.png
+  adaptive_icon_background: "#F5F0E6"
   adaptive_icon_foreground: assets/images/foreground.png
+  adaptive_icon_monochrome: assets/images/monochrome.png
 
   # ios
   ios: true
   image_path_ios: assets/images/ios_icon.png
   remove_alpha_ios: true
-  background_color_ios: "#00695C"
+  background_color_ios: "#F5F0E6"
   web:
     generate: false
     image_path: assets/images/icon.png
-    background_color: "#00695C"
-    theme_color: "#00695C"
+    background_color: "#F5F0E6"
+    theme_color: "#0E6E64"
   linux:
     generate: false
     image_path: assets/images/ios_icon.png
