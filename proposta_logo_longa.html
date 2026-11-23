@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Letraço · Logo longa</title>
+<style>
+:root{
+  --paper:#F5F0E6;--paper2:#EDE6D8;--card:#FFFDF8;--ink:#1D2626;--ink2:#56605E;--muted:#8A918C;--line:#DCD4C4;
+  --brand:#0E6E64;--brand-ink:#FFFFFF;--brand-soft:#D3E9E4;--teal2:#3E8C82;
+  --serif:"Noto Serif","Iowan Old Style",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p,dl,dd,ul,ol,figure{margin:0;padding:0}
+ul,ol{list-style:none}
+code{font:12px var(--mono);background:var(--paper2);border-radius:5px;padding:1px 5px;overflow-wrap:anywhere}
+svg{display:block;max-width:100%;height:auto}
+.wrap{max-width:1180px;margin:0 auto;padding:38px 28px 56px}
+
+.eye{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 38px/1.1 var(--serif);letter-spacing:-.02em;margin:8px 0 10px}
+.lead{max-width:740px;color:var(--ink2);font-size:15px}
+.same{margin:24px 0 8px;padding:16px 22px;border:1px solid var(--line);border-radius:14px}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
+.same ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:8px 24px;font-size:13px;color:var(--ink2)}
+.same li b{color:var(--ink);font-weight:650}
+
+.bar{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;padding:10px 0;margin-top:18px;background:var(--paper);border-bottom:1px solid var(--line)}
+.bar a{color:var(--ink2);text-decoration:none;font-size:13px;white-space:nowrap}
+.bar a:hover{color:var(--brand)}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);cursor:pointer;margin-left:auto;user-select:none}
+.tog input{accent-color:var(--brand);width:16px;height:16px;margin:0}
+
+.sec{margin-top:48px;scroll-margin-top:60px}
+.sech{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.num{font:italic 400 24px/1.1 var(--serif);color:var(--muted)}
+.sech h2{font:700 28px/1.15 var(--serif);letter-spacing:-.01em}
+.idea{max-width:760px;color:var(--ink2);font-size:14.5px;margin-bottom:18px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.card.wide{grid-column:1/-1}
+.card h3{font:700 18px/1.25 var(--serif);margin-bottom:4px}
+.sub{color:var(--ink2);font-size:13px;margin-bottom:14px}
+.cap{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+.note{color:var(--muted);font-size:12px}
+
+/* construção */
+.build{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:22px;align-items:start}
+.art{background:var(--paper);border-radius:10px;padding:14px 10px;box-shadow:inset 0 0 0 1px var(--line)}
+.art svg{width:100%}
+dl.spec{display:grid;gap:10px;font-size:13px;color:var(--ink2)}
+dl.spec dt{display:flex;align-items:center;gap:8px;font-weight:650;color:var(--ink)}
+dl.spec dt i{flex:none;font:600 10.5px var(--sans);font-style:normal;min-width:20px;height:18px;padding:0 4px;border-radius:4px;display:inline-grid;place-items:center;color:#fff;background:var(--brand)}
+dl.spec dt i.g{background:var(--muted)}
+dl.spec dt i.o{background:#B8402F}
+.guide{display:none}
+body.guides .guide{display:inline}
+
+/* tamanhos */
+.sizes{display:grid;gap:12px}
+.sizes .row{display:flex;align-items:center;gap:14px;padding:14px;border-radius:10px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line);min-width:0;overflow:hidden}
+.sizes .row span{flex:none;width:86px;font-size:11px;color:var(--muted);line-height:1.3}
+.sizes .row div{min-width:0;flex:1}
+
+/* cores */
+.swatches{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr))}
+.sw{border-radius:10px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between;padding:12px;min-width:0}
+.sw .lg{flex:1;display:grid;place-items:center;padding:8px 0}
+.sw small{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+
+/* uso */
+.ctx{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:22px;align-items:start}
+.ctx .col{display:grid;gap:16px;min-width:0}
+.phone{border:8px solid #0d1010;border-radius:38px;overflow:hidden;background:var(--paper);max-width:300px;box-shadow:0 24px 44px -24px rgba(29,38,38,.55)}
+.phone svg{width:100%}
+.hdr{border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 12px 26px -18px rgba(29,38,38,.5);max-width:390px}
+.hdr svg{width:100%}
+.fg{border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.fg svg{width:100%}
+
+/* flutter */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+ul.dots{display:grid;gap:8px;font-size:13px;color:var(--ink2)}
+ul.dots li{position:relative;padding-left:14px}
+ul.dots li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--brand)}
+ul.dots.risk li::before{background:#B8402F}
+ul.dots b{color:var(--ink);font-weight:650}
+
+/* comparação e recomendação */
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:1280px;font-size:13px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td:first-child{color:var(--ink);font-weight:650;white-space:nowrap}
+td{color:var(--ink2)}
+.rec{margin-top:20px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:14px;padding:22px}
+.rec h3{font:700 22px/1.2 var(--serif);margin-bottom:10px}
+.rec p{color:var(--ink2);max-width:780px;margin-top:8px}
+.rec p b{color:var(--ink)}
+.rec .art{margin:14px 0 4px;max-width:520px}
+footer{margin-top:36px;color:var(--muted);font-size:12px}
+
+@media (max-width:820px){.build,.ctx{grid-template-columns:minmax(0,1fr)}.phone{margin:0 auto}}
+@media (max-width:480px){.wrap{padding:24px 16px 40px}h1{font-size:30px}.card{padding:16px}.sech h2{font-size:24px}.sizes .row span{width:58px}.tog{margin-left:0}}
+</style>
+</head>
+<body class="guides">
+<div class="wrap">
+  <p class="eye">Letraço · identidade</p>
+  <h1>Logo longa: o nome inteiro, a partir do ícone</h1>
+  <p class="lead">O ícone já existe e está no aparelho. Aqui está a versão horizontal, a que mostra “Letraço” por extenso: no cabeçalho do jogo, no fim do splash e na loja. Todas as propostas saem do mesmo ícone e usam a mesma Noto Serif 700 que o Android desenha. Tudo é SVG gerado nesta página, medido na fonte instalada.</p>
+  <p class="lead" style="margin-top:8px"><b style="color:var(--ink)">Segunda rodada.</b> A 4 junta a escala da 2 (sem diferença de tom) com o eco da 3. A 5 parte da 1: o ícone, sem o ç, vira o L do nome. As propostas 1 a 3 continuam abaixo, sem mudanças, como histórico.</p>
+  <p class="lead" style="margin-top:8px"><b style="color:var(--ink)">Terceira rodada.</b> A 7 parte da 4, mas com o nome no corpo normal das outras opções: e, t, r, a, ç, o do tamanho do nome da 1, 3 e 5, e só o L maior. O eco foi refeito para o novo canto do L.</p>
+
+  <section class="same">
+    <h3 class="lbl">O que vem do ícone “Céu de palavras”</h3>
+    <ul>
+      <li><b>L perto</b>, grande, em tinta <code>#1D2626</code>.</li>
+      <li><b>ç em teal</b> <code>#0E6E64</code> no canto do L, sem encostar em nada.</li>
+      <li><b>e, t, r, a, o longe</b>: menores, cinza <code>#8A918C</code>, de 58% a 36% e levemente desfocadas.</li>
+      <li><b>Sem contornos nem halos.</b> A profundidade vem de tamanho, tom e nitidez.</li>
+    </ul>
+  </section>
+
+  <nav class="bar" aria-label="Seções">
+    <a href="#p4">4 · Profundidade com eco</a>
+    <a href="#p5">5 · Ícone como L</a>
+    <a href="#p6">6 · Com contorno</a>
+    <a href="#p7">7 · L grande com eco</a>
+    <a href="#p1">1 · Ícone + nome</a>
+    <a href="#p2">2 · Nome em profundidade</a>
+    <a href="#p3">3 · Nome com eco</a>
+    <a href="#comparar">Comparação</a>
+    <a href="#rec">Recomendação</a>
+    <label class="tog"><input type="checkbox" id="guides" checked> Linhas de construção</label>
+  </nav>
+
+  <div id="props"></div>
+
+  <section class="sec" id="comparar">
+    <div class="sech"><span class="num">08</span><h2>Lado a lado</h2></div>
+    <div class="card">
+      <div class="sizes" id="cmp"></div>
+      <div class="scroll" style="margin-top:16px">
+        <table>
+          <thead><tr><th></th><th>4 · Profundidade com eco</th><th>5 · Ícone como L</th><th>6 · Ícone como L, com contorno</th><th>7 · L grande com eco</th><th>1 · Ícone + nome</th><th>2 · Nome em profundidade</th><th>3 · Nome com eco</th></tr></thead>
+          <tbody>
+            <tr><td>Parentesco com o ícone</td><td>Forte: a escala do ícone na palavra e o céu do ícone no canto do L.</td><td>Literal: o L é o ícone, sem o ç.</td><td>Literal: o ícone sem o ç, com a borda arredondada do app.</td><td>Forte: o L perto do ícone e o céu dele no canto do L; o nome é o de sempre.</td><td>Literal: é o ícone.</td><td>Forte: a mesma cena, em linha.</td><td>Médio: o céu do ícone sobre o nome.</td></tr>
+            <tr><td>Leitura no cabeçalho</td><td>Boa: todas as letras em tinta cheia; o eco vira textura.</td><td>Ótima: lê “Letraço” de uma vez; o céu vira pontinhos.</td><td>Boa: lê “[L]etraço”; a borda e o e quase se tocam.</td><td>Ótima: o nome no corpo normal, o L marca o começo; o eco vira textura.</td><td>Ótima, mas o ícone a 28 px vira um L com pontinhos.</td><td>Boa; o “o” é a letra mais frágil.</td><td>Ótima no nome; o eco vira textura.</td></tr>
+            <tr><td>Uma cor / gravação</td><td>Perde o eco; a escala fica.</td><td>Perde o céu; sobra o nome comum.</td><td>Perde o céu; fica o L numa tecla + etraço.</td><td>Perde o eco; fica o nome com o L maior.</td><td>Perde as letras de longe.</td><td>Sobrevive inteira (só tamanho).</td><td>Perde o eco.</td></tr>
+            <tr><td>Splash</td><td>L e ç viram nome; as letras de longe vão para o eco sem mudar o arranjo.</td><td>O ícone inteiro encolhe até o L; o ç desliza para a sexta letra.</td><td>Como a 5; a borda do ícone encolhe até a caixa justa.</td><td>Como a 4: L e ç viram nome; as letras de longe vão para o eco sem mudar o arranjo.</td><td>Ícone encolhe; nome aparece.</td><td>Cada letra do ícone vira uma letra do nome.</td><td>L e ç viram nome; o resto sobe para o eco.</td></tr>
+            <tr><td>Flutter</td><td>PNG com o desfoque, ou texto vivo + eco (saveLayer).</td><td>PNG do “L com céu” + texto vivo, ou tudo num PNG.</td><td>Como a 5, com a borda no PNG ou num DecoratedBox.</td><td>Text.rich com dois corpos + PNG do eco, ou tudo num PNG.</td><td>Asset + texto vivo (como hoje).</td><td>Asset vetorial ou Text.rich por letra.</td><td>Texto vivo + eco com blur (saveLayer).</td></tr>
+            <tr><td>Largura no cabeçalho</td><td id="w1">—</td><td id="w2">—</td><td id="w3">—</td><td id="w4">—</td><td id="w5">—</td><td id="w6">—</td><td id="w7">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="rec">
+    <div class="sech"><span class="num">09</span><h2>Recomendação</h2></div>
+    <div class="rec">
+      <h3>Ficar com a 7, “L grande com eco”, no app. A 5 é a alternativa se o ícone tiver de aparecer literal; a 6a, só se o contorno for obrigatório, e de 48 px para cima.</h3>
+      <div class="art" id="recArt"></div>
+      <p><b>A 7 substitui a 4.</b> É a mesma ideia (L perto, o eco do ícone no canto do L, tudo em tinta cheia, ç em teal), sem o defeito da 4: lá e, t, r, a, o encolhiam até 0,47 do L, o o ficava com 0,26 em de altura-x e o nome lia como “L” + uma palavra miúda. Na 7 o nome tem o corpo das outras opções e só o L cresce, 1,4×: a maiúscula dele fica em 1,87× a altura-x, abaixo das duas alturas-x em que vira capitular. Com o par L→e fechado a 0,04 em, lê “Letraço” de uma vez.</p>
+      <p><b>Contra a 5.</b> As duas leem como uma palavra, com o nome a 24 px no cabeçalho. A 5 põe o céu sobre o L, como no ícone, mas no cabeçalho as letras de longe ficam com 4–6 px e viram pontinhos. A 7 põe o céu sobre “etra”, onde há lugar, e ele fica com 6–9 px. A 7 também não depende de o L ser o ícone ampliado: o L é só uma letra maior, e o nome continua um <code>Text.rich</code>. O que a 5 tem e a 7 não tem: o L com o céu por cima é o ícone, literalmente. A 7 é parente do ícone, não cópia.</p>
+      <p><b>Contra a 6.</b> O contorno da 6a faz o L virar uma tecla e a palavra lê “[L]etraço”. A 7 destaca o L do mesmo jeito, sem caixa e sem o vão de 0,29 em entre o L e o e. A 6a só vale se o contorno for requisito da marca, e só de 48 px para cima, onde a borda aparece.</p>
+      <p><b>Por isso:</b> a 7 no cabeçalho, no fim do splash e na loja, com o L a 1,4× o nome e o par L→e a 0,04 em. Como em todas as versões com letras de longe, o desfoque exige PNG (o <code>flutter_svg</code> ignora filtros) e a Noto Serif Bold empacotada, para o eco e o texto vivo baterem. A 5 fica como segunda opção, se a marca pedir o ícone literal dentro do nome.</p>
+    </div>
+  </section>
+
+  <footer>Gerado nesta página com Noto Serif 700 instalada no sistema. Sem fontes externas, sem rede. Se a Noto Serif faltar, o navegador cai para Iowan/Georgia e as medidas mudam junto.</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var C = {
+    paper: "#F5F0E6", paper2: "#EDE6D8", card: "#FFFDF8", ink: "#1D2626", ink2: "#56605E", muted: "#8A918C", line: "#DCD4C4",
+    brand: "#0E6E64", brandSoft: "#D3E9E4", teal2: "#3E8C82", err: "#B8402F"
+  };
+  var SERIF = "'Noto Serif','Iowan Old Style',Georgia,serif";
+  var SANS = "system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif";
+  var $ = function (id) { return document.getElementById(id); };
+  var uid = 0;
+  function f(n) { return (+n).toFixed(2).replace(/\.?0+$/, ""); }
+  function br(n, d) { return (+n).toFixed(d === undefined ? 2 : d).replace(".", ","); }
+
+  // ---------- métricas da fonte, em unidades de 100 px ----------
+  var M = {}, CAP = 71.9, XH = 54.7;
+  function measure() {
+    var cx = document.createElement("canvas").getContext("2d");
+    cx.font = "700 100px " + SERIF;
+    "Letraçox".split("").forEach(function (ch) {
+      var m = cx.measureText(ch);
+      M[ch] = { adv: m.width, l: -m.actualBoundingBoxLeft, r: m.actualBoundingBoxRight, a: m.actualBoundingBoxAscent, d: m.actualBoundingBoxDescent };
+    });
+    CAP = M.L.a; XH = M.x.a;
+    measureL();
+  }
+  // perfil da tinta do L em faixas de 2 unidades (de 100): o canto do L é o vão entre a haste e o braço
+  var LPROF = [];
+  function measureL() {
+    var px = 400, ox = 40, base = 340, cv = document.createElement("canvas");
+    cv.width = px; cv.height = px;
+    var cx = cv.getContext("2d");
+    cx.font = "700 " + px + "px " + SERIF; cx.fillStyle = "#000"; cx.fillText("L", ox, base);
+    var d = cx.getImageData(0, 0, px, px).data, u = 100 / px, step = 8;
+    LPROF = [];
+    for (var y0 = 0; y0 < px; y0 += step) {
+      var l = Infinity, r = -Infinity;
+      for (var y = y0; y < y0 + step; y++) for (var x = 0; x < px; x++) if (d[(y * px + x) * 4 + 3] > 96) { if (x < l) l = x; if (x > r) r = x; }
+      if (r >= l) LPROF.push({ l: (l - ox) * u, r: (r + 1 - ox) * u, t: (y0 - base) * u, b: (y0 + step - base) * u });
+    }
+  }
+  function slabsOf(g) {
+    var k = g.s / 100;
+    return LPROF.map(function (q) { return { l: g.x + q.l * k, r: g.x + q.r * k, t: g.y + q.t * k, b: g.y + q.b * k }; });
+  }
+
+  // ---------- o ícone, como em lib/brand_mark.dart (tela de 108 dp) ----------
+  var ICON = {
+    L: { ch: "L", x: 35.36, y: 78, s: 57.34 },
+    c: { ch: "ç", x: 52.53, y: 65.28, s: 28.67 },
+    far: [
+      { ch: "e", x: 45.41, y: 32.65, s: 13, op: .58, blur: .3 },
+      { ch: "t", x: 66.77, y: 33.65, s: 11.5, op: .5, blur: .45 },
+      { ch: "r", x: 62.26, y: 43.1, s: 12, op: .54, blur: .4 },
+      { ch: "a", x: 74.53, y: 39.27, s: 10.5, op: .44, blur: .6 },
+      { ch: "o", x: 34.09, y: 31.95, s: 9, op: .36, blur: .8 }
+    ]
+  };
+  function inkOf(g) { var m = M[g.ch], k = g.s / 100; return { l: g.x + m.l * k, r: g.x + m.r * k, t: g.y - m.a * k, b: g.y + m.d * k }; }
+  function uni(a, b) { return a ? { l: Math.min(a.l, b.l), r: Math.max(a.r, b.r), t: Math.min(a.t, b.t), b: Math.max(a.b, b.b) } : { l: b.l, r: b.r, t: b.t, b: b.b }; }
+  function center(g) { var i = inkOf(g); return [(i.l + i.r) / 2, (i.t + i.b) / 2]; }
+
+  function hex(h) { return [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)]; }
+  function mix(a, b, t) {
+    var A = hex(a), B = hex(b);
+    return "#" + A.map(function (v, i) { return ("0" + Math.round(v + (B[i] - v) * t).toString(16)).slice(-2); }).join("").toUpperCase();
+  }
+
+  // ---------- fundos ----------
+  var SC = {
+    paper: { key: "paper", name: "Papel", bg: C.paper, fg: C.ink, acc: C.brand, far: C.muted, farK: 1, depthK: 1, tileStroke: C.line, txt: C.muted },
+    card: { key: "card", name: "Cartão", bg: C.card, fg: C.ink, acc: C.brand, far: C.muted, farK: 1, depthK: 1, tileStroke: C.line, txt: C.muted },
+    ink: { key: "ink", name: "Tinta (invertido)", bg: C.ink, fg: C.paper, acc: C.teal2, far: C.muted, farK: 1, depthK: .85, tileStroke: null, txt: "#A9B0AB" },
+    teal: { key: "teal", name: "Teal", bg: C.brand, fg: C.paper, acc: C.brandSoft, far: C.paper, farK: .7, depthK: .72, tileStroke: null, txt: "#BFDCD5" },
+    mono: { key: "mono", name: "Uma cor", bg: C.paper, fg: C.ink, acc: C.ink, far: null, farK: 0, depthK: 0, tileStroke: C.ink, txt: C.muted, mono: true }
+  };
+
+  // ---------- os três modelos (unidades: 100 = corpo do nome, ou do L na proposta 2) ----------
+  function word(x, s, track, roles) {
+    var out = [];
+    "Letraço".split("").forEach(function (ch, i) {
+      var r = roles ? roles[i] : { s: 1, role: ch === "ç" ? "acc" : "fg" };
+      var g = { ch: ch, x: x, y: 0, s: s * r.s, role: r.role, t: r.t || 0 };
+      out.push(g);
+      x += M[ch].adv * g.s / 100 + (typeof track === "function" ? track(i) : track);
+    });
+    return out;
+  }
+
+  function P1() {
+    var k = 100 / ICON.L.s;                 // L do ícone com o mesmo corpo do L do nome
+    var T = 72 * k, top = -(78 - 18) * k;   // ladrilho = área visível do ícone (18…90)
+    var gap = 40;
+    var glyphs = word(T + gap - M.L.l, 100, -1);
+    var box = { l: 0, r: T, t: top, b: top + T };
+    glyphs.forEach(function (g) { box = uni(box, inkOf(g)); });
+    return { id: 1, tile: { x: 0, y: top, T: T, k: k }, glyphs: glyphs, echo: [], box: box, vc: top + T / 2, hdr: .22, gap: gap, T: T, k: k };
+  }
+
+  var P2SPEC = [
+    { s: 1, role: "fg" }, { s: .55, role: "depth", t: .26 }, { s: .53, role: "depth", t: .32 }, { s: .51, role: "depth", t: .38 },
+    { s: .49, role: "depth", t: .44 }, { s: .60, role: "acc" }, { s: .47, role: "depth", t: .5 }
+  ];
+  function P2() {
+    var glyphs = word(0, 100, function (i) { return i === 0 ? -1.5 : 0; }, P2SPEC);
+    var box = null;
+    glyphs.forEach(function (g) { box = uni(box, inkOf(g)); });
+    return { id: 2, glyphs: glyphs, echo: [], box: box, vc: -CAP / 2, hdr: .33 };
+  }
+
+  function P3() {
+    var glyphs = word(0, 100, -1);
+    var k = 34 / ICON.far[0].s;             // e do eco = 0,34 em
+    var cb = null;
+    ICON.far.forEach(function (g) { cb = uni(cb, inkOf(g)); });
+    var eL = inkOf(glyphs[1]).l, lift = 14;
+    var dx = eL - cb.l * k, dy = (-CAP - lift) - cb.b * k;
+    var echo = ICON.far.map(function (g) {
+      return { ch: g.ch, x: dx + g.x * k, y: dy + g.y * k, s: g.s * k, role: "far", op: g.op, blur: g.blur * k };
+    });
+    var box = null;
+    glyphs.concat(echo).forEach(function (g) { box = uni(box, inkOf(g)); });
+    var ebox = null;
+    echo.forEach(function (g) { ebox = uni(ebox, inkOf(g)); });
+    var wbox = null;
+    glyphs.forEach(function (g) { wbox = uni(wbox, inkOf(g)); });
+    return { id: 3, glyphs: glyphs, echo: echo, box: box, wbox: wbox, ebox: ebox, vc: (box.t) / 2, hdr: .22, k: k, lift: lift };
+  }
+
+
+  // ---------- 4 · profundidade com eco ----------
+  var P4SPEC = [
+    { s: 1, role: "fg" }, { s: .55, role: "fg" }, { s: .53, role: "fg" }, { s: .51, role: "fg" },
+    { s: .49, role: "fg" }, { s: .60, role: "acc" }, { s: .47, role: "fg" }
+  ];
+  function hitsAny(a, list, pad) {
+    return list.some(function (b) { return a.l < b.r + pad && b.l < a.r + pad && a.t < b.b + pad && b.t < a.b + pad; });
+  }
+  // na 4 e na 5, sobre tinta o ç vira --brand-soft e o eco vira um tom claro de papel
+  function tint45(sc) {
+    if (sc.key === "ink") return Object.assign({}, sc, { acc: C.brandSoft, far: C.paper, farK: .55 });
+    if (sc.key === "teal") return Object.assign({}, sc, { acc: C.brandSoft, far: C.paper, farK: .7 });
+    return sc;
+  }
+  function P4() {
+    var glyphs = word(0, 100, function (i) { return i === 0 ? -1.5 : 0; }, P4SPEC);
+    var k = 30 / ICON.far[0].s;             // e do eco = 0,30 do L (≈ 55% do e do nome)
+    var cb = null;
+    ICON.far.forEach(function (g) { cb = uni(cb, inkOf(g)); });
+    var boxes = glyphs.map(inkOf), smallTop = Math.min.apply(null, boxes.slice(1).map(function (b) { return b.t; }));
+    var gap = 10, dx = boxes[1].l + 4 - cb.l * k, dy = (smallTop - gap) - cb.b * k;
+    function mk() {
+      return ICON.far.map(function (g) { return { ch: g.ch, x: dx + g.x * k, y: dy + g.y * k, s: g.s * k, role: "far", op: g.op, blur: g.blur * k }; });
+    }
+    var echo = mk();
+    while (echo.some(function (e) { return hitsAny(inkOf(e), boxes, 6); })) { dy -= 1; echo = mk(); }
+    var box = null, ebox = null, wbox = null;
+    glyphs.concat(echo).forEach(function (g) { box = uni(box, inkOf(g)); });
+    echo.forEach(function (g) { ebox = uni(ebox, inkOf(g)); });
+    glyphs.forEach(function (g) { wbox = uni(wbox, inkOf(g)); });
+    return { id: 4, glyphs: glyphs, echo: echo, box: box, wbox: wbox, ebox: ebox, vc: box.t / 2, hdr: .33, k: k, gapT: smallTop - ebox.b, smallTop: smallTop, tint: tint45, echoMin: 32 };
+  }
+
+  // ---------- 5 · ícone como L ----------
+  function P5() {
+    var k = 100 / ICON.L.s;                 // L do ícone com o mesmo corpo do L do nome
+    var glyphs = word(0, 100, -1);          // o L do nome cai exatamente na origem do L do ícone
+    var map = function (g) { return { x: (g.x - ICON.L.x) * k, y: (g.y - ICON.L.y) * k }; };
+    var echo = ICON.far.map(function (g) {
+      var q = map(g);
+      return { ch: g.ch, x: q.x, y: q.y, s: g.s * k, role: "far", op: g.op, blur: g.blur * k };
+    });
+    var t0 = map({ x: 18, y: 18 }), tile = { x: t0.x, y: t0.y, T: 72 * k };
+    var boxes = glyphs.map(inkOf), minGap = Infinity;
+    echo.forEach(function (e) {
+      var a = inkOf(e);
+      boxes.slice(1).forEach(function (b) {
+        var gx = Math.max(b.l - a.r, a.l - b.r, 0), gy = Math.max(b.t - a.b, a.t - b.b, 0);
+        minGap = Math.min(minGap, Math.hypot(gx, gy));
+      });
+    });
+    var box = null, ebox = null, wbox = null;
+    glyphs.concat(echo).forEach(function (g) { box = uni(box, inkOf(g)); });
+    echo.forEach(function (g) { ebox = uni(ebox, inkOf(g)); });
+    glyphs.forEach(function (g) { wbox = uni(wbox, inkOf(g)); });
+    return { id: 5, glyphs: glyphs, echo: echo, box: box, wbox: wbox, ebox: ebox, vc: box.t / 2, hdr: .24, k: k, ghost: tile, minGap: minGap, tint: tint45, echoMin: 20, boost: 32 };
+  }
+
+
+  // ---------- 6 · ícone como L, com contorno ----------
+  // raio do ícone no app: 8 px num ícone de 30 px (logo.dart) = 26,7% do lado
+  var RADIUS = 8 / 30, SW = 3;              // traço: 0,03 em, nunca menos de 1 px
+  var FRAME = { paper: "#C9C0AE", card: "#C9C0AE", ink: C.ink2, teal: C.teal2, mono: C.ink };
+  function tint6(sc) { var t = tint45(sc); return Object.assign({}, t, { frame: FRAME[sc.key] }); }
+  // v: "a" caixa justa e fechada · "b" aberta à direita · "c" quadrado inteiro do ícone
+  function P6(v) {
+    v = v || "a";
+    var m = P5(), k = m.k, pad = 8, g = 4;
+    var Lb = inkOf(m.glyphs[0]), eb = m.ebox, fr;
+    if (v === "c") {
+      fr = { x: m.ghost.x, y: m.ghost.y, w: m.ghost.T, h: m.ghost.T };
+    } else {
+      var l = Math.min(Lb.l, eb.l) - pad, r = Math.max(Lb.r, eb.r) + pad, t = eb.t - pad, b = pad;
+      fr = { x: l, y: t, w: r - l, h: b - t };
+    }
+    fr.r = RADIUS * Math.min(fr.w, fr.h); fr.open = v === "b";
+    var e0 = inkOf(m.glyphs[1]).l, shift = 0;
+    if (v !== "b") shift = (fr.x + fr.w + SW / 2 + g) - e0;   // o e encosta na caixa
+    m.glyphs.forEach(function (q, i) { if (i) q.x += shift; });
+    var fb = { l: fr.x - SW / 2, r: fr.x + fr.w + SW / 2, t: fr.y - SW / 2, b: fr.y + fr.h + SW / 2 };
+    var box = uni(null, fb), wbox = uni(null, fb);
+    m.glyphs.concat(m.echo).forEach(function (q) { box = uni(box, inkOf(q)); });
+    m.glyphs.forEach(function (q) { wbox = uni(wbox, inkOf(q)); });
+    var e1 = inkOf(m.glyphs[1]).l;
+    m.id = 6; m.v = v; m.frame = fr; m.box = box; m.wbox = wbox; m.vc = fr.y + fr.h / 2; m.tint = tint6;
+    m.gapE = v === "b" ? e1 - Lb.r : e1 - (fr.x + fr.w + SW / 2);   // da borda (ou do L, na b) até a tinta do e
+    m.gapL = e1 - Lb.r;                                             // da tinta do L até a tinta do e
+    m.pad = pad; m.hdr = .24;
+    return m;
+  }
+  function frameSVG(m, sc, o, id) {
+    var fr = m.frame, w = Math.max(SW, 1 / o.px), col = sc.frame || sc.fg, out = "", defs = "";
+    if (!fr.open) {
+      out = '<rect x="' + f(fr.x) + '" y="' + f(fr.y) + '" width="' + f(fr.w) + '" height="' + f(fr.h) + '" rx="' + f(fr.r) + '" fill="none" stroke="' + col + '" stroke-width="' + f(w) + '"/>';
+    } else {
+      var x0 = fr.x, y0 = fr.y, r = fr.r, xe = fr.x + fr.w - r, y1 = fr.y + fr.h;
+      defs = '<linearGradient id="' + id + 'fg" gradientUnits="userSpaceOnUse" x1="' + f(x0 + fr.w * .3) + '" x2="' + f(xe) + '" y1="0" y2="0"><stop offset="0" stop-color="' + col + '"/><stop offset="1" stop-color="' + col + '" stop-opacity="0"/></linearGradient>';
+      out = '<path d="M' + f(xe) + " " + f(y0) + "H" + f(x0 + r) + "A" + f(r) + " " + f(r) + " 0 0 0 " + f(x0) + " " + f(y0 + r) + "V" + f(y1 - r) + "A" + f(r) + " " + f(r) + " 0 0 0 " + f(x0 + r) + " " + f(y1) + "H" + f(xe) +
+        '" fill="none" stroke="url(#' + id + 'fg)" stroke-width="' + f(w) + '" stroke-linecap="round"/>';
+    }
+    return { out: out, defs: defs };
+  }
+
+  // ---------- 7 · L grande com eco ----------
+  // 100 = corpo do nome, como na 1, 3 e 5: e, t, r, a, ç, o no corpo normal; só o L cresce
+  var P7R = 1.4, P7LE = 4, P7E = 36, P7PAD = 6;
+  function rectGap(a, b) { return Math.hypot(Math.max(b.l - a.r, a.l - b.r, 0), Math.max(b.t - a.b, a.t - b.b, 0)); }
+  function P7(R, E) {
+    R = R || P7R;
+    var spec = "Letraço".split("").map(function (ch, i) { return { s: i ? 1 : R, role: ch === "ç" ? "acc" : "fg" }; });
+    var nat = (M.L.adv * R - 1 + M.e.l) - M.L.r * R;       // tinta do L → tinta do e, só com o −0,01 em
+    var kern = P7LE - nat;                                  // o par L→e fecha até 0,04 em de tinta a tinta
+    var glyphs = word(0, 100, function (i) { return i === 0 ? -1 + kern : -1; }, spec);
+    var boxes = glyphs.map(inkOf), pad = P7PAD * R;         // folga mínima: 0,06 em do L, como na 4
+    var k = (E || P7E) / ICON.far[0].s;                     // corpo do e do eco, em do nome
+    var cb = null;
+    ICON.far.forEach(function (g) { cb = uni(cb, inkOf(g)); });
+    function mk(dx, dy) {
+      return ICON.far.map(function (g) { return { ch: g.ch, x: dx + g.x * k, y: dy + g.y * k, s: g.s * k, role: "far", op: g.op, blur: g.blur * k }; });
+    }
+    // obstáculos: o L pelo perfil da tinta (o canto fica livre) e as outras letras pela caixa
+    var obst = slabsOf(glyphs[0]).concat(boxes.slice(1));
+    function clear(list) { return !list.some(function (e) { return hitsAny(inkOf(e), obst, pad); }); }
+    // o eco começa entre a haste do L e o e do nome; desce até a altura-x e sobe até ficar livre.
+    // Fica onde assenta mais fundo no canto
+    var stem = LPROF.filter(function (q) { return q.t <= -CAP / 2 && q.b > -CAP / 2; })[0];
+    var stemR = glyphs[0].x + stem.r * R, best = null;
+    for (var x0 = stemR; x0 <= boxes[1].l + 30; x0 += 1) {
+      var dx = x0 - cb.l * k, dy = (-XH - pad) - cb.b * k, echo = mk(dx, dy);
+      while (!clear(echo)) { dy -= .5; echo = mk(dx, dy); }
+      if (!best || dy > best.dy + .01) best = { dx: dx, dy: dy, ox: x0 - boxes[1].l, echo: echo };
+    }
+    var echoes = best.echo, minGap = Infinity, near = null;
+    echoes.forEach(function (e) {
+      var a = inkOf(e);
+      obst.forEach(function (b, j) { var d = rectGap(a, b); if (d < minGap) { minGap = d; near = { a: a, b: b, e: e.ch, g: j < LPROF.length ? "L" : "Letraço"[j - LPROF.length + 1] }; } });
+    });
+    var box = null, ebox = null, wbox = null;
+    glyphs.concat(echoes).forEach(function (g) { box = uni(box, inkOf(g)); });
+    echoes.forEach(function (g) { ebox = uni(ebox, inkOf(g)); });
+    glyphs.forEach(function (g) { wbox = uni(wbox, inkOf(g)); });
+    return {
+      id: 7, R: R, kern: kern, nat: nat, leGap: boxes[1].l - boxes[0].r, glyphs: glyphs, echo: echoes, box: box, wbox: wbox, ebox: ebox,
+      vc: box.t / 2, hdr: .24, k: k, ox: best.ox, pad: pad, minGap: minGap, near: near, capL: CAP * R, tint: tint45
+    };
+  }
+
+  // ---------- desenho ----------
+  function txt(g, fill, extra) {
+    return '<text x="' + f(g.x) + '" y="' + f(g.y) + '" font-size="' + f(g.s) + '" font-weight="700" font-family="' + SERIF +
+      '" text-rendering="geometricPrecision" fill="' + fill + '"' + (extra || "") + ">" + g.ch + "</text>";
+  }
+  // o: { px: px por unidade, noEcho }
+  function draw(m, sc, o) {
+    var id = "d" + (++uid), defs = "", out = "";
+    if (m.tint) sc = m.tint(sc);
+    var boost = m.boost && o.px * 100 < m.boost;
+    if (m.frame) { var fs6 = frameSVG(m, sc, o, id); defs += fs6.defs; out += fs6.out; }
+    if (m.tile) {
+      var t = m.tile, Tpx = t.T * o.px, small = Tpx < 40, r = 72 * .22;
+      var g = '<rect x="18" y="18" width="72" height="72" rx="' + f(r) + '" fill="' + (sc.mono ? "none" : C.paper) + '"' +
+        (sc.tileStroke ? ' stroke="' + sc.tileStroke + '" stroke-width="' + f((sc.mono ? 1.5 : 1) / (o.px * t.k)) + '"' : "") + "/>";
+      if (!sc.mono) {
+        ICON.far.forEach(function (e, i) {
+          var ex = "";
+          if (!small) {
+            defs += '<filter id="' + id + "i" + i + '" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + e.blur + '"/></filter>';
+            ex = ' filter="url(#' + id + "i" + i + ')"';
+          }
+          g += txt(e, C.muted, ' fill-opacity="' + f(Math.min(1, e.op + (small ? .1 : 0))) + '"' + ex);
+        });
+      }
+      g += txt(ICON.c, sc.mono ? sc.fg : C.brand) + txt(ICON.L, sc.mono ? sc.fg : C.ink);
+      out += '<g transform="translate(' + f(t.x - 18 * t.k) + " " + f(t.y - 18 * t.k) + ") scale(" + f(t.k) + ')">' + g + "</g>";
+    }
+    if (!sc.mono && !o.noEcho) {
+      m.echo.forEach(function (e, i) {
+        var ex = "", bpx = e.blur * o.px;
+        if (bpx >= .35 && !boost) {
+          defs += '<filter id="' + id + "e" + i + '" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + f(e.blur) + '"/></filter>';
+          ex = ' filter="url(#' + id + "e" + i + ')"';
+        }
+        out += txt(e, sc.far, ' fill-opacity="' + f(Math.min(1, (e.op + (boost ? .1 : 0)) * sc.farK)) + '"' + ex);
+      });
+    }
+    m.glyphs.forEach(function (g) {
+      var fill = g.role === "acc" ? sc.acc : g.role === "depth" ? (sc.mono ? sc.fg : mix(sc.fg, sc.bg, g.t * sc.depthK)) : sc.fg;
+      out += txt(g, fill);
+    });
+    return (defs ? "<defs>" + defs + "</defs>" : "") + out;
+  }
+  function boxOf(m, o) {
+    if (!o.noEcho || !m.wbox) return m.box;
+    var b = m.wbox;
+    return { l: b.l, r: b.r, t: b.t, b: b.b };
+  }
+  // logo sozinho num <svg>; h = altura em px da caixa de tinta
+  function logoSVG(m, sc, h, o) {
+    o = o || {};
+    var b = boxOf(m, o), s = h / (b.b - b.t), pad = (o.pad || 0) / s;
+    var w = (b.r - b.l) * s + 2 * (o.pad || 0), H = h + 2 * (o.pad || 0);
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + f(b.l - pad) + " " + f(b.t - pad) + " " + f(b.r - b.l + 2 * pad) + " " + f(b.b - b.t + 2 * pad) +
+      '" width="' + f(w) + '" height="' + f(H) + '" role="img" aria-label="Letraço">' +
+      (o.bg ? '<rect x="' + f(b.l - pad) + '" y="' + f(b.t - pad) + '" width="' + f(b.r - b.l + 2 * pad) + '" height="' + f(b.b - b.t + 2 * pad) + '" fill="' + o.bg + '"/>' : "") +
+      draw(m, sc, { px: s, noEcho: o.noEcho }) + (o.extra ? o.extra(s) : "") + "</svg>";
+  }
+  // logo dentro de outro SVG: s = px por unidade; (x, y) = canto esquerdo da caixa e centro vertical
+  function place(m, sc, s, x, yc, o) {
+    o = o || {};
+    var b = boxOf(m, o), tx = x - b.l * s, ty = yc - m.vc * s;
+    return { svg: '<g transform="translate(' + f(tx) + " " + f(ty) + ") scale(" + f(s) + ')">' + draw(m, sc, { px: s, noEcho: o.noEcho }) + "</g>", tx: tx, ty: ty, s: s };
+  }
+
+  // ---------- linhas de construção ----------
+  function guides(m, s) {
+    var lw = 1 / s, fs = 11 / s, b = m.box, x0 = b.l - 46 / s, x1 = b.r + 14 / s, out = "";
+    function h(y, col, tag, dash, shift) {
+      out += '<line x1="' + f(x0 + 22 / s) + '" x2="' + f(x1) + '" y1="' + f(y) + '" y2="' + f(y) + '" stroke="' + col + '" stroke-width="' + f(lw) + '"' +
+        (dash ? ' stroke-dasharray="' + f(4 / s) + " " + f(3 / s) + '"' : "") + "/>";
+      out += tagAt(x0 - (shift || 0) / s, y, tag, col);
+    }
+    function tagAt(x, y, tag, col) {
+      var w = (tag.length * 6.6 + 8) / s, hh = 15 / s;
+      return '<rect x="' + f(x) + '" y="' + f(y - hh / 2) + '" width="' + f(w) + '" height="' + f(hh) + '" rx="' + f(3 / s) + '" fill="' + col + '"/>' +
+        '<text x="' + f(x + w / 2) + '" y="' + f(y + 3.8 / s) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" font-weight="600" text-anchor="middle" fill="#fff">' + tag + "</text>";
+    }
+    function v(x, y0, y1, col) {
+      out += '<line x1="' + f(x) + '" x2="' + f(x) + '" y1="' + f(y0) + '" y2="' + f(y1) + '" stroke="' + col + '" stroke-width="' + f(lw) + '" stroke-dasharray="' + f(3 / s) + " " + f(3 / s) + '"/>';
+    }
+    function span(xa, xb, y, label, col) {
+      var tk = 4 / s;
+      out += '<path d="M' + f(xa) + " " + f(y - tk) + "V" + f(y + tk) + "M" + f(xa) + " " + f(y) + "H" + f(xb) + "M" + f(xb) + " " + f(y - tk) + "V" + f(y + tk) +
+        '" stroke="' + col + '" stroke-width="' + f(lw * 1.2) + '" fill="none"/>' +
+        '<text x="' + f((xa + xb) / 2) + '" y="' + f(y - 6 / s) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" text-anchor="middle" fill="' + col + '">' + label + "</text>";
+    }
+    if (m.id === 1) {
+      var t = m.tile;
+      h(-CAP, C.brand, "C"); h(-XH, C.muted, "x", true); h(0, C.brand, "B"); h(M["ç"].d, C.muted, "ç", true);
+      out += '<rect x="0" y="' + f(t.y) + '" width="' + f(t.T) + '" height="' + f(t.T) + '" fill="none" stroke="' + C.err + '" stroke-width="' + f(lw) + '" stroke-dasharray="' + f(4 / s) + " " + f(3 / s) + '"/>';
+      out += tagAt(t.T / 2 - 9 / s, t.y - 12 / s, "T", C.err);
+      var nl = inkOf(m.glyphs[0]).l;
+      v(t.T, t.y, t.y + t.T + 10 / s, C.err); v(nl, -CAP - 10 / s, 30, C.err);
+      span(t.T, nl, -CAP - 18 / s, "0,4 em", C.err);
+    } else if (m.id === 2) {
+      var e = m.glyphs[1], c = m.glyphs[5];
+      h(-CAP, C.brand, "C"); h(-XH * c.s / 100, C.brand, "x′", true, 26); h(-XH * e.s / 100, C.muted, "x", true); h(0, C.brand, "B");
+      var yl = M["ç"].d * c.s / 100 + 16 / s;
+      m.glyphs.forEach(function (g) {
+        var i = inkOf(g);
+        out += '<text x="' + f((i.l + i.r) / 2) + '" y="' + f(yl) + '" font-size="' + f(fs * .95) + '" font-family="' + SANS + '" text-anchor="middle" fill="' +
+          (g.role === "acc" ? C.brand : g.role === "fg" ? C.ink : C.muted) + '">' + br(g.s / 100) + "</text>";
+      });
+    } else if (m.id === 4) {
+      var e4 = m.glyphs[1], c4 = m.glyphs[5], eb4 = m.ebox, p4 = 4 / s;
+      h(-CAP, C.brand, "C"); h(-XH * c4.s / 100, C.brand, "x′", true, 26); h(-XH * e4.s / 100, C.muted, "x", true); h(0, C.brand, "B");
+      out += '<rect x="' + f(eb4.l - p4) + '" y="' + f(eb4.t - p4) + '" width="' + f(eb4.r - eb4.l + 2 * p4) + '" height="' + f(eb4.b - eb4.t + 2 * p4) + '" fill="none" stroke="' + C.err +
+        '" stroke-width="' + f(lw) + '" stroke-dasharray="' + f(4 / s) + " " + f(3 / s) + '"/>';
+      out += tagAt(eb4.r + 8 / s, (eb4.t + eb4.b) / 2, "eco", C.err);
+      var gx4 = eb4.r + 4 / s;
+      out += '<path d="M' + f(gx4 - 4 / s) + " " + f(eb4.b) + "H" + f(gx4 + 4 / s) + "M" + f(gx4) + " " + f(eb4.b) + "V" + f(m.smallTop) + "M" + f(gx4 - 4 / s) + " " + f(m.smallTop) + "H" + f(gx4 + 4 / s) +
+        '" stroke="' + C.err + '" stroke-width="' + f(lw * 1.2) + '"/><text x="' + f(gx4 + 8 / s) + '" y="' + f(m.smallTop - 2 / s) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" fill="' + C.err + '">' + br(m.gapT / 100) + " em</text>";
+      var yl4 = M["ç"].d * c4.s / 100 + 16 / s;
+      m.glyphs.forEach(function (g) {
+        var i = inkOf(g);
+        out += '<text x="' + f((i.l + i.r) / 2) + '" y="' + f(yl4) + '" font-size="' + f(fs * .95) + '" font-family="' + SANS + '" text-anchor="middle" fill="' +
+          (g.role === "acc" ? C.brand : C.ink) + '">' + br(g.s / 100) + "</text>";
+      });
+    } else if (m.id === 7) {
+      var L7 = inkOf(m.glyphs[0]), E7 = inkOf(m.glyphs[1]), eb7 = m.ebox, p7 = 4 / s, nr = m.near;
+      h(-m.capL, C.brand, "C"); h(-CAP, C.muted, "c", true); h(-XH, C.muted, "x", true); h(0, C.brand, "B"); h(M["ç"].d, C.muted, "ç", true);
+      out += '<rect x="' + f(eb7.l - p7) + '" y="' + f(eb7.t - p7) + '" width="' + f(eb7.r - eb7.l + 2 * p7) + '" height="' + f(eb7.b - eb7.t + 2 * p7) + '" fill="none" stroke="' + C.err +
+        '" stroke-width="' + f(lw) + '" stroke-dasharray="' + f(4 / s) + " " + f(3 / s) + '"/>';
+      out += tagAt(eb7.r + 8 / s, eb7.t + 6 / s, "eco", C.err);
+      // a menor folga do eco: entre a letra do eco e a letra do nome mais próximas
+      var na = nr.a, nb = nr.b, ox7 = Math.max(na.l, nb.l), oy7 = Math.min(na.r, nb.r);
+      if (ox7 < oy7) {
+        var gx7 = (ox7 + oy7) / 2, ya = na.b < nb.t ? na.b : nb.b, yb = na.b < nb.t ? nb.t : na.t;
+        out += '<path d="M' + f(gx7 - 4 / s) + " " + f(ya) + "H" + f(gx7 + 4 / s) + "M" + f(gx7) + " " + f(ya) + "V" + f(yb) + "M" + f(gx7 - 4 / s) + " " + f(yb) + "H" + f(gx7 + 4 / s) +
+          '" stroke="' + C.err + '" stroke-width="' + f(lw * 1.2) + '"/><text x="' + f(gx7 + 7 / s) + '" y="' + f((ya + yb) / 2 + 4 / s) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" fill="' + C.err + '">' + br(m.minGap / 100) + " em</text>";
+      } else {
+        span(Math.min(na.r, nb.r), Math.max(na.l, nb.l), Math.max(na.t, nb.t) - 4 / s, br(m.minGap / 100) + " em", C.err);
+      }
+      v(L7.r, -XH, 48, C.err); v(E7.l, -XH, 48, C.err);
+      out += '<text x="' + f((L7.r + E7.l) / 2) + '" y="' + f(58) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" text-anchor="middle" fill="' + C.err + '">L→e ' + br(m.leGap / 100) + " em</text>";
+      var yl7 = M["ç"].d + 16 / s;
+      m.glyphs.forEach(function (g) {
+        var i = inkOf(g);
+        out += '<text x="' + f((i.l + i.r) / 2) + '" y="' + f(yl7) + '" font-size="' + f(fs * .95) + '" font-family="' + SANS + '" text-anchor="middle" fill="' +
+          (g.role === "acc" ? C.brand : C.ink) + '">' + br(g.s / 100) + "</text>";
+      });
+    } else if (m.id === 6) {
+      var fr = m.frame, L6 = inkOf(m.glyphs[0]), E6 = inkOf(m.glyphs[1]);
+      h(-CAP, C.brand, "C"); h(-XH, C.muted, "x", true); h(0, C.brand, "B"); h(M["ç"].d, C.muted, "ç", true);
+      span(fr.x, fr.x + fr.w, fr.y - 12 / s, "w " + br(fr.w / 100), C.err);
+      out += '<path d="M' + f(fr.x - 14 / s) + " " + f(fr.y) + "V" + f(fr.y + fr.h) + '" stroke="' + C.err + '" stroke-width="' + f(lw * 1.2) + '"/>' +
+        '<text x="' + f(fr.x - 18 / s) + '" y="' + f(fr.y + fr.h / 2) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" text-anchor="end" fill="' + C.err + '">h ' + br(fr.h / 100) + "</text>";
+      out += '<path d="M' + f(fr.x + fr.r) + " " + f(fr.y) + "V" + f(fr.y + fr.r) + "H" + f(fr.x) + '" fill="none" stroke="' + C.err + '" stroke-width="' + f(lw) + '" stroke-dasharray="' + f(2 / s) + " " + f(2 / s) + '"/>' +
+        '<text x="' + f(fr.x + fr.r + 3 / s) + '" y="' + f(fr.y + fr.r + 3 / s) + '" font-size="' + f(fs * .9) + '" font-family="' + SANS + '" fill="' + C.err + '">r</text>';
+      v(fr.x + fr.w, -CAP - 4 / s, 30, C.err); v(E6.l, -CAP - 4 / s, 30, C.err);
+      out += '<text x="' + f((fr.x + fr.w + E6.l) / 2) + '" y="' + f(46) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" text-anchor="middle" fill="' + C.err + '">' + br(m.gapE / 100) + " em</text>";
+      void L6;
+    } else if (m.id === 5) {
+      var gt = m.ghost, Ld = inkOf(m.glyphs[0]), Ed = inkOf(m.glyphs[1]);
+      h(-CAP, C.brand, "C"); h(-XH, C.muted, "x", true); h(0, C.brand, "B"); h(M["ç"].d, C.muted, "ç", true);
+      out += '<rect x="' + f(gt.x) + '" y="' + f(gt.y) + '" width="' + f(gt.T) + '" height="' + f(gt.T) + '" rx="' + f(gt.T * .22) + '" fill="none" stroke="' + C.err + '" stroke-width="' + f(lw) + '" stroke-dasharray="' + f(4 / s) + " " + f(3 / s) + '"/>';
+      out += tagAt(gt.x + gt.T / 2 - 22 / s, gt.y - 12 / s, "T sai", C.err);
+      v(Ld.r, -CAP - 4 / s, 24, C.err); v(Ed.l, -CAP - 4 / s, 24, C.err);
+      out += '<text x="' + f((Ld.r + Ed.l) / 2) + '" y="' + f(40) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" text-anchor="middle" fill="' + C.err + '">L→e ' + br((Ed.l - Ld.r) / 100, 3) + " em</text>";
+    } else {
+      h(-CAP, C.brand, "C"); h(-XH, C.muted, "x", true); h(0, C.brand, "B"); h(M["ç"].d, C.muted, "ç", true);
+      var eb = m.ebox, p = 4 / s;
+      out += '<rect x="' + f(eb.l - p) + '" y="' + f(eb.t - p) + '" width="' + f(eb.r - eb.l + 2 * p) + '" height="' + f(eb.b - eb.t + 2 * p) + '" fill="none" stroke="' + C.err +
+        '" stroke-width="' + f(lw) + '" stroke-dasharray="' + f(4 / s) + " " + f(3 / s) + '"/>';
+      out += tagAt(eb.r + 8 / s, (eb.t + eb.b) / 2, "eco", C.err);
+      v(eb.l - p, eb.b, 0, C.err);
+      out += '<path d="M' + f(eb.r + 22 / s) + " " + f(eb.b + p) + "V" + f(-CAP) + '" stroke="' + C.err + '" stroke-width="' + f(lw * 1.2) + '"/>' +
+        '<text x="' + f(eb.r + 28 / s) + '" y="' + f((eb.b + p - CAP) / 2 + 4 / s) + '" font-size="' + f(fs) + '" font-family="' + SANS + '" fill="' + C.err + '">0,14 em</text>';
+    }
+    return '<g class="guide">' + out + "</g>";
+  }
+  function constructionSVG(m) {
+    var b = m.id === 5 ? uni(m.box, { l: m.ghost.x, r: m.ghost.x + m.ghost.T, t: m.ghost.y, b: m.ghost.y + m.ghost.T }) : m.box, s = 1.35, padL = 78 / s, padR = 70 / s, padT = (m.id >= 5 ? 44 : 30) / s, padB = (m.id >= 5 ? 52 : 34) / s;
+    var vb = [b.l - padL, b.t - padT, b.r - b.l + padL + padR, b.b - b.t + padT + padB];
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + vb.map(f).join(" ") + '" width="' + f(vb[2] * s) + '" height="' + f(vb[3] * s) +
+      '" role="img" aria-label="Letraço, construção">' + draw(m, SC.paper, { px: s }) + guides(m, s) + "</svg>";
+  }
+
+  // ---------- respiro ----------
+  function clearSVG(m, R, o) {
+    o = o || {};
+    var b = boxOf(m, o), s = 1.0, lw = 1 / s, pad = R + 18;
+    var vb = [b.l - pad, b.t - pad, b.r - b.l + 2 * pad, b.b - b.t + 2 * pad];
+    var sq = function (x, y) { return '<rect x="' + f(x) + '" y="' + f(y) + '" width="' + f(R) + '" height="' + f(R) + '" fill="' + C.brandSoft + '" stroke="' + C.brand + '" stroke-width="' + f(lw) + '"/>'; };
+    var out = '<rect x="' + f(b.l - R) + '" y="' + f(b.t - R) + '" width="' + f(b.r - b.l + 2 * R) + '" height="' + f(b.b - b.t + 2 * R) +
+      '" fill="none" stroke="' + C.brand + '" stroke-width="' + f(lw) + '" stroke-dasharray="5 4"/>' +
+      '<rect x="' + f(b.l) + '" y="' + f(b.t) + '" width="' + f(b.r - b.l) + '" height="' + f(b.b - b.t) + '" fill="none" stroke="' + C.line + '" stroke-width="' + f(lw) + '"/>' +
+      sq(b.l - R, b.t - R) + sq(b.r, b.t - R) + sq(b.l - R, b.b) + sq(b.r, b.b) +
+      '<text x="' + f(b.l - R / 2) + '" y="' + f(b.t - R / 2 + 4.5) + '" font-size="13" font-family="' + SANS + '" font-weight="600" text-anchor="middle" fill="' + C.brand + '">' + o.tag + "</text>";
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + vb.map(f).join(" ") + '" width="' + f(vb[2] * s) + '" height="' + f(vb[3] * s) + '" role="img" aria-label="Respiro">' +
+      out + draw(m, SC.paper, { px: s, noEcho: o.noEcho }) + "</svg>";
+  }
+
+  // ---------- contextos ----------
+  function statusBar(y, col) {
+    return '<text x="24" y="' + (y + 17) + '" font-size="12" font-weight="600" font-family="' + SANS + '" fill="' + col + '">9:41</text>' +
+      '<path d="M330 ' + (y + 16) + 'l10 -9v9z" fill="' + col + '"/>' +
+      '<rect x="346" y="' + (y + 8) + '" width="19" height="9" rx="2.5" fill="none" stroke="' + col + '" stroke-width="1.2"/><rect x="348" y="' + (y + 10) + '" width="12" height="5" rx="1" fill="' + col + '"/>';
+  }
+  function headerBody(m, sc, y0, fill, opts) {
+    opts = opts || {};
+    var s = m.hdr, row = y0 + 18, cy = row + 20;
+    var p = place(m, sc, s, 20, cy, { noEcho: opts.noEcho });
+    var rest = '<g opacity="' + (opts.restOp === undefined ? 1 : opts.restOp) + '">' +
+      '<g transform="translate(345 ' + (cy - 11) + ')"><path d="M4 7h16M4 12h16M4 17h10" stroke="' + sc.fg + '" stroke-width="2" stroke-linecap="round" fill="none"/></g>' +
+      '<rect x="20" y="' + (row + 40 + 4 + 2 + 8) + '" width="350" height="6" rx="3" fill="' + C.line + '"/>' +
+      (fill ? '<rect x="20" y="' + (row + 54) + '" width="' + (350 * fill) + '" height="6" rx="3" fill="' + C.brand + '"/>' : "") +
+      '<text x="20" y="' + (row + 54 + 6 + 6 + 12) + '" font-size="12.5" font-family="' + SANS + '" fill="' + C.ink2 + '"><tspan font-weight="700" fill="' + C.ink + '">' +
+      Math.round(47 * fill) + "</tspan> de 47 palavras</text></g>";
+    return { svg: p.svg + rest, p: p, bottom: row + 82 };
+  }
+  function headerSVG(m) {
+    var H = 128, hb = headerBody(m, SC.paper, 24, .43);
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 ' + H + '" width="390" height="' + H + '" role="img" aria-label="Cabeçalho do jogo com o logo">' +
+      '<rect width="390" height="' + H + '" fill="' + C.paper + '"/>' + statusBar(0, C.ink2) + hb.svg + "</svg>";
+  }
+
+  // ícone do splash do sistema: 108 dp desenhados em 288 dp no centro da tela
+  var K = 288 / 108, SCX = 195, SCY = 422;
+  function scr(u, v) { return [SCX + (u - 54) * K, SCY + (v - 54) * K]; }
+  function splashSVG(m) {
+    var hb = headerBody(m, SC.paper, 24, 0, { restOp: .35 }), p = hb.p, out = "";
+    // fantasma do ícone no centro, onde o splash do sistema começou
+    var ghost = [ICON.L, ICON.c].concat(ICON.far).map(function (g) {
+      var q = scr(g.x, g.y);
+      return txt({ ch: g.ch, x: q[0], y: q[1], s: g.s * K }, g === ICON.L ? C.ink : g === ICON.c ? C.brand : C.muted, ' fill-opacity="' + (g === ICON.L || g === ICON.c ? .1 : .14) + '"');
+    }).join("");
+    function to(g) { var c = center(g); return [p.tx + c[0] * p.s, p.ty + c[1] * p.s]; }
+    function from(g) { var c = center(g); return scr(c[0], c[1]); }
+    function curve(a, b, col) {
+      var mx = (a[0] + b[0]) / 2 + (a[0] < b[0] ? -30 : 30), my = (a[1] + b[1]) / 2;
+      return '<path d="M' + f(a[0]) + " " + f(a[1]) + "Q" + f(mx) + " " + f(my) + " " + f(b[0]) + " " + f(b[1]) + '" fill="none" stroke="' + col +
+        '" stroke-width="1.3" stroke-dasharray="3 4" stroke-opacity=".7"/><circle cx="' + f(b[0]) + '" cy="' + f(b[1]) + '" r="2.4" fill="' + col + '"/>';
+    }
+    if (m.id === 1) {
+      var t = m.tile, a0 = scr(18, 18), a1 = scr(90, 90), b0 = [p.tx + t.x * p.s, p.ty + t.y * p.s], b1 = [b0[0] + t.T * p.s, b0[1] + t.T * p.s];
+      out += '<rect x="' + f(a0[0]) + '" y="' + f(a0[1]) + '" width="' + f(a1[0] - a0[0]) + '" height="' + f(a1[1] - a0[1]) + '" rx="40" fill="none" stroke="' + C.brand + '" stroke-opacity=".35" stroke-dasharray="3 4"/>';
+      [[a0[0], a0[1], b0[0], b0[1]], [a1[0], a0[1], b1[0], b0[1]], [a0[0], a1[1], b0[0], b1[1]], [a1[0], a1[1], b1[0], b1[1]]].forEach(function (l) {
+        out += '<line x1="' + f(l[0]) + '" y1="' + f(l[1]) + '" x2="' + f(l[2]) + '" y2="' + f(l[3]) + '" stroke="' + C.brand + '" stroke-width="1.2" stroke-dasharray="3 4" stroke-opacity=".6"/>';
+      });
+    } else {
+      if (m.frame) {
+        var fr6 = m.frame, c0 = scr(18, 18), c1 = scr(90, 90), d0 = [p.tx + fr6.x * p.s, p.ty + fr6.y * p.s], d1 = [d0[0] + fr6.w * p.s, d0[1] + fr6.h * p.s];
+        out += '<rect x="' + f(c0[0]) + '" y="' + f(c0[1]) + '" width="' + f(c1[0] - c0[0]) + '" height="' + f(c1[1] - c0[1]) + '" rx="' + f((c1[0] - c0[0]) * RADIUS) + '" fill="none" stroke="' + C.line + '" stroke-width="1.5"/>';
+        [[c0[0], c0[1], d0[0], d0[1]], [c1[0], c0[1], d1[0], d0[1]], [c0[0], c1[1], d0[0], d1[1]], [c1[0], c1[1], d1[0], d1[1]]].forEach(function (l) {
+          out += '<line x1="' + f(l[0]) + '" y1="' + f(l[1]) + '" x2="' + f(l[2]) + '" y2="' + f(l[3]) + '" stroke="' + C.muted + '" stroke-width="1" stroke-dasharray="2 4" stroke-opacity=".6"/>';
+        });
+      }
+      var targets = m.id === 2 ? m.glyphs : [m.glyphs[0], m.glyphs[5]].concat(m.echo);
+      [ICON.L, ICON.c].concat(ICON.far).forEach(function (g) {
+        var tg = null;
+        targets.forEach(function (x) { if (!tg && x.ch === g.ch) tg = x; });
+        if (tg) out += curve(from(g), to(tg), g === ICON.c ? C.brand : g === ICON.L ? C.ink : C.muted);
+      });
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844" role="img" aria-label="Último quadro do splash">' +
+      '<rect width="390" height="844" fill="' + C.paper + '"/>' + statusBar(0, C.ink2) + ghost + out + hb.svg +
+      '<text x="195" y="790" font-size="12" font-family="' + SANS + '" text-anchor="middle" fill="' + C.muted + '">último quadro · o nome já pousou no cabeçalho</text></svg>';
+  }
+
+  function featureSVG(m) {
+    var b = m.box, bw = b.r - b.l, bh = b.b - b.t, s = Math.min([0, 150, 165, 175, 175, 175, 175, 175][m.id] / bh, 620 / bw);
+    var x = 512 - bw * s / 2, yc = 200 - ((b.t + b.b) / 2 - m.vc) * s;
+    var p = place(m, SC.paper, s, x, yc);
+    var words = [
+      ["orla", 70, 96, 34, .22, 0], ["colher", 812, 92, 28, .2, 0], ["lacre", 96, 444, 24, .16, 1.2], ["ralo", 858, 438, 38, .24, 0],
+      ["hora", 40, 290, 20, .13, 1.6], ["cela", 930, 262, 20, .13, 1.6], ["calhar", 300, 470, 18, .11, 1.8], ["real", 680, 478, 22, .14, 1.2]
+    ];
+    var defs = "", sky = "";
+    words.forEach(function (w, i) {
+      var id = "fgb" + (++uid);
+      if (w[5]) defs += '<filter id="' + id + '" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="' + w[5] + '"/></filter>';
+      sky += '<text x="' + w[1] + '" y="' + w[2] + '" font-size="' + w[3] + '" font-weight="600" font-family="' + SERIF + '" fill="' + C.ink +
+        '" fill-opacity="' + w[4] + '"' + (w[5] ? ' filter="url(#' + id + ')"' : "") + ">" + w[0] + "</text>";
+    });
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 500" width="1024" height="500" role="img" aria-label="Imagem de destaque da Play Store">' +
+      "<defs>" + defs + '</defs><rect width="1024" height="500" fill="' + C.paper + '"/>' + sky + p.svg +
+      '<text x="512" y="372" font-size="27" font-family="' + SANS + '" text-anchor="middle" fill="' + C.ink2 + '">Sete letras. Quantas palavras você encontra?</text></svg>';
+  }
+
+  // ---------- conteúdo das propostas ----------
+  var PROPS = [
+    {
+      key: "p4", num: "04", n: "4", name: "Profundidade com eco", build: P4,
+      idea: "A escala da 2 com o eco da 3. As letras só mudam de tamanho: o L grande e perto, e, t, r, a menores, o ç em teal, o o menor de todas, todas em tinta cheia, sem diferença de tom. O cinza fica só no eco: as cinco letras de longe do ícone, aninhadas no canto do L, acima de “etra”, como no ícone.",
+      spec: function (m) {
+        return [
+          ["B", "", "Uma linha de base", "Todas as letras do nome pousam na mesma linha. A profundidade do nome é só o tamanho."],
+          ["C", "", "Escala (em do L)", P4SPEC.map(function (q, i) { return "Letraço"[i] + " " + br(q.s); }).join(" · ") + ". A mesma da 2."],
+          ["cor", "", "Cor", "Tudo em --ink (#1D2626), só o ç em --brand. Sem misturas nem opacidade no nome."],
+          ["eco", "o", "Eco", "As letras de longe com as posições de <code>brand_mark.dart</code>, ampliadas " + br(m.k, 2) + "× em relação ao ícone (o e do eco tem 0,30 do L, " + br(30 / 55 * 100, 0) + "% do e do nome). Começa " + br((m.ebox.l - inkOf(m.glyphs[1]).l) / 100) + " em depois da tinta do e; a base fica " + br(m.gapT / 100) + " em acima do t, e o topo " + br((-CAP - m.ebox.t) / 100) + " em acima da maiúscula. Folga mínima de 0,06 em de qualquer letra."],
+          ["op", "g", "Recuo do eco", "Cinza --muted de 58% a 36% e desfoque do ícone × " + br(m.k, 2) + ". Desfoque desligado abaixo de 0,35 px."],
+          ["↕", "o", "Quando o eco some", "Em uma cor e com o L abaixo de 32 px. Abaixo de 24 px de L, use o ícone."]
+        ];
+      },
+      clear: { R: function () { return XH * P4SPEC[5].s; }, tag: "x′", text: function () { return "Respiro = altura-x do ç (x′ = " + br(XH * P4SPEC[5].s / 100) + " em do L). Mínimo: L de 24 px, sem o eco (o o fica com " + br(24 * XH * P4SPEC[6].s / 100, 1) + " px de altura-x). O eco entra a partir de L 32 px."; }, min: [[.24, "mínimo · L 24 px, sem eco", true], [.32, "eco · a partir de L 32 px"]] },
+      splash: "O L e o ç do ícone viram as letras do nome; as cinco letras de longe vão para o eco sem mudar o arranjo, só encolhem. As letras e, t, r, a, o do nome entram por fade, já em tinta cheia.",
+      flutter: [
+        "<b>Cabeçalho e loja: um PNG</b> 1×–4× do logo inteiro, ou SVG em curvas para o nome + PNG do eco. O <code>flutter_svg</code> ignora <code>feGaussianBlur</code>, então o eco desfocado não pode ir só em SVG.",
+        "<b>Nome vivo é possível:</b> <code>Text.rich</code> com um <code>TextSpan</code> por letra (corpo próprio, cor única). Spans de corpos diferentes dividem a linha de base sozinhos.",
+        "<b>Splash: letras vivas.</b> Os alvos de <code>BrandMark.letterOf</code> passam a ser L, ç e as cinco letras do eco; e, t, r, a, o do nome entram por fade. Some o crossfade com <code>Logo.reveal</code>."
+      ],
+      risks: [
+        "Sem o tom, o L grande pode ler como capitular (“L” + “etraço”); o eco é o que conta a profundidade.",
+        "O o é a letra menor; abaixo de L 24 px ele embola.",
+        "Desfoque vivo = um <code>saveLayer</code> por letra do eco; no splash animado, custa.",
+        "No cabeçalho o eco tem 7–10 px de corpo: textura, não leitura.",
+        "<code>Semantics(label: 'Letraço')</code> obrigatório."
+      ]
+    },
+    {
+      key: "p5", num: "05", n: "5", name: "Ícone como L", build: P5,
+      idea: "A 1 sem a separação entre ícone e nome. O ícone perde o ç e passa a ser o L do nome: o L em tinta com as letras de longe por cima, e logo depois “etraço”, com o ç em teal no lugar dele. Lê “Letraço” de uma vez; o céu do ícone fica sobre o começo da palavra.",
+      spec: function (m) {
+        var Ld = inkOf(m.glyphs[0]), Ed = inkOf(m.glyphs[1]);
+        return [
+          ["C", "", "O L do ícone é o L do nome", "O L do ícone (corpo 57,34 na tela de 108) é ampliado " + br(m.k, 3) + "× para ter o corpo do nome: C = " + br(CAP / 100) + " em. A origem do L do ícone (35,36; 78) vai para a origem do nome: mesma linha de base, mesma maiúscula."],
+          ["B", "", "Espaço L→e", "O normal da fonte: avanço do L − 0,01 em. Da tinta do L à tinta do e ficam " + br((Ed.l - Ld.r) / 100, 3) + " em, igual a qualquer “Le” em Noto Serif."],
+          ["T sai", "o", "Sem ladrilho", "O ladrilho seria 72 × " + br(m.k, 3) + " = " + br(m.ghost.T / 100, 3) + " em e terminaria em " + br((m.ghost.x + m.ghost.T) / 100) + " em, mas o e começa em " + br(Ed.l / 100) + " em: ficaria " + br((m.ghost.x + m.ghost.T - Ed.l) / 100) + " em dentro do ladrilho. Com o ladrilho à mostra, o espaço L→e passaria de " + br((Ed.l - Ld.r) / 100, 3) + " para " + br((m.ghost.x + m.ghost.T - Ld.r + (Ed.l - Ld.r)) / 100) + " em, e leria “L · etraço”. Por isso não há ladrilho, cantos nem fundo próprio em nenhum fundo: o fundo da tela é o ladrilho."],
+          ["x", "g", "Letras de longe", "Posições, corpos, opacidades (58%→36%) e desfoques do ícone, na mesma escala do L. Ficam sobre “Le”; a menor folga até o nome é " + br(m.minGap / 100, 3) + " em (o a de longe sobre o e)."],
+          ["ç", "g", "O ç sai do ícone", "O canto do L fica vazio, como num L comum; o único ç é o do nome, em teal."],
+          ["↕", "o", "Tamanho óptico", "De 20 a 32 px de nome, as letras de longe perdem o desfoque e ganham 10 pontos de opacidade. Abaixo de 20 px, saem."]
+        ];
+      },
+      clear: { R: function () { return XH; }, tag: "x", text: "Respiro = altura-x do nome (x). Mínimo: nome a 16 px, só com o L (sem as letras de longe). As letras de longe entram a partir de 20 px de nome, quando o e de longe passa de 4,5 px de corpo.", min: [[.16, "mínimo · 16 px, sem o céu", true], [.20, "céu · a partir de 20 px"]] },
+      splash: "Um movimento só: o ícone do splash encolhe inteiro até o L do cabeçalho, com as letras de longe no mesmo arranjo; o ç desliza para a sexta posição. “etra” e o o do nome entram por fade.",
+      flutter: [
+        "<b>“L com céu”: asset PNG</b> 1×–4× (o desfoque não passa pelo <code>flutter_svg</code>), recortado na caixa do L e posicionado pela linha de base.",
+        "<b>“etraço”: texto vivo</b>, como hoje, com o ç em <code>Caderno.brand</code>. Ou o logo inteiro como um PNG só, mais simples e à prova de fonte.",
+        "<b>Splash:</b> as letras do ícone já são vivas (<code>BrandMark</code>). Basta escalar o grupo L + letras de longe até o L do cabeçalho e mover o ç para a sexta posição."
+      ],
+      risks: [
+        "PNG do L + texto vivo: se a fonte do aparelho não for a Noto Serif, a linha de base e a maiúscula não batem. Empacotar a Noto Serif Bold, ou usar o PNG inteiro.",
+        "Sem ladrilho, a logo longa não tem a forma do ícone de app; o reconhecimento fica nas letras.",
+        "No cabeçalho as letras de longe ficam com 4–6 px de corpo: pontinhos, como no ícone a 30 px de hoje.",
+        "Em fundo escuro as letras de longe viram um tom claro; precisam de um asset por fundo."
+      ]
+    },
+
+    {
+      key: "p6", num: "06", n: "6", name: "Ícone como L, com contorno", build: function () { return P6("a"); },
+      idea: "A 5, mas o ícone conserva o contorno arredondado que tem como ícone de app. O problema é o mesmo que tirou o ladrilho da 5: uma caixa em volta do L afasta o “etraço”. A saída escolhida: a caixa não é o quadrado do ícone, é uma caixa justa em volta do L e das letras de longe, e o “e” encosta nela. A caixa passa a ser o espaço da letra L, como uma tecla.",
+      spec: function (m) {
+        var fr = m.frame;
+        return [
+          ["C", "", "Mesmo L da 5", "L do ícone ampliado " + br(m.k, 3) + "×: maiúscula " + br(CAP / 100) + " em e linha de base iguais às de “etraço”. Letras de longe nas posições do ícone, sem o ç."],
+          ["w", "o", "Caixa justa", "Tinta do L e das letras de longe + " + br(m.pad / 100) + " em de folga em volta (embaixo, a partir da linha de base). Resultado: " + br(fr.w / 100) + " × " + br(fr.h / 100) + " em, contra " + br(m.ghost.T / 100, 3) + " × " + br(m.ghost.T / 100, 3) + " do quadrado do ícone."],
+          ["r", "o", "Raio", "O mesmo do ícone no app: 8 px a cada 30 px = 26,7% do lado menor → " + br(fr.r / 100, 3) + " em."],
+          ["—", "g", "Traço", "0,03 em, nunca menos de 1 px, em --dots (#C9C0AE), a cor dos fios pontilhados do Glossário. O --line (#DCD4C4) dos cartões some a 1 px no cabeçalho; mais escuro que --dots, a caixa compete com o L e vira “□ + etraço”. Em tinta vira --ink2, no teal vira o teal claro #3E8C82, em uma cor vai para a tinta."],
+          ["↔", "o", "Espaço até o e", "O e encosta na borda: " + br(m.gapE / 100) + " em da borda externa até a tinta do e, menos que o espaço entre duas letras do nome. Da tinta do L até o e ficam " + br(m.gapL / 100) + " em, mas a borda fecha esse vão para o olho."],
+          ["↕", "g", "Quando sai o quê", "Letras de longe: sem desfoque de 20 a 32 px de nome, fora abaixo de 20 px. O contorno fica até o mínimo (16 px); abaixo disso, use o ícone."]
+        ];
+      },
+      extra: function (m) {
+        var vs = [["a", "6a · Caixa justa, fechada", "A escolha. O contorno inteiro, o e encosta na borda. Lê como uma letra numa tecla: [L]etraço."],
+                  ["b", "6b · Aberta à direita", "O contorno some antes do e, e o e volta ao espaço normal do L. Lê melhor como palavra, mas perde o retângulo do ícone: vira um colchete."],
+                  ["c", "6c · Quadrado inteiro do ícone", "O quadrado de 72/108 do ícone com o raio do app. A borda fica longe do L e o e fica a " + "{c}" + " em da tinta do L: lê “L · etraço”."]];
+        var rows = vs.map(function (q) {
+          var mv = P6(q[0]), txt = q[2].replace("{c}", br(mv.gapL / 100));
+          return '<div class="row" style="align-items:flex-start;flex-wrap:wrap"><span style="width:180px"><b style="color:var(--ink);font-size:12px">' + q[1] + "</b><br>L→e " + br(mv.gapL / 100) + " em · borda→e " + br(mv.gapE / 100) + " em</span>" +
+            '<div style="min-width:220px">' + logoSVG(mv, SC.paper, 64) + '<p class="note" style="margin-top:8px">' + txt + "</p></div></div>";
+        }).join("");
+        return '<div class="card wide"><h3>Três jeitos de pôr o contorno</h3><p class="sub">Mesmo L, mesmas letras de longe, mesmo raio e traço. Muda só a caixa e onde o e começa. A 5, sem contorno, tem L→e de ' + br(P5().glyphs ? (inkOf(P5().glyphs[1]).l - inkOf(P5().glyphs[0]).r) / 100 : 0, 3) + ' em.</p><div class="sizes">' + rows + "</div></div>";
+      },
+      clear: { R: function () { return XH; }, tag: "x", text: "Respiro = altura-x do nome (x), medido da borda do contorno. Mínimo: nome a 16 px, com o contorno e sem as letras de longe. As letras de longe entram a partir de 20 px de nome.", min: [[.16, "mínimo · 16 px, sem o céu", true], [.20, "céu · a partir de 20 px"]] },
+      splash: "Como na 5, o ícone encolhe inteiro até o L, e a borda do ícone de app encolhe junto até virar o contorno justo (linhas pontilhadas). O ç desliza para a sexta posição; “etra” e o o entram por fade.",
+      flutter: [
+        "<b>“L com céu e contorno”: asset PNG</b> 1×–4× (o desfoque não passa pelo <code>flutter_svg</code>). O contorno pode ir no mesmo PNG ou ser um <code>DecoratedBox</code> com <code>Border.all</code> e <code>BorderRadius</code> = 26,7% do lado.",
+        "<b>“etraço”: texto vivo</b>, com o ç em <code>Caderno.brand</code>, posicionado a 0,04 em da borda. Ou o logo inteiro num PNG só.",
+        "<b>Splash:</b> o contorno é um retângulo animado (lado e raio interpolados) do tamanho do ícone até a caixa justa; as letras seguem a 5."
+      ],
+      risks: [
+        "Lê como “[L]etraço”: palavra com a inicial destacada, não uma palavra lisa como a 5.",
+        "Com --dots sobre papel, o contorno é claro; a 1 px, em tela de baixo contraste, some, e o que sobra é o vão de 0,29 em entre o L e o e.",
+        "A 0,04 em, borda e e quase se tocam no cabeçalho (≈ 1 px): em tela de baixa densidade, o antialias pode juntar os dois.",
+        "A caixa não é quadrada (" + "mais alta que larga" + "), então não é exatamente a forma do ícone de app; é a mesma família pelo raio e pelo traço.",
+        "Mesmos riscos da 5 com PNG + texto vivo: fonte do aparelho diferente desalinha a linha de base."
+      ]
+    },
+    {
+      key: "p7", num: "07", n: "7", name: "L grande com eco", build: function () { return P7(); },
+      idea: "A 4 com o nome no corpo normal. Na 4, só o L tem o corpo cheio e as outras letras encolhem até 0,47; aqui e, t, r, a, ç, o ficam no tamanho do nome das opções 1, 3 e 5, e só o L cresce. Continua tudo em tinta cheia, o ç em teal, numa linha de base só, e o eco do ícone no canto do L, acima de “etra”.",
+      spec: function (m) {
+        var top = -(m.ebox.t + m.capL), nat0 = M.L.adv - 1 + M.e.l - M.L.r;
+        return [
+          ["B", "", "Uma linha de base, um corpo", "e, t, r, a, ç, o no corpo do nome das opções 1, 3 e 5: Noto Serif 700, −0,01 em, ç em --brand. Só o L muda de corpo, e pousa na mesma linha."],
+          ["C", "", "L a " + br(m.R) + "× o nome", "Maiúscula do L = " + br(m.capL / 100) + " em do nome (a do nome é " + br(CAP / 100) + "). O L fica com " + br(m.capL / XH) + "× a altura-x: abaixo de 2×, a altura em que ele ocupa duas linhas de minúsculas e vira capitular. A escolha está no quadro abaixo."],
+          ["↔", "o", "Kerning L→e", "Ampliado, o L leva junto o lado direito: sem ajuste, a tinta do e ficaria a " + br(m.nat / 100, 3) + " em do braço do L. O par fecha " + br(-m.kern / 100, 3) + " em (além do −0,01 em do nome) e o e fica a " + br(m.leGap / 100) + " em, um pouco menos que num “Le” comum (" + br(nat0 / 100, 3) + " em): o canto vazio do L grande já abre a palavra."],
+          ["eco", "o", "Eco", "As cinco letras de longe nas posições de <code>brand_mark.dart</code>, ampliadas " + br(m.k) + "× (o e do eco tem " + br(P7E / 100) + " em do nome, " + br(P7E / m.R / 100) + " do L). O L conta pela tinta, não pela caixa, então o canto dele fica livre. O eco desce até a altura-x e sobe até ficar livre; entre a haste do L e 0,3 em depois do e, fica onde assenta mais fundo: " + br(m.ox / 100) + " em depois da tinta do e. Folga mínima de " + br(m.pad / 100) + " em (0,06 em do L, a regra da 4); a menor é " + br(m.minGap / 100) + " em, do " + m.near.e + " do eco ao " + m.near.g + " do nome. O topo fica " + br(Math.abs(top) / 100) + " em " + (top >= 0 ? "acima" : "abaixo") + " da maiúscula do L."],
+          ["op", "g", "Recuo do eco", "Cinza --muted de 58% a 36% e desfoque do ícone × " + br(m.k) + ". Desfoque desligado abaixo de 0,35 px."],
+          ["↕", "o", "Quando o eco some", "Em uma cor, e com o nome abaixo de 20 px (L abaixo de " + br(20 * m.R, 0) + " px). Abaixo de 14 px de nome, use o ícone."]
+        ];
+      },
+      extra: function () {
+        var vs = [[1.25, "1,25× · quase do nome"], [1.4, "1,40× · a escolha"], [1.6, "1,60× · capitular"]];
+        var rows = vs.map(function (q) {
+          var mv = P7(q[0]), top = -(mv.ebox.t + mv.capL), corner = (mv.capL - M.t.a) / 100;
+          var where = (top > 0.5 ? "sobe " + br(top / 100) + " em acima do L" : "cabe na altura do L");
+          var note = {
+            1.25: "Lê como uma palavra, mas o L passa só 25% do nome: parece erro de corpo, não intenção. Entre a maiúscula do L e o topo do t sobram " + br(corner) + " em; o eco " + where + " e a logo fica mais alta que o L.",
+            1.4: "Lê “Letraço” de uma vez, com o L marcando o começo, como no ícone. A maiúscula do L fica em " + br(mv.capL / XH) + "× a altura-x, abaixo das duas linhas de uma capitular. O canto tem " + br(corner) + " em e o eco quase cabe nele: " + where + ".",
+            1.6: "O L passa de 2× a altura-x (" + br(mv.capL / XH) + "×) e o traço dele fica 60% mais grosso que o das minúsculas: lê “L” + “etraço”, capitular de livro. O canto tem " + br(corner) + " em e o eco " + where + ", mas a palavra se parte."
+          }[q[0]];
+          return '<div class="row" style="align-items:flex-start;flex-wrap:wrap"><span style="width:180px"><b style="color:var(--ink);font-size:12px">' + q[1] + "</b><br>C do L " + br(mv.capL / 100) + " em · " + br(mv.capL / XH) + "× x<br>L→e " + br(mv.leGap / 100) + " em (aperto " + br(-mv.kern / 100, 3) + ")</span>" +
+            '<div style="min-width:220px">' + logoSVG(mv, SC.paper, (mv.box.b - mv.box.t) * .6) + '<p class="note" style="margin-top:8px">' + note + "</p></div></div>";
+        }).join("");
+        return '<div class="card wide"><h3>Três tamanhos para o L</h3><p class="sub">O mesmo nome a 60 px, o mesmo eco e a mesma regra de kerning (tinta do L a 0,04 em da tinta do e). Muda só o corpo do L e, com ele, o aperto L→e e o lugar do eco, recalculado para cada um.</p><div class="sizes">' + rows + "</div></div>";
+      },
+      clear: { R: function () { return XH; }, tag: "x", text: function () { return "Respiro = altura-x do nome (x), em volta da caixa com o eco. Mínimo: nome a 14 px (L a " + br(14 * P7R, 0) + " px), sem o eco; o o fica com " + br(14 * XH / 100, 1) + " px de altura-x, como na 3. O eco entra a partir de 20 px de nome, com o e do eco a " + br(20 * P7E / 100, 1) + " px de corpo."; }, min: [[.14, "mínimo · nome 14 px, sem eco", true], [.20, "eco · a partir de 20 px"]] },
+      splash: "Como na 4: o L e o ç do ícone viram o L e o ç do nome; as cinco letras de longe vão para o eco sem mudar o arranjo, só encolhem. O L pousa a 1,4× o nome; e, t, r, a, o entram por fade, já no corpo normal e em tinta cheia.",
+      flutter: [
+        "<b>Nome vivo:</b> <code>Text.rich</code> com dois spans: “L” com <code>fontSize</code> × " + br(P7R) + " e “etraço” no corpo do nome, ç em <code>Caderno.brand</code>. Spans de corpos diferentes dividem a linha de base sozinhos. O aperto L→e vai no <code>letterSpacing</code> do span do L.",
+        "<b>Eco: PNG</b> 1×–4× (o <code>flutter_svg</code> ignora <code>feGaussianBlur</code>), posicionado pela linha de base e pela tinta do e; ou cinco <code>Text</code> com <code>ImageFiltered</code> num <code>Stack</code>. Para não depender da fonte do aparelho, o logo inteiro num PNG.",
+        "<b>Splash: letras vivas.</b> Os alvos de <code>BrandMark.letterOf</code> passam a ser o L grande, o ç e as cinco letras do eco; e, t, r, a, o do nome entram por fade. Some o crossfade com <code>Logo.reveal</code>."
+      ],
+      risks: [
+        "A faixa boa é estreita: a 1,25× o L parece erro de corpo; a 1,6×, capitular. Outra serifa (Iowan, no iOS) muda essa conta.",
+        "O traço do L fica 1,4× mais grosso que o das minúsculas; em tela de baixa densidade, o L pesa mais que o resto.",
+        "O eco encosta no limite (0,08 em) sobre o r do nome. Se a fonte do aparelho mudar as alturas, ele toca o nome; eco e nome no mesmo PNG evitam isso.",
+        "No cabeçalho (nome a 24 px, como na 5; L a 34 px, quase o L da 4) o eco tem 6–9 px de corpo: textura, não leitura.",
+        "<code>Semantics(label: 'Letraço')</code> obrigatório."
+      ]
+    },
+    {
+      key: "p1", num: "01", n: "1", name: "Ícone + nome", build: P1,
+      idea: "O lockup de hoje, acertado no milímetro. O ícone entra inteiro, como selo, e o nome vem ao lado. Uma regra amarra tudo: o L do ícone e o L do nome têm a mesma altura e pousam na mesma linha de base. O tamanho do ladrilho sai daí, não de um número redondo.",
+      spec: function (m) {
+        return [
+          ["B", "", "Linha de base comum", "O L do ícone (y 78 de 108) cai na linha de base do nome. O ladrilho desce " + br((m.tile.y + m.tile.T) / 100) + " em abaixo dela, quase a profundidade da cedilha (" + br(M["ç"].d / 100) + " em)."],
+          ["C", "", "Mesma maiúscula", "C = " + br(CAP / 100) + " em, igual ao L do ícone. Ladrilho T = 72/57,34 × corpo = " + br(m.T / 100, 3) + " em (" + br(m.T * .22, 1) + " px com o nome a 22 px; hoje é 30)."],
+          ["T", "o", "Ladrilho", "Raio de 22% (como a máscara da loja). Papel com fio --line sobre papel e cartão; sem fio sobre fundos escuros."],
+          ["↔", "o", "Espaço", "0,4 em do ladrilho até a tinta do L (" + br(8.8, 1) + " px a 22 px; hoje são 10)."],
+          ["x", "g", "Tamanho óptico", "Com o ladrilho abaixo de 40 px, as letras de longe perdem o desfoque e ganham 10 pontos de opacidade. Senão o desfoque vira sujeira."]
+        ];
+      },
+      clear: { R: function () { return XH; }, tag: "x", text: "Respiro = altura-x do nome (x) em volta da caixa toda. Mínimo: ladrilho de 24 px (nome a 19 px). Abaixo disso, use só o ícone.", min: [[.19, "mínimo · nome 19 px"]] },
+      splash: "O ícone do splash do sistema encolhe até o ladrilho e o nome aparece ao lado. É o caminho mais curto, mas o nome não sai do ícone: só aparece.",
+      flutter: [
+        "<b>Ícone: asset.</b> Hoje é <code>icon.png</code>. Melhor um PNG próprio para ≤ 40 px (letras de longe sem desfoque) ou o SVG do ícone via <code>flutter_svg</code>.",
+        "<b>Nome: texto vivo</b>, como em <code>logo.dart</code>. Os números saem do corpo: <code>tile = textSize × 1,256</code>, <code>gap = textSize × 0,4</code>.",
+        "<b>Alinhamento:</b> <code>CrossAxisAlignment.baseline</code> não alinha imagem. Usar <code>Stack</code>/<code>Padding</code> com topo do ladrilho = linha de base − 0,833 × tile (linha de base via <code>TextPainter.computeDistanceToActualBaseline</code>)."
+      ],
+      risks: [
+        "Baixo risco. É o que já existe, só com outra conta.",
+        "A coincidência dos dois L depende da altura de maiúscula da fonte. Com Iowan (iOS) ou outra serifa, ela some; empacotar a Noto Serif Bold resolve.",
+        "A 28 px o ícone vira “L com pontinhos”: o nome repete o L logo ao lado."
+      ]
+    },
+    {
+      key: "p2", num: "02", n: "2", name: "Nome em profundidade", build: P2,
+      idea: "O nome inteiro vira a cena do ícone. O L fica perto e grande; e, t, r, a recuam, cada uma um pouco menor e mais clara; o ç volta para perto, em teal; o o é o mais distante. Tudo na mesma linha de base, para continuar sendo uma palavra só.",
+      spec: function () {
+        return [
+          ["B", "", "Uma linha de base", "Nenhuma letra sobe nem desce: a profundidade é só tamanho e tom. Assim continua lendo “Letraço”, de uma vez."],
+          ["C", "", "Escala (em do L)", P2SPEC.map(function (q, i) { return "Letraço"[i] + " " + br(q.s); }).join(" · ") + ". O ç fica perto da proporção do ícone (0,50); as de longe sobem de 0,16–0,23 (no ícone) para 0,47–0,55, para serem legíveis."],
+          ["x′", "", "Alturas-x", "ç: " + br(XH * P2SPEC[5].s / 100) + " em; e: " + br(XH * P2SPEC[1].s / 100) + " em do L. O L tem " + br(CAP / (XH * P2SPEC[1].s), 1) + "× a altura-x das pequenas: lê como capitular, não como letra solta."],
+          ["x", "g", "Tom = tinta + fundo", "Cada letra de longe é a tinta misturada ao fundo: e 26%, t 32%, r 38%, a 44%, o 50%. Cores sólidas, sem opacidade nem desfoque. Em qualquer fundo é a mesma conta."],
+          ["↔", "o", "Espaço", "Cada letra com seu espaço natural no próprio corpo. Só o par L→e aperta 0,015 em, para o L não se soltar do resto."]
+        ];
+      },
+      clear: { R: function () { return XH * P2SPEC[5].s; }, tag: "x′", text: function () { return "Respiro = altura-x do ç (x′ = " + br(XH * P2SPEC[5].s / 100) + " em do L). Mínimo: L de 24 px (logo com " + br(24 * (CAP + M["ç"].d * P2SPEC[5].s) / 100, 0) + " px de altura); o o fica com " + br(24 * XH * P2SPEC[6].s / 100, 1) + " px de altura-x. Abaixo disso, use o ícone."; }, min: [[.24, "mínimo · L 24 px"]] },
+      splash: "Cada letra do ícone viaja até o seu lugar no nome: o L sobe e encolhe, o ç vai para a sexta posição, as letras de longe chegam e crescem. A profundidade diminui, mas não some: o último quadro é o mesmo céu, arrumado em linha.",
+      flutter: [
+        "<b>Recomendado: asset vetorial</b> com as letras em curvas (SVG via <code>flutter_svg</code>, ou PNG 1×–4×) para o cabeçalho e a loja. O espaço entre corpos diferentes é o desenho; não deve depender da fonte do aparelho.",
+        "<b>Splash: letras vivas.</b> Um <code>Text</code> por letra, como o splash já faz com <code>BrandMark.letterOf</code>. Os alvos passam a ser as posições deste logo, e o crossfade com <code>Logo.reveal</code> deixa de existir.",
+        "<b>Alternativa viva:</b> <code>Text.rich</code> com um <code>TextSpan</code> por letra (corpo e cor próprios). Spans de corpos diferentes dividem a linha de base sozinhos. Cores com <code>Color.lerp(ink, fundo, t)</code>."
+      ],
+      risks: [
+        "O o pequeno é a letra mais frágil; em telas de baixa densidade, abaixo de 24 px de L, ele embola.",
+        "Se o espaço L→e abrir, lê “L · etraço”. Por isso o asset em curvas.",
+        "<code>Semantics(label: 'Letraço')</code> obrigatório: um leitor de tela não pode soletrar letra por letra.",
+        "O tom depende do fundo. Fundo novo = recalcular as cinco cores (são cinco <code>Color.lerp</code>)."
+      ]
+    },
+    {
+      key: "p3", num: "03", n: "3", name: "Nome com eco", build: P3,
+      idea: "O nome numa serifa só, com o ç em teal, como hoje sem o ícone. Por cima, o céu do ícone: as cinco letras de longe na mesma disposição do ícone, em cinza, recuadas e levemente desfocadas. Funciona sozinho e conta a mesma história, se houver espaço.",
+      spec: function (m) {
+        return [
+          ["C", "", "Nome", "Noto Serif 700, −0,01 em, ç em --brand. C = " + br(CAP / 100) + " em, x = " + br(XH / 100) + " em. Sem nenhuma alteração de desenho."],
+          ["x", "g", "Linhas", "Linha de base (B), altura-x (x) e cedilha (ç) do próprio nome; nada muda de corpo."],
+          ["eco", "o", "Eco", "As letras de longe do ícone com as posições de <code>brand_mark.dart</code>, ampliadas " + br(m.k, 1) + "× (o e do eco tem 0,34 em). Começa sobre o e do nome, 0,14 em acima da maiúscula."],
+          ["op", "g", "Recuo", "Opacidade de 58% a 36% e desfoque proporcional ao do ícone. Abaixo de 0,35 px o desfoque é desligado."],
+          ["↕", "o", "Quando some", "No monocromático e com o nome abaixo de 20 px, sai o eco. Fica o nome com o ç teal."]
+        ];
+      },
+      clear: { R: function () { return XH; }, tag: "x", text: "Respiro = altura-x do nome (x). Mínimo: nome a 14 px, sem o eco. O eco só a partir de 20 px de nome.", min: [[.14, "mínimo · 14 px sem eco", true], [.2, "eco · a partir de 20 px"]] },
+      splash: "O L e o ç do ícone viram as letras do nome; as cinco letras de longe sobem para o eco sem mudar o arranjo. As letras e, t, r, a, o do nome entram por fade.",
+      flutter: [
+        "<b>Nome: texto vivo</b>, igual ao de hoje (<code>Text.rich</code> com o ç em <code>Caderno.brand</code>).",
+        "<b>Eco:</b> cinco <code>Text</code> posicionados num <code>Stack</code>, cada um com <code>ImageFiltered</code> para o desfoque, ou um PNG só do eco sobre o texto.",
+        "<b>No cabeçalho:</b> o logo fica com ≈ 34 px numa linha de 40 px, colado no topo da área."
+      ],
+      risks: [
+        "Cada desfoque é um <code>saveLayer</code>; no splash, animado, custa.",
+        "Em tamanho pequeno o eco vira mancha cinza sobre o nome.",
+        "Dois elementos para manter alinhados (texto vivo + eco); se a fonte do aparelho mudar, o eco sai de cima do e.",
+        "Em uma cor só, sobra o nome sem nenhum sinal do ícone além do ç."
+      ]
+    }
+  ];
+
+  function section(p, idx) {
+    var m = p.build(), id = p.key;
+    var specs = p.spec(m).map(function (r) {
+      return "<div><dt><i class=\"" + r[1] + "\">" + r[0] + "</i>" + r[2] + "</dt><dd>" + r[3] + "</dd></div>";
+    }).join("");
+    var hdrH = (m.box.b - m.box.t) * m.hdr;
+    var sizes =
+      '<div class="row"><span>Cabeçalho<br>' + br(hdrH, 0) + " px de altura</span><div>" + logoSVG(m, SC.paper, hdrH) + "</div></div>" +
+      '<div class="row"><span>48 px</span><div>' + logoSVG(m, SC.paper, 48) + "</div></div>" +
+      '<div class="row"><span>Grande<br>120 px</span><div>' + logoSVG(m, SC.paper, 120) + "</div></div>";
+    var sw = ["paper", "card", "ink", "teal", "mono"].map(function (k) {
+      var sc = SC[k];
+      return '<div class="sw" style="background:' + sc.bg + (k === "card" || k === "mono" ? ";box-shadow:inset 0 0 0 1px " + C.line : "") + '"><div class="lg">' +
+        logoSVG(m, sc, 46) + '</div><small style="color:' + sc.txt + '">' + sc.name + "</small></div>";
+    }).join("");
+    var mins = p.clear.min.map(function (q) {
+      var hh = (q[2] && m.wbox ? (m.wbox.b - m.wbox.t) : (m.box.b - m.box.t)) * q[0];
+      return '<div class="row"><span>' + q[1] + "</span><div>" + logoSVG(m, SC.paper, hh, { noEcho: q[2] }) + "</div></div>";
+    }).join("");
+    var monoNote = { p6: "O contorno muda com o fundo: --dots no papel e no cartão, --ink2 na tinta, #3E8C82 no teal, tinta em uma cor (sem as letras de longe).", p4: "Em uma cor, o eco sai e o ç fica em tinta; a escala continua.", p7: "Em uma cor, o eco sai e o ç fica em tinta; fica o nome com o L maior.", p5: "Em uma cor, as letras de longe saem e o ç fica em tinta: sobra o nome comum.", p1: "Em uma cor, o ladrilho vira contorno e as letras de longe saem.", p2: "Em uma cor, todas as letras ficam na tinta cheia; a profundidade continua no tamanho.", p3: "Em uma cor, o eco sai." }[id];
+    var html =
+      '<section class="sec" id="' + id + '">' +
+      '<div class="sech"><span class="num">' + p.num + "</span><h2>" + p.name + "</h2></div>" +
+      '<p class="idea">' + p.idea + "</p>" +
+      '<div class="grid">' +
+      '<div class="card wide"><h3>Construção</h3><p class="sub">Em papel, com as linhas de construção (botão no topo).</p>' +
+      '<div class="build"><div class="art">' + constructionSVG(m) + '</div><dl class="spec">' + specs + "</dl></div></div>" + (p.extra ? p.extra(m) : "") +
+      '<div class="card"><h3>Tamanhos</h3><p class="sub">Em pixels reais. O cabeçalho é a medida do app em 390 px de largura.</p><div class="sizes">' + sizes + "</div></div>" +
+      '<div class="card"><h3>Cores</h3><p class="sub">' + monoNote + ' No teal, o ç passa para --brand-soft: o fundo já é a marca.</p><div class="swatches">' + sw + "</div></div>" +
+      '<div class="card"><h3>Respiro e tamanho mínimo</h3><p class="sub">' + (typeof p.clear.text === "function" ? p.clear.text() : p.clear.text) + '</p><div class="art" style="max-width:520px">' +
+      clearSVG(m, p.clear.R(), { tag: p.clear.tag, noEcho: false }) + '</div><div class="sizes" style="margin-top:12px">' + mins + "</div></div>" +
+      '<div class="card"><h3>No Flutter</h3><p class="sub">O que é asset e o que é texto vivo.</p><div class="two"><ul class="dots">' +
+      p.flutter.map(function (t) { return "<li>" + t + "</li>"; }).join("") + '</ul><div><p class="lbl">Riscos</p><ul class="dots risk">' +
+      p.risks.map(function (t) { return "<li>" + t + "</li>"; }).join("") + "</ul></div></div></div>" +
+      '<div class="card wide"><h3>Em uso</h3><p class="sub">Cabeçalho do jogo a 390 px, último quadro do splash e imagem de destaque da Play Store (1024 × 500).</p>' +
+      '<div class="ctx"><div class="col"><div class="phone">' + splashSVG(m) + '</div><p class="note">' + p.splash + "</p></div>" +
+      '<div class="col"><div><div class="hdr">' + headerSVG(m) + '</div><p class="cap">Cabeçalho · 390 px</p></div>' +
+      '<div><div class="fg">' + featureSVG(m) + '</div><p class="cap">Play Store · imagem de destaque 1024 × 500</p></div></div></div></div>' +
+      "</div></section>";
+    return { html: html, m: m };
+  }
+
+  function render() {
+    measure();
+    var models = [];
+    $("props").innerHTML = PROPS.map(function (p, i) { var s = section(p, i); models.push(s.m); return s.html; }).join("");
+    $("cmp").innerHTML = models.map(function (m, i) {
+      var h = (m.box.b - m.box.t) * m.hdr, w = (m.box.r - m.box.l) * m.hdr;
+      $("w" + (i + 1)).textContent = br(w, 0) + " × " + br(h, 0) + " px";
+      return '<div class="row"><span>' + PROPS[i].n + " · " + PROPS[i].name + "</span><div>" + logoSVG(m, SC.paper, h) + "</div></div>";
+    }).join("");
+    var m5 = models.filter(function (m) { return m.id === 5; })[0], m7 = models.filter(function (m) { return m.id === 7; })[0];
+    $("recArt").innerHTML = logoSVG(m7, SC.paper, 110, { pad: 10 }) + '<p class="cap">7 · L grande com eco</p><div style="height:14px"></div>' + logoSVG(m5, SC.paper, 110, { pad: 10 }) + '<p class="cap">5 · Ícone como L (alternativa)</p>';
+  }
+
+  $("guides").addEventListener("change", function (e) { document.body.classList.toggle("guides", e.target.checked); });
+  var go = function () { try { render(); } catch (e) { console.error(e); } };
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load("700 100px 'Noto Serif'").then(go, go);
+  } else go();
+})();
+</script>
+</body>
+</html>
