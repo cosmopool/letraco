@@ -10,6 +10,10 @@ class Logo extends StatelessWidget {
   static const textSize = 22.0;
   static const letterSpacing = -.2;
 
+  /// Opacity of the logo. The splash hides it and fades it in while its own
+  /// letters fade out on top, so the two never need to line up exactly.
+  static final reveal = ValueNotifier<double>(1);
+
   /// Style of the name; the splash lands its letters on it.
   static TextStyle style({Color color = Caderno.ink}) => Caderno.serifStyle(
     size: textSize,
@@ -21,6 +25,15 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder<double>(
+      valueListenable: reveal,
+      builder: (context, opacity, child) =>
+          Opacity(opacity: opacity, child: child),
+      child: _mark(),
+    );
+  }
+
+  Widget _mark() {
     return Semantics(
       label: 'Letraço',
       excludeSemantics: true,

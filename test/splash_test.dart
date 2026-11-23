@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:letraco/database/database_datasource.dart';
 import 'package:letraco/game_controller.dart';
 import 'package:letraco/splash_screen.dart';
+import 'package:letraco/wigets/logo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -44,10 +45,12 @@ void main() {
     await pumpFor(tester, const Duration(seconds: 3));
     expect(find.byType(SplashScreen), findsOneWidget);
     expect(find.text('Espalhando as palavras…'), findsOneWidget);
+    expect(Logo.reveal.value, 0);
 
     await tester.runAsync(controller.loadGame);
     await pumpFor(tester, const Duration(seconds: 2));
     expect(find.byType(SplashScreen), findsNothing);
     expect(find.text('jogo'), findsOneWidget);
+    expect(Logo.reveal.value, 1);
   });
 }

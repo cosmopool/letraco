@@ -4,6 +4,7 @@ import 'package:letraco/game_controller.dart';
 import 'package:letraco/main.dart';
 import 'package:letraco/main_page.dart';
 import 'package:letraco/splash_screen.dart';
+import 'package:letraco/wigets/logo.dart';
 import 'package:letraco/wigets/sky.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +28,7 @@ void main() {
     expect(find.byType(SplashScreen, skipOffstage: false), findsNothing);
     expect(find.byType(MainPage), findsOneWidget);
     expect(find.byType(Sky), findsOneWidget);
+    expect(Logo.reveal.value, 1);
   }
 
   final savedGame = <String, Object>{

@@ -26,6 +26,8 @@ class SplashScreen extends StatefulWidget {
   /// Route that keeps the game screen painted underneath and has no
   /// transition of its own: the animation is the transition.
   static Route<void> route(GameController controller, RouteSettings settings) {
+    // the header logo appears only when the splash hands over to it
+    Logo.reveal.value = 0;
     return PageRouteBuilder<void>(
       settings: settings,
       opaque: false,
@@ -45,11 +47,13 @@ abstract final class _Beat {
   static const spelled = .58;
   static const gate = .62; // holds here until the game is loaded
   static const landed = 1.10;
-  // the paper only gives way once the name has landed on the header logo
-  static const paperFrom = 1.10;
-  static const paperTo = 1.40;
-  static const lettersOut = 1.40;
-  static const end = 1.52;
+  // as the name lands, its letters fade out and the header logo fades in
+  // under them; the paper gives way to the game at the same time
+  static const swapFrom = .98;
+  static const swapTo = 1.28;
+  static const paperFrom = 1.0;
+  static const paperTo = 1.32;
+  static const end = 1.36;
   static const reducedEnd = .45;
 }
 
@@ -86,6 +90,12 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
+    // never leave the header logo hidden
+    if (Logo.reveal.value != 1) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Logo.reveal.value = 1;
+      });
+    }
     _sub.cancel();
     _ticker.dispose();
     _repaint.dispose();
@@ -114,6 +124,9 @@ class _SplashScreenState extends State<SplashScreen>
       held = loaded - gate;
       released = _now - loaded;
     }
+    Logo.reveal.value = _reduced
+        ? _Curve.eio(_Curve.seg(tg, 0, .4))
+        : _Curve.seg(tg, _Beat.swapFrom, _Beat.swapTo);
     _repaint.tick();
     if (mounted) setState(() {});
     if (!_done && tg >= (_reduced ? _Beat.reducedEnd : _Beat.end)) {
@@ -302,7 +315,7 @@ class _SplashPainter extends CustomPainter {
 
     final spell = _Curve.eio(_Curve.seg(tg, _Beat.spellStart, _Beat.spelled));
     final fly = _Curve.eio(_Curve.seg(tg, _Beat.gate, _Beat.landed));
-    final out = 1 - _Curve.seg(tg, _Beat.lettersOut, _Beat.end);
+    final out = 1 - _Curve.seg(tg, _Beat.swapFrom, _Beat.swapTo);
 
     for (var i = 0; i < BrandMark.name.length; i++) {
       final m = BrandMark.letterOf(i);
