@@ -1,6 +1,6 @@
 # Requisitos — nova tela de jogo (palavras flutuantes)
 
-Referência visual e de comportamento: [`mock_caderno.html`](../mock_caderno.html) (mock interativo, palavras e significados mockados). Paleta: `Caderno` em [`lib/theme.dart`](../lib/theme.dart).
+Referência visual e de comportamento: [`design_system.html`](design_system.html) (mock interativo, palavras e significados mockados). Paleta: `Caderno` em [`lib/theme.dart`](../lib/theme.dart).
 Quando este documento e o mock divergirem, vale este documento. O mock ainda mostra nível e pontos (chip, "Faltam N pts", "+N" no selo); no app eles não existem.
 
 ## Contexto
