@@ -238,7 +238,6 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
 .ds-howto ul{margin:0;padding:0;list-style:none}
 .ds-howto li{margin:4px 0}
 .ds-howto li::before{content:"\2022  ";font-weight:700;font-size:18px}
-.ds-howto mark{background:var(--err-soft,#F6DCD5);color:var(--err);border-radius:3px;padding:0 2px}
 .ds-depth{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
 .ds-depth .row{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--ink2)}
 .ds-depth input{accent-color:var(--brand);width:220px}
@@ -537,12 +536,12 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <div class="ds-screen">
       <div class="ds-howto"><div class="bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Como jogar</b></div><div class="bd">
         <h6>Objetivo</h6><p>Encontre todas as palavras válidas que podem ser formadas com as 7 letras do dia. A letra do centro é obrigatória em todas as palavras.</p>
-        <h6>Como jogar</h6><p>Toque nas letras (a central e as ao redor) para montar uma palavra. Você pode usar a mesma letra várias vezes. Quando terminar, pressione <mark>"Checar"</mark> para confirmar.</p><p>Se a palavra for válida, ela aparecerá <mark>na lista</mark> e a barra de progresso avançará.</p><p>Pressione <mark>"Deletar"</mark> uma vez para apagar a última letra. Segure pressionado para limpar tudo.</p><p>Toque no ícone de embaralhar para reorganizar as letras ao redor e enxergar novas combinações.</p>
-        <h6>Dicas</h6><ul><li><mark>Quanto mais longa a palavra, mais ela contribui para o progresso.</mark></li><li>Procure por palavras com 4 ou mais letras. <mark>Não há limite máximo de tamanho.</mark></li><li>Palavras que usam todas as 7 letras ao menos uma vez são raras, <mark>mas valem muito.</mark></li></ul>
-        <h6>Regras</h6><ul><li>As palavras devem conter no mínimo 4 letras</li><li>Todas as palavras devem conter a letra do centro</li><li>As letras podem ser usadas mais de uma vez</li><li>Algumas palavras podem não estar listadas (preposições e conjunções)</li><li>Somente os verbos no infinitivo são válidos. Exemplo: “subir”, “correr”, “jogar”...</li><li>Ambos os gêneros de uma palavra são válidos. Exemplo: “aluno”, “aluna”...</li><li>Plurais não são válidos. Exemplo: “laranjas”, “uvas”, “goiabas”...</li></ul>
+        <h6>Como jogar</h6><p>Toque nas letras (a central e as ao redor) para montar uma palavra no centro da tela. Você pode usar a mesma letra várias vezes. Para enviar, toque no botão de confirmar ou na própria palavra.</p><p>Se a palavra for válida, ela passa a flutuar no céu e a barra de progresso avança.</p><p>Toque em apagar uma vez para tirar a última letra. Segure para limpar tudo.</p><p>Toque no ícone de embaralhar para reorganizar as letras ao redor e enxergar novas combinações.</p><p>Toque numa palavra flutuante para ver o significado, quando houver. Toque na linha das últimas palavras, ou arraste-a para cima, para abrir o Glossário com todas as que você achou.</p>
+        <h6>Dicas</h6><ul><li>Toda palavra conta igual para o progresso, curta ou longa.</li><li>Palavras que usam todas as 7 letras ao menos uma vez são raras: são os pangramas.</li></ul>
+        <h6>Regras</h6><ul><li>As palavras devem ter de 4 a 8 letras</li><li>Todas as palavras devem conter a letra do centro</li><li>As letras podem ser usadas mais de uma vez</li><li>Algumas palavras podem não estar listadas (preposições e conjunções)</li><li>Somente os verbos no infinitivo são válidos. Exemplo: “subir”, “correr”, “jogar”...</li><li>Ambos os gêneros de uma palavra são válidos. Exemplo: “aluno”, “aluna”...</li><li>Plurais não são válidos. Exemplo: “laranjas”, “uvas”, “goiabas”...</li></ul>
       </div></div>
       <ul>
-        <li><b>Texto como está no código.</b> Os trechos marcados contradizem o livro: os botões agora são Enviar e Apagar, as palavras vão para o céu e o Glossário, a palavra digitada tem no máximo 8 letras e o progresso conta palavras, sem valor por tamanho.</li>
+        <li><b>Texto como está no código.</b> Fala dos botões pelo que fazem (confirmar, apagar, embaralhar), não por rótulo, porque eles não têm legenda.</li>
         <li><b>Fora do Caderno.</b> Títulos em sans, não em serifa; AppBar e cores padrão do Material 3.</li>
         <li><b>Fechar.</b> Com <code>showClose</code>, aparece um X que volta para o jogo.</li>
       </ul>
@@ -1066,6 +1065,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     ["Entrada do Glossário", "Glossário · 20"],
     ["Faltantes", "Faltam 8 palavras · Falta 1 palavra · Todas achadas"],
     ["Menu", "Menu · Novo jogo · Como jogar"],
+    ["Como jogar", "Toda palavra conta igual para o progresso, curta ou longa."],
     ["Novo jogo", "Iniciar um novo jogo? · Ao iniciar um novo jogo você perderá todo o progresso atual, deseja continuar? · Não · Sim"]
   ]);
 

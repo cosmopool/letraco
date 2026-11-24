@@ -51,20 +51,21 @@ class InstructionsPage extends StatelessWidget {
               titleSpace,
               Text(
                 'Toque nas letras (a central e as ao redor) para montar uma '
-                'palavra. Você pode usar a mesma letra várias vezes. '
-                'Quando terminar, pressione "Checar" para confirmar.',
+                'palavra no centro da tela. Você pode usar a mesma letra '
+                'várias vezes. Para enviar, toque no botão de confirmar ou '
+                'na própria palavra.',
                 style: contentStyle,
               ),
               titleSpace,
               Text(
-                'Se a palavra for válida, ela aparecerá na lista e a barra de '
-                'progresso avançará.',
+                'Se a palavra for válida, ela passa a flutuar no céu e a '
+                'barra de progresso avança.',
                 style: contentStyle,
               ),
               titleSpace,
               Text(
-                'Pressione "Deletar" uma vez para apagar a última letra. '
-                'Segure pressionado para limpar tudo.',
+                'Toque em apagar uma vez para tirar a última letra. '
+                'Segure para limpar tudo.',
                 style: contentStyle,
               ),
               titleSpace,
@@ -73,25 +74,28 @@ class InstructionsPage extends StatelessWidget {
                 'redor e enxergar novas combinações.',
                 style: contentStyle,
               ),
+              titleSpace,
+              Text(
+                'Toque numa palavra flutuante para ver o significado, quando '
+                'houver. Toque na linha das últimas palavras, ou arraste-a '
+                'para cima, para abrir o Glossário com todas as que você '
+                'achou.',
+                style: contentStyle,
+              ),
               SizedBox(height: 32),
               Text('Dicas', style: titleStyle),
               titleSpace,
               BulletPoint(
-                'Quanto mais longa a palavra, mais ela contribui '
-                'para o progresso.',
-              ),
-              BulletPoint(
-                'Procure por palavras com 4 ou mais letras. '
-                'Não há limite máximo de tamanho.',
+                'Toda palavra conta igual para o progresso, curta ou longa.',
               ),
               BulletPoint(
                 'Palavras que usam todas as 7 letras ao menos uma vez '
-                'são raras, mas valem muito.',
+                'são raras: são os pangramas.',
               ),
               SizedBox(height: 32),
               Text('Regras', style: titleStyle),
               titleSpace,
-              BulletPoint('As palavras devem conter no mínimo 4 letras'),
+              BulletPoint('As palavras devem ter de 4 a 8 letras'),
               BulletPoint(
                 'Todas as palavras devem conter a letra do centro',
               ),
