@@ -28,9 +28,9 @@ class MarkLetter {
 /// The app icon: a near "L", the "ç" in its corner, and the rest of the name
 /// far behind them.
 ///
-/// Same layout as `assets/images/foreground.png` (exported from
-/// `proposta_icone_splash_3.html` with Noto Serif bold, the serif Android
-/// uses), so the splash can start from the exact system splash frame.
+/// Same layout as `assets/images/foreground.png` (measured with Noto Serif
+/// bold, the serif Android uses), so the splash can start from the exact
+/// system splash frame. Documented in `docs/design_system.html#c-icon`.
 abstract final class BrandMark {
   /// Side of the adaptive icon canvas, in dp.
   static const canvas = 108.0;

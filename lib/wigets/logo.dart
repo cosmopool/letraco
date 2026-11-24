@@ -29,8 +29,8 @@ class LogoGlyph {
 /// the normal size with a teal ç, and the icon's far letters echoed above, in
 /// the L's corner.
 ///
-/// Layout exported from `proposta_logo_longa.html` (proposal 7), measured
-/// with Noto Serif bold, the serif Android uses.
+/// Layout measured with Noto Serif bold, the serif Android uses. Documented
+/// in `docs/design_system.html#c-logo`.
 class Logo extends StatelessWidget {
   const Logo({super.key});
 
