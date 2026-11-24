@@ -216,6 +216,29 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
 .ds-phonebar{width:390px;max-width:100%;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding-bottom:10px}
 .ds-sheet{width:390px;max-width:100%;background:var(--card);border-radius:28px 28px 0 0;box-shadow:0 -1px 0 var(--line),0 10px 30px -12px rgba(29,38,38,.3);padding-bottom:18px}
 .ds-sheet .body{padding:0 16px}
+/* stock Material 3 parts: menu, dialog, Como jogar */
+.ds-drawer{width:300px;max-width:100%;background:var(--card);border-radius:0 16px 16px 0;box-shadow:0 10px 30px -12px rgba(29,38,38,.3);padding:4px 0 12px}
+.ds-drawer .sec{padding:16px 24px 8px;font-size:14px;font-weight:500;color:var(--ink2)}
+.ds-drawer .it{display:flex;align-items:center;gap:16px;margin:4px 8px;padding:0 16px;height:56px;border-radius:32px;font-size:16px;color:var(--ink)}
+.ds-drawer .it:hover{background:var(--paper2)}
+.ds-drawer hr{border:0;border-top:1px solid var(--line);margin:4px 24px}
+.ds-dialog{width:312px;max-width:100%;background:var(--card);border-radius:28px;padding:24px 24px 18px;box-shadow:0 10px 30px -12px rgba(29,38,38,.35)}
+.ds-dialog h5{margin:0 0 16px;font:400 24px/1.25 var(--sans);color:var(--ink)}
+.ds-dialog p{margin:0;font-size:14px;line-height:1.45;color:var(--ink2)}
+.ds-dialog .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:24px}
+.ds-dialog .acts span{padding:10px 12px;font:500 14px var(--sans);color:var(--brand);border-radius:20px}
+.ds-howto{width:360px;max-width:100%;height:560px;overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:16px}
+.ds-howto .bar{position:sticky;top:0;display:flex;align-items:center;height:64px;padding:0 4px;background:var(--paper)}
+.ds-howto .bar b{flex:1;text-align:center;font-size:24px;margin-right:48px}
+.ds-howto .bar i{width:48px;height:48px;display:grid;place-items:center}
+.ds-howto .bd{padding:0 24px 24px;font-size:16px;line-height:1.4}
+.ds-howto h6{margin:24px 0 8px;font:700 24px var(--sans)}
+.ds-howto h6:first-child{margin-top:8px}
+.ds-howto p{margin:0 0 8px}
+.ds-howto ul{margin:0;padding:0;list-style:none}
+.ds-howto li{margin:4px 0}
+.ds-howto li::before{content:"\2022  ";font-weight:700;font-size:18px}
+.ds-howto mark{background:var(--err-soft,#F6DCD5);color:var(--err);border-radius:3px;padding:0 2px}
 .ds-depth{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
 .ds-depth .row{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--ink2)}
 .ds-depth input{accent-color:var(--brand);width:220px}
@@ -272,8 +295,11 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <li><a href="#c-hex">Tecla hexagonal</a></li>
     <li><a href="#c-actions">Botões de ação</a></li>
     <li><a href="#c-glossary">Glossário</a></li>
+    <li><a href="#c-menu">Menu</a></li>
+    <li><a href="#c-dialog">Diálogo</a></li>
     <li class="h">Telas</li>
     <li><a href="#tela-jogo">Tela de jogo</a></li>
+    <li><a href="#tela-como-jogar">Como jogar</a></li>
     <li class="h">Uso</li>
     <li><a href="#voz">Voz e textos</a></li>
     <li><a href="#regras">Fazer e não fazer</a></li>
@@ -427,6 +453,16 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
       <div class="ds-states" data-for="c-glossary"><button class="on" data-v="missing">Com faltantes</button><button data-v="done">Seção completa</button><button data-v="nomeaning">Sem significados</button></div>
       <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Folha</td><td>raio 28 no topo, alça 40 × 4, título serif 26 px 700</td></tr><tr><td>Seção</td><td>fio 2 px --brand, “N LETRAS” e “F DE T” em 11 px caixa-alta</td></tr><tr><td>Verbete</td><td>palavra serif 18 px 700 --brand, significado serif 15 px --ink2, pontilhado --dots</td></tr><tr><td>Selos</td><td>“pangrama” em --honey-soft / --honey-ink; “nova” em --brand-soft / --brand</td></tr><tr><td>Faltantes</td><td>faixa --brand-soft cheia, número serif 20 px; completa só com contorno</td></tr></tbody></table></div>
     </article>
+    <article class="ds-comp" id="c-menu">
+      <header><h3>Menu</h3><code>lib/wigets/drawer.dart · CustomDrawer, MenuItem</code><p>Gaveta do Material 3 aberta pelo ícone de menu do cabeçalho. Uma seção “Menu” com Novo jogo e Como jogar, separados por um fio. Em modo debug aparece também “Show all words DEBUG”.</p></header>
+      <div class="ds-stage"><div class="ds-drawer"><div class="sec">Menu</div><div class="it"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 5V2L8 6l4 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/></svg>Novo jogo</div><hr><div class="it"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="currentColor"/></svg>Como jogar</div></div></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Item</td><td>ListTile com ícone e texto, raio 32, margem 8 × 4</td></tr><tr><td>Fio</td><td>1 px --line, recuo de 24 px dos dois lados</td></tr><tr><td>Cores</td><td>padrão do Material 3 a partir de <code>Caderno.theme()</code>: texto e ícone em <code>onSecondaryContainer</code>, fundo da gaveta derivado do seed teal (sem token próprio)</td></tr><tr><td>Novo jogo</td><td>abre o diálogo de confirmação</td></tr><tr><td>Como jogar</td><td>abre a rota <code>/instructions</code></td></tr></tbody></table></div>
+    </article>
+    <article class="ds-comp" id="c-dialog">
+      <header><h3>Diálogo</h3><code>lib/wigets/dialogs.dart · showTwoButtonsDialog</code><p>AlertDialog do Material 3, sem estilo próprio. Hoje só confirma um novo jogo. Existe também <code>showNoButtonsDialog</code>, só com título e texto.</p></header>
+      <div class="ds-stage" style="background:var(--scrim)"><div class="ds-dialog"><h5>Iniciar um novo jogo?</h5><p>Ao iniciar um novo jogo você perderá todo o progresso atual, deseja continuar?</p><div class="acts"><span>Não</span><span>Sim</span></div></div></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Folha</td><td>raio 28, padrão do Material 3</td></tr><tr><td>Ações</td><td>TextButton “Não” (fecha) e “Sim” (confirma), em --brand, estilo <code>labelLarge</code></td></tr><tr><td>Fundo</td><td>véu do Material sobre o jogo</td></tr></tbody></table></div>
+    </article>
   </section>
 
   <section class="ds-sec" id="tela-jogo">
@@ -491,6 +527,24 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
         <li><b>Toque numa palavra flutuante</b> para trazê-la para a frente e ver o significado.</li>
         <li><b>Toque na linha das últimas</b>, ou arraste-a para cima, para abrir o Glossário. Esc fecha.</li>
         <li>Tente <code>CHORAR</code> (nova), <code>HORA</code> (repetida), <code>CHALE</code> (sem o R) e <code>ARO</code> (curta).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ds-sec" id="tela-como-jogar">
+    <h2>Como jogar</h2>
+    <p class="ds-intro">Página de instruções (<code>lib/instructions_page.dart · InstructionsPage</code>), aberta pelo menu. Scaffold do Material 3 com AppBar e título centralizado; títulos em sans 24 px bold, texto 16 px, marcadores “•” 18 px bold, margem de 24 px e 32 px entre blocos.</p>
+    <div class="ds-screen">
+      <div class="ds-howto"><div class="bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Como jogar</b></div><div class="bd">
+        <h6>Objetivo</h6><p>Encontre todas as palavras válidas que podem ser formadas com as 7 letras do dia. A letra do centro é obrigatória em todas as palavras.</p>
+        <h6>Como jogar</h6><p>Toque nas letras (a central e as ao redor) para montar uma palavra. Você pode usar a mesma letra várias vezes. Quando terminar, pressione <mark>"Checar"</mark> para confirmar.</p><p>Se a palavra for válida, ela aparecerá <mark>na lista</mark> e a barra de progresso avançará.</p><p>Pressione <mark>"Deletar"</mark> uma vez para apagar a última letra. Segure pressionado para limpar tudo.</p><p>Toque no ícone de embaralhar para reorganizar as letras ao redor e enxergar novas combinações.</p>
+        <h6>Dicas</h6><ul><li><mark>Quanto mais longa a palavra, mais ela contribui para o progresso.</mark></li><li>Procure por palavras com 4 ou mais letras. <mark>Não há limite máximo de tamanho.</mark></li><li>Palavras que usam todas as 7 letras ao menos uma vez são raras, <mark>mas valem muito.</mark></li></ul>
+        <h6>Regras</h6><ul><li>As palavras devem conter no mínimo 4 letras</li><li>Todas as palavras devem conter a letra do centro</li><li>As letras podem ser usadas mais de uma vez</li><li>Algumas palavras podem não estar listadas (preposições e conjunções)</li><li>Somente os verbos no infinitivo são válidos. Exemplo: “subir”, “correr”, “jogar”...</li><li>Ambos os gêneros de uma palavra são válidos. Exemplo: “aluno”, “aluna”...</li><li>Plurais não são válidos. Exemplo: “laranjas”, “uvas”, “goiabas”...</li></ul>
+      </div></div>
+      <ul>
+        <li><b>Texto como está no código.</b> Os trechos marcados contradizem o livro: os botões agora são Enviar e Apagar, as palavras vão para o céu e o Glossário, a palavra digitada tem no máximo 8 letras e o progresso conta palavras, sem valor por tamanho.</li>
+        <li><b>Fora do Caderno.</b> Títulos em sans, não em serifa; AppBar e cores padrão do Material 3.</li>
+        <li><b>Fechar.</b> Com <code>showClose</code>, aparece um X que volta para o jogo.</li>
       </ul>
     </div>
   </section>
@@ -1010,7 +1064,9 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     ["Acerto", "Boa! · Ótima! · Pangrama!"],
     ["Progresso", "20 de 47 palavras"],
     ["Entrada do Glossário", "Glossário · 20"],
-    ["Faltantes", "Faltam 8 palavras · Falta 1 palavra · Todas achadas"]
+    ["Faltantes", "Faltam 8 palavras · Falta 1 palavra · Todas achadas"],
+    ["Menu", "Menu · Novo jogo · Como jogar"],
+    ["Novo jogo", "Iniciar um novo jogo? · Ao iniciar um novo jogo você perderá todo o progresso atual, deseja continuar? · Não · Sim"]
   ]);
 
   // ------------------------------------------------------------ states
