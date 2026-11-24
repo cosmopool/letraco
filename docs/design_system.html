@@ -216,17 +216,12 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
 .ds-phonebar{width:390px;max-width:100%;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding-bottom:10px}
 .ds-sheet{width:390px;max-width:100%;background:var(--card);border-radius:28px 28px 0 0;box-shadow:0 -1px 0 var(--line),0 10px 30px -12px rgba(29,38,38,.3);padding-bottom:18px}
 .ds-sheet .body{padding:0 16px}
-/* stock Material 3 parts: menu, dialog, Como jogar */
+/* stock Material 3 parts: menu, Como jogar */
 .ds-drawer{width:300px;max-width:100%;background:var(--card);border-radius:0 16px 16px 0;box-shadow:0 10px 30px -12px rgba(29,38,38,.3);padding:4px 0 12px}
 .ds-drawer .sec{padding:16px 24px 8px;font-size:14px;font-weight:500;color:var(--ink2)}
 .ds-drawer .it{display:flex;align-items:center;gap:16px;margin:4px 8px;padding:0 16px;height:56px;border-radius:32px;font-size:16px;color:var(--ink)}
 .ds-drawer .it:hover{background:var(--paper2)}
 .ds-drawer hr{border:0;border-top:1px solid var(--line);margin:4px 24px}
-.ds-dialog{width:312px;max-width:100%;background:var(--card);border-radius:28px;padding:24px 24px 18px;box-shadow:0 10px 30px -12px rgba(29,38,38,.35)}
-.ds-dialog h5{margin:0 0 16px;font:400 24px/1.25 var(--sans);color:var(--ink)}
-.ds-dialog p{margin:0;font-size:14px;line-height:1.45;color:var(--ink2)}
-.ds-dialog .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:24px}
-.ds-dialog .acts span{padding:10px 12px;font:500 14px var(--sans);color:var(--brand);border-radius:20px}
 .ds-howto{width:360px;max-width:100%;height:560px;overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:16px}
 .ds-howto .bar{position:sticky;top:0;display:flex;align-items:center;height:64px;padding:0 4px;background:var(--paper)}
 .ds-howto .bar b{flex:1;text-align:center;font-size:24px;margin-right:48px}
@@ -262,12 +257,162 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
   .ds-nav li.h{display:none}
   .ds-nav a{white-space:nowrap}
   .ds-main{padding:28px 16px 80px}
-  .ds-sec,.ds-comp{scroll-margin-top:64px}
+  .ds-sec,.ds-comp,.ds-sec h3[id]{scroll-margin-top:64px}
   .ds-screen{grid-template-columns:1fr}
   .ds-type{grid-template-columns:1fr}
   .ds-dd{grid-template-columns:1fr}
 }
 @media (max-width:480px){.ds-hero h1{font-size:34px}.ds-stage{padding:22px 12px}}
+
+/* ============================== acervos (Bolso, Estante, Sebo, Meu acervo) ============================== */
+/* label of the game's acervo, right of the count in the trilha and after the Glossário subtitle */
+.acv-tag{display:inline-flex;align-items:center;gap:5px;font:500 12.5px var(--sans);color:var(--muted);white-space:nowrap}
+.acv-tag svg{flex:none;transform:translateY(1px)}
+/* "Novo jogo" sheet: three acervos as entries, one marked */
+.nj{width:350px;max-width:100%}
+.nj .sh{padding-right:8px}
+.nj .sh h2{display:flex;align-items:center;gap:8px}
+.acv-list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.acv-list li{display:flex;gap:12px;align-items:flex-start;padding:12px 12px 13px;border-radius:12px;cursor:pointer;transition:background .2s}
+.acv-list .rd{flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;transition:border-color .2s}
+.acv-list .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand);transform:scale(0);transition:transform .2s}
+.acv-list .tx{min-width:0;flex:1}
+.acv-list b{display:block;font:700 20px/1.15 var(--serif);color:var(--ink)}
+.acv-list .d{display:block;margin-top:3px;font-size:13.5px;line-height:1.4;color:var(--ink2)}
+.acv-list .ex{display:block;margin-top:6px;font:600 15px/1.25 var(--serif);color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acv-list .ex span{display:inline-block}
+.acv-list .ex i{display:inline-block;font-style:normal;color:var(--muted);margin:0 6px}
+.acv-list li.on{background:var(--brand-soft)}
+.acv-list li.on .rd{border-color:var(--brand)}
+.acv-list li.on .rd::after{transform:none}
+.acv-list li.on b{color:var(--brand)}
+.acv-list li.in .ex>*{animation:footin .45s cubic-bezier(.2,.8,.2,1)}   /* same motion as a new word in the linha das últimas */
+.nj-loss{margin:14px 4px 0;font-size:12.5px;line-height:1.4;color:var(--ink2);text-align:center}
+.nj-loss b{color:var(--ink)}
+.nj-go{all:unset;box-sizing:border-box;display:block;width:100%;height:48px;margin-top:10px;border-radius:24px;background:var(--brand);color:var(--brand-ink);font:600 15px/48px var(--sans);text-align:center;cursor:pointer}
+.nj.busy .acv-list{opacity:.45;pointer-events:none}
+.nj.busy .nj-go{background:var(--line);color:var(--ink2);cursor:default}
+/* a word that exists in another acervo: no shake, no red; it holds in muted ink, then rises home and fades */
+.cur.away .lt span{color:var(--muted)}
+.cur.away.go .lt{animation:away .6s ease-out .65s both}
+@keyframes away{to{transform:translateY(-12px);opacity:0}}
+.fb .away{color:var(--ink2)}
+.fb .away b{font-weight:600;color:var(--ink)}
+.fb .away .pg{font-weight:600;color:var(--honey-ink)}
+/* fixed acervos, a kind only Meu acervo takes: a second line that teaches the mode; it holds longer */
+.fb.two{white-space:normal;text-overflow:clip}
+.fb .away .mo{display:block}
+.cur.away.two.go .lt{animation-delay:1.4s}
+/* usage of a word ("de Portugal", "antiga"): italic, like the word class in a dictionary */
+.tip i{font-style:italic;opacity:.72;margin-right:5px}
+.gl-src{margin:28px 0 0;text-align:center;font:400 11.5px/1.4 var(--sans);color:var(--muted)}
+/* the three acervos defined as dictionary entries */
+.acv-def .hw{margin:0 0 6px;font:400 14px var(--serif);color:var(--muted)}
+.acv-def .hw b{font:700 22px var(--serif);color:var(--ink);margin-right:6px}
+.acv-def .ex{margin-top:10px!important;font:600 15px/1.3 var(--serif)!important;color:var(--ink2)}
+.acv-def .ex i{font-style:normal;color:var(--muted);margin:0 5px}
+.acv-def .now{display:inline-block;margin-top:12px;font:600 10.5px var(--sans);letter-spacing:.04em;border-radius:99px;padding:2px 8px;background:var(--brand-soft);color:var(--brand)}
+.ds-stage.sheets{align-items:flex-start}
+.ds-note{margin:10px 0 0;max-width:680px;color:var(--ink2);font-size:13.5px;line-height:1.55}
+.ds-table td em{font-style:normal;color:var(--muted)}
+/* Meu acervo: a fourth line in the sheet, after a dotted rule, with a link to build it */
+.acv-list li.sep{height:0;padding:0;margin:6px 12px;border-top:1px dotted var(--dots);border-radius:0;pointer-events:none}
+.acv-list .nm{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.acv-list .nm b{min-width:0}
+.mt-link{font:600 12.5px var(--sans);color:var(--brand);white-space:nowrap;cursor:pointer}
+.acv-list li.off{cursor:default}
+.acv-list li.off .rd{opacity:.45}
+.acv-list li.off b{color:var(--muted)}
+.acv-list .no{display:block;margin-top:6px;font-size:13.5px;line-height:1.4;color:var(--err)}
+/* Montar acervo screen */
+.mt{width:360px;max-width:100%;height:700px;overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:16px;position:relative;text-align:left}
+.mt-bar{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:4px;height:56px;padding:0 8px;background:var(--paper)}
+.mt-bar i{width:40px;height:40px;display:grid;place-items:center}
+.mt-bar b{font:700 22px var(--serif)}
+.mt-count{position:sticky;top:56px;z-index:2;margin:0 16px;padding:10px 14px 11px;border-radius:12px;background:var(--brand-soft);color:var(--brand);box-shadow:0 -8px 0 var(--paper)}
+.mt-count b{display:block;font:700 22px/1.1 var(--serif);transition:opacity .2s}
+.mt-count span{display:block;margin-top:3px;font:500 12.5px/1.35 var(--sans);color:var(--ink2)}
+.mt-count.busy b{opacity:.45}
+.mt-count.warn{background:#F3D9D3;color:var(--err)}
+.mt-count.warn span{color:var(--err)}
+.mt-count.solo{position:static;margin:0;width:300px;max-width:100%;box-shadow:none}
+.mt-bd{padding:4px 16px 8px}
+.mt-note{margin:12px 2px 0;font-size:13px;line-height:1.45;color:var(--ink2)}
+.mt-copy{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 2px 18px;font:500 12.5px var(--sans);color:var(--muted)}
+.fq{margin-top:10px}
+.fq-hd b{font:700 20px/1.2 var(--serif);color:var(--brand)}
+.fq-ex{margin:2px 0 0;font:600 14px/1.4 var(--serif);color:var(--ink2)}
+.fq-ex i{font-style:normal;color:var(--muted);margin:0 6px}
+.fq-sl{position:relative;height:44px;margin:6px 11px 0}
+.fq-sl::before,.fq-sl::after{content:"";position:absolute;top:50%;left:0;height:4px;margin-top:-2px;border-radius:2px}
+.fq-sl::before{right:0;background:var(--line)}
+.fq-sl::after{width:calc(var(--i)*25%);background:var(--brand)}
+.fq-sl .tk{position:absolute;top:50%;z-index:1;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--muted)}
+.fq-sl .tk.a{background:var(--brand-soft)}
+.fq-sl .th{position:absolute;top:50%;left:calc(var(--i)*25%);z-index:2;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 3px var(--paper),0 1px 3px rgba(29,38,38,.25);transition:left .15s ease-out}
+.fq-ends{display:flex;justify-content:space-between;gap:12px;margin-top:-4px;font:500 12px var(--sans);color:var(--muted)}
+/* Letras do jogo: the next game's draw, first section of Montar acervo */
+.sx-hive{position:relative;flex:none;width:121px;height:127px}
+.sx-k{position:absolute;width:47px;height:41px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--tile);color:var(--tile-ink);display:grid;place-items:center;font:700 17px/1 var(--sans);transition:opacity .12s,transform .2s cubic-bezier(.2,.8,.2,1)}
+.sx-k.c{background:var(--brand);color:var(--brand-ink)}
+.sx-go{all:unset;flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px 0 12px;border-radius:18px;border:1.5px solid var(--line);font:600 13px var(--sans);color:var(--ink2);cursor:pointer}
+.sx-go:active{transform:scale(.96)}
+.chip{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border-radius:99px;border:1.5px solid var(--line);font:500 13.5px var(--sans);color:var(--ink2);white-space:nowrap}
+.chip.on{background:var(--brand-soft);border-color:var(--brand-soft);color:var(--brand);font-weight:600}
+.chip.on::before{content:"\2713";font-size:12px}
+.mt-hint{margin:8px 2px 0;font-size:12px;line-height:1.4;color:var(--muted)}
+.mt-len{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;font-size:14px;color:var(--ink2)}
+.stp{display:inline-flex;align-items:center;gap:6px}
+.stp .act{width:36px;height:36px;border-radius:18px;font:600 18px/1 var(--sans)}
+.stp .act.dis{opacity:.35}
+.stp b{min-width:22px;text-align:center;font:700 22px var(--serif);color:var(--ink)}
+/* in the book the screen is drawn whole; in the app the bar and the count stay pinned and Pronto sits on the bottom edge */
+.mt.whole{height:auto;overflow:hidden}
+.mt.whole .mt-bar,.mt.whole .mt-count{position:static}
+.mt.whole .mt-count{box-shadow:none}
+
+/* Montar acervo: the result of every tap stays in view at the top */
+.mt.fx{display:flex;flex-direction:column;height:700px;overflow:hidden}
+.mt.fx.whole{height:auto}
+.mt.fx .mt-bar{position:static;flex:none}
+.fx-res{flex:none;display:flex;align-items:center;gap:16px;padding:4px 16px 14px;background:var(--paper);border-bottom:1px solid var(--line);text-align:left}
+.fx-res.solo{width:360px;max-width:100%;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.fx-col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.fx-eye{font:600 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fx-num{margin-top:4px}
+.fx-num b{display:block;font:700 34px/1 var(--serif);color:var(--ink);font-variant-numeric:lining-nums;transition:opacity .2s}
+.fx-cap{margin-top:4px;font:500 13px/1.35 var(--sans);color:var(--ink2)}
+.fx-res .sx-go{margin-top:12px}
+.fx-res.low .fx-num b,.fx-res.low .fx-cap{color:var(--err)}
+.fx-res.busy .sx-k{opacity:.35;transform:scale(.9)}
+.fx-res.busy .fx-num b{opacity:.45}
+.fx-res.busy .sx-go,.fx-res.dead .sx-go{opacity:.45;pointer-events:none}
+.chg{animation:fxin .35s ease-out}
+@keyframes fxin{from{opacity:0;transform:translateY(-3px)}}
+.fx-sc{flex:1;min-height:0;overflow:hidden}
+.mt.live .fx-sc{overflow:auto;overscroll-behavior:contain}
+.mt.whole .fx-sc{overflow:visible}
+.fx-bot{flex:none;padding:10px 16px 16px;background:var(--paper);border-top:1px solid var(--line)}
+.fx-bot .nj-go{margin:0}
+.fx .mt-count{position:static;margin:12px 0 0;box-shadow:none}
+.fx-desc{margin:2px 0 0;font:500 13px/1.4 var(--sans);color:var(--ink2)}
+.fx-desc+.fq-ex{margin-top:4px}
+.fx-hit{all:unset;position:absolute;top:0;width:44px;height:44px;margin-left:-22px;z-index:3;cursor:pointer}
+.mt-copy .cp{all:unset;cursor:pointer;padding:4px 10px;border-radius:99px;border:1.5px solid var(--line);color:var(--ink2);font:600 12.5px var(--sans)}
+/* classes, forms and use: two equal columns; a label that does not fit wraps inside its cell */
+.fx-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.fx-grid .chip{width:100%;min-width:0;height:auto;min-height:32px;padding:6px 12px;background:transparent;white-space:normal;line-height:1.25;text-align:left;cursor:pointer}
+.fx-grid .chip.on{background:var(--brand-soft)}
+.fx-grid .chip.on::before{align-self:flex-start}
+.fx .mt-len{gap:6px}
+.fx .mt-len .stp{gap:4px}
+.fx .mt-len button{cursor:pointer}
+.fx-solo{width:328px;max-width:100%;text-align:left}
+.fx-flow{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;justify-content:center}
+.fx-flow .ar{align-self:center;font:600 13px var(--sans);color:var(--muted);text-align:center;max-width:120px;line-height:1.4}
+.ds-screen .mt{flex:none}
+.ds-stage .ds-cell,.fx-flow{max-width:100%;min-width:0}
+.ds-screen>.ds-cell{min-width:0}
 </style>
 </head>
 <body>
@@ -295,10 +440,28 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <li><a href="#c-actions">Botões de ação</a></li>
     <li><a href="#c-glossary">Glossário</a></li>
     <li><a href="#c-menu">Menu</a></li>
-    <li><a href="#c-dialog">Diálogo</a></li>
     <li class="h">Telas</li>
     <li><a href="#tela-jogo">Tela de jogo</a></li>
     <li><a href="#tela-como-jogar">Como jogar</a></li>
+    <li class="h">Acervos</li>
+    <li><a href="#acervos">Os acervos</a></li>
+    <li><a href="#a-escolha">Escolher</a></li>
+    <li><a href="#a-jogo">Durante o jogo</a></li>
+    <li><a href="#c-novo-jogo">Folha Novo jogo</a></li>
+    <li><a href="#a-montar">Montar acervo</a></li>
+    <li><a href="#c-montar">Tela de montar</a></li>
+    <li><a href="#c-resultado">Resultado preso</a></li>
+    <li><a href="#c-contagem">Contagem do acervo</a></li>
+    <li><a href="#c-raras">Quão raras</a></li>
+    <li><a href="#c-opcao">Opções em grade</a></li>
+    <li><a href="#c-chegar">Entrada e volta</a></li>
+    <li><a href="#c-acervo-tag">Rótulo do acervo</a></li>
+    <li><a href="#c-outro-acervo">Palavra fora</a></li>
+    <li><a href="#c-tip-uso">Card com uso</a></li>
+    <li><a href="#c-glossario-acervo">Glossário por acervo</a></li>
+    <li><a href="#a-fontes">Fontes e créditos</a></li>
+    <li><a href="#a-dados">Persistência</a></li>
+    <li><a href="#a-calculo">Cálculo do número</a></li>
     <li class="h">Uso</li>
     <li><a href="#voz">Voz e textos</a></li>
     <li><a href="#regras">Fazer e não fazer</a></li>
@@ -309,7 +472,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <p class="ds-eye">Letraço · design system</p>
     <h1>Caderno</h1>
     <p class="ds-lead">Papel, tinta e um teal de caneta. É a identidade da tela de jogo nova: as palavras achadas flutuam num céu, a palavra digitada fica no centro, e o Glossário guarda tudo como verbetes. Cada componente aqui funciona de verdade e aponta para o widget correspondente no app.</p>
-    <div class="ds-meta"><span class="ds-pill">Só tema claro</span><span class="ds-pill">Sem pontos e sem níveis</span><span class="ds-pill n">Fonte da verdade no código: lib/theme.dart</span></div>
+    <div class="ds-meta"><span class="ds-pill">Só tema claro</span><span class="ds-pill">Sem pontos e sem ranking</span><span class="ds-pill n">Fonte da verdade no código: lib/theme.dart</span></div>
   </header>
 
   <section class="ds-sec" id="principios">
@@ -319,7 +482,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
       <div class="ds-card"><h4>Papel, não tela</h4><p>Fundo cor de papel, tinta quase preta, nada de branco puro nem preto puro. A folha do Glossário é o único papel mais claro, porque está por cima.</p></div>
       <div class="ds-card"><h4>A palavra é a heroína</h4><p>Palavras sempre em serifa de livro. Interface (contagens, botões, rótulos) em sans do sistema, menor e mais quieta.</p></div>
       <div class="ds-card"><h4>Um teal só</h4><p>O teal marca o que importa agora: a letra central, a palavra nova, o progresso. Fora do jogo, só o ç do logo. O mel aparece só no pangrama.</p></div>
-      <div class="ds-card"><h4>Progresso em palavras</h4><p>O jogo conta palavras, não pontos. Não há nível, ranking nem “partida ganha”.</p></div>
+      <div class="ds-card"><h4>Progresso em palavras</h4><p>O jogo conta palavras, não pontos. Não há ranking nem “partida ganha”. O acervo diz de onde vêm as palavras, não quanto vale quem joga.</p></div>
     </div>
   </section>
 
@@ -387,7 +550,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <p class="ds-intro">Cada componente tem uma demonstração ao vivo, os estados que ele assume e as medidas. O caminho no canto aponta para o widget no app.</p>
     
     <article class="ds-comp" id="c-header">
-      <header><h3>Cabeçalho e trilha</h3><code>lib/main_page.dart · lib/wigets/logo.dart</code><p>Logo à esquerda: o nome com o L grande, o ç em teal e, acima, o eco das letras de fundo do ícone. Menu à direita. Embaixo, a trilha: barra fina e a contagem em palavras. Não existe pontuação nem nível.</p></header>
+      <header><h3>Cabeçalho e trilha</h3><code>lib/main_page.dart · lib/wigets/logo.dart</code><p>Logo à esquerda: o nome com o L grande, o ç em teal e, acima, o eco das letras de fundo do ícone. Menu à direita. Embaixo, a trilha: barra fina e a contagem em palavras. Não existe pontuação. À direita da contagem, o acervo do jogo.</p></header>
       <div class="ds-stage" id="c-header-stage"><div class="ds-phonebar"><div class="top"><span class="wm"><svg class="logo" viewBox="2.8 -112.14 400.1 136.14" width="96" height="32.67" role="img" aria-label="Letraço" font-family="'Noto Serif','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif" font-weight="700"><defs><filter id="lgAb0" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.83"/></filter><filter id="lgAb1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.25"/></filter><filter id="lgAb2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.11"/></filter><filter id="lgAb3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.66"/></filter><filter id="lgAb4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.22"/></filter></defs><text x="144.55" y="-92.34" font-size="36" fill="var(--muted)" fill-opacity="0.58" filter="url(#lgAb0)">e</text><text x="203.7" y="-89.57" font-size="31.85" fill="var(--muted)" fill-opacity="0.5" filter="url(#lgAb1)">t</text><text x="191.21" y="-63.4" font-size="33.23" fill="var(--muted)" fill-opacity="0.54" filter="url(#lgAb2)">r</text><text x="225.19" y="-74.01" font-size="29.08" fill="var(--muted)" fill-opacity="0.44" filter="url(#lgAb3)">a</text><text x="113.2" y="-94.28" font-size="24.92" fill="var(--muted)" fill-opacity="0.36" filter="url(#lgAb4)">o</text><text x="0" y="0" font-size="140" fill="var(--ink)">L</text><text x="88.2" y="0" font-size="100" fill="var(--ink)">e</text><text x="144.4" y="0" font-size="100" fill="var(--ink)">t</text><text x="183.9" y="0" font-size="100" fill="var(--ink)">r</text><text x="235.2" y="0" font-size="100" fill="var(--ink)">a</text><text x="294.2" y="0" font-size="100" fill="var(--brand)">ç</text><text x="345.9" y="0" font-size="100" fill="var(--ink)">o</text></svg></span><button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div>
  <div class="trk"><div class="bar"><span id="ds-bar" style="width:43%"></span></div><div class="trkl"><span><b id="ds-barn">20</b> de 47 palavras</span></div></div></div></div>
       <div class="ds-states" data-for="c-header"><button data-v="0">Início</button><button class="on" data-v="20">Meio</button><button data-v="47">Completo</button></div>
@@ -455,12 +618,7 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <article class="ds-comp" id="c-menu">
       <header><h3>Menu</h3><code>lib/wigets/drawer.dart · CustomDrawer, MenuItem</code><p>Gaveta do Material 3 aberta pelo ícone de menu do cabeçalho. Uma seção “Menu” com Novo jogo e Como jogar, separados por um fio. Em modo debug aparece também “Show all words DEBUG”.</p></header>
       <div class="ds-stage"><div class="ds-drawer"><div class="sec">Menu</div><div class="it"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 5V2L8 6l4 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/></svg>Novo jogo</div><hr><div class="it"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="currentColor"/></svg>Como jogar</div></div></div>
-      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Item</td><td>ListTile com ícone e texto, raio 32, margem 8 × 4</td></tr><tr><td>Fio</td><td>1 px --line, recuo de 24 px dos dois lados</td></tr><tr><td>Cores</td><td>padrão do Material 3 a partir de <code>Caderno.theme()</code>: texto e ícone em <code>onSecondaryContainer</code>, fundo da gaveta derivado do seed teal (sem token próprio)</td></tr><tr><td>Novo jogo</td><td>abre o diálogo de confirmação</td></tr><tr><td>Como jogar</td><td>abre a rota <code>/instructions</code></td></tr></tbody></table></div>
-    </article>
-    <article class="ds-comp" id="c-dialog">
-      <header><h3>Diálogo</h3><code>lib/wigets/dialogs.dart · showTwoButtonsDialog</code><p>AlertDialog do Material 3, sem estilo próprio. Hoje só confirma um novo jogo. Existe também <code>showNoButtonsDialog</code>, só com título e texto.</p></header>
-      <div class="ds-stage" style="background:var(--scrim)"><div class="ds-dialog"><h5>Iniciar um novo jogo?</h5><p>Ao iniciar um novo jogo você perderá todo o progresso atual, deseja continuar?</p><div class="acts"><span>Não</span><span>Sim</span></div></div></div>
-      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Folha</td><td>raio 28, padrão do Material 3</td></tr><tr><td>Ações</td><td>TextButton “Não” (fecha) e “Sim” (confirma), em --brand, estilo <code>labelLarge</code></td></tr><tr><td>Fundo</td><td>véu do Material sobre o jogo</td></tr></tbody></table></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody><tr><td>Item</td><td>ListTile com ícone e texto, raio 32, margem 8 × 4</td></tr><tr><td>Fio</td><td>1 px --line, recuo de 24 px dos dois lados</td></tr><tr><td>Cores</td><td>padrão do Material 3 a partir de <code>Caderno.theme()</code>: texto e ícone em <code>onSecondaryContainer</code>, fundo da gaveta derivado do seed teal (sem token próprio)</td></tr><tr><td>Novo jogo</td><td>abre a folha Novo jogo; a tela Montar acervo é a rota <code>/acervo</code>, aberta só pela folha</td></tr><tr><td>Como jogar</td><td>abre a rota <code>/instructions</code></td></tr></tbody></table></div>
     </article>
   </section>
 
@@ -536,16 +694,400 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     <div class="ds-screen">
       <div class="ds-howto"><div class="bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Como jogar</b></div><div class="bd">
         <h6>Objetivo</h6><p>Encontre todas as palavras válidas que podem ser formadas com as 7 letras do dia. A letra do centro é obrigatória em todas as palavras.</p>
-        <h6>Como jogar</h6><p>Toque nas letras (a central e as ao redor) para montar uma palavra no centro da tela. Você pode usar a mesma letra várias vezes. Para enviar, toque no botão de confirmar ou na própria palavra.</p><p>Se a palavra for válida, ela passa a flutuar no céu e a barra de progresso avança.</p><p>Toque em apagar uma vez para tirar a última letra. Segure para limpar tudo.</p><p>Toque no ícone de embaralhar para reorganizar as letras ao redor e enxergar novas combinações.</p><p>Toque numa palavra flutuante para ver o significado, quando houver. Toque na linha das últimas palavras, ou arraste-a para cima, para abrir o Glossário com todas as que você achou.</p>
+        <h6>Como jogar</h6><p>Toque nas letras (a central e as ao redor) para montar uma palavra no centro da tela. Você pode usar a mesma letra várias vezes. Para enviar, toque no botão de confirmar ou na própria palavra.</p><p>Se a palavra for válida, ela passa a flutuar no céu e a barra de progresso avança.</p><p>Toque em apagar uma vez para tirar a última letra. Segure para limpar tudo.</p><p>Toque no ícone de embaralhar para reorganizar as letras ao redor e enxergar novas combinações.</p><p>Toque numa palavra flutuante para ver o significado. Toque na linha das últimas palavras, ou arraste-a para cima, para abrir o Glossário com todas as que você achou.</p>
+        <h6>De onde vêm as palavras</h6><p>Cada jogo tira as palavras de um lugar. Você escolhe ao começar um novo jogo, no menu.</p><ul><li>Bolso: palavras do dia a dia.</li><li>Estante: o jogo de sempre, com as palavras de quem lê.</li><li>Sebo: a Estante e mais as raras, até as que quase ninguém conhece.</li><li>Meu acervo: você monta. Veja as letras do próximo jogo e quantas palavras elas dão, e sorteie outras se quiser; cada mudança aparece na hora. Escolha as classes, as formas, se entram palavras de Portugal e antigas, até que ponto de raridade e de quantas letras.</li></ul><p>Bolso, Estante e Sebo têm as mesmas regras e só mudam em quão raras são as palavras. Plurais, verbos conjugados, outras classes e palavras antigas ou de Portugal só entram no Meu acervo.</p><p>O lugar vale até o fim do jogo. Se você achar uma palavra que existe mas ficou de fora, ela não conta, e o jogo diz por quê: onde ela mora, que ela só entra no Meu acervo ou, no Meu acervo, o que a deixou de fora.</p><p>Um Meu acervo muito apertado pode dar jogos com menos de 50 palavras. A tela de montar avisa antes.</p>
         <h6>Dicas</h6><ul><li>Toda palavra conta igual para o progresso, curta ou longa.</li><li>Palavras que usam todas as 7 letras ao menos uma vez são raras: são os pangramas.</li></ul>
-        <h6>Regras</h6><ul><li>As palavras devem ter de 4 a 8 letras</li><li>Todas as palavras devem conter a letra do centro</li><li>As letras podem ser usadas mais de uma vez</li><li>Algumas palavras podem não estar listadas (preposições e conjunções)</li><li>Somente os verbos no infinitivo são válidos. Exemplo: “subir”, “correr”, “jogar”...</li><li>Ambos os gêneros de uma palavra são válidos. Exemplo: “aluno”, “aluna”...</li><li>Plurais não são válidos. Exemplo: “laranjas”, “uvas”, “goiabas”...</li></ul>
+        <h6>Regras</h6><ul><li>As palavras devem ter de 4 a 8 letras. No Meu acervo, o tamanho que você escolher</li><li>Todas as palavras devem conter a letra do centro</li><li>As letras podem ser usadas mais de uma vez</li><li>Acentos não importam: “sabia” vale “sabiá”</li><li>Ambos os gêneros de uma palavra são válidos. Exemplo: “aluno”, “aluna”...</li><li>No Bolso, na Estante e no Sebo, só substantivos, adjetivos, advérbios e verbos no infinitivo, sem plurais. Exemplo: “jogar” vale, “jogou” e “jogos” não</li><li>Palavrões não valem em nenhum lugar, nem no Meu acervo</li></ul>
+        <h6>Fontes</h6><p>Os significados vêm do Wikcionário (pt.wiktionary.org), escrito por voluntários, extraídos pelo kaikki.org. A frequência das palavras vem do wordfreq e do FrequencyWords, feito com legendas do OpenSubtitles. Tudo sob a licença CC BY-SA 4.0, e o dicionário do jogo também.</p>
       </div></div>
       <ul>
-        <li><b>Texto como está no código.</b> Fala dos botões pelo que fazem (confirmar, apagar, embaralhar), não por rótulo, porque eles não têm legenda.</li>
+        <li><b>Texto novo para <code>lib/instructions_page.dart</code>.</b> Fala dos botões pelo que fazem (confirmar, apagar, embaralhar), não por rótulo, porque eles não têm legenda.</li>
         <li><b>Fora do Caderno.</b> Títulos em sans, não em serifa; AppBar e cores padrão do Material 3.</li>
         <li><b>Fechar.</b> Com <code>showClose</code>, aparece um X que volta para o jogo.</li>
+        <li><b>Mesma voz.</b> Fala “lugar”, nunca “nível” nem “dificuldade”. Os quatro são descritos pelo que guardam.</li>
+        <li><b>Meu acervo em uma linha.</b> Só diz o que dá para escolher; os nomes das paradas e dos botões a pessoa aprende na própria tela.</li>
+        <li><b>Regras por acervo.</b> Classe, plural e infinitivo deixam de ser regra do jogo e viram regra dos três fixos; o Meu acervo aceita o que estiver ligado. Os fixos se explicam pela raridade, e o Meu acervo, pelo que só ele aceita.</li>
+        <li><b>Fontes no fim.</b> Mesmo estilo de bloco (título 24 px, texto 16 px). É o crédito completo; o Glossário só repete a parte dos significados.</li>
       </ul>
     </div>
+  </section>
+
+  <section class="ds-sec" id="acervos">
+    <h2>Acervos</h2>
+    <p class="ds-intro">Quatro lugares onde as palavras moram. Três são fixos, com a mesma regra, e só mudam em quão raras as palavras podem ser; por isso um cabe dentro do outro: tudo que está no Bolso também está na Estante, e tudo da Estante está no Sebo. O quarto, Meu acervo, é montado por quem joga com os mesmos controles que descrevem os três: classe, forma, uso, frequência e tamanho. É o único lugar de plurais, verbos conjugados, outras classes e palavras antigas ou de Portugal. Os quatro são a mesma coisa no código, uma regra; os três fixos são regras prontas, o Meu acervo é a regra salva.</p>
+
+    <div class="ds-grid">
+      <div class="ds-card acv-def"><p class="hw"><b>bol·so</b><i>s.m.</i></p><p>Palavras do dia a dia, as que cabem no bolso. Só as mais usadas da Estante.</p><p class="ex">casa&nbsp;<i>·</i> tempo&nbsp;<i>·</i> noite&nbsp;<i>·</i> mundo</p></div>
+      <div class="ds-card acv-def"><p class="hw"><b>es·tan·te</b><i>s.f.</i></p><p>O jogo de sempre: substantivos, adjetivos, verbos no infinitivo e advérbios, sem plurais. É a regra dos três fixos.</p><p class="ex">bigode&nbsp;<i>·</i> fadiga&nbsp;<i>·</i> surdo&nbsp;<i>·</i> neve</p><span class="now">é o jogo de hoje</span></div>
+      <div class="ds-card acv-def"><p class="hw"><b>se·bo</b><i>s.m.</i></p><p>Loja de livros usados; aqui, a Estante e mais as raras, até as que quase ninguém conhece. Mesma regra: sem plurais nem verbos conjugados.</p><p class="ex">urze&nbsp;<i>·</i> esgar&nbsp;<i>·</i> lhano&nbsp;<i>·</i> aboletar</p></div>
+      <div class="ds-card acv-def"><p class="hw"><b>meu a·cer·vo</b><i>s.m.</i></p><p>Conjunto de livros de uma biblioteca; aqui, o seu: você escolhe o que entra. Começa como cópia da Estante. É o único com plurais, verbos conjugados, outras classes e palavras antigas ou de Portugal.</p><p class="ex">casas&nbsp;<i>·</i> olhou&nbsp;<i>·</i> rochas&nbsp;<i>·</i> cantei</p><span class="now">um só, editado no lugar</span></div>
+    </div>
+
+    <h3>A regra de cada um</h3>
+    <div class="ds-scroll"><table class="ds-table">
+      <thead><tr><th>Acervo</th><th>Classes</th><th>Formas</th><th>Uso</th><th>Frequência</th><th>Letras</th><th>Palavras</th></tr></thead>
+      <tbody>
+        <tr><td>Bolso</td><td>subst., adj., verbo, adv.</td><td>só a forma base e o feminino (<i>aluna</i>)</td><td>sem só-Portugal, sem antiga</td><td>do dia a dia (as ~5 mil mais frequentes)</td><td>4–8</td><td>~5 mil</td></tr>
+        <tr><td>Estante <em>· hoje</em></td><td>subst., adj., verbo, adv.</td><td>só a forma base e o feminino</td><td>sem só-Portugal, sem antiga</td><td>de leitor (o corte de hoje, calibrado para dar ~11 mil)</td><td>4–8</td><td>~11 mil</td></tr>
+        <tr><td>Sebo</td><td>subst., adj., verbo, adv.</td><td>só a forma base e o feminino</td><td>sem só-Portugal, sem antiga</td><td>raríssimas (Zipf &gt; 0: aparece em ao menos uma das duas listas)</td><td>4–8</td><td>~15 mil</td></tr>
+        <tr><td>Meu acervo</td><td>cada uma das 10, liga e desliga</td><td>cada uma das 7, liga e desliga; a forma base sempre entra</td><td>de Portugal e antiga, cada uma</td><td>uma das 5 paradas abaixo</td><td>de 4–8 até um tamanho só</td><td>de nenhuma a ~60 mil (tudo ligado)</td></tr>
+        <tr><td>Palavrão</td><td colspan="6">Nunca, em nenhum acervo, <b>inclusive no Meu acervo</b>: não existe controle para isso. A construção do dicionário tira as palavras marcadas como ofensivas em todos os sentidos; elas não existem para o jogo, nem para dizer “mora em” ou “é plural”.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="ds-note">Os três fixos diferem só na raridade, e cada corte é uma parada do slider: Bolso “do dia a dia”, Estante “de leitor”, Sebo “raríssimas”. Do Bolso ao Sebo entram palavras menos frequentes, e Bolso ⊂ Estante ⊂ Sebo continua valendo. Plurais, verbos conjugados, as outras formas e classes e palavras de Portugal ou antigas só existem no Meu acervo.</p>
+    <p class="ds-note">Nos três fixos as letras ficam em 4–8: o tamanho já é limite do jogo, e um limite a mais por acervo seria uma regra a mais para explicar. No Meu acervo, quem joga pode apertar. Todos dobram para A–Z e guardam a grafia mais frequente (<i>sabiá</i> sobre <i>sábia</i>). Contagens são estimativas a partir de “Estante ≈ 11 mil de ~94 mil”; o dicionário construído ainda não existe.</p>
+
+    <h3>As cinco paradas de frequência</h3>
+    <p class="ds-note" style="margin:0 0 12px">No Meu acervo a frequência mínima é escolhida por nome, nunca por número. No slider, cada parada inclui as da esquerda. A descrição e os 3 exemplos são os da tela, fixos por parada e nunca filtrados pelas letras do jogo. Os três fixos usam três delas, então o Meu acervo consegue copiar qualquer um exatamente. O Zipf fica só aqui no livro.</p>
+    <div class="ds-scroll"><table class="ds-table">
+      <thead><tr><th>Parada</th><th>Corte (calculado no build)</th><th>Na tela: descrição e exemplos</th><th>Com as classes e formas da Estante</th><th>Usada por</th></tr></thead>
+      <tbody>
+        <tr><td>do dia a dia</td><td>as ~5 mil mais frequentes</td><td>Todo mundo conhece. · casa · tempo · mundo</td><td>~5 mil</td><td>Bolso</td></tr>
+        <tr><td>comuns</td><td>as ~8 mil mais frequentes</td><td>Quase todo mundo conhece. · bigode · neve · surdo</td><td>~8 mil</td><td>—</td></tr>
+        <tr><td>de leitor</td><td>as ~11 mil mais frequentes (a Estante de hoje)</td><td>Quem lê bastante conhece. · fadiga · ensejo · bruma</td><td>~11 mil</td><td>Estante</td></tr>
+        <tr><td>raras</td><td>as ~13 mil mais frequentes</td><td>Pouca gente conhece. · senda · urdir · bulício</td><td>~13 mil</td><td>—</td></tr>
+        <tr><td>raríssimas</td><td>todas com Zipf &gt; 0</td><td>Quase ninguém conhece. · zimbro · nesga · obnubilar</td><td>~15 mil</td><td>Sebo</td></tr>
+      </tbody>
+    </table></div>
+    <p class="ds-note"><b>Medido na lista de hoje</b> (<code>lib/words.dart</code> + <code>word_frequency.dart</code>, 3 000 sorteios como o <code>_sortLetters</code>): com as ~11 mil palavras, 13% dos sorteios chegam a 50 palavras, mediana 72. Com um corte de ~4 mil palavras, 2%, mediana 59; com ~6 mil, 5%, mediana 65. O Bolso fica em ~5 mil, entre os dois. O Sebo, com ~15 mil palavras na mesma regra, deve passar de 50 em mais sorteios que a Estante e dar jogos um pouco maiores (estimado; medir no dicionário construído).</p>
+
+    <h3 id="a-escolha">Onde se escolhe</h3>
+    <div class="ds-grid">
+      <div class="ds-card"><h4>No Novo jogo</h4><p>Menu › Novo jogo abre a folha “Novo jogo”, que substitui o diálogo “Iniciar um novo jogo?”. Escolher o acervo e confirmar viram um gesto só. Meu acervo é a quarta linha, depois de um pontilhado.</p></div>
+      <div class="ds-card"><h4>Montar acervo</h4><p>A linha do Meu acervo tem “Montar ›”, que abre a tela com as letras do próximo jogo presas no topo, quantas palavras elas dão e todos os controles: cada toque muda esse número na hora. Na primeira vez, tocar na linha já abre a tela, com uma cópia da Estante. “Pronto” volta para a folha com Meu acervo marcado; quem começa o jogo é sempre a folha.</p></div>
+      <div class="ds-card"><h4>Nunca no meio do jogo</h4><p>O acervo é do jogo, do começo ao fim. Trocar é começar outro: o jogo atual é apagado, como no Novo jogo de hoje, e a folha avisa quantas palavras ficam para trás. Mexer no Meu acervo com um jogo dele aberto não muda esse jogo.</p></div>
+      <div class="ds-card"><h4>Primeira vez</h4><p>Ninguém é perguntado ao abrir o app: o primeiro jogo é na Estante, igual a hoje. A folha é a mesma desde a primeira vez, sem selo nem texto de novidade.</p></div>
+    </div>
+
+    <h3 id="a-jogo">Durante o jogo</h3>
+    <div class="ds-grid">
+      <div class="ds-card"><h4>Na trilha, quieto</h4><p>O nome do acervo fica à direita de “20 de 47 palavras”, em <code>--muted</code>, com um livrinho de 13 px: “Estante”, ou “Meu acervo”. Mesmo tamanho da contagem, mais fraco que ela. No Glossário, depois do subtítulo.</p></div>
+      <div class="ds-card"><h4>Palavra fora do acervo</h4><p>Não é erro: a palavra existe. Fica cinza, sem tremida, diz por que ficou de fora e sobe de volta para a prateleira. Nos fixos, onde mora, se só é mais rara (“Existe, mas mora no Sebo”), ou que aquele tipo só entra no Meu acervo (“Existe, mas é plural. Plurais só entram no Meu acervo.”); no Meu acervo, qual controle a tirou (“Existe, mas é plural”).</p></div>
+      <div class="ds-card"><h4>O resto não muda</h4><p>Seções do Glossário, “Faltam N”, selos e progresso funcionam igual nos quatro; só contam a lista do jogo. No Meu acervo com tamanho apertado, o Glossário só tem as seções dos tamanhos ligados. No Meu acervo, o card de significado ganha o uso (“de Portugal”, “antiga”).</p></div>
+    </div>
+
+    <!-- ------------------------------------------------------------ components -->
+    <article class="ds-comp" id="c-novo-jogo">
+      <header><h3>Folha Novo jogo</h3><code>lib/wigets/dialogs.dart · showNewGame</code><p>Folha que sobe sobre o jogo, como o Glossário, com os três acervos como verbetes: nome em serifa, uma linha do que guarda e quatro palavras de exemplo. Abre marcada no acervo do jogo atual. Toque numa linha para marcar; os exemplos entram pela esquerda, como uma palavra nova na linha das últimas. Meu acervo vem por último, depois de um pontilhado, sempre com a mesma frase, “Você escolhe o que entra.”, e “Montar ›” para abrir a tela. Só o Meu acervo mostra e sorteia letras antes de começar; Bolso, Estante e Sebo não. Substitui <code>showTwoButtonsDialog</code>, que deixa de ser usado.</p></header>
+      <div class="ds-stage sheets">
+<div class="ds-cell"><div class="ds-sheet nj" data-live="1"><div class="handle"></div><div class="sh"><div><h2>Novo jogo</h2><p>De onde vêm as palavras?</p></div><button class="ib" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="body"><ul class="acv-list"><li data-go="Começar no Bolso"><span class="rd"></span><span class="tx"><b>Bolso</b><span class="d">Palavras do dia a dia.</span><span class="ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>noite</span><i>·</i><span>mundo</span></span></span></li><li class="on" data-go="Começar na Estante"><span class="rd"></span><span class="tx"><b>Estante</b><span class="d">O jogo de sempre, com as palavras de quem lê.</span><span class="ex"><span>bigode</span><i>·</i><span>fadiga</span><i>·</i><span>surdo</span><i>·</i><span>neve</span></span></span></li><li data-go="Começar no Sebo"><span class="rd"></span><span class="tx"><b>Sebo</b><span class="d">A Estante e mais as raras, até as que quase ninguém conhece.</span><span class="ex"><span>urze</span><i>·</i><span>esgar</span><i>·</i><span>lhano</span><i>·</i><span>aboletar</span></span></span></li><li class="sep" aria-hidden="true"></li><li class="meu " data-go="Começar no Meu acervo"><span class="rd"></span><span class="tx"><span class="nm"><b>Meu acervo</b><span class="mt-link">Montar ›</span></span><span class="d">Você escolhe o que entra.</span></span></li></ul><p class="nj-loss">Começar apaga este jogo: <b>20</b> de 47 palavras.</p><button class="nj-go">Começar na Estante</button></div></div><span class="ds-label">Padrão · toque para marcar</span></div>
+<div class="ds-cell"><div class="ds-sheet nj"><div class="handle"></div><div class="sh"><div><h2>Novo jogo</h2><p>De onde vêm as palavras?</p></div><button class="ib" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="body"><ul class="acv-list"><li data-go="Começar no Bolso"><span class="rd"></span><span class="tx"><b>Bolso</b><span class="d">Palavras do dia a dia.</span><span class="ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>noite</span><i>·</i><span>mundo</span></span></span></li><li data-go="Começar na Estante"><span class="rd"></span><span class="tx"><b>Estante</b><span class="d">O jogo de sempre, com as palavras de quem lê.</span><span class="ex"><span>bigode</span><i>·</i><span>fadiga</span><i>·</i><span>surdo</span><i>·</i><span>neve</span></span></span></li><li class="on" data-go="Começar no Sebo"><span class="rd"></span><span class="tx"><b>Sebo</b><span class="d">A Estante e mais as raras, até as que quase ninguém conhece.</span><span class="ex"><span>urze</span><i>·</i><span>esgar</span><i>·</i><span>lhano</span><i>·</i><span>aboletar</span></span></span></li><li class="sep" aria-hidden="true"></li><li class="meu " data-go="Começar no Meu acervo"><span class="rd"></span><span class="tx"><span class="nm"><b>Meu acervo</b><span class="mt-link">Montar ›</span></span><span class="d">Você escolhe o que entra.</span></span></li></ul><p class="nj-loss">Começar apaga este jogo: <b>20</b> de 47 palavras.</p><button class="nj-go">Começar no Sebo</button></div></div><span class="ds-label">Outro marcado</span></div>
+<div class="ds-cell"><div class="ds-sheet nj busy"><div class="handle"></div><div class="sh"><div><h2>Novo jogo</h2><p>De onde vêm as palavras?</p></div><button class="ib" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="body"><ul class="acv-list"><li class="on" data-go="Começar no Bolso"><span class="rd"></span><span class="tx"><b>Bolso</b><span class="d">Palavras do dia a dia.</span><span class="ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>noite</span><i>·</i><span>mundo</span></span></span></li><li data-go="Começar na Estante"><span class="rd"></span><span class="tx"><b>Estante</b><span class="d">O jogo de sempre, com as palavras de quem lê.</span><span class="ex"><span>bigode</span><i>·</i><span>fadiga</span><i>·</i><span>surdo</span><i>·</i><span>neve</span></span></span></li><li data-go="Começar no Sebo"><span class="rd"></span><span class="tx"><b>Sebo</b><span class="d">A Estante e mais as raras, até as que quase ninguém conhece.</span><span class="ex"><span>urze</span><i>·</i><span>esgar</span><i>·</i><span>lhano</span><i>·</i><span>aboletar</span></span></span></li><li class="sep" aria-hidden="true"></li><li class="meu " data-go="Começar no Meu acervo"><span class="rd"></span><span class="tx"><span class="nm"><b>Meu acervo</b><span class="mt-link">Montar ›</span></span><span class="d">Você escolhe o que entra.</span></span></li></ul><p class="nj-loss">Começar apaga este jogo: <b>20</b> de 47 palavras.</p><button class="nj-go">Preparando…</button></div></div><span class="ds-label">Preparando (desativado)</span></div>
+<div class="ds-cell"><div class="ds-sheet nj"><div class="handle"></div><div class="sh"><div><h2>Novo jogo</h2><p>De onde vêm as palavras?</p></div><button class="ib" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="body"><ul class="acv-list"><li data-go="Começar no Bolso"><span class="rd"></span><span class="tx"><b>Bolso</b><span class="d">Palavras do dia a dia.</span><span class="ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>noite</span><i>·</i><span>mundo</span></span></span></li><li data-go="Começar na Estante"><span class="rd"></span><span class="tx"><b>Estante</b><span class="d">O jogo de sempre, com as palavras de quem lê.</span><span class="ex"><span>bigode</span><i>·</i><span>fadiga</span><i>·</i><span>surdo</span><i>·</i><span>neve</span></span></span></li><li data-go="Começar no Sebo"><span class="rd"></span><span class="tx"><b>Sebo</b><span class="d">A Estante e mais as raras, até as que quase ninguém conhece.</span><span class="ex"><span>urze</span><i>·</i><span>esgar</span><i>·</i><span>lhano</span><i>·</i><span>aboletar</span></span></span></li><li class="sep" aria-hidden="true"></li><li class="meu on" data-go="Começar no Meu acervo"><span class="rd"></span><span class="tx"><span class="nm"><b>Meu acervo</b><span class="mt-link">Montar ›</span></span><span class="d">Você escolhe o que entra.</span></span></li></ul><p class="nj-loss">Começar apaga este jogo: <b>20</b> de 47 palavras.</p><button class="nj-go">Começar no Meu acervo</button></div></div><span class="ds-label">Meu acervo marcado</span></div>
+<div class="ds-cell"><div class="ds-sheet nj"><div class="handle"></div><div class="sh"><div><h2>Novo jogo</h2><p>De onde vêm as palavras?</p></div><button class="ib" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="body"><ul class="acv-list"><li data-go="Começar no Bolso"><span class="rd"></span><span class="tx"><b>Bolso</b><span class="d">Palavras do dia a dia.</span><span class="ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>noite</span><i>·</i><span>mundo</span></span></span></li><li class="on" data-go="Começar na Estante"><span class="rd"></span><span class="tx"><b>Estante</b><span class="d">O jogo de sempre, com as palavras de quem lê.</span><span class="ex"><span>bigode</span><i>·</i><span>fadiga</span><i>·</i><span>surdo</span><i>·</i><span>neve</span></span></span></li><li data-go="Começar no Sebo"><span class="rd"></span><span class="tx"><b>Sebo</b><span class="d">A Estante e mais as raras, até as que quase ninguém conhece.</span><span class="ex"><span>urze</span><i>·</i><span>esgar</span><i>·</i><span>lhano</span><i>·</i><span>aboletar</span></span></span></li><li class="sep" aria-hidden="true"></li><li class="meu off" data-go="Começar no Meu acervo"><span class="rd"></span><span class="tx"><span class="nm"><b>Meu acervo</b><span class="mt-link">Montar ›</span></span><span class="d">Você escolhe o que entra.</span><span class="no">Nenhum jogo possível com essas regras.</span></span></li></ul><p class="nj-loss">Começar apaga este jogo: <b>20</b> de 47 palavras.</p><button class="nj-go">Começar na Estante</button></div></div><span class="ds-label">Meu acervo sem jogo possível</span></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody>
+        <tr><td>Folha</td><td>raio 28 no topo, alça 40 × 4, altura pelo conteúdo; título serif 26 px 700; pergunta sans 12,5 px; X de 40 px</td><td>--card, --ink, --muted</td></tr>
+        <tr><td>Linha de acervo</td><td>raio 12, respiro 12/12/13, 12 px entre marcador e texto, 2 px entre linhas; área de toque = linha inteira (≥ 72 px)</td><td>marcada: fundo --brand-soft</td></tr>
+        <tr><td>Marcador</td><td>20 px, contorno 2 px; marcado com ponto de 10 px que cresce em 200 ms</td><td>--line; marcado --brand</td></tr>
+        <tr><td>Nome</td><td>serif 20 px 700</td><td>--ink; marcado --brand</td></tr>
+        <tr><td>Descrição</td><td>sans 13,5 px, até 2 linhas</td><td>--ink2</td></tr>
+        <tr><td>Exemplos</td><td>serif 15 px 600, quatro palavras separadas por “·”, uma linha com reticências; ao marcar, entram pela esquerda em 450 ms. Só nos três acervos fixos (a linha do Meu acervo não tem exemplos). Saem de uma lista fixa por acervo, pulando toda palavra que dá para formar com as letras guardadas do Meu acervo (nunca uma resposta do próximo jogo)</td><td>--ink2, “·” em --muted</td></tr>
+        <tr><td>Aviso</td><td>sans 12,5 px centrado, número em negrito; só quando o jogo atual tem ao menos 1 palavra</td><td>--ink2 / --ink</td></tr>
+        <tr><td>Botão</td><td>48 px de altura, raio 24, sans 15 px 600; texto segue o acervo marcado: “Começar no Bolso”, “na Estante”, “no Sebo”, “no Meu acervo”</td><td>--brand / --brand-ink</td></tr>
+        <tr><td>Preparando</td><td>linhas a 45% e sem toque, botão “Preparando…”; só se gerar o jogo passar de 300 ms</td><td>--line / --ink2</td></tr>
+        <tr><td>Linha Meu acervo</td><td>mesma linha dos outros, depois de um pontilhado 1 px com 6 px acima e abaixo; “Montar ›” sans 12,5 px 600 à direita do nome; descrição fixa “Você escolhe o que entra.”, sempre, nunca um resumo da regra (a regra mora na tela Montar acervo); sem exemplos e sem contagem: a linha só tem o nome, “Montar ›” e a frase. Os exemplos ficam para os três acervos fixos</td><td>--dots; link --brand</td></tr>
+        <tr><td>Meu acervo sem jogo</td><td>quando nenhum jogo é possível (acervo vazio, ou as letras guardadas sem palavra): marcador apagado, linha não marca; a frase fica e, no lugar dos exemplos, “Nenhum jogo possível com essas regras.” em --err, sans 13,5 px; “Montar ›” continua ativo</td><td>--muted, --err</td></tr>
+        <tr><td>Fechar</td><td>X, véu ou arrastar para baixo: nada muda, o jogo continua</td><td>--scrim</td></tr>
+      </tbody></table></div>
+    </article>
+
+    <h3 id="a-montar">Montar acervo: o efeito na hora</h3>
+    <p class="ds-note" style="margin:0 0 14px">O resultado de cada toque fica sempre à vista. Em cima, preso, as letras do próximo jogo e quantas palavras elas dão: “72 palavras com estas letras”. Liga “conjugado” e o número vira 100 no mesmo instante, rolando a lista ou não. Nenhuma opção mostra antes quanto vai mudar: quem joga toca e vê.</p>
+    <div class="ds-grid">
+      <div class="ds-card"><h4>O resultado sempre à vista</h4><p>As letras e o número ficam presos abaixo da barra, o que quer que esteja aberto ou rolado. É a única conta do próximo jogo na tela.</p></div>
+      <div class="ds-card"><h4>Um toque, um número</h4><p>Cada toque muda o número no mesmo quadro, com uma entrada curta. Botões, paradas e “Copiar” não levam número: o efeito aparece em cima, depois do toque.</p></div>
+      <div class="ds-card"><h4>O acervo em segundo plano</h4><p>O tamanho do acervo inteiro é a faixa teal do começo da lista, como no resto do livro. Não fica presa: sai da tela quando a lista rola.</p></div>
+      <div class="ds-card"><h4>Paradas descritas</h4><p>Cada parada de “Quão raras” tem uma frase curta e 3 exemplos fixos, sempre os mesmos, para a raridade ter cara antes de ter número.</p></div>
+    </div>
+    <p class="ds-note" style="margin:22px 0 14px">O celular abaixo funciona: ligue e desligue (até todas as classes, que esvazia o acervo), mude a parada, aperte os botões de tamanho, copie um acervo e sorteie outras letras (o sorteio passa por P A R T E I L, T A C O R I M e X U P E G I F, a de nenhuma palavra). Os números são de um modelo inventado, mas obedecem à mesma regra da tela.</p>
+    <div class="ds-screen">
+      <div class="ds-cell"><div id="fx-live"><div class="mt fx live"><div class="mt-bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Montar acervo</b></div><div class="fx-res" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">72</b></span><span class="fx-cap">palavras com estas letras</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><div class="fx-sc"><div class="mt-bd"><div class="mt-count"><b>~11 mil palavras</b><span>no seu acervo. As letras do jogo decidem quais aparecem.</span></div><p class="mt-note">Começa como cópia da Estante. Mude o que quiser.</p><p class="mt-copy">Copiar<button class="cp" data-k="copy" data-i="0">Bolso</button><button class="cp" data-k="copy" data-i="1">Estante</button><button class="cp" data-k="copy" data-i="2">Sebo</button></p><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>de leitor</b></div><p class="fx-desc">Quem lê bastante conhece.</p><p class="fq-ex"><span>fadiga</span><i>·</i><span>ensejo</span><i>·</i><span>bruma</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-valuetext="de leitor" style="--i:2"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div><div class="grp"><span>Classes</span></div><div class="fx-grid"><button class="chip on" data-k="cls" data-i="0">substantivo</button><button class="chip on" data-k="cls" data-i="1">adjetivo</button><button class="chip on" data-k="cls" data-i="2">verbo</button><button class="chip on" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div><div class="grp"><span>Formas</span></div><div class="fx-grid"><button class="chip on" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip" data-k="frm" data-i="2">conjugado</button><button class="chip" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div><p class="mt-hint">A forma base sempre entra.</p><div class="grp"><span>Uso</span></div><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div><p class="mt-hint">Palavrões ficam sempre de fora.</p><div class="grp"><span>Tamanho</span></div><div class="mt-len">De <span class="stp"><button class="act dis" data-k="len" data-i="minDown" aria-label="Menos">−</button><b>4</b><button class="act" data-k="len" data-i="minUp" aria-label="Mais">+</button></span> a <span class="stp"><button class="act" data-k="len" data-i="maxDown" aria-label="Menos">−</button><b>8</b><button class="act dis" data-k="len" data-i="maxUp" aria-label="Mais">+</button></span> letras</div></div></div><div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div></div><div class="ds-states" style="border:0;background:none;justify-content:center"><button id="fx-reset">Recomeçar</button></div></div>
+      <ul>
+        <li><b>O resultado nunca sai da tela.</b> A barra, as letras com o número e o “Pronto” são fixos; só a lista do meio rola, começando pela faixa do acervo.</li>
+        <li><b>Toque e veja.</b> O botão troca de estado e o número de cima troca junto, entrando em 350 ms. Antes do toque, nada diz quanto vai mudar.</li>
+        <li><b>Outras letras.</b> “Sortear outras” apaga as letras e o número juntos, e eles voltam juntos.</li>
+        <li><b>Exemplos fixos.</b> As únicas palavras na tela são os 3 exemplos de cada parada, sempre os mesmos. Raramente um deles pode ser palavra do jogo sorteado, e tudo bem.</li>
+      </ul>
+    </div>
+
+    <article class="ds-comp" id="c-montar">
+      <header><h3>Montar acervo</h3><code>lib/acervo_page.dart · AcervoPage</code><p>Tela cheia, aberta pelo “Montar ›” da linha Meu acervo (rota <code>/acervo</code>). Três faixas fixas e uma que rola: a barra; o resultado (as letras do próximo jogo na roda do jogo, quantas palavras elas dão e “Sortear outras”); a lista, que começa pela contagem do acervo e segue com o “Copiar” e um controle para cada coisa que o dicionário sabe da palavra: raridade, classes, formas, uso e tamanho; e o rodapé, só com “Pronto”. Tudo salva na hora, sem “Desfazer” nem “Cancelar”; “Pronto” e a seta voltam para a folha com Meu acervo marcado. Palavrão não tem controle: fica sempre de fora, e a tela diz isso. As telas 1, 2, 4 e 5 estão desenhadas inteiras; a 3 e a 6 mostram o que cabe num celular, com a lista rolada.</p></header>
+      <div class="ds-stage sheets">
+<div class="ds-cell"><div class="mt fx whole"><div class="mt-bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Montar acervo</b></div><div class="fx-res" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">72</b></span><span class="fx-cap">palavras com estas letras</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><div class="fx-sc"><div class="mt-bd"><div class="mt-count"><b>~11 mil palavras</b><span>no seu acervo. As letras do jogo decidem quais aparecem.</span></div><p class="mt-note">Começa como cópia da Estante. Mude o que quiser.</p><p class="mt-copy">Copiar<button class="cp" data-k="copy" data-i="0">Bolso</button><button class="cp" data-k="copy" data-i="1">Estante</button><button class="cp" data-k="copy" data-i="2">Sebo</button></p><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>de leitor</b></div><p class="fx-desc">Quem lê bastante conhece.</p><p class="fq-ex"><span>fadiga</span><i>·</i><span>ensejo</span><i>·</i><span>bruma</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-valuetext="de leitor" style="--i:2"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div><div class="grp"><span>Classes</span></div><div class="fx-grid"><button class="chip on" data-k="cls" data-i="0">substantivo</button><button class="chip on" data-k="cls" data-i="1">adjetivo</button><button class="chip on" data-k="cls" data-i="2">verbo</button><button class="chip on" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div><div class="grp"><span>Formas</span></div><div class="fx-grid"><button class="chip on" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip" data-k="frm" data-i="2">conjugado</button><button class="chip" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div><p class="mt-hint">A forma base sempre entra.</p><div class="grp"><span>Uso</span></div><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div><p class="mt-hint">Palavrões ficam sempre de fora.</p><div class="grp"><span>Tamanho</span></div><div class="mt-len">De <span class="stp"><button class="act dis" data-k="len" data-i="minDown" aria-label="Menos">−</button><b>4</b><button class="act" data-k="len" data-i="minUp" aria-label="Mais">+</button></span> a <span class="stp"><button class="act" data-k="len" data-i="maxDown" aria-label="Menos">−</button><b>8</b><button class="act dis" data-k="len" data-i="maxUp" aria-label="Mais">+</button></span> letras</div></div></div><div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div><span class="ds-label">Primeira vez · cópia da Estante</span></div>
+<div class="ds-cell"><div class="mt fx whole"><div class="mt-bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Montar acervo</b></div><div class="fx-res" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">114</b></span><span class="fx-cap">palavras com estas letras</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><div class="fx-sc"><div class="mt-bd"><div class="mt-count"><b>~35 mil palavras</b><span>no seu acervo. As letras do jogo decidem quais aparecem.</span></div><p class="mt-copy">Copiar<button class="cp" data-k="copy" data-i="0">Bolso</button><button class="cp" data-k="copy" data-i="1">Estante</button><button class="cp" data-k="copy" data-i="2">Sebo</button></p><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>raras</b></div><p class="fx-desc">Pouca gente conhece.</p><p class="fq-ex"><span>senda</span><i>·</i><span>urdir</span><i>·</i><span>bulício</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="3" aria-valuetext="raras" style="--i:3"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk a" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div><div class="grp"><span>Classes</span></div><div class="fx-grid"><button class="chip on" data-k="cls" data-i="0">substantivo</button><button class="chip on" data-k="cls" data-i="1">adjetivo</button><button class="chip on" data-k="cls" data-i="2">verbo</button><button class="chip on" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div><div class="grp"><span>Formas</span></div><div class="fx-grid"><button class="chip on" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip on" data-k="frm" data-i="2">conjugado</button><button class="chip" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div><p class="mt-hint">A forma base sempre entra.</p><div class="grp"><span>Uso</span></div><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div><p class="mt-hint">Palavrões ficam sempre de fora.</p><div class="grp"><span>Tamanho</span></div><div class="mt-len">De <span class="stp"><button class="act dis" data-k="len" data-i="minDown" aria-label="Menos">−</button><b>4</b><button class="act" data-k="len" data-i="minUp" aria-label="Mais">+</button></span> a <span class="stp"><button class="act" data-k="len" data-i="maxDown" aria-label="Menos">−</button><b>8</b><button class="act dis" data-k="len" data-i="maxUp" aria-label="Mais">+</button></span> letras</div></div></div><div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div><span class="ds-label">Editado · raras, com conjugado</span></div>
+<div class="ds-cell"><div class="mt fx view"><div class="mt-bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Montar acervo</b></div><div class="fx-res" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">120</b></span><span class="fx-cap">palavras com estas letras</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><div class="fx-sc"><div class="mt-bd" style="margin-top:-610px"><div class="mt-count"><b>~38 mil palavras</b><span>no seu acervo. As letras do jogo decidem quais aparecem.</span></div><p class="mt-copy">Copiar<button class="cp" data-k="copy" data-i="0">Bolso</button><button class="cp" data-k="copy" data-i="1">Estante</button><button class="cp" data-k="copy" data-i="2">Sebo</button></p><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>raras</b></div><p class="fx-desc">Pouca gente conhece.</p><p class="fq-ex"><span>senda</span><i>·</i><span>urdir</span><i>·</i><span>bulício</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="3" aria-valuetext="raras" style="--i:3"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk a" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div><div class="grp"><span>Classes</span></div><div class="fx-grid"><button class="chip on" data-k="cls" data-i="0">substantivo</button><button class="chip on" data-k="cls" data-i="1">adjetivo</button><button class="chip on" data-k="cls" data-i="2">verbo</button><button class="chip on" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div><div class="grp"><span>Formas</span></div><div class="fx-grid"><button class="chip on" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip on" data-k="frm" data-i="2">conjugado</button><button class="chip on" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div><p class="mt-hint">A forma base sempre entra.</p><div class="grp"><span>Uso</span></div><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div><p class="mt-hint">Palavrões ficam sempre de fora.</p><div class="grp"><span>Tamanho</span></div><div class="mt-len">De <span class="stp"><button class="act dis" data-k="len" data-i="minDown" aria-label="Menos">−</button><b>4</b><button class="act" data-k="len" data-i="minUp" aria-label="Mais">+</button></span> a <span class="stp"><button class="act" data-k="len" data-i="maxDown" aria-label="Menos">−</button><b>8</b><button class="act dis" data-k="len" data-i="maxUp" aria-label="Mais">+</button></span> letras</div></div></div><div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div><span class="ds-label">Logo depois do toque em particípio · rolada até Formas: 114 vira 120</span></div>
+<div class="ds-cell"><div class="mt fx whole"><div class="mt-bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Montar acervo</b></div><div class="fx-res low" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">T</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">C</span><span class="sx-k" style="left:74px;top:64.5px">O</span><span class="sx-k" style="left:37px;top:86px">R</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">M</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">9</b></span><span class="fx-cap">palavras com estas letras. O jogo vai ter menos de 50.</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><div class="fx-sc"><div class="mt-bd"><div class="mt-count warn"><b>~1 mil palavras</b><span>no seu acervo. É pouco: os jogos vão ter menos de 50 palavras.</span></div><p class="mt-note">O jogo de agora não muda.</p><p class="mt-copy">Copiar<button class="cp" data-k="copy" data-i="0">Bolso</button><button class="cp" data-k="copy" data-i="1">Estante</button><button class="cp" data-k="copy" data-i="2">Sebo</button></p><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>do dia a dia</b></div><p class="fx-desc">Todo mundo conhece.</p><p class="fq-ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>mundo</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-valuetext="do dia a dia" style="--i:0"><span class="tk a" style="left:0%"></span><span class="tk" style="left:25%"></span><span class="tk" style="left:50%"></span><span class="tk" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div><div class="grp"><span>Classes</span></div><div class="fx-grid"><button class="chip on" data-k="cls" data-i="0">substantivo</button><button class="chip" data-k="cls" data-i="1">adjetivo</button><button class="chip" data-k="cls" data-i="2">verbo</button><button class="chip" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div><div class="grp"><span>Formas</span></div><div class="fx-grid"><button class="chip" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip" data-k="frm" data-i="2">conjugado</button><button class="chip" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div><p class="mt-hint">A forma base sempre entra.</p><div class="grp"><span>Uso</span></div><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div><p class="mt-hint">Palavrões ficam sempre de fora.</p><div class="grp"><span>Tamanho</span></div><div class="mt-len">De <span class="stp"><button class="act" data-k="len" data-i="minDown" aria-label="Menos">−</button><b>7</b><button class="act" data-k="len" data-i="minUp" aria-label="Mais">+</button></span> a <span class="stp"><button class="act" data-k="len" data-i="maxDown" aria-label="Menos">−</button><b>8</b><button class="act dis" data-k="len" data-i="maxUp" aria-label="Mais">+</button></span> letras</div></div></div><div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div><span class="ds-label">Menos de 50 · segue</span></div>
+<div class="ds-cell"><div class="mt fx whole"><div class="mt-bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Montar acervo</b></div><div class="fx-res low dead" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">0</b></span><span class="fx-cap">Nenhuma palavra com estas letras.</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><div class="fx-sc"><div class="mt-bd"><div class="mt-count warn"><b>Nenhuma palavra</b><span>passa pelos seus filtros. Solte algum para poder jogar.</span></div><p class="mt-copy">Copiar<button class="cp" data-k="copy" data-i="0">Bolso</button><button class="cp" data-k="copy" data-i="1">Estante</button><button class="cp" data-k="copy" data-i="2">Sebo</button></p><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>de leitor</b></div><p class="fx-desc">Quem lê bastante conhece.</p><p class="fq-ex"><span>fadiga</span><i>·</i><span>ensejo</span><i>·</i><span>bruma</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-valuetext="de leitor" style="--i:2"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div><div class="grp"><span>Classes</span></div><div class="fx-grid"><button class="chip" data-k="cls" data-i="0">substantivo</button><button class="chip" data-k="cls" data-i="1">adjetivo</button><button class="chip" data-k="cls" data-i="2">verbo</button><button class="chip" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div><div class="grp"><span>Formas</span></div><div class="fx-grid"><button class="chip on" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip" data-k="frm" data-i="2">conjugado</button><button class="chip" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div><p class="mt-hint">A forma base sempre entra.</p><div class="grp"><span>Uso</span></div><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div><p class="mt-hint">Palavrões ficam sempre de fora.</p><div class="grp"><span>Tamanho</span></div><div class="mt-len">De <span class="stp"><button class="act dis" data-k="len" data-i="minDown" aria-label="Menos">−</button><b>4</b><button class="act" data-k="len" data-i="minUp" aria-label="Mais">+</button></span> a <span class="stp"><button class="act" data-k="len" data-i="maxDown" aria-label="Menos">−</button><b>8</b><button class="act dis" data-k="len" data-i="maxUp" aria-label="Mais">+</button></span> letras</div></div></div><div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div><span class="ds-label">Nenhum jogo possível · todas as classes desligadas</span></div>
+<div class="ds-cell"><div class="mt fx view"><div class="mt-bar"><i><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><b>Montar acervo</b></div><div class="fx-res busy" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">72</b></span><span class="fx-cap">palavras com estas letras</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><div class="fx-sc"><div class="mt-bd"><div class="mt-count"><b>~11 mil palavras</b><span>no seu acervo. As letras do jogo decidem quais aparecem.</span></div><p class="mt-copy">Copiar<button class="cp" data-k="copy" data-i="0">Bolso</button><button class="cp" data-k="copy" data-i="1">Estante</button><button class="cp" data-k="copy" data-i="2">Sebo</button></p><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>de leitor</b></div><p class="fx-desc">Quem lê bastante conhece.</p><p class="fq-ex"><span>fadiga</span><i>·</i><span>ensejo</span><i>·</i><span>bruma</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-valuetext="de leitor" style="--i:2"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div><div class="grp"><span>Classes</span></div><div class="fx-grid"><button class="chip on" data-k="cls" data-i="0">substantivo</button><button class="chip on" data-k="cls" data-i="1">adjetivo</button><button class="chip on" data-k="cls" data-i="2">verbo</button><button class="chip on" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div><div class="grp"><span>Formas</span></div><div class="fx-grid"><button class="chip on" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip" data-k="frm" data-i="2">conjugado</button><button class="chip" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div><p class="mt-hint">A forma base sempre entra.</p><div class="grp"><span>Uso</span></div><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div><p class="mt-hint">Palavrões ficam sempre de fora.</p><div class="grp"><span>Tamanho</span></div><div class="mt-len">De <span class="stp"><button class="act dis" data-k="len" data-i="minDown" aria-label="Menos">−</button><b>4</b><button class="act" data-k="len" data-i="minUp" aria-label="Mais">+</button></span> a <span class="stp"><button class="act" data-k="len" data-i="maxDown" aria-label="Menos">−</button><b>8</b><button class="act dis" data-k="len" data-i="maxUp" aria-label="Mais">+</button></span> letras</div></div></div><div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div><span class="ds-label">Sorteando outras letras</span></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody>
+<tr><td>Tela</td><td>coluna de quatro faixas, fundo de papel, margem 16 px; só a lista rola. Em 360 × 640 dp sobram ~330 px de lista entre o resultado (~150 px) e o rodapé (~80 px)</td><td>--paper</td></tr>
+<tr><td>Barra</td><td>56 px, seta e “Montar acervo” em serif 22 px 700; a seta faz o mesmo que “Pronto”</td><td>--ink</td></tr>
+<tr><td>Resultado</td><td>preso abaixo da barra, fio de 1 px embaixo; ver Resultado preso</td><td>--line</td></tr>
+<tr><td>Contagem do acervo</td><td>primeira coisa da lista, 12 px abaixo do resultado; não fica presa; ver Contagem do acervo</td><td>--brand-soft / --brand</td></tr>
+<tr><td>Nota</td><td>sans 13 px, logo depois da contagem, só na primeira vez (“Começa como cópia da Estante. Mude o que quiser.”) ou com um jogo do Meu acervo aberto (“O jogo de agora não muda.”)</td><td>--ink2</td></tr>
+<tr><td>Copiar</td><td>“Copiar” + três pílulas Bolso, Estante, Sebo (sans 12,5 px 600, contorno 1,5 px), sempre iguais e sem número; um toque troca a regra inteira pela daquele acervo e salva; as letras ficam</td><td>--line, --ink2</td></tr>
+<tr><td>Seções</td><td>mesmo cabeçalho do Glossário (fio 2 px, rótulo sans 11 px caixa-alta), nesta ordem: Quão raras · Classes · Formas · Uso · Tamanho. “Tamanho”, nunca “Letras”, para não confundir com as letras do jogo</td><td>--brand, --muted</td></tr>
+<tr><td>Classes, formas, uso</td><td>botões em grade de 2 colunas; ver Opções em grade</td><td>—</td></tr>
+<tr><td>Dicas</td><td>sans 12 px abaixo de Formas e Uso: “A forma base sempre entra.”, “Palavrões ficam sempre de fora.” Classes não tem dica: todas podem desligar</td><td>--muted</td></tr>
+<tr><td>Tamanho</td><td>“De [−] 4 [+] a [−] 8 [+] letras”: botões de 36 px como os de ação, número serif 22 px 700; o mínimo nunca passa do máximo; o botão no limite fica a 35%</td><td>--line, --ink2, --ink</td></tr>
+<tr><td>Rodapé</td><td>preso embaixo, fio de 1 px em cima, respiro 10/16/16: só “Pronto” (48 px, raio 24, nunca desativado)</td><td>--paper, --brand</td></tr>
+<tr><td>Sem número antes do toque</td><td>nenhum controle mostra quanto vai mudar; o único número do próximo jogo é o do resultado, que muda depois do toque</td><td>—</td></tr>
+</tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-resultado">
+      <header><h3>Resultado preso</h3><code>lib/acervo_page.dart · _Resultado</code><p>As 7 letras com que o próximo jogo do Meu acervo vai começar, na roda do jogo, e quantas palavras a regra de agora dá com elas. É o único número do próximo jogo na tela, e ele muda no mesmo quadro de cada toque. “Sortear outras” troca o sorteio quantas vezes quiser. Mexer num filtro nunca troca as letras: só o número muda, para ver o efeito no mesmo jogo. Se um filtro deixa estas letras sem palavra, o jogo não começa até sortear outras.</p></header>
+      <div class="ds-stage">
+        <div class="ds-cell"><div class="fx-res solo" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">72</b></span><span class="fx-cap">palavras com estas letras</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><span class="ds-label">Normal</span></div>
+        <div class="ds-cell"><div class="fx-res busy solo" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">72</b></span><span class="fx-cap">palavras com estas letras</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><span class="ds-label">Sorteando</span></div>
+        <div class="ds-cell"><div class="fx-res low solo" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">T</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">C</span><span class="sx-k" style="left:74px;top:64.5px">O</span><span class="sx-k" style="left:37px;top:86px">R</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">M</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">9</b></span><span class="fx-cap">palavras com estas letras. O jogo vai ter menos de 50.</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><span class="ds-label">Menos de 50 · segue</span></div>
+        <div class="ds-cell"><div class="fx-res low solo" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">X</span><span class="sx-k" style="left:37px;top:0px">U</span><span class="sx-k" style="left:74px;top:21.5px">P</span><span class="sx-k" style="left:74px;top:64.5px">E</span><span class="sx-k" style="left:37px;top:86px">G</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">F</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">0</b></span><span class="fx-cap">Nenhuma palavra com estas letras. Sorteie outras.</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><span class="ds-label">Nenhuma com estas letras</span></div>
+        <div class="ds-cell"><div class="fx-res low dead solo" aria-live="polite"><div class="sx-hive" aria-label="Letras do próximo jogo"><span class="sx-k c" style="left:37px;top:43px">P</span><span class="sx-k" style="left:37px;top:0px">A</span><span class="sx-k" style="left:74px;top:21.5px">R</span><span class="sx-k" style="left:74px;top:64.5px">T</span><span class="sx-k" style="left:37px;top:86px">E</span><span class="sx-k" style="left:0px;top:64.5px">I</span><span class="sx-k" style="left:0px;top:21.5px">L</span></div><div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">0</b></span><span class="fx-cap">Nenhuma palavra com estas letras.</span><button class="sx-go" data-k="draw"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sortear outras</button></div></div><span class="ds-label">Acervo vazio</span></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody>
+<tr><td>Caixa</td><td>presa abaixo da barra; respiro 4/16/14; roda à esquerda, coluna à direita com 16 px de vão; fio de 1 px embaixo</td><td>--paper, --line</td></tr>
+<tr><td>Roda</td><td>as mesmas posições e a mesma ordem do <code>Hive</code> da tela de jogo, a 62%: teclas de 47 × 41 px, caixa de 121 × 127 px, sans 17 px 700; sem toque nas teclas</td><td>central --brand / --brand-ink; outras --tile / --tile-ink</td></tr>
+<tr><td>Rótulo</td><td>“Letras do jogo”, sans 10,5 px 600 caixa-alta</td><td>--muted</td></tr>
+<tr><td>Número</td><td>serif 34 px 700, algarismos alinhados, sem fundo nem caixa; depois de um toque, o novo entra em 350 ms (opacidade 0 a 1, descendo 3 px), sem contar número a número</td><td>--ink</td></tr>
+<tr><td>Legenda</td><td>sans 13 px: “palavras com estas letras”</td><td>--ink2</td></tr>
+<tr><td>Menos de 50</td><td>número grande “9” e, embaixo, “palavras com estas letras. O jogo vai ter menos de 50.”, tudo em vermelho de texto, sem fundo; o número aparece uma vez só. Nada é bloqueado</td><td>--err</td></tr>
+<tr><td>Nenhuma com estas letras</td><td>“0” e “Nenhuma palavra com estas letras. Sorteie outras.” Só aqui o jogo não começa: a linha Meu acervo da folha fica apagada, como em “sem jogo possível”, até haver um sorteio com palavras</td><td>--err</td></tr>
+<tr><td>Acervo vazio</td><td>“0” e “Nenhuma palavra com estas letras.”, sem “Sorteie outras”: com o acervo vazio nenhum sorteio forma palavra. “Sortear outras” fica a 45% e sem toque</td><td>--err</td></tr>
+<tr><td>Sortear outras</td><td>pílula de 36 px, raio 18, contorno 1,5 px, ícone de setas em círculo 18 px + sans 13 px 600, abaixo da legenda. Usa o mesmo gerador do jogo com a regra atual: até 1 000 sorteios, para no primeiro com 50 ou mais, senão fica com o melhor</td><td>--line, --ink2</td></tr>
+<tr><td>Sorteando</td><td>letras a 35% e 90%, número a 45%, botão a 45% e sem toque. Normalmente menos de 100 ms, então quase nunca aparece</td><td>—</td></tr>
+<tr><td>Leitor de tela</td><td>região viva educada: lê “120 palavras com estas letras” depois de cada toque</td><td>—</td></tr>
+</tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-contagem">
+      <header><h3>Contagem do acervo</h3><code>lib/acervo_page.dart · _Count</code><p>Quantas palavras a regra deixa entrar no acervo, e o que esse número quer dizer: é o estoque de todos os jogos, e as letras de cada jogo decidem quais aparecem. É a primeira coisa da lista, logo abaixo do resultado preso, e rola com ela: o resultado fala do próximo jogo e fica; o acervo todo é secundário e sai da tela. A porcentagem de sorteios não vai para a tela; os 200 sorteios fixos só decidem quando mostrar o aviso. Abaixo de 50 é aviso, não bloqueio: “Pronto” e “Começar” seguem ativos. Só “Nenhum jogo possível” impede começar, porque não há jogo.</p></header>
+      <div class="ds-stage">
+        <div class="ds-cell"><div class="mt-count solo"><b>~11 mil palavras</b><span>no seu acervo. As letras do jogo decidem quais aparecem.</span></div><span class="ds-label">Normal</span></div>
+        <div class="ds-cell"><div class="mt-count busy solo"><b>~11 mil palavras</b><span>no seu acervo. As letras do jogo decidem quais aparecem.</span></div><span class="ds-label">Recalculando</span></div>
+        <div class="ds-cell"><div class="mt-count warn solo"><b>~1 mil palavras</b><span>no seu acervo. É pouco: os jogos vão ter menos de 50 palavras.</span></div><span class="ds-label">Aviso abaixo de 50</span></div>
+        <div class="ds-cell"><div class="mt-count warn solo"><b>Nenhuma palavra</b><span>passa pelos seus filtros. Solte algum para poder jogar.</span></div><span class="ds-label">Nenhum jogo possível</span></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Estado</th><th>Quando</th><th>Texto</th></tr></thead><tbody>
+<tr><td>Normal</td><td>ao menos 1 dos 200 sorteios fixos chega a 50</td><td>“~11 mil palavras” (abaixo de mil: “~600 palavras”) · “no seu acervo. As letras do jogo decidem quais aparecem.”</td></tr>
+<tr><td>Recalculando</td><td>150 ms após o último toque, até o resultado chegar</td><td>número a 45%, linha igual</td></tr>
+<tr><td>Aviso</td><td>nenhum dos 200 sorteios chega a 50, mas algum forma palavra</td><td>“~600 palavras” · “no seu acervo. É pouco: os jogos vão ter menos de 50 palavras.” Fundo #F3D9D3 (o do selo “decorativo” das cores), texto --err</td></tr>
+<tr><td>Nenhum jogo</td><td>zero palavras, ou nenhum sorteio forma uma palavra</td><td>“Nenhuma palavra” · “passa pelos seus filtros. Solte algum para poder jogar.” Mesmo fundo; na folha, a linha do Meu acervo não marca</td></tr>
+</tbody></table></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody>
+<tr><td>Faixa</td><td>primeira coisa da lista, 12 px abaixo do resultado; raio 12, respiro 10/14/11; não fica presa</td><td>--brand-soft; aviso #F3D9D3</td></tr>
+<tr><td>Número</td><td>serif 22 px 700</td><td>--brand; aviso --err</td></tr>
+<tr><td>Linha</td><td>sans 12,5 px 500, 3 px abaixo do número, até 2 linhas</td><td>--ink2; aviso --err</td></tr>
+</tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-raras">
+      <header><h3>Quão raras</h3><code>lib/acervo_page.dart · _Raridade</code><p>A raridade escolhida por nome, num slider de 5 paradas. Acima, o nome da parada, uma frase curta que diz de onde são essas palavras e 3 exemplos fixos. Sem número: mudar de parada muda o número do resultado preso, como qualquer toque.</p></header>
+      <div class="ds-stage">
+        <div class="ds-cell"><div class="fx-solo"><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>de leitor</b></div><p class="fx-desc">Quem lê bastante conhece.</p><p class="fq-ex"><span>fadiga</span><i>·</i><span>ensejo</span><i>·</i><span>bruma</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-valuetext="de leitor" style="--i:2"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div></div><span class="ds-label">De leitor · cópia da Estante</span></div>
+        <div class="ds-cell"><div class="fx-solo"><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>raras</b></div><p class="fx-desc">Pouca gente conhece.</p><p class="fq-ex"><span>senda</span><i>·</i><span>urdir</span><i>·</i><span>bulício</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="3" aria-valuetext="raras" style="--i:3"><span class="tk a" style="left:0%"></span><span class="tk a" style="left:25%"></span><span class="tk a" style="left:50%"></span><span class="tk a" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div></div><span class="ds-label">Raras</span></div>
+        <div class="ds-cell"><div class="fx-solo"><div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>do dia a dia</b></div><p class="fx-desc">Todo mundo conhece.</p><p class="fq-ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>mundo</span></p><div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-valuetext="do dia a dia" style="--i:0"><span class="tk a" style="left:0%"></span><span class="tk" style="left:25%"></span><span class="tk" style="left:50%"></span><span class="tk" style="left:75%"></span><span class="tk" style="left:100%"></span><span class="th"></span><button class="fx-hit" data-k="stop" data-i="0" style="left:0%" aria-label="do dia a dia"></button><button class="fx-hit" data-k="stop" data-i="1" style="left:25%" aria-label="comuns"></button><button class="fx-hit" data-k="stop" data-i="2" style="left:50%" aria-label="de leitor"></button><button class="fx-hit" data-k="stop" data-i="3" style="left:75%" aria-label="raras"></button><button class="fx-hit" data-k="stop" data-i="4" style="left:100%" aria-label="raríssimas"></button></div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div></div><span class="ds-label">Do dia a dia</span></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody>
+<tr><td>Título</td><td>“Quão raras”, nunca “Frequência”: diz em palavra de quem joga o que o slider controla</td><td>--muted</td></tr>
+<tr><td>Slider</td><td>5 paradas (<code>Slider</code>, <code>divisions: 4</code>), da esquerda (“do dia a dia”, menos palavras) para a direita (“raríssimas”, mais palavras); só para nas paradas. Acima, o nome da parada em serif 20 px 700, a descrição em sans 13 px e 3 exemplos serif 14 px 600; abaixo, as pontas “só as mais usadas” e “até as raríssimas” em sans 12 px. Trilho 4 px, raio 2; marcas de 6 px em cada parada; polegar de 22 px com anel de papel de 3 px; área de toque 44 px de altura, recuo de 11 px nas pontas para o polegar caber</td><td>trilho --line, ativo --brand; marcas --muted / --brand-soft; polegar --brand; nome --brand; descrição e exemplos --ink2; pontas --muted</td></tr>
+<tr><td>Descrição</td><td>sans 13 px, uma linha, 2 px abaixo do nome: Todo mundo conhece. · Quase todo mundo conhece. · Quem lê bastante conhece. · Pouca gente conhece. · Quase ninguém conhece.</td><td>--ink2</td></tr>
+<tr><td>Exemplos</td><td>3 fixos por parada, sempre os mesmos e nunca filtrados pelas letras: casa · tempo · mundo / bigode · neve · surdo / fadiga · ensejo · bruma / senda · urdir · bulício / zimbro · nesga · obnubilar. Raramente um deles pode ser palavra do jogo sorteado; é aceito. Nenhum dá para formar com os sorteios deste livro (P A R T E I L, T A C O R I M, X U P E G I F)</td><td>--ink2</td></tr>
+<tr><td>Ao arrastar</td><td>nome, descrição e exemplos trocam a cada parada cruzada, e o número do resultado também, com um toque leve (<code>HapticFeedback.selectionClick</code>) por parada</td><td>—</td></tr>
+<tr><td>Não é medida</td><td>sem Zipf, sem número por parada, sem cor por parada, sem preenchimento “de nível”</td><td>—</td></tr>
+<tr><td>Leitor de tela</td><td>lê o nome da parada (<code>semanticFormatterCallback</code>); o número vem do resultado preso</td><td>—</td></tr>
+</tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-opcao">
+      <header><h3>Opções em grade</h3><code>lib/acervo_page.dart · _Opcoes</code><p>Os botões de classe, forma e uso: pílulas que ligam e desligam, em duas colunas iguais. Um nome que não cabe na célula quebra em duas linhas dentro dela, sem reticências e sem ocupar a linha toda. O botão não mostra número; o efeito aparece no resultado preso, depois do toque.</p></header>
+      <div class="ds-stage">
+        <div class="ds-cell"><div class="fx-solo"><div class="fx-grid"><button class="chip on" data-k="cls" data-i="0">substantivo</button><button class="chip on" data-k="cls" data-i="1">adjetivo</button><button class="chip on" data-k="cls" data-i="2">verbo</button><button class="chip on" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div></div><span class="ds-label">Classes · cópia da Estante</span></div>
+        <div class="ds-cell"><div class="fx-solo"><div class="fx-grid"><button class="chip on" data-k="frm" data-i="0">feminino</button><button class="chip" data-k="frm" data-i="1">plural</button><button class="chip on" data-k="frm" data-i="2">conjugado</button><button class="chip on" data-k="frm" data-i="3">particípio</button><button class="chip" data-k="frm" data-i="4">gerúndio</button><button class="chip" data-k="frm" data-i="5">infinitivo pessoal</button><button class="chip" data-k="frm" data-i="6">diminutivo e aumentativo</button></div></div><span class="ds-label">Formas · nomes longos em duas linhas</span></div>
+        <div class="ds-cell"><div class="fx-solo"><div class="fx-grid"><button class="chip" data-k="cls" data-i="0">substantivo</button><button class="chip" data-k="cls" data-i="1">adjetivo</button><button class="chip" data-k="cls" data-i="2">verbo</button><button class="chip" data-k="cls" data-i="3">advérbio</button><button class="chip" data-k="cls" data-i="4">pronome</button><button class="chip" data-k="cls" data-i="5">numeral</button><button class="chip" data-k="cls" data-i="6">preposição</button><button class="chip" data-k="cls" data-i="7">conjunção</button><button class="chip" data-k="cls" data-i="8">interjeição</button><button class="chip" data-k="cls" data-i="9">artigo</button></div></div><span class="ds-label">Todas desligadas · acervo vazio</span></div>
+        <div class="ds-cell"><div class="fx-solo"><div class="fx-grid"><button class="chip" data-k="uso" data-i="0">de Portugal</button><button class="chip" data-k="uso" data-i="1">antigas</button></div></div><span class="ds-label">Uso</span></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody>
+<tr><td>Pílula</td><td>raio 99, contorno 1,5 px, sans 13,5 px, entrelinha 1,25; altura mínima 32 px, respiro 6/12; ligada com ✓ (no alto, se o nome quebrar), fundo teal claro e texto 600. Área de toque 44 px de altura</td><td>--line / --ink2; ligada --brand-soft / --brand</td></tr>
+<tr><td>Grade</td><td>2 colunas iguais, 6 px de vão (161 px cada em 328 px). Nome que não cabe quebra em 2 linhas dentro da célula, e a linha da grade fica da altura da pílula mais alta; nunca reticências, nunca uma pílula ocupando a linha toda. Em 360 dp, “diminutivo e aumentativo” quebra; “infinitivo pessoal” cabe por pouco e quebra em telas mais estreitas</td><td>—</td></tr>
+<tr><td>Todas desligadas</td><td>pode: a última classe desliga como qualquer outra; o acervo fica vazio e cai em “Nenhuma palavra · passa pelos seus filtros. Solte algum para poder jogar.” (Contagem do acervo); nenhum botão trava</td><td>—</td></tr>
+<tr><td>Toque</td><td>a pílula troca em 150 ms e o número do resultado preso troca no mesmo quadro</td><td>—</td></tr>
+<tr><td>Leitor de tela</td><td>“plural, desligado, botão” · “substantivo, ligado, botão”; o número vem do resultado preso</td><td>—</td></tr>
+</tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-chegar">
+      <header><h3>Entrada e volta</h3><code>lib/wigets/dialogs.dart · showNewGame</code><p>“Montar ›” na linha Meu acervo da folha Novo jogo abre a tela; na primeira vez, tocar na linha também abre, com a cópia da Estante. “Pronto”, a seta e o voltar do sistema fazem o mesmo: fecham a tela, com tudo já salvo, e a folha volta com Meu acervo marcado e a mesma frase de sempre. Quem começa o jogo é sempre a folha. A linha não mostra quantas palavras as letras dão.</p></header>
+      <div class="ds-stage sheets">
+        <div class="fx-flow">
+          <div class="ds-cell"><div class="ds-sheet nj"><div class="handle"></div><div class="sh"><div><h2>Novo jogo</h2><p>De onde vêm as palavras?</p></div><button class="ib" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="body"><ul class="acv-list"><li><span class="rd"></span><span class="tx"><b>Bolso</b><span class="d">Palavras do dia a dia.</span><span class="ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>noite</span><i>·</i><span>mundo</span></span></span></li><li class="on"><span class="rd"></span><span class="tx"><b>Estante</b><span class="d">O jogo de sempre, com as palavras de quem lê.</span><span class="ex"><span>bigode</span><i>·</i><span>fadiga</span><i>·</i><span>surdo</span><i>·</i><span>neve</span></span></span></li><li><span class="rd"></span><span class="tx"><b>Sebo</b><span class="d">A Estante e mais as raras, até as que quase ninguém conhece.</span><span class="ex"><span>urze</span><i>·</i><span>esgar</span><i>·</i><span>lhano</span><i>·</i><span>aboletar</span></span></span></li><li class="sep" aria-hidden="true"></li><li class="meu"><span class="rd"></span><span class="tx"><span class="nm"><b>Meu acervo</b><span class="mt-link">Montar ›</span></span><span class="d">Você escolhe o que entra.</span></span></li></ul><p class="nj-loss">Começar apaga este jogo: <b>20</b> de 47 palavras.</p><button class="nj-go">Começar na Estante</button></div></div><span class="ds-label">Folha · Montar › abre a tela</span></div>
+          <div class="ar">“Montar ›”<br>→<br>Montar acervo<br>→<br>“Pronto” ou seta</div>
+          <div class="ds-cell"><div class="ds-sheet nj"><div class="handle"></div><div class="sh"><div><h2>Novo jogo</h2><p>De onde vêm as palavras?</p></div><button class="ib" aria-label="Fechar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="body"><ul class="acv-list"><li><span class="rd"></span><span class="tx"><b>Bolso</b><span class="d">Palavras do dia a dia.</span><span class="ex"><span>casa</span><i>·</i><span>tempo</span><i>·</i><span>noite</span><i>·</i><span>mundo</span></span></span></li><li><span class="rd"></span><span class="tx"><b>Estante</b><span class="d">O jogo de sempre, com as palavras de quem lê.</span><span class="ex"><span>bigode</span><i>·</i><span>fadiga</span><i>·</i><span>surdo</span><i>·</i><span>neve</span></span></span></li><li><span class="rd"></span><span class="tx"><b>Sebo</b><span class="d">A Estante e mais as raras, até as que quase ninguém conhece.</span><span class="ex"><span>urze</span><i>·</i><span>esgar</span><i>·</i><span>lhano</span><i>·</i><span>aboletar</span></span></span></li><li class="sep" aria-hidden="true"></li><li class="meu on"><span class="rd"></span><span class="tx"><span class="nm"><b>Meu acervo</b><span class="mt-link">Montar ›</span></span><span class="d">Você escolhe o que entra.</span></span></li></ul><p class="nj-loss">Começar apaga este jogo: <b>20</b> de 47 palavras.</p><button class="nj-go">Começar no Meu acervo</button></div></div><span class="ds-label">Volta com Meu acervo marcado</span></div>
+        </div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Caso</th><th>O que acontece</th></tr></thead><tbody>
+<tr><td>Abrir</td><td>rota <code>/acervo</code> com a transição padrão do Material; as letras salvas (<code>meuAcervoLetras</code>) ou um sorteio novo; o número já vem pronto no primeiro quadro</td></tr>
+<tr><td>Voltar</td><td>“Pronto”, seta e voltar do sistema fazem o mesmo: fecham a tela; tudo já está salvo; a folha marca Meu acervo, a menos que não haja jogo possível</td></tr>
+<tr><td>Folha depois de voltar</td><td>a frase fixa “Você escolhe o que entra.” e 4 exemplos que a regra aceita, sorteados ao abrir a folha, nunca formáveis com as letras guardadas</td></tr>
+</tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-acervo-tag">
+      <header><h3>Rótulo do acervo</h3><code>lib/main_page.dart · progress · lib/wigets/glossary.dart</code><p>O nome do acervo do jogo, à direita da contagem na trilha e no fim do subtítulo do Glossário. É um rótulo, não um botão: trocar de acervo é coisa do Novo jogo.</p></header>
+      <div class="ds-stage" style="flex-direction:column;gap:22px">
+        <div class="ds-phonebar"><div class="top"><span class="wm"><svg class="logo" viewBox="2.8 -112.14 400.1 136.14" width="96" height="32.67" role="img" aria-label="Letraço" font-family="'Noto Serif','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif" font-weight="700"><defs><filter id="lgZb0" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.83"/></filter><filter id="lgZb1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.25"/></filter><filter id="lgZb2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.11"/></filter><filter id="lgZb3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.66"/></filter><filter id="lgZb4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.22"/></filter></defs><text x="144.55" y="-92.34" font-size="36" fill="var(--muted)" fill-opacity="0.58" filter="url(#lgZb0)">e</text><text x="203.7" y="-89.57" font-size="31.85" fill="var(--muted)" fill-opacity="0.5" filter="url(#lgZb1)">t</text><text x="191.21" y="-63.4" font-size="33.23" fill="var(--muted)" fill-opacity="0.54" filter="url(#lgZb2)">r</text><text x="225.19" y="-74.01" font-size="29.08" fill="var(--muted)" fill-opacity="0.44" filter="url(#lgZb3)">a</text><text x="113.2" y="-94.28" font-size="24.92" fill="var(--muted)" fill-opacity="0.36" filter="url(#lgZb4)">o</text><text x="0" y="0" font-size="140" fill="var(--ink)">L</text><text x="88.2" y="0" font-size="100" fill="var(--ink)">e</text><text x="144.4" y="0" font-size="100" fill="var(--ink)">t</text><text x="183.9" y="0" font-size="100" fill="var(--ink)">r</text><text x="235.2" y="0" font-size="100" fill="var(--ink)">a</text><text x="294.2" y="0" font-size="100" fill="var(--brand)">ç</text><text x="345.9" y="0" font-size="100" fill="var(--ink)">o</text></svg></span><button class="ib" aria-label="Menu"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div>
+          <div class="trk"><div class="bar"><span style="width:43%"></span></div><div class="trkl"><span><b>20</b> de 47 palavras</span><span class="acv-tag"><svg viewBox="0 0 14 12" width="13" height="11" aria-hidden="true"><path d="M7 2.6C5.6 1.5 3.6 1.1 1.2 1.1v8.4c2.4 0 4.4.4 5.8 1.5 1.4-1.1 3.4-1.5 5.8-1.5V1.1C10.4 1.1 8.4 1.5 7 2.6zM7 2.6V11" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Estante</span></div></div></div>
+        <div class="ds-phonebar" style="padding:12px 20px 4px">
+          <div class="trkl" style="margin-bottom:10px"><span><b>12</b> de 52 palavras</span><span class="acv-tag"><svg viewBox="0 0 14 12" width="13" height="11" aria-hidden="true"><path d="M7 2.6C5.6 1.5 3.6 1.1 1.2 1.1v8.4c2.4 0 4.4.4 5.8 1.5 1.4-1.1 3.4-1.5 5.8-1.5V1.1C10.4 1.1 8.4 1.5 7 2.6zM7 2.6V11" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Bolso</span></div>
+          <div class="trkl" style="margin-bottom:10px"><span><b>20</b> de 96 palavras</span><span class="acv-tag"><svg viewBox="0 0 14 12" width="13" height="11" aria-hidden="true"><path d="M7 2.6C5.6 1.5 3.6 1.1 1.2 1.1v8.4c2.4 0 4.4.4 5.8 1.5 1.4-1.1 3.4-1.5 5.8-1.5V1.1C10.4 1.1 8.4 1.5 7 2.6zM7 2.6V11" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Sebo</span></div>
+          <div class="trkl"><span><b>9</b> de 61 palavras</span><span class="acv-tag"><svg viewBox="0 0 14 12" width="13" height="11" aria-hidden="true"><path d="M7 2.6C5.6 1.5 3.6 1.1 1.2 1.1v8.4c2.4 0 4.4.4 5.8 1.5 1.4-1.1 3.4-1.5 5.8-1.5V1.1C10.4 1.1 8.4 1.5 7 2.6zM7 2.6V11" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Meu acervo</span></div>
+        </div>
+        <div class="ds-sheet" style="padding-bottom:6px"><div class="handle"></div><div class="sh" style="padding-bottom:6px"><div><h2>Glossário</h2><p>9 de 61 palavras · Meu acervo</p></div></div></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th><th>Token</th></tr></thead><tbody>
+        <tr><td>Trilha</td><td>alinhado à direita na linha da contagem; sans 12,5 px 500; livrinho 13 × 11 px, traço 1,3 px, 5 px antes do nome</td><td>--muted</td></tr>
+        <tr><td>Glossário</td><td>“X de Y palavras · Estante” no subtítulo, mesmo estilo dele (sans 12,5 px)</td><td>--muted</td></tr>
+        <tr><td>Meu acervo</td><td>sempre “Meu acervo”, nunca o resumo da regra: a regra mora na tela Montar acervo</td><td>--muted</td></tr>
+        <tr><td>Peso</td><td>nunca maior nem mais escuro que a contagem; sem cor própria por acervo, sem ícone diferente por acervo</td><td>—</td></tr>
+        <tr><td>Toque</td><td>nenhum; leitor de tela lê “Acervo: Estante”</td><td>—</td></tr>
+      </tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-outro-acervo">
+      <header><h3>Palavra fora do acervo</h3><code>lib/wigets/sky.dart · _buildTyped · events.dart · OutOfAcervo</code><p>Estado novo da palavra digitada. A palavra existe, só ficou de fora, então não leva vermelho nem tremida: fica em tinta apagada, a linha de retorno diz por quê, e ela sobe 12 px e some, como se voltasse para a prateleira dela. Não conta para o progresso e não mostra significado, só o motivo. Nos três fixos há dois casos: a palavra só é mais rara, e a linha diz onde ela mora; ou é de um tipo que nenhum fixo aceita (plural, conjugado, outra classe, de Portugal, antiga), e a linha diz o que ela é e, numa segunda linha, que esse tipo só entra no Meu acervo, para ensinar o modo. No Meu acervo, o controle que a tirou, numa linha só. Um evento só, com o motivo dentro.</p></header>
+      <div class="ds-stage" id="a-away-stage">
+        <div class="ds-cell"><div style="position:relative;width:320px;max-width:100%;height:150px"><div class="cur bad" style="top:58%"><div class="lt"><span>C</span><span>O</span><span>R</span><span>L</span><span>A</span></div><div class="fb"><span class="err">Não está na lista</span></div></div></div><span class="ds-label">Fora da lista (como hoje)</span></div>
+        <div class="ds-cell"><div style="position:relative;width:320px;max-width:100%;height:150px"><div class="cur away" style="top:58%"><div class="lt"><span>R</span><span>E</span><span>L</span><span>H</span><span>A</span></div><div class="fb"><span class="away">Existe, mas mora no <b>Sebo</b></span></div></div></div><span class="ds-label">Fixos · mais rara</span></div>
+        <div class="ds-cell"><div style="position:relative;width:320px;max-width:100%;height:150px"><div class="cur away" style="top:58%"><div class="lt"><span>C</span><span>O</span><span>L</span><span>H</span><span>E</span><span>R</span><span>A</span></div><div class="fb"><span class="away"><span class="pg">Pangrama</span>, mas mora no <b>Sebo</b></span></div></div></div><span class="ds-label">Fixos · pangrama mais raro</span></div>
+        <div class="ds-cell"><div style="position:relative;width:360px;max-width:100%;height:170px"><div class="cur away two" style="top:58%"><div class="lt"><span>O</span><span>L</span><span>H</span><span>A</span><span>R</span><span>A</span></div><div class="fb two"><span class="away">Existe, mas é <b>verbo conjugado</b>.<span class="mo">Verbos conjugados só entram no Meu acervo.</span></span></div></div></div><span class="ds-label">Fixos · só no Meu acervo</span></div>
+        <div class="ds-cell"><div style="position:relative;width:320px;max-width:100%;height:150px"><div class="cur away" style="top:58%"><div class="lt"><span>O</span><span>L</span><span>H</span><span>A</span><span>R</span><span>A</span></div><div class="fb"><span class="away">Existe, mas é <b>verbo conjugado</b></span></div></div></div><span class="ds-label">Meu acervo · forma</span></div>
+        <div class="ds-cell"><div style="position:relative;width:320px;max-width:100%;height:150px"><div class="cur away" style="top:58%"><div class="lt"><span>C</span><span>O</span><span>L</span><span>H</span><span>E</span><span>R</span><span>A</span></div><div class="fb"><span class="away"><span class="pg">Pangrama</span>, mas é <b>verbo conjugado</b></span></div></div></div><span class="ds-label">Meu acervo · pangrama</span></div>
+        <div class="ds-cell"><div style="position:relative;width:320px;max-width:100%;height:150px"><div class="cur away" style="top:58%"><div class="lt"><span>R</span><span>E</span><span>L</span><span>H</span><span>A</span></div><div class="fb"><span class="away">Existe, mas é <b>rara demais</b></span></div></div></div><span class="ds-label">Meu acervo · raridade</span></div>
+        <div class="ds-cell"><div style="position:relative;width:320px;max-width:100%;height:150px"><div class="cur away" style="top:58%"><div class="lt"><span>A</span><span>C</span><span>O</span><span>L</span><span>H</span><span>E</span><span>R</span></div><div class="fb"><span class="away">Existe, mas tem <b>7 letras</b></span></div></div></div><span class="ds-label">Meu acervo · tamanho</span></div>
+      </div>
+      <div class="ds-states" data-for="c-outro-acervo"><button class="on" data-v="go">Ver movimento</button></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Estado</th><th>Letras</th><th>Linha de retorno</th></tr></thead><tbody>
+        <tr><td>Fixos · mais rara</td><td>todas em --muted, inclusive a central; sem tremida e sem vibração; seguram 650 ms, sobem 12 px e somem em 600 ms</td><td>“Existe, mas mora no Sebo” · “Existe, mas mora na Estante”; uma linha, sans 13,5 px --ink2, nome do acervo 600 --ink</td></tr>
+        <tr><td>Fixos · só no Meu acervo</td><td>igual, sem tremida; seguram 1 400 ms, para dar tempo de ler as duas linhas</td><td>duas linhas: “Existe, mas é <b>plural</b>.” e “Plurais só entram no Meu acervo.”, o tipo em 600 --ink, as duas em --ink2. Cada linha cabe em 312 px (360 dp menos 24 + 24 de margem) em sans 13,5 px; numa tela mais estreita, quebra em vez de cortar. Texto de cada motivo na tabela abaixo</td></tr>
+        <tr><td>Pangrama fora</td><td>igual</td><td>“Pangrama, mas mora no Sebo” · “Pangrama, mas é plural.” + “Plurais só entram no Meu acervo.” · no Meu acervo, “Pangrama, mas é plural”; “Pangrama” em --honey-ink 600 no lugar de “Existe”. É o único uso novo do mel, e é raro.</td></tr>
+        <tr><td>Meu acervo</td><td>igual, seguram 650 ms</td><td>“Existe, mas …” com o controle que tirou a palavra, em 600 --ink, numa linha só: o filtro é da própria pessoa, não precisa ensinar o modo</td></tr>
+        <tr><td>Significado</td><td colspan="2">Nenhum: palavra fora não abre card nem entra no Glossário; a linha diz só o motivo.</td></tr>
+        <tr><td>Quando</td><td colspan="2">Depois dos checks de hoje e antes de “Não está na lista”: curta → sem a central → já encontrada → na lista do jogo → <b>existe no dicionário, fora do acervo</b> → fora da lista. O motivo é o primeiro controle que falha, na ordem tamanho › classe › forma › uso › raridade. Nos fixos, classe, forma e uso nunca dizem “mora em”, porque a palavra não mora em nenhum fixo; só a raridade diz o menor fixo que tem a palavra, e só se ele é diferente do acervo do jogo (veja jogos antigos em Persistência). Na prática, “na Estante” só se ouve jogando no Bolso e “no Sebo” jogando no Bolso ou na Estante. No Meu acervo, o motivo vem da regra guardada no jogo, não da regra de agora.</td></tr>
+        <tr><td>Reduzir movimento</td><td colspan="2">segura o mesmo tempo e some no lugar, sem subir, em 300 ms</td></tr>
+      </tbody></table></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Motivo, na ordem</th><th>Nos fixos (Bolso, Estante, Sebo)</th><th>No Meu acervo</th><th>Exemplo</th></tr></thead><tbody>
+        <tr><td>1 · Tamanho</td><td>— (os três são de 4 a 8, como o jogo)</td><td>Existe, mas tem <b>N letras</b></td><td>acolher, com 4 a 6 letras</td></tr>
+        <tr><td>2 · Classe · substantivo, adjetivo, verbo, advérbio</td><td>— (os três aceitam)</td><td>Existe, mas é <b>substantivo</b> · adjetivo · verbo · advérbio</td><td>mesa, sem substantivo</td></tr>
+        <tr><td>2 · Classe · pronome</td><td>Existe, mas é <b>pronome</b>.<br>Pronomes só entram no Meu acervo.</td><td>Existe, mas é <b>pronome</b></td><td>aquele</td></tr>
+        <tr><td>2 · Classe · numeral</td><td>Existe, mas é <b>numeral</b>.<br>Numerais só entram no Meu acervo.</td><td>Existe, mas é <b>numeral</b></td><td>oito</td></tr>
+        <tr><td>2 · Classe · preposição</td><td>Existe, mas é <b>preposição</b>.<br>Preposições só entram no Meu acervo.</td><td>Existe, mas é <b>preposição</b></td><td>para</td></tr>
+        <tr><td>2 · Classe · conjunção</td><td>Existe, mas é <b>conjunção</b>.<br>Conjunções só entram no Meu acervo.</td><td>Existe, mas é <b>conjunção</b></td><td>porque</td></tr>
+        <tr><td>2 · Classe · interjeição</td><td>Existe, mas é <b>interjeição</b>.<br>Interjeições só entram no Meu acervo.</td><td>Existe, mas é <b>interjeição</b></td><td>oxalá</td></tr>
+        <tr><td>2 · Classe · artigo</td><td>Existe, mas é <b>artigo</b>.<br>Artigos só entram no Meu acervo.</td><td>Existe, mas é <b>artigo</b></td><td>umas (artigo e plural: diz “artigo”)</td></tr>
+        <tr><td>3 · Forma · feminino</td><td>— (os três aceitam)</td><td>Existe, mas é <b>feminino</b></td><td>aluna, sem feminino</td></tr>
+        <tr><td>3 · Forma · plural</td><td>Existe, mas é <b>plural</b>.<br>Plurais só entram no Meu acervo.</td><td>Existe, mas é <b>plural</b></td><td>rochas</td></tr>
+        <tr><td>3 · Forma · conjugado</td><td>Existe, mas é <b>verbo conjugado</b>.<br>Verbos conjugados só entram no Meu acervo.</td><td>Existe, mas é <b>verbo conjugado</b></td><td>olhara</td></tr>
+        <tr><td>3 · Forma · particípio</td><td>Existe, mas é <b>particípio</b>.<br>Particípios só entram no Meu acervo.</td><td>Existe, mas é <b>particípio</b></td><td>colhido</td></tr>
+        <tr><td>3 · Forma · gerúndio</td><td>Existe, mas é <b>gerúndio</b>.<br>Gerúndios só entram no Meu acervo.</td><td>Existe, mas é <b>gerúndio</b></td><td>olhando</td></tr>
+        <tr><td>3 · Forma · infinitivo pessoal</td><td>Existe, mas é <b>infinitivo pessoal</b>.<br>Infinitivos pessoais só entram no Meu acervo.</td><td>Existe, mas é <b>infinitivo pessoal</b></td><td>olharem</td></tr>
+        <tr><td>3 · Forma · diminutivo</td><td>Existe, mas é <b>diminutivo</b>.<br>Diminutivos só entram no Meu acervo.</td><td>Existe, mas é <b>diminutivo</b></td><td>casinha</td></tr>
+        <tr><td>3 · Forma · aumentativo</td><td>Existe, mas é <b>aumentativo</b>.<br>Aumentativos só entram no Meu acervo.</td><td>Existe, mas é <b>aumentativo</b></td><td>casarão</td></tr>
+        <tr><td>4 · Uso · de Portugal</td><td>Existe, mas é <b>de Portugal</b>.<br>Palavras de Portugal só entram no Meu acervo.</td><td>Existe, mas é <b>de Portugal</b></td><td>peúga</td></tr>
+        <tr><td>4 · Uso · antiga</td><td>Existe, mas é <b>antiga</b>.<br>Palavras antigas só entram no Meu acervo.</td><td>Existe, mas é <b>antiga</b></td><td>asinha</td></tr>
+        <tr><td>5 · Raridade</td><td>Existe, mas mora na <b>Estante</b> · Existe, mas mora no <b>Sebo</b> (o menor fixo que tem a palavra; uma linha só)</td><td>Existe, mas é <b>rara demais</b></td><td>relha: no Bolso, “mora no Sebo”; no Meu acervo com “do dia a dia”, “rara demais”</td></tr>
+        <tr><td>6 · Zipf 0</td><td>Existe, mas é <b>rara demais</b> (uma linha só, sem “mora no” e sem “só entram no Meu acervo”: não entra em acervo nenhum, nem no Sebo nem no Meu acervo com “raríssimas”)</td><td>Existe, mas é <b>rara demais</b></td><td>palavra do dicionário que nunca aparece nas fontes de frequência. Vem antes de qualquer outro motivo: nenhum filtro a faria valer, então dizer “é plural” prometeria algo que o Meu acervo não cumpre</td></tr>
+        <tr><td>Mais de um</td><td colspan="3">Diz só o primeiro, nesta ordem: tamanho › classe › forma (na ordem dos botões) › uso › raridade. Do mais concreto ao mais vago: “tem 7 letras” a pessoa confere na hora; “rara demais” é o último recurso. A exceção é a palavra com Zipf 0, que diz “rara demais” antes de tudo (linha 6). Nos fixos, uma palavra plural e rara diz “é plural”: ela não mora em nenhum fixo. A classe passa se qualquer classe da palavra estiver aceita; o nome é a primeira classe dela no dicionário.</td></tr>
+        <tr><td>Pangrama</td><td colspan="3">“Pangrama” no lugar de “Existe”, em qualquer linha: “Pangrama, mas mora no Sebo” · “Pangrama, mas é plural.” com “Plurais só entram no Meu acervo.” embaixo (fixos) · “Pangrama, mas é plural” (Meu acervo).</td></tr>
+        <tr><td>Grau</td><td colspan="3">O Wikcionário diz se é “diminutivo de …” ou “aumentativo de …”, então a linha sempre diz qual: “Existe, mas é <b>diminutivo</b>.” ou “Existe, mas é <b>aumentativo</b>.”</td></tr>
+        <tr><td>Palavrão</td><td colspan="3">“Não está na lista”, em todos os acervos: não existe para o jogo.</td></tr>
+      </tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-tip-uso">
+      <header><h3>Card de significado com uso</h3><code>lib/wigets/sky.dart · _buildTip</code><p>O mesmo card de hoje. O significado vem do dicionário: uma forma traz a própria explicação e o primeiro sentido da palavra-raiz. Formas e palavras de uso marcado só existem no Meu acervo; com o uso ligado, levam o uso em itálico depois do nome, como a classe num dicionário. Palavra fora do acervo não abre card.</p></header>
+      <div class="ds-stage">
+        <div class="ds-cell"><div style="position:relative;width:300px;max-width:100%;height:150px"><div class="tip show" style="left:50%;top:104px;width:max-content"><b>olhara</b>mais-que-perfeito de olhar; dirigir a vista para</div><div style="position:absolute;left:0;right:0;top:106px;text-align:center;font:700 30px var(--serif);opacity:.9;text-shadow:0 0 10px var(--paper)">olhara</div></div><span class="ds-label">Meu acervo · forma de outra palavra</span></div>
+        <div class="ds-cell"><div style="position:relative;width:300px;max-width:100%;height:150px"><div class="tip show" style="left:50%;top:104px;width:max-content"><b>peúga</b><i>de Portugal</i>meia curta, que cobre o pé</div><div style="position:absolute;left:0;right:0;top:106px;text-align:center;font:700 30px var(--serif);opacity:.9;text-shadow:0 0 10px var(--paper)">peúga</div></div><span class="ds-label">Meu acervo · uso marcado</span></div>
+      </div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody>
+        <tr><td>Uso</td><td>“de Portugal” ou “antiga”, sans 13 px itálico, opacidade 0,72, 5 px antes do significado; aparece só se a palavra tem a marca</td></tr>
+        <tr><td>Significado</td><td>até dois sentidos, separados por “;”, como vêm do dicionário; no máximo 4 linhas, depois reticências</td></tr>
+        <tr><td>Sem significado</td><td>sem card, como hoje</td></tr>
+      </tbody></table></div>
+    </article>
+
+    <article class="ds-comp" id="c-glossario-acervo">
+      <header><h3>Glossário por acervo</h3><code>lib/wigets/glossary.dart</code><p>Mesma folha nos quatro acervos: uma seção por tamanho, “Faltam N” contando só a lista do jogo. Muda o subtítulo, que ganha o acervo; a classe do verbete, que ganha o uso quando há; e o fim da lista, que ganha a nota das fontes. Aqui, o jogo do livro (R no centro, E H A L O C) no Sebo, onde <i>colhera</i>, o substantivo raro (não o verbo), vira pangrama.</p></header>
+      <div class="ds-stage"><div class="ds-sheet"><div class="handle"></div>
+        <div class="sh"><div><h2>Glossário</h2><p>20 de 96 palavras · Sebo</p></div></div>
+        <div class="body">
+          <div class="grp"><span>6 letras</span><span>3 de 24</span></div>
+          <ul class="ent">
+            <li><b>calhar</b> <i>v.</i> acontecer a propósito; coincidir</li>
+            <li><b>colher</b> <i>s.f.</i> talher com cabo e uma concha pequena</li>
+            <li><b>rachar</b> <i>v.</i> partir no sentido do comprimento; fender</li>
+          </ul>
+          <div class="miss">Faltam <b>21</b> palavras</div>
+          <div class="grp"><span>7 letras</span><span>2 de 11</span></div>
+          <ul class="ent">
+            <li class="new"><b>aclarar</b> <i>v.</i> tornar claro; esclarecer<em>nova</em></li>
+            <li class="pg"><b>colhera</b> <i>s.f.</i> correia que prende dois animais juntos pelo pescoço<em>pangrama</em></li>
+          </ul>
+          <div class="miss">Faltam <b>9</b> palavras</div>
+          <p class="gl-src">Significados do Wikcionário · CC BY-SA</p>
+        </div></div></div>
+      <div class="ds-specs ds-scroll"><table class="ds-table"><thead><tr><th>Parte</th><th>Medida</th></tr></thead><tbody>
+        <tr><td>Subtítulo</td><td>“X de Y palavras · Sebo” · “X de Y palavras · Meu acervo”</td></tr>
+        <tr><td>Classe e uso</td><td>itálico --muted depois da palavra: “v.”, “s.f., de Portugal”, “adv., antiga”</td></tr>
+        <tr><td>Seções</td><td>uma por tamanho que o acervo aceita: 4 a 8 nos fixos; no Meu acervo, só os tamanhos ligados (4 a 6 letras = três seções); no Sebo, um pouco mais longas que na Estante; num Meu acervo com plural e conjugado, bem mais</td></tr>
+        <tr><td>Nota das fontes</td><td>última linha da lista, sans 11,5 px --muted, centrada, 28 px acima</td></tr>
+      </tbody></table></div>
+    </article>
+
+    <!-- ------------------------------------------------------------ credits -->
+    <h3 id="a-fontes">Fontes e créditos</h3>
+    <div class="ds-scroll"><table class="ds-table"><thead><tr><th>Onde</th><th>Texto</th><th>Por quê</th></tr></thead><tbody>
+      <tr><td>Como jogar · Fontes</td><td>crédito completo: Wikcionário (via kaikki.org), wordfreq, FrequencyWords e OpenSubtitles, todos CC BY-SA 4.0; o dicionário do jogo sai sob a mesma licença</td><td>lugar fixo, sempre a um toque do menu</td></tr>
+      <tr><td>Glossário · fim da lista</td><td>“Significados do Wikcionário · CC BY-SA”</td><td>a atribuição fica perto do texto que veio de lá</td></tr>
+      <tr><td>Loja</td><td>uma linha no fim de <code>store_listing/listing_pt-BR.md</code>: “Significados do Wikcionário (via kaikki.org). Frequências: wordfreq e FrequencyWords (OpenSubtitles). Dados sob CC BY-SA 4.0.”</td><td>quem baixa vê de onde vêm os dados</td></tr>
+      <tr><td>Arquivo do dicionário</td><td>um arquivo em <code>assets/</code> gerado pelo script em <code>tool/</code>, com um <code>NOTICE</code> ao lado: fontes, datas dos dumps e licença CC BY-SA 4.0</td><td>o arquivo é obra derivada e segue a mesma licença; o código do app não muda de licença</td></tr>
+    </tbody></table></div>
+
+    <!-- ------------------------------------------------------------ persistence -->
+    <h3 id="a-dados">Persistência e casos de borda</h3>
+    <div class="ds-scroll"><table class="ds-table"><thead><tr><th>Caso</th><th>O que acontece</th></tr></thead><tbody>
+      <tr><td>Uma regra para os quatro</td><td><code>lib/acervo.dart · Regra</code>: classes, formas e usos ligados (conjuntos de <code>enum</code>), parada de frequência (<code>enum</code>) e tamanho mínimo e máximo. Bolso, Estante e Sebo são três <code>const Regra</code> iguais, menos a parada de frequência; o Meu acervo é a regra salva. Um teste garante que cada fixo é exatamente o que as paradas e os botões conseguem montar.</td></tr>
+      <tr><td>O que se salva por jogo</td><td>A chave nova <code>acervo</code> do SharedPrefs: <code>"bolso"</code>, <code>"estante"</code>, <code>"sebo"</code> ou <code>"meu"</code>. Com <code>"meu"</code>, também <code>regra</code>: a regra do Meu acervo copiada no começo do jogo. Valores são contrato: renomear só com migração; tudo salvo pelo nome, nunca pelo índice.</td></tr>
+      <tr><td>O Meu acervo</td><td>Uma chave <code>meuAcervo</code> com a regra em JSON: <code>{"classes":["substantivo","adjetivo","verbo","adverbio"],"formas":["feminino"],"usos":[],"frequencia":"de-leitor","letras":[4,8]}</code>. Um só, editado no lugar: cada toque na tela já salva; não há lista, nome, apagar, “Desfazer” nem “Cancelar” (para voltar, “Copiar Estante”).</td></tr>
+      <tr><td>Letras do jogo</td><td>Uma chave <code>meuAcervoLetras</code> com as 7 letras, a central primeiro (“PARTEIL”), salva a cada sorteio. O próximo jogo do Meu acervo começa com elas, venha de “Começar no Meu acervo” na folha (o Montar acervo não começa jogo). Quando um jogo começa com elas, a chave é apagada; na próxima vez que o Montar acervo abrir, sorteia de novo com a regra salva. Filtros não mexem nas letras.</td></tr>
+      <tr><td>Ler a regra</td><td><code>regraParse</code> é o único lugar que lê esse JSON e preenche a <code>Regra</code>. Chave desconhecida ou JSON quebrado: vira a cópia da Estante e o erro vai para o log. Depois disso a regra é confiável.</td></tr>
+      <tr><td>Editar com um jogo do Meu acervo aberto</td><td>O jogo não muda: a lista de palavras já está salva, e o motivo de “Existe, mas é plural” vem da <code>regra</code> guardada no jogo. A tela mostra “O jogo de agora não muda.” A regra nova vale para o próximo jogo.</td></tr>
+      <tr><td>Primeira vez do Meu acervo</td><td>Sem <code>meuAcervo</code> salvo, a regra é a cópia da Estante. A linha diz o mesmo de sempre (“Você escolhe o que entra.”), e tocar nela abre a tela já com a cópia. A cópia é salva ao sair da tela, mesmo sem mudança.</td></tr>
+      <tr><td>Última escolha</td><td>Não tem chave própria: a folha abre marcada no acervo do jogo atual. Sem jogo salvo, Estante.</td></tr>
+      <tr><td>Jogo salvo antes dos acervos</td><td>Sem a chave <code>acervo</code>, o jogo é da Estante. A lista salva (<code>hiddenWords</code>, <code>visibleWords</code>) vale como está; nada é recalculado. Palavras sem verbete no dicionário novo aparecem sem significado, como hoje.</td></tr>
+      <tr><td>Jogo antigo e “mora em”</td><td>“Existe, mas mora em X” só quando X é diferente do acervo do jogo. Numa partida antiga da Estante, uma palavra que a Estante nova tem mas a lista antiga não tem diz “Não está na lista”.</td></tr>
+      <tr><td>Dicionário</td><td>Cada palavra guarda bits de classe (10), forma (7), uso (2), a frequência e o tamanho, calculados em <code>tool/</code> e gravados num arquivo só em <code>assets/</code>, lido uma vez na abertura para arrays planos (sai <code>words.dart</code>, <code>word_frequency.dart</code> e <code>definitions.dart</code>). Os cortes das paradas são gravados no arquivo: o script acha o Zipf que dá cada tamanho-alvo. “Cabe na regra” são poucas operações de bit, a mesma função para os quatro acervos; ela devolve o primeiro controle que falhou, que é o motivo da linha de retorno. Palavrão não entra no arquivo.</td></tr>
+      <tr><td>Gerar um jogo</td><td>Um laço só para os quatro: até 1 000 sorteios de letras; para no primeiro com 50 a 150 palavras. Se nenhum cair nessa faixa, fica com o sorteio mais perto dela (no mínimo 1 palavra). O teto de 150 vale para todos, na prática só pesa no Sebo e no Meu acervo. Os fixos sempre chegam a 50 (o build falha se algum acervo fixo tiver menos de 500 conjuntos de letras entre 50 e 150; no Bolso, com ~5 mil palavras, ~3% dos sorteios passam, então 1 000 basta). “Sortear outras” usa o mesmo laço. A recursão de <code>_generateGame</code> vira esse laço.</td></tr>
+      <tr><td>Contagem do acervo</td><td>Palavras: contagem exata da regra no dicionário. Sorteios: 200 sorteios fixos (semente fixa, sempre os mesmos, para o número não pular à toa), contando quantos dão 50 ou mais. Roda fora da thread da tela, 150 ms depois do último toque. O número do resultado preso não espera por ela: ver Cálculo do número.</td></tr>
+      <tr><td>Abaixo de 50</td><td>Se nenhum dos 200 sorteios chega a 50, a faixa da contagem vira aviso. Nada é bloqueado: “Pronto” e “Começar no Meu acervo” seguem ativos, e o jogo sai com o melhor sorteio.</td></tr>
+      <tr><td>Nenhum jogo possível</td><td>Se a regra não tem palavra nenhuma (por exemplo, todas as classes desligadas), ou nenhum dos 200 sorteios forma ao menos 1 palavra: a faixa da contagem diz “Nenhuma palavra” / “passa pelos seus filtros. Solte algum para poder jogar.”, e na folha a linha do Meu acervo não pode ser marcada. Se a regra tem palavras mas as letras guardadas ficaram sem nenhuma, o resultado pede “Sorteie outras” e a linha também não marca; os filtros nunca trocam as letras. São os únicos bloqueios, porque não existe jogo para começar. De 1 a 49 palavras só avisa: não há piso.</td></tr>
+      <tr><td>Limites da regra</td><td>Classes podem desligar todas: a regra fica vazia e cai em “Nenhum jogo possível”. Tamanho: mínimo nunca passa do máximo. Frequência sempre tem uma parada.</td></tr>
+      <tr><td>Paradas recalibradas</td><td>A regra salva guarda o nome da parada, não o Zipf. Se um dicionário novo mudar os cortes, o Meu acervo segue “comuns”, e jogos salvos seguem com a lista deles.</td></tr>
+      <tr><td>Troca no meio</td><td>Não existe. Novo jogo com outro acervo apaga o atual depois do aviso na folha.</td></tr>
+      <tr><td>Jogo muito grande</td><td>Num Meu acervo aberto (plural, conjugado, raríssimas), jogos de ~150 a 400 palavras (estimado). O Sebo, com a regra da Estante, fica um pouco acima dela. O gerador descarta sorteios com mais de 150 palavras (ver Gerar um jogo); um Meu acervo muito aberto só fica com jogos de até 150 se algum sorteio cair na faixa.</td></tr>
+      <tr><td>Debug</td><td>“Show all words DEBUG” continua igual, mostrando as faltantes da lista do jogo.</td></tr>
+    </tbody></table></div>
+
+    <!-- ------------------------------------------------------------ number -->
+    <h3 id="a-calculo">Cálculo do número</h3>
+    <div class="ds-scroll"><table class="ds-table"><thead><tr><th>Caso</th><th>O que acontece</th></tr></thead><tbody>
+<tr><td>Candidatas</td><td>A cada sorteio, uma lista das palavras do dicionário que cabem nas 7 letras e têm a central, sem olhar a regra (palavrão já não está no arquivo). Fica em memória enquanto a tela está aberta: costuma ter 100 a 400 palavras.</td></tr>
+<tr><td>Depois do toque</td><td>Só o resultado do toque é calculado: <code>cabeNaRegra</code>, a mesma do jogo, numa passada pelas candidatas com a regra nova. Menos de 1 ms: roda na thread da tela, no mesmo quadro do toque, sem espera. Nada é calculado para opções que não foram tocadas.</td></tr>
+<tr><td>Sortear outras</td><td>Candidatas novas e o número novo, juntos com as letras. As letras novas vão para <code>meuAcervoLetras</code>.</td></tr>
+<tr><td>Acervo todo</td><td>Contagem exata da regra e 200 sorteios fixos, fora da thread da tela, 150 ms depois do último toque (ver Contagem do acervo). Só a faixa da contagem espera por ela.</td></tr>
+<tr><td>Nunca palavras</td><td>A tela só recebe números. A lista de candidatas não chega a nenhum widget; os exemplos de “Quão raras” são fixos por parada, e os da folha saem de listas fixas filtradas contra as letras guardadas.</td></tr>
+</tbody></table></div>
   </section>
 
   <section class="ds-sec" id="voz">
@@ -563,14 +1105,47 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
         <li>Contar progresso em palavras: “20 de 47 palavras”.</li>
         <li>Mostrar só a palavra quando não houver significado.</li>
         <li>Manter as flutuantes sempre mais fracas que a palavra digitada.</li>
+        <li>Chamar o acervo pelo nome: Bolso, Estante, Sebo, Meu acervo.</li>
+        <li>Descrever um acervo pelas palavras que ele guarda.</li>
+        <li>Dizer por que uma palavra que existe não vale aqui: onde mora, se só é mais rara; que aquele tipo só entra no Meu acervo, se nenhum fixo a aceita; ou, no Meu acervo, qual controle a tirou.</li>
+        <li>Descrever Bolso, Estante e Sebo pela raridade: a regra dos três é a mesma.</li>
+        <li>Mostrar a frequência por nome e com exemplos; o número fica no livro.</li>
+        <li>Mostrar a contagem em palavras e avisar quando os jogos vão ter menos de 50, deixando seguir.</li>
+        <li>Mostrar as letras do próximo jogo presas no topo do Montar acervo, na mesma roda da tela de jogo, e manter as mesmas enquanto os filtros mudam.</li>
+        <li>Mostrar o efeito de cada toque na hora, no número preso do resultado.</li>
+        <li>Descrever cada parada com uma frase curta e 3 exemplos fixos.</li>
+        <li>Pôr classes, formas e uso em duas colunas iguais, quebrando em duas linhas o nome que não cabe.</li>
+        <li>Deixar o rótulo do acervo mais fraco que a contagem de palavras.</li>
+        <li>Creditar o Wikcionário onde aparecem os significados.</li>
       </ul></div>
       <div class="ds-card no"><h4>Não fazer</h4><ul>
-        <li>Pontos, níveis, ranking ou “partida ganha”.</li>
+        <li>Pontos, ranking ou “partida ganha”.</li>
         <li>Abelha, mel escorrendo ou favo como ilustração.</li>
         <li>Amarelo como cor de texto: use <code>--honey-ink</code>.</li>
         <li>Tema escuro ou troca de tema.</li>
         <li>Cards, sombras ou rótulos na linha das últimas.</li>
         <li>Vagas em branco para palavras que faltam: só a contagem.</li>
+        <li>“Nível”, “fácil”, “difícil”, estrelas, medalhas, números de ordem ou barras de progresso para acervo ou parada. O slider de frequência é um controle, não uma medida: não leva número, cor por parada nem preenchimento “de nível”.</li>
+        <li>Uma cor ou um ícone diferente para cada acervo.</li>
+        <li>Tratar palavra fora do acervo como erro: vermelho, tremida, vibração dupla.</li>
+        <li>Bloquear um Meu acervo por ter menos de 50 palavras por jogo.</li>
+        <li>Zipf, porcentagem de frequência ou qualquer número de frequência na tela.</li>
+        <li>A palavra “frequência” na tela do jogo: a seção se chama “Quão raras”. “Frequência” fica no livro, no código e nos créditos.</li>
+        <li>Mais de um Meu acervo, nome próprio, lista, botão de apagar, “Desfazer” ou “Cancelar”.</li>
+        <li>Resumir a regra na linha do Meu acervo da folha: a frase é sempre “Você escolhe o que entra.”</li>
+        <li>Dizer que um plural, um verbo conjugado ou uma palavra de Portugal “mora no Sebo”: nenhum fixo a tem.</li>
+        <li>Travar a última classe ligada: desligar todas pode, e o acervo fica vazio.</li>
+        <li>Mostrar ou sortear letras do Bolso, da Estante ou do Sebo antes de começar.</li>
+        <li>Selo “novo” ou texto de novidade na folha.</li>
+        <li>Controle para palavrão; palavrão em qualquer acervo.</li>
+        <li>Trocar de acervo no meio do jogo.</li>
+        <li>Mel para acervo; ele segue só no pangrama.</li>
+        <li>Trocar as letras sozinho quando um filtro muda, ou mostrar o sorteio num arranjo diferente do da tela de jogo.</li>
+        <li>Mostrar quanto uma opção vai mudar antes do toque (“+12”, “−4”), em botão, parada ou “Copiar”.</li>
+        <li>Dizer quanto o número era antes do toque (“eram 72”): o número novo basta.</li>
+        <li>Marcar a pílula do “Copiar” igual à regra de agora.</li>
+        <li>Prender a contagem do acervo: ela rola com a lista; só as letras e o número do próximo jogo ficam.</li>
+        <li>Cortar o nome de uma opção com reticências ou esticar uma pílula pela linha toda.</li>
       </ul></div>
     </div>
   </section>
@@ -1048,7 +1623,19 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     ["Pulso da central", "2 × 400 ms", "ease", "colmeia"],
     ["Palavra nova na linha", "450 ms", "cubic-bezier(.2,.8,.2,1)", "linha das últimas"],
     ["Folha subindo", "420 ms", "cubic-bezier(.2,.9,.3,1)", "Glossário"],
-    ["Verbete novo", "1600 ms", "ease-out, fundo teal claro some", "Glossário"]
+    ["Verbete novo", "1600 ms", "ease-out, fundo teal claro some", "Glossário"],
+    ["Folha Novo jogo subindo", "420 ms", "cubic-bezier(.2,.9,.3,1)", "Novo jogo"],
+    ["Marcar acervo", "200 ms (fundo e ponto do marcador)", "ease", "Novo jogo"],
+    ["Slider de frequência", "segue o dedo; ao soltar, encaixa na parada mais próxima em 150 ms; nome e exemplos trocam na hora a cada parada cruzada; um toque leve (<code>HapticFeedback.selectionClick</code>) por parada; o número do resultado muda a cada parada cruzada", "ease-out", "Montar acervo"],
+    ["Exemplos entrando", "450 ms", "cubic-bezier(.2,.8,.2,1), da esquerda", "Novo jogo"],
+    ["Montar acervo abrindo", "transição de rota padrão do Material", "padrão", "Montar acervo"],
+    ["Sortear outras", "letras saem a 35% em 120 ms; as novas entram uma a uma, 30 ms entre elas, de 90% a 100% em 200 ms; o número do resultado troca junto. Reduzir movimento: troca no lugar.", "cubic-bezier(.2,.8,.2,1)", "Montar acervo"],
+    ["Botão ligando", "150 ms (fundo e ✓)", "ease", "Montar acervo"],
+    ["Número do resultado trocando", "o novo entra em 350 ms (opacidade 0 a 1, descendo 3 px), no mesmo quadro do toque; sem contar número a número", "ease-out", "Montar acervo"],
+    ["Contagem recalculando", "número a 45% enquanto calcula; volta em 200 ms com o valor novo, sem contar número a número", "ease", "Montar acervo"],
+    ["Faixa virando aviso", "200 ms (cor do fundo e do texto)", "ease", "Montar acervo, faixa do acervo"],
+    ["Palavra voltando para a prateleira", "segura 650 ms (1 400 ms quando a linha tem duas, “só entram no Meu acervo”), depois sobe 12 px e some em 600 ms; sem tremida em nenhum caso", "ease-out", "palavra digitada, nos quatro acervos"],
+    ["Reduzir movimento", "exemplos sem deslizar; palavra fora segura o mesmo tempo e some no lugar em 300 ms; no Montar acervo, o número do resultado troca no lugar, sem descer", "linear", "Novo jogo, palavra digitada, Montar acervo"]
   ]);
 
   // ------------------------------------------------------------ copy
@@ -1066,7 +1653,44 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     ["Faltantes", "Faltam 8 palavras · Falta 1 palavra · Todas achadas"],
     ["Menu", "Menu · Novo jogo · Como jogar"],
     ["Como jogar", "Toda palavra conta igual para o progresso, curta ou longa."],
-    ["Novo jogo", "Iniciar um novo jogo? · Ao iniciar um novo jogo você perderá todo o progresso atual, deseja continuar? · Não · Sim"]
+    ["Folha", "Novo jogo · De onde vêm as palavras?"],
+    ["Bolso", "Palavras do dia a dia."],
+    ["Estante", "O jogo de sempre, com as palavras de quem lê."],
+    ["Sebo", "A Estante e mais as raras, até as que quase ninguém conhece."],
+    ["Meu acervo", "Meu acervo · Montar › · Você escolhe o que entra. (sempre a mesma frase)"],
+    ["Meu acervo sem jogo", "Nenhum jogo possível com essas regras."],
+    ["Botão", "Começar no Bolso · Começar na Estante · Começar no Sebo · Começar no Meu acervo"],
+    ["Aviso", "Começar apaga este jogo: <b>20</b> de 47 palavras."],
+    ["Gerando", "Preparando…"],
+    ["Tela de montar", "Montar acervo · Copiar Bolso · Estante · Sebo · Pronto"],
+    ["Primeira vez na tela", "Começa como cópia da Estante. Mude o que quiser."],
+    ["Jogo aberto no Meu acervo", "O jogo de agora não muda."],
+    ["Seções", "LETRAS DO JOGO (rótulo do resultado) · QUÃO RARAS · CLASSES · FORMAS · USO · TAMANHO"],
+    ["Letras do jogo", "Sortear outras · <b>72</b> · palavras com estas letras"],
+    ["Letras com menos de 50", "<b>9</b> · palavras com estas letras. O jogo vai ter menos de 50."],
+    ["Letras sem palavra", "Nenhuma palavra com estas letras. Sorteie outras."],
+    ["Letras com o acervo vazio", "Nenhuma palavra com estas letras."],
+    ["Paradas do slider", "do dia a dia · comuns · de leitor · raras · raríssimas"],
+    ["Descrição das paradas", "Todo mundo conhece. · Quase todo mundo conhece. · Quem lê bastante conhece. · Pouca gente conhece. · Quase ninguém conhece."],
+    ["Exemplos das paradas (fixos)", "casa · tempo · mundo · bigode · neve · surdo · fadiga · ensejo · bruma · senda · urdir · bulício · zimbro · nesga · obnubilar"],
+    ["Pontas do slider", "só as mais usadas · até as raríssimas"],
+    ["Classes", "substantivo · adjetivo · verbo · advérbio · pronome · numeral · preposição · conjunção · interjeição · artigo"],
+    ["Formas", "feminino · plural · conjugado · particípio · gerúndio · infinitivo pessoal · diminutivo e aumentativo"],
+    ["Uso", "de Portugal · antigas"],
+    ["Dicas da tela", "A forma base sempre entra. · Palavrões ficam sempre de fora."],
+    ["Tamanho", "De 4 a 8 letras"],
+    ["Contagem", "~11 mil palavras · no seu acervo. As letras do jogo decidem quais aparecem."],
+    ["Contagem pequena", "~600 palavras · no seu acervo. É pouco: os jogos vão ter menos de 50 palavras."],
+    ["Contagem vazia", "Nenhuma palavra · passa pelos seus filtros. Solte algum para poder jogar."],
+    ["Leitor de tela, resultado", "120 palavras com estas letras"],
+    ["Trilha e Glossário", "20 de 47 palavras · Estante · 9 de 61 palavras · Meu acervo"],
+    ["Mais rara (fixos)", "Existe, mas mora no Sebo · Existe, mas mora na Estante"],
+    ["Fora de todos (Zipf 0)", "Existe, mas é rara demais"],
+    ["Só no Meu acervo (fixos)", "Existe, mas é plural. · Plurais só entram no Meu acervo. (duas linhas; uma para cada motivo na tabela da palavra fora)"],
+    ["Fora do Meu acervo", "Existe, mas tem 7 letras · é verbo · é plural · é verbo conjugado · é de Portugal · é antiga · é rara demais (todas na tabela da palavra fora)"],
+    ["Pangrama fora", "Pangrama, mas mora no Sebo · Pangrama, mas é plural. Plurais só entram no Meu acervo. (fixos) · Pangrama, mas é plural (Meu acervo)"],
+    ["Uso no card e no verbete", "de Portugal · antiga"],
+    ["Fontes no Glossário", "Significados do Wikcionário · CC BY-SA"]
   ]);
 
   // ------------------------------------------------------------ states
@@ -1154,6 +1778,189 @@ code,.ds-code{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
     links.forEach(function (a, i) { a.classList.toggle("on", i === cur); });
   }
   window.addEventListener("scroll", mark, { passive: true }); mark();
+})();
+</script>
+
+<script>
+/* acervos: mark an acervo in the first Novo jogo sheet, replay the "goes home" motion */
+(function () {
+  var live = document.querySelector('.nj[data-live]');
+  if (live) live.querySelectorAll(".acv-list li:not(.sep)").forEach(function (li) {
+    li.addEventListener("click", function () {
+      if (li.classList.contains("off")) return;
+      live.querySelectorAll(".acv-list li").forEach(function (x) { x.classList.remove("on", "in"); });
+      li.classList.add("on"); void li.offsetWidth; li.classList.add("in");
+      live.querySelector(".nj-go").textContent = li.dataset.go;
+    });
+  });
+  var box = document.querySelector('.ds-states[data-for="c-outro-acervo"]');
+  if (box) box.addEventListener("click", function () {
+    document.querySelectorAll("#a-away-stage .cur.away").forEach(function (c) {
+      c.classList.remove("go"); void c.offsetWidth; c.classList.add("go");
+      setTimeout(function () { c.classList.remove("go"); }, 2200);
+    });
+  });
+})();
+/* acervos: the live Montar acervo phone (numbers from an invented model) */
+(function () {
+var SETS = {"PARTEIL":{"l":"PARTEIL","w":[[1,-1,-1,0,5],[1,-1,-1,0,4],[1,-1,-1,0,6],[1,-1,-1,0,5],[1,-1,-1,0,7],[1,-1,-1,0,6],[1,-1,-1,0,4],[1,-1,-1,0,5],[1,-1,-1,0,8],[1,-1,-1,0,6],[1,-1,-1,0,5],[1,-1,-1,0,7],[1,-1,-1,0,4],[1,-1,-1,0,6],[1,-1,-1,0,5],[1,-1,-1,0,8],[1,-1,-1,0,6],[1,-1,-1,0,7],[1,-1,-1,0,5],[1,-1,-1,0,4],[1,-1,-1,0,5],[1,-1,-1,0,4],[2,-1,-1,0,6],[2,-1,-1,0,5],[2,-1,-1,0,7],[2,-1,-1,0,6],[2,-1,-1,0,4],[4,-1,-1,0,5],[4,-1,-1,0,8],[4,-1,-1,0,6],[4,-1,-1,0,5],[4,-1,-1,0,7],[4,-1,-1,0,4],[3,-1,-1,0,6],[3,-1,-1,0,5],[3,-1,-1,0,8],[5,-1,-1,0,6],[5,-1,-1,0,7],[8,-1,-1,0,5],[3,0,-1,0,4],[3,0,-1,0,5],[1,-1,-1,1,4],[1,-1,-1,1,6],[1,-1,-1,1,5],[1,-1,-1,1,7],[1,-1,-1,1,6],[1,-1,-1,1,4],[1,-1,-1,1,5],[1,-1,-1,1,8],[1,-1,-1,1,6],[2,-1,-1,1,5],[2,-1,-1,1,7],[4,-1,-1,1,4],[4,-1,-1,1,6],[4,-1,-1,1,5],[5,-1,-1,1,8],[2,0,-1,1,6],[1,-1,-1,2,7],[1,-1,-1,2,5],[1,-1,-1,2,4],[1,-1,-1,2,5],[1,-1,-1,2,4],[1,-1,-1,2,6],[1,-1,-1,2,5],[1,-1,-1,2,7],[2,-1,-1,2,6],[2,-1,-1,2,4],[4,-1,-1,2,5],[4,-1,-1,2,8],[4,-1,-1,2,6],[1,0,-1,2,5],[1,0,-1,2,7],[1,-1,-1,3,4],[1,-1,-1,3,6],[1,-1,-1,3,5],[1,-1,-1,3,8],[1,-1,-1,3,6],[2,-1,-1,3,7],[4,-1,-1,3,5],[4,-1,-1,3,4],[1,-1,-1,4,5],[1,-1,-1,4,4],[1,-1,-1,4,6],[1,-1,-1,4,5],[1,-1,-1,4,7],[1,-1,-1,4,6],[1,-1,-1,4,4],[1,-1,-1,4,5],[2,-1,-1,4,8],[4,-1,-1,4,6],[256,-1,-1,2,5],[4,2,-1,0,7],[4,2,-1,0,4],[4,2,-1,0,6],[4,2,-1,0,5],[4,2,-1,0,8],[4,2,-1,0,6],[4,2,-1,0,7],[4,2,-1,0,5],[4,2,-1,0,4],[4,2,-1,0,5],[4,2,-1,1,4],[4,2,-1,1,6],[4,2,-1,1,5],[4,2,-1,1,7],[4,2,-1,1,6],[4,2,-1,1,4],[4,2,-1,1,5],[4,2,-1,1,8],[4,2,-1,2,6],[4,2,-1,2,5],[4,2,-1,2,7],[4,2,-1,2,4],[4,2,-1,2,6],[4,2,-1,2,5],[4,2,-1,2,8],[4,2,-1,2,6],[4,2,-1,2,7],[4,2,-1,2,5],[4,2,-1,3,4],[4,2,-1,3,5],[4,2,-1,3,4],[4,2,-1,3,6],[4,2,-1,3,5],[4,2,-1,3,7],[4,2,-1,4,6],[4,2,-1,4,4],[4,2,-1,4,5],[4,2,-1,4,8],[4,2,-1,4,6],[4,2,-1,4,5],[4,2,-1,4,7],[4,2,-1,4,4],[4,2,-1,4,6],[4,2,-1,4,5],[4,2,-1,4,8],[4,2,-1,4,6],[4,2,-1,4,7],[4,2,-1,4,5],[4,2,-1,4,4],[4,2,-1,4,5],[6,3,-1,1,4],[6,3,-1,1,6],[6,3,-1,2,5],[6,3,-1,2,7],[6,3,-1,2,6],[6,3,-1,3,4],[1,6,-1,2,5],[1,6,-1,4,8],[1,-1,0,2,6],[1,-1,0,2,5],[1,-1,0,3,7],[4,-1,0,4,4],[4,2,0,4,6],[4,2,0,4,5],[1,-1,1,3,8],[1,-1,1,4,6],[1,-1,1,4,7]]},"TACORIM":{"l":"TACORIM","w":[[1,-1,-1,0,7],[1,-1,-1,0,5],[1,-1,-1,0,8],[1,-1,-1,0,4],[1,-1,-1,0,7],[1,-1,-1,0,6],[1,-1,-1,0,5],[1,-1,-1,0,8],[1,-1,-1,0,4],[1,-1,-1,0,6],[1,-1,-1,0,7],[1,-1,-1,0,5],[1,-1,-1,0,6],[1,-1,-1,0,7],[1,-1,-1,0,5],[1,-1,-1,0,8],[1,-1,-1,0,4],[1,-1,-1,0,7],[2,-1,-1,0,6],[2,-1,-1,0,5],[2,-1,-1,0,8],[4,-1,-1,0,4],[4,-1,-1,0,6],[4,-1,-1,0,7],[4,-1,-1,0,5],[3,-1,-1,0,6],[3,-1,-1,0,7],[1,0,-1,0,5],[1,0,-1,0,8],[1,0,-1,0,4],[1,-1,-1,1,7],[1,-1,-1,1,6],[1,-1,-1,1,5],[1,-1,-1,1,8],[1,-1,-1,1,4],[1,-1,-1,1,6],[2,-1,-1,1,7],[2,-1,-1,1,5],[4,-1,-1,1,6],[4,-1,-1,1,7],[1,-1,-1,2,5],[1,-1,-1,2,8],[1,-1,-1,2,4],[1,-1,-1,2,7],[1,-1,-1,2,6],[1,-1,-1,2,5],[1,-1,-1,2,8],[2,-1,-1,2,4],[2,-1,-1,2,6],[4,-1,-1,2,7],[4,-1,-1,2,5],[4,-1,-1,2,6],[1,-1,-1,3,7],[1,-1,-1,3,5],[1,-1,-1,3,8],[1,-1,-1,3,4],[4,-1,-1,3,7],[1,-1,-1,4,6],[1,-1,-1,4,5],[1,-1,-1,4,8],[1,-1,-1,4,4],[4,2,-1,0,6],[4,2,-1,0,7],[4,2,-1,0,5],[4,2,-1,0,6],[4,2,-1,1,7],[4,2,-1,1,5],[4,2,-1,1,8],[4,2,-1,1,4],[4,2,-1,1,7],[4,2,-1,2,6],[4,2,-1,2,5],[4,2,-1,2,8],[4,2,-1,2,4],[4,2,-1,2,6],[4,2,-1,2,7],[4,2,-1,4,5],[4,2,-1,4,6],[4,2,-1,4,7],[4,2,-1,4,5],[4,2,-1,4,8],[4,2,-1,4,4],[4,2,-1,4,7],[4,2,-1,4,6],[6,3,-1,1,5],[6,3,-1,2,8],[1,-1,0,2,4],[1,-1,1,4,6]]},"XUPEGIF":{"l":"XUPEGIF","w":[]}};
+// Montar acervo: draws the live phone. Plain ES5, no tags in strings.
+var CLS = ["substantivo","adjetivo","verbo","advérbio","pronome","numeral","preposição","conjunção","interjeição","artigo"];
+var FRM = ["feminino","plural","conjugado","particípio","gerúndio","infinitivo pessoal","diminutivo e aumentativo"];
+var USO = ["de Portugal","antigas"];
+var STOPS = ["do dia a dia","comuns","de leitor","raras","raríssimas"];
+// fixed per stop, never filtered against the letters
+var DESC = ["Todo mundo conhece.","Quase todo mundo conhece.","Quem lê bastante conhece.","Pouca gente conhece.","Quase ninguém conhece."];
+var SAMPLES = [["casa","tempo","mundo"],["bigode","neve","surdo"],["fadiga","ensejo","bruma"],["senda","urdir","bulício"],["zimbro","nesga","obnubilar"]];
+var HIVE_POS = [[37,43],[37,0],[74,21.5],[74,64.5],[37,86],[0,64.5],[0,21.5]];
+
+function R(cls, frm, uso, stop, min, max){ return {cls:cls.slice(), frm:frm.slice(), uso:uso.slice(), stop:stop, min:min, max:max}; }
+var BOLSO   = R([1,1,1,1,0,0,0,0,0,0],[1,0,0,0,0,0,0],[0,0],0,4,8);
+var ESTANTE = R([1,1,1,1,0,0,0,0,0,0],[1,0,0,0,0,0,0],[0,0],2,4,8);
+var SEBO    = R([1,1,1,1,0,0,0,0,0,0],[1,0,0,0,0,0,0],[0,0],4,4,8);   // the three fixed differ only in the stop
+var FIXED = [["Bolso",BOLSO],["Estante",ESTANTE],["Sebo",SEBO]];
+
+function clone(r){ return R(r.cls, r.frm, r.uso, r.stop, r.min, r.max); }
+function same(a,b){ return JSON.stringify(a) === JSON.stringify(b); }
+// word = [class bits, form (-1 base), use (-1 none), lowest stop it appears at, length]
+function count(ws, r){
+  var m = 0, n = 0, i;
+  for (i = 0; i < r.cls.length; i++) if (r.cls[i]) m |= 1 << i;
+  for (i = 0; i < ws.length; i++){
+    var w = ws[i];
+    if ((w[0] & m) && (w[1] < 0 || r.frm[w[1]]) && (w[2] < 0 || r.uso[w[2]]) && w[3] <= r.stop && w[4] >= r.min && w[4] <= r.max) n++;
+  }
+  return n;
+}
+// the whole acervo (a rough model of the real dictionary, only for the mock)
+var STOPW = [5000, 8000, 11000, 13000, 15000];
+var CSH = [.58,.2,.17,.05,.004,.003,.002,.002,.004,0];
+var LSH = {4:.12,5:.2,6:.24,7:.24,8:.2};
+function acervo(r){
+  var b = STOPW[r.stop], sh = 0, i;
+  for (i = 0; i < 10; i++) if (r.cls[i]) sh += CSH[i];
+  var sa = (r.cls[0] ? .58 : 0) + (r.cls[1] ? .2 : 0), v = r.cls[2] ? 1 : 0;
+  var n = b * sh * (r.frm[0] ? 1 : .93);
+  n += b * sa / .78 * ((r.frm[1] ? .8 : 0) + (r.frm[6] ? .08 : 0));
+  n += b * v * ((r.frm[2] ? 1.7 : 0) + (r.frm[3] ? .2 : 0) + (r.frm[4] ? .07 : 0) + (r.frm[5] ? .12 : 0));
+  n *= 1 + (r.uso[0] ? .04 : 0) + (r.uso[1] ? .03 : 0);
+  var l = 0; for (i = r.min; i <= r.max; i++) l += LSH[i];
+  return Math.round(n * l);
+}
+function acvBand(n, busy, solo){
+  var c = "mt-count" + (n < 3000 ? " warn" : "") + (busy ? " busy" : "") + (solo ? " solo" : ""), b, t;
+  if (n === 0){ b = "Nenhuma palavra"; t = "passa pelos seus filtros. Solte algum para poder jogar."; }
+  else {
+    b = n < 1000 ? "~" + Math.max(100, Math.round(n / 100) * 100) + " palavras" : "~" + Math.round(n / 1000) + " mil palavras";
+    t = n < 3000 ? "no seu acervo. É pouco: os jogos vão ter menos de 50 palavras." : "no seu acervo. As letras do jogo decidem quais aparecem.";
+  }
+  return '<div class="' + c + '"><b>' + b + '</b><span>' + t + '</span></div>';
+}
+
+// ---------------------------------------------------------------- drawing
+var ICON_BACK = '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 12H5m6-7l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_DRAW = '<svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8m0-5v5h5M4 13a8 8 0 0 0 14.3 4.9L20 16m0 5v-5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function hive(letters){
+  var h = '<div class="sx-hive" aria-label="Letras do próximo jogo">';
+  for (var i = 0; i < 7; i++) h += '<span class="sx-k' + (i ? '' : ' c') + '" style="left:' + HIVE_POS[i][0] + 'px;top:' + HIVE_POS[i][1] + 'px">' + letters[i] + '</span>';
+  return h + '</div>';
+}
+// the only next-game number on the screen
+function result(st, n, acv){
+  var cls = "fx-res", cap = "palavras com estas letras";
+  if (n === 0){ cls += " low"; cap = acv === 0 ? "Nenhuma palavra com estas letras." : "Nenhuma palavra com estas letras. Sorteie outras."; if (acv === 0) cls += " dead"; }
+  else if (n < 50){ cls += " low"; cap = "palavras com estas letras. O jogo vai ter menos de 50."; }
+  if (st.busy) cls += " busy";
+  if (st.solo) cls += " solo";
+  return '<div class="' + cls + '" aria-live="polite">' + hive(st.letters) +
+    '<div class="fx-col"><span class="fx-eye">Letras do jogo</span><span class="fx-num"><b data-f="now">' + n + '</b></span>' +
+    '<span class="fx-cap">' + cap + '</span><button class="sx-go" data-k="draw">' + ICON_DRAW + 'Sortear outras</button></div></div>';
+}
+function copyRow(){
+  var h = '<p class="mt-copy">Copiar';
+  FIXED.forEach(function(f, i){ h += '<button class="cp" data-k="copy" data-i="' + i + '">' + f[0] + '</button>'; });
+  return h + '</p>';
+}
+function rarity(r){
+  var h = '<div class="grp"><span>Quão raras</span></div><div class="fq"><div class="fq-hd"><b>' + STOPS[r.stop] + '</b></div><p class="fx-desc">' + DESC[r.stop] + '</p>' +
+    '<p class="fq-ex"><span>' + SAMPLES[r.stop].join('</span><i>·</i><span>') + '</span></p>' +
+    '<div class="fq-sl" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="' + r.stop + '" aria-valuetext="' + STOPS[r.stop] + '" style="--i:' + r.stop + '">';
+  for (var s = 0; s < 5; s++) h += '<span class="tk' + (s <= r.stop ? ' a' : '') + '" style="left:' + s * 25 + '%"></span>';
+  h += '<span class="th"></span>';
+  for (s = 0; s < 5; s++) h += '<button class="fx-hit" data-k="stop" data-i="' + s + '" style="left:' + s * 25 + '%" aria-label="' + STOPS[s] + '"></button>';
+  return h + '</div><div class="fq-ends"><span>só as mais usadas</span><span>até as raríssimas</span></div></div>';
+}
+function grid(k, names, r){
+  var h = '<div class="fx-grid">';
+  names.forEach(function(nm, i){
+    var on = !!r[k][i];
+    h += '<button class="chip' + (on ? ' on' : '') + '" data-k="' + k + '" data-i="' + i + '">' + nm + '</button>';
+  });
+  return h + '</div>';
+}
+function lenRow(r){
+  function b(sym, key, dis, lbl){ return '<button class="act' + (dis ? ' dis' : '') + '" data-k="len" data-i="' + key + '" aria-label="' + lbl + '">' + sym + '</button>'; }
+  return '<div class="mt-len">De <span class="stp">' + b("−","minDown",r.min <= 4,"Menos") + '<b>' + r.min + '</b>' + b("+","minUp",r.min >= r.max,"Mais") +
+    '</span> a <span class="stp">' + b("−","maxDown",r.max <= r.min,"Menos") + '<b>' + r.max + '</b>' + b("+","maxUp",r.max >= 8,"Mais") + '</span> letras</div>';
+}
+function body(st){
+  var r = st.rule, h = '<div class="mt-bd"' + (st.offset ? ' style="margin-top:-' + st.offset + 'px"' : '') + '>';
+  h += acvBand(acervo(r), st.busyAcv);
+  if (st.note) h += '<p class="mt-note">' + st.note + '</p>';
+  h += copyRow();
+  h += rarity(r);
+  h += '<div class="grp"><span>Classes</span></div>' + grid("cls", CLS, r);
+  h += '<div class="grp"><span>Formas</span></div>' + grid("frm", FRM, r) + '<p class="mt-hint">A forma base sempre entra.</p>';
+  h += '<div class="grp"><span>Uso</span></div>' + grid("uso", USO, r) + '<p class="mt-hint">Palavrões ficam sempre de fora.</p>';
+  h += '<div class="grp"><span>Tamanho</span></div>' + lenRow(r);
+  return h + '</div>';
+}
+// st: {set, rule, busy, busyAcv, note, mode: "whole" | "view" | "live", offset}
+function screen(st){
+  var S = SETS[st.set], acv = acervo(st.rule);
+  st.letters = S.l;
+  return '<div class="mt fx ' + (st.mode || "whole") + '">' +
+    '<div class="mt-bar"><i>' + ICON_BACK + '</i><b>Montar acervo</b></div>' +
+    result(st, count(S.w, st.rule), acv) + '<div class="fx-sc">' + body(st) + '</div>' +
+    '<div class="fx-bot"><button class="nj-go" data-k="done">Pronto</button></div></div>';
+}
+
+  var host = document.getElementById('fx-live');
+  if (!host) return;
+  var draws = ['PARTEIL','TACORIM','XUPEGIF'], di = 0, t1 = 0, st;
+  function reset(){ di = 0; st = {set:'PARTEIL', rule:clone(ESTANTE), busy:false, busyAcv:false, note:'Começa como cópia da Estante. Mude o que quiser.', mode:'live'}; paint(true); }
+  function paint(fresh){
+    var old = host.querySelector('[data-f="now"]'), before = old && !fresh ? old.textContent : null;
+    var sc = host.querySelector('.fx-sc'), top = sc && !fresh ? sc.scrollTop : 0;
+    host.innerHTML = screen(st);
+    host.querySelector('.fx-sc').scrollTop = top;
+    var now = host.querySelector('[data-f="now"]');
+    if (before !== null && before !== now.textContent) now.classList.add('chg');
+  }
+  host.addEventListener('click', function(ev){
+    var b = ev.target.closest('[data-k]'); if (!b) return;
+    var k = b.getAttribute('data-k'), i = b.getAttribute('data-i'), r = clone(st.rule);
+    if (k === 'cls' || k === 'frm' || k === 'uso'){ i = +i; r[k][i] = r[k][i] ? 0 : 1; }
+    else if (k === 'stop') r.stop = +i;
+    else if (k === 'len'){
+      if (i === 'minDown' && r.min > 4) r.min--; else if (i === 'minUp' && r.min < r.max) r.min++;
+      else if (i === 'maxDown' && r.max > r.min) r.max--; else if (i === 'maxUp' && r.max < 8) r.max++; else return;
+    }
+    else if (k === 'copy') r = clone(FIXED[+i][1]);
+    else if (k === 'draw'){
+      if (b.closest('.dead') || st.busy) return;
+      st.busy = true; paint();
+      setTimeout(function(){ di = (di + 1) % draws.length; st.set = draws[di]; st.busy = false; paint(); }, 260);
+      return;
+    }
+    else return;
+    if (same(r, st.rule)) return;
+    st.rule = r; st.note = ''; st.busyAcv = true; paint();
+    clearTimeout(t1);
+    t1 = setTimeout(function(){ st.busyAcv = false; paint(); }, 200);
+  });
+  document.getElementById('fx-reset').addEventListener('click', reset);
+  reset();
 })();
 </script>
 </body>
